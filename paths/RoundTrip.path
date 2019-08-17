@@ -1,0 +1,62 @@
+{
+    "groups": [
+        {
+            "name": "FirstAutoMode",
+            "paths": [
+                {
+                    "constraints": [
+                        {
+                            "after": 388,
+                            "before": 488,
+                            "type": "distance_velocity",
+                            "velocity": 50
+                        },
+                        {
+                            "after": 545,
+                            "before": 645,
+                            "type": "distance_velocity",
+                            "velocity": 50
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 100,
+                    "name": "FirstPath",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 61.0931783420006,
+                            "y": 116.49066992964205
+                        },
+                        {
+                            "heading": 3.5763343749973346,
+                            "x": 382.6369810061458,
+                            "y": 73.93340192997579
+                        },
+                        {
+                            "heading": 90,
+                            "x": 515.8254678939903,
+                            "y": 157.47174281820958
+                        },
+                        {
+                            "heading": 180,
+                            "x": 399.1870296726827,
+                            "y": 246.52676659528902
+                        },
+                        {
+                            "heading": 180,
+                            "x": 65.03366611974748,
+                            "y": 204.75759615117212
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}

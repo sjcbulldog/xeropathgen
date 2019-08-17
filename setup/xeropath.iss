@@ -21,10 +21,10 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\cygwin64\home\{#MyUserName}\rtools\XeroPathGenerator\setup\license.txt
+LicenseFile=C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\setup\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputDir=C:\cygwin64\home\{#MyUserName}\rtools\XeroPathGenerator\setup
+OutputDir=C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\setup
 OutputBaseFilename=xeropath
 Compression=lzma
 SolidCompression=yes
@@ -37,9 +37,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\XeroPathGenerator\x64\Release\XeroPathGenerator.exe"; DestDir: "{app}"; Flags: ignoreversion 64bit
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\XeroPathGenerator\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\XeroPathGenerator\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\XeroPathGenerator.exe"; DestDir: "{app}"; Flags: ignoreversion 64bit
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGen.docx" ; DestDir: {userdesktop} ; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
