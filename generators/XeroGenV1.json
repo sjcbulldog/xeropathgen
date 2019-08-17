@@ -1,0 +1,24 @@
+{
+  "name": "Xero Gen V1",
+  "properties": [
+    "distance_constraint",
+    "nonzero_start_end_velocity"
+  ],
+  "program": {
+    "exec": "XeroGenV1.exe",
+    "units" :  "--units $$",
+    "output": "--outfile $$",
+    "robot": "--robotfile $$",
+    "paths": "--pathfile $$",
+    "timestep": "--timestep $$",
+    "parameters": [
+      {
+        "name": "diststep",
+        "description": "The maximum distance between points internally when generating the path",
+        "type": "double",
+        "arg": "--dx $$",
+	      "default" : 2.0
+      }
+    ]
+  }
+}

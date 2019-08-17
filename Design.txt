@@ -1,0 +1,3 @@
+Units
+The robot has units.  These units just describe the units of the robot measurements.
+The application has units as well.  Paths are 

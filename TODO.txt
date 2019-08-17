@@ -1,0 +1,9 @@
+Monitor waypoint signal from path_view_ object and set dirty flag
+  WaypointInserted
+  WaypointDeleted
+  WaypointMoved
+
+ShowMenus action handler - update menus based on conditions
+  Edit/InsertWaypoint
+  Edit/DeleteWaypoint
+  File/Save

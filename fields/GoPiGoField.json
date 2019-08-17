@@ -1,0 +1,10 @@
+{
+  "game": "GoPiGo3 Test Field",
+  "field-image": "GoPiGoField.jpg",
+  "field-corners": {
+    "top-left": [240,240],
+    "bottom-right": [1200, 1200]
+  },
+  "field-size": [8, 8],
+  "field-unit": "feet"
+}

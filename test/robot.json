@@ -1,0 +1,10 @@
+{
+    "drivetype": 0,
+    "length": 30,
+    "maxacceleration": 150,
+    "maxjerk": 1500,
+    "maxvelocity": 150,
+    "name": "Phaser",
+    "timestep": 0.02,
+    "width": 32
+}

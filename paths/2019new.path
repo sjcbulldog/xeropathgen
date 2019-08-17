@@ -1,0 +1,530 @@
+{
+    "groups": [
+        {
+            "name": "CenterTwoLeftLS",
+            "paths": [
+                {
+                    "constraints": [
+                        {
+                            "after": 0,
+                            "before": 50,
+                            "type": "distance_velocity",
+                            "velocity": 60
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 100,
+                    "maxjerk": 1600,
+                    "maxvelocity": 100,
+                    "name": "CenterHab_LeftCargoShip",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 63.471294223018376,
+                            "y": 160.98203313927453
+                        },
+                        {
+                            "heading": 0,
+                            "x": 204.98735333631885,
+                            "y": 172.24840125391853
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                        {
+                            "after": 0,
+                            "before": 80,
+                            "type": "distance_velocity",
+                            "velocity": 60
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 100,
+                    "maxjerk": 1600,
+                    "maxvelocity": 100,
+                    "name": "LeftCargoShip_LeftLS",
+                    "points": [
+                        {
+                            "heading": 180,
+                            "x": 204.46274966412898,
+                            "y": 172.03937304075237
+                        },
+                        {
+                            "heading": 125,
+                            "x": 125.21874168234592,
+                            "y": 240.8879262080676
+                        },
+                        {
+                            "heading": 180,
+                            "x": 14.51643528884911,
+                            "y": 296.6538468428124
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1600,
+                    "maxvelocity": 150,
+                    "name": "LeftLS_RightCargoShip",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 14.614849977608614,
+                            "y": 296.12924317062254
+                        },
+                        {
+                            "heading": -55.00000000000001,
+                            "x": 122.56478767485187,
+                            "y": 248.10296170638776
+                        },
+                        {
+                            "heading": 0,
+                            "x": 205.67177787729514,
+                            "y": 171.879552171966
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "CenterTwoRightLS",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "CenterHab_RightCargoShip",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 64.10244514106584,
+                            "y": 160.55991043439323
+                        },
+                        {
+                            "heading": 0,
+                            "x": 204.35620241827138,
+                            "y": 150.34681594267803
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                        {
+                            "after": 100,
+                            "before": 200,
+                            "type": "distance_velocity",
+                            "velocity": 120
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightCargoShip_RightLS",
+                    "points": [
+                        {
+                            "heading": 180,
+                            "x": 204.7250515002239,
+                            "y": 149.9779668607255
+                        },
+                        {
+                            "heading": 180,
+                            "x": 16.29927451858488,
+                            "y": 25.46597402597405
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightLS_LeftCargoShip",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 16.192727272727282,
+                            "y": 25.097124944021516
+                        },
+                        {
+                            "heading": 0,
+                            "x": 204.09390058217645,
+                            "y": 149.60911777877297
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "LeftHabLeftRocketTwo",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "LeftHab_LeftRocketFront",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 65.47129422301838,
+                            "y": 206.10077922077926
+                        },
+                        {
+                            "heading": 30,
+                            "x": 198.93001343484104,
+                            "y": 294.3342051052396
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "LeftRocketFront_LeftLS",
+                    "points": [
+                        {
+                            "heading": -150,
+                            "x": 198.56523063143754,
+                            "y": 295.0759695476937
+                        },
+                        {
+                            "heading": 180,
+                            "x": 15.82387819077475,
+                            "y": 297.0759695476937
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "LeftLS_LeftRocketFront",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 16.508302731751016,
+                            "y": 295.76039408866995
+                        },
+                        {
+                            "heading": 30,
+                            "x": 198.82753246753248,
+                            "y": 294.7071204657412
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "RightHabRightRocketTwo",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightHab_RightRocketFront",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 64.41802060008958,
+                            "y": 112.33461710703094
+                        },
+                        {
+                            "heading": -30,
+                            "x": 198.56523063143754,
+                            "y": 27.46597402597405
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightRocketFront_RightLS",
+                    "points": [
+                        {
+                            "heading": 150,
+                            "x": 199.61850425436631,
+                            "y": 25.097124944021516
+                        },
+                        {
+                            "heading": 180,
+                            "x": 15.721397223466212,
+                            "y": 25.412700403045278
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightLS_RightRocketFront",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 15.139453649798483,
+                            "y": 25.781549484997754
+                        },
+                        {
+                            "heading": -30,
+                            "x": 197.88080609046125,
+                            "y": 27.097124944021516
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "LeftHabLeftCargoTwo",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "LeftHab_FirstLeftCargoSide",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 65.20899238692344,
+                            "y": 208.5229019256606
+                        },
+                        {
+                            "heading": 0,
+                            "x": 260.11016569637263,
+                            "y": 202.83847738468432
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "FirstLeftCargoSide_LeftLS",
+                    "points": [
+                        {
+                            "heading": 180,
+                            "x": 260.31919390953874,
+                            "y": 202.67865651589793
+                        },
+                        {
+                            "heading": 180,
+                            "x": 16.036972682489946,
+                            "y": 295.76039408866995
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "LeftLS_SecondLeftCargoSide",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 16.87715181370355,
+                            "y": 296.0759695476937
+                        },
+                        {
+                            "heading": 0,
+                            "x": 281.38060008956563,
+                            "y": 202.3098074339454
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "RightHabRightCargoTwo",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightHab_FirstRightCargoSide",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 64.68032243618451,
+                            "y": 113.33461710703094
+                        },
+                        {
+                            "heading": 0,
+                            "x": 259.84786386027764,
+                            "y": 119.4944379758173
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "FirstRightCargoSide_RightLS",
+                    "points": [
+                        {
+                            "heading": 180,
+                            "x": 259.47901477832517,
+                            "y": 120.4411643528885
+                        },
+                        {
+                            "heading": 180,
+                            "x": 15.561576354679815,
+                            "y": 25.781549484997754
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 150,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "RightLS_SecondRightCargoSide",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 14.82387819077475,
+                            "y": 25.781549484997754
+                        },
+                        {
+                            "heading": 0,
+                            "x": 282.0117510076131,
+                            "y": 119.17886251679357
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}

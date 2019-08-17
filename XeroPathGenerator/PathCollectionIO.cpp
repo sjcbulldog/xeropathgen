@@ -1,0 +1,418 @@
+#include "PathCollectionIO.h"
+#include "DistanceVelocityConstraint.h"
+#include <QJsonDocument>
+#include <QJSonObject>
+#include <QFile>
+#include <QDebug>
+
+using namespace xero::paths;
+
+bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& paths)
+{
+	QJsonObject obj;
+	QJsonArray a;
+
+	if (!createGroupArray(a, paths))
+		return false;
+	obj[RobotPath::GroupsTag] = a;
+
+	QJsonDocument doc(obj);
+	if (!file.open(QIODevice::OpenModeFlag::Truncate | QIODevice::OpenModeFlag::WriteOnly))
+		return false;
+
+	file.write(doc.toJson());
+	file.close();
+
+	return true;
+}
+
+bool PathCollectionIO::createGroupArray(QJsonArray& a, const PathCollection& paths)
+{
+	for (auto group : paths.getGroups())
+	{
+		QJsonObject obj;
+		if (!createGroup(obj, group))
+			return false;
+
+		a.append(obj);
+	}
+
+	return true;
+}
+
+bool PathCollectionIO::createGroup(QJsonObject& obj, const std::shared_ptr<PathGroup> group)
+{
+	obj[RobotPath::NameTag] = group->getName().c_str();
+
+	QJsonArray a;
+	for (size_t i = 0; i < group->size(); i++)
+	{
+		QJsonObject pobj;
+
+		auto path = group->getPathByIndex(i);
+		if (!createPath(pobj, path))
+			return false;
+
+		a.append(pobj);
+	}
+
+	obj[RobotPath::PathsTag] = a;
+	return true;
+}
+
+bool PathCollectionIO::createPath(QJsonObject& obj, const std::shared_ptr<RobotPath> path)
+{
+	obj[RobotPath::NameTag] = path->getName().c_str();
+	obj[RobotPath::StartVelocityTag] = path->getStartVelocity();
+	obj[RobotPath::EndVelocityTag] = path->getEndVelocity();
+	obj[RobotPath::StartAngleTag] = path->getStartAngle();
+	obj[RobotPath::StartAngleDelayTag] = path->getStartAngleDelay();
+	obj[RobotPath::EndAngleTag] = path->getEndAngle();
+	obj[RobotPath::EndAngleDelayTag] = path->getEndAngleDelay();
+	obj[RobotPath::MaxVelocityTag] = path->getMaxVelocity();
+	obj[RobotPath::MaxAccelerationTag] = path->getMaxAccel();
+	obj[RobotPath::MaxJerkTag] = path->getMaxJerk();
+
+	QJsonArray constraints;
+	for (auto con : path->getConstraints())
+	{
+		std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
+		if (dist != nullptr)
+		{
+			QJsonObject conobj;
+
+			conobj[RobotPath::TypeTag] = RobotPath::DistanceVelocityTag;
+			conobj[RobotPath::BeforeTag] = dist->getBefore();
+			conobj[RobotPath::AfterTag] = dist->getAfter();
+			conobj[RobotPath::VelocityTag] = dist->getVelocity();
+			constraints.append(conobj);
+		}
+	}
+	obj[RobotPath::ConstraintsTag] = constraints;
+
+	QJsonArray points;
+	auto parray = path->getPoints();
+	for (size_t i = 0; i < parray.size(); i++)
+	{
+		const Pose2d& onept = parray[i];
+		QJsonObject pt;
+
+		pt[RobotPath::XTag] = onept.getTranslation().getX();
+		pt[RobotPath::YTag] = onept.getTranslation().getY();
+		pt[RobotPath::HeadingTag] = onept.getRotation().toDegrees();
+		points.append(pt);
+	}
+
+	obj[RobotPath::PointsTag] = points;
+
+	return true;
+}
+
+bool PathCollectionIO::readPathCollection(const std::string& filename, PathCollection& paths)
+{
+	QFile file(filename.c_str());
+	QString text;
+
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		qWarning() << "Cannot open file '" << file.fileName() << "' for reading";
+		return false;
+	}
+
+	text = file.readAll();
+	QJsonParseError err;
+	QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8(), &err);
+	if (doc.isNull())
+	{
+		qWarning() << "Cannot parse file '" << file.fileName() << "' for reading - " << err.errorString();
+		return false;
+	}
+
+	if (!doc.isObject())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' does not hold a JSON object";
+		return false;
+	}
+
+	QJsonObject obj = doc.object();
+	if (!obj.contains(RobotPath::GroupsTag))
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' does not contains 'group' array";
+		return false;
+	}
+
+	QJsonValue grval = obj[RobotPath::GroupsTag];
+	if (!grval.isArray())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "contains 'group' value, but it is not an array";
+		return false;
+	}
+
+	QJsonArray groups = grval.toArray();
+	for (auto it = groups.begin() ; it != groups.end() ; it++)
+	{
+		QJsonValue groupval = *it;
+		if (!groupval.isObject())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', 'group' value contains non-object";
+			return false;
+		}
+
+		if (!readGroup(file, paths, groupval.toObject()))
+			return false;
+	}
+
+	return true;
+}
+
+bool PathCollectionIO::readGroup(QFile &file, PathCollection& paths, QJsonObject& obj)
+{
+	QString name;
+
+	if (!readString(file, obj, "group", RobotPath::NameTag, name))
+		return false;
+
+	std::shared_ptr<PathGroup> groupobj = paths.addGroup(name.toStdString());
+
+	if (!obj.contains(RobotPath::PathsTag))
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', object in 'group' array missing 'paths' value";
+		return false;
+	}
+
+	QJsonValue val = obj[RobotPath::PathsTag];
+	if (!val.isArray())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', object in 'group' array has 'paths' value, but its not an array";
+		return false;
+	}
+
+	QJsonArray pathsarray = val.toArray();
+	for (auto it = pathsarray.begin(); it != pathsarray.end(); it++)
+	{
+		val = *it;
+		if (!val.isObject())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', object in 'paths' array is not an object";
+			return false;
+		}
+		if (!readPath(file, paths, groupobj, val.toObject()))
+			return false;
+	}
+
+	return true;
+}
+
+bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared_ptr<PathGroup> group, QJsonObject& obj)
+{
+	double endvelocity;
+	double startvelocity;
+	double startangle;
+	double startangledelay;
+	double endangle;
+	double endangledelay;
+	double maxvelocity;
+	double maxaccel;
+	double maxjerk;
+	QString name;
+	Pose2d pt;
+	QJsonValue v;
+
+	if (!readString(file, obj, "path", RobotPath::NameTag, name))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::StartVelocityTag, startvelocity))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::EndVelocityTag, endvelocity))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::MaxVelocityTag, maxvelocity))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::MaxAccelerationTag, maxaccel))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::MaxJerkTag, maxjerk))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::StartAngleTag, startangle, true))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::StartAngleDelayTag, startangledelay, true))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::EndAngleTag, endangle, true))
+		return false;
+
+	if (!readDouble(file, obj, "path", RobotPath::EndAngleDelayTag, endangledelay, true))
+		return false;
+
+	std::shared_ptr<RobotPath> path = paths.addPath(group->getName(), name.toStdString());
+	path->setStartVelocity(startvelocity);
+	path->setEndVelocity(endvelocity);
+	path->setMaxVelocity(maxvelocity);
+	path->setMaxAccel(maxaccel);
+	path->setMaxJerk(maxjerk);
+	path->setStartAngle(startangle);
+	path->setStartAngleDelay(startangledelay);
+	path->setEndAngle(endangle);
+	path->setEndAngleDelay(endangledelay);
+
+	if (obj.contains(RobotPath::ConstraintsTag))
+	{
+		QString str;
+
+		QJsonValue v = obj[RobotPath::ConstraintsTag];
+		if (v.isArray())
+		{
+			QJsonArray arr = v.toArray();
+			for (const QJsonValue& v : arr)
+			{
+				if (!v.isObject())
+					continue;
+
+				QJsonObject vo = v.toObject();
+
+				if (!readString(file, vo, "constraint", RobotPath::TypeTag, str))
+					continue;
+
+				if (str != RobotPath::DistanceVelocityTag)
+					continue;
+
+				double before, after, velocity;
+
+				if (!readDouble(file, vo, "constraint", RobotPath::BeforeTag, before))
+					continue;
+
+				if (!readDouble(file, vo, "constraint", RobotPath::AfterTag, after))
+					continue;
+
+				if (!readDouble(file, vo, "constraint", RobotPath::VelocityTag, velocity))
+					continue;
+
+				std::shared_ptr<DistanceVelocityConstraint> dist = std::make_shared<DistanceVelocityConstraint>(after, before, velocity);
+				path->addTimingConstraint(dist);
+			}
+		}
+	}
+
+	if (!obj.contains(RobotPath::PointsTag))
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', path object missing 'points' value";
+		return false;
+	}
+	v = obj[RobotPath::PointsTag];
+	if (!v.isArray())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', path object has 'points' value but it is not an array";
+		return false;
+	}
+	QJsonArray ptsarray = v.toArray();
+
+	for (auto it = ptsarray.begin(); it != ptsarray.end(); it++)
+	{
+		double x, y, heading;
+
+		QJsonValue ptval = *it;
+		if (!ptval.isObject())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object 'points' array contains non-object";
+			return false;
+		}
+
+		QJsonObject ptobj = ptval.toObject();
+
+		if (!ptobj.contains(RobotPath::XTag))
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object missing 'x' value";
+			return false;
+		}
+		v = ptobj[RobotPath::XTag];
+		if (!v.isDouble())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object has 'x' value but it is not a number";
+			return false;
+		}
+		x = v.toDouble();
+
+		if (!ptobj.contains(RobotPath::YTag))
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object missing 'y' value";
+			return false;
+		}
+		v = ptobj[RobotPath::YTag];
+		if (!v.isDouble())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object has 'y' value but it is not a number";
+			return false;
+		}
+		y = v.toDouble();
+
+		if (!ptobj.contains(RobotPath::HeadingTag))
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object missing 'heading' value";
+			return false;
+		}
+		v = ptobj[RobotPath::HeadingTag];
+		if (!v.isDouble())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', path object has 'heading' value but it is not a number";
+			return false;
+		}
+		heading = v.toDouble();
+
+		pt = Pose2d(x, y, Rotation2d::fromDegrees(heading));
+		path->addPoint(pt);
+	}
+	path->generateSplines();
+
+	return true;
+}
+
+bool PathCollectionIO::readDouble(QFile& file, QJsonObject& obj, QString obname, QString name, double& value, bool opt)
+{
+	if (!obj.contains(name))
+	{
+		if (opt)
+		{
+			value = 0.0;
+			return true;
+		}
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' missing field '" << name << "'";
+		return false;
+	}
+
+	QJsonValue v = obj[name];
+	if (!v.isDouble())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' has field '" << name << "' but it is not a number";
+		return false;
+	}
+	value = v.toDouble();
+	return true;
+}
+
+bool PathCollectionIO::readString(QFile& file, QJsonObject& obj, QString obname, QString name, QString& value, bool opt)
+{
+	if (!obj.contains(name))
+	{
+		if (opt)
+		{
+			value = "";
+			return true;
+		}
+
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' missing field '" << name << "'";
+		return false;
+	}
+
+	QJsonValue v = obj[name];
+	if (!v.isString())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' has field '" << name << "' but it is not a string";
+		return false;
+	}
+	value = v.toString();
+	return true;
+}

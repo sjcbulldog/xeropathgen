@@ -1,0 +1,22 @@
+{
+  "name": "Path Finder V1",
+  "properties": [
+  ],
+  "program": {
+    "exec": "PathFinderV1Gen.exe",
+    "units": "--units $$",
+    "output": "--outfile $$",
+    "robot": "--robotfile $$",
+    "paths": "--pathfile $$",
+    "timestep": "--timestep $$",
+    "parameters": [
+      {
+        "name": "Step",
+        "description": "The number of steps between waypoints",
+        "type": "double",
+        "arg": "--step $$",
+        "default": 1000
+      }
+    ]
+  }
+}
