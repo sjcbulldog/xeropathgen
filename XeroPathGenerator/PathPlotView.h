@@ -4,6 +4,7 @@
 #include <QChartView>
 #include <QValueAxis>
 #include <QLineSeries>
+#include <QGraphicsLineItem>
 #include <map>
 
 class PathPlotView : public QtCharts::QChartView
@@ -119,4 +120,5 @@ private:
 	std::map<VarType, std::pair<double, double>> min_max_;
 	double total_scroll_x_;
 	double total_scroll_y_;
+	QGraphicsLineItem* lineitem_;
 };

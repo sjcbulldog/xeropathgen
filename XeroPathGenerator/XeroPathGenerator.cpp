@@ -766,6 +766,7 @@ void XeroPathGenerator::timerProc()
 				break;
 			}
 		}
+		plots_->setCursorTime(path_view_->getDemoTime());
 		QString timestr = QString::number(path_view_->getDemoTime(), 'f', 2);
 		status_text_->setText(timestr);
 		path_view_->repaint();

@@ -20,6 +20,7 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	setRubberBand(QChartView::RectangleRubberBand);
 	total_scroll_x_ = 0;
 	total_scroll_y_ = 0;
+	lineitem_ = nullptr;
 }
 
 PathPlotView::~PathPlotView()
@@ -88,11 +89,21 @@ void PathPlotView::keyPressEvent(QKeyEvent* event)
 	}
 }
 
-
 void PathPlotView::setCursorTime(double stime)
 {
 	cursor_time_ = stime;
-	repaint();
+	QPointF pt = chart()->mapToPosition(QPointF(stime, 0.0));
+	QRectF rect = chart()->plotArea();
+
+	if (lineitem_ != nullptr)
+	{
+		chart()->scene()->removeItem(lineitem_);
+		delete lineitem_;
+	}
+
+	QPen pen(QColor(0x00, 0x00, 0x00, 0xff));
+	pen.setWidth(4);
+	lineitem_ = chart()->scene()->addLine(pt.rx(), rect.top(), pt.rx(), rect.bottom(), pen);
 }
 
 QList<QString> PathPlotView::getPlotVariables()
