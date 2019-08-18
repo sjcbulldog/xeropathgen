@@ -1,7 +1,7 @@
 #include "SelectRobotDialog.h"
 #include <QAction>
 
-SelectRobotDialog::SelectRobotDialog(RobotManager &mgr, QWidget *parent) : mgr_(mgr), QDialog(parent)
+SelectRobotDialog::SelectRobotDialog(RobotManager &mgr, QWidget *parent) : QDialog(parent), mgr_(mgr)
 {
 	ui.setupUi(this);
 	ui.robots_->setModel(&model_);

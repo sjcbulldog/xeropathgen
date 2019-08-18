@@ -35,7 +35,6 @@ PlotVariableSelector::PlotVariableSelector(RobotParams::DriveType type, QList<QS
 	hlist.push_back("Variable");
 	ui.tree_->setHeaderLabels(hlist);
 
-	int row = 0;
 	const std::vector<std::string>& trajnames = DriveBaseData::getTrajectories(type);
 	for (const std::string& name : trajnames)
 	{
@@ -73,7 +72,7 @@ QList<QString> PlotVariableSelector::getPlotVariables()
 {
 	QList<QString> list;
 
-	for (size_t i = 0; i < ui.tree_->topLevelItemCount() ; i++)
+	for (int i = 0; i < ui.tree_->topLevelItemCount() ; i++)
 	{
 		QTreeWidgetItem* item = ui.tree_->topLevelItem(i);
 		if (item->checkState(0) == Qt::CheckState::Checked)

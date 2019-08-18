@@ -32,8 +32,8 @@ QSize PropertyEditorItemDelegate::sizeHint(const QStyleOptionViewItem& option, c
 	auto prop = model_.getProperty(index);
 	QString text = prop->getDescription();
 
-	int width = option.fontMetrics.width("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-	int total = option.fontMetrics.width(text);
+	int width = option.fontMetrics.horizontalAdvance("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	int total = option.fontMetrics.horizontalAdvance(text);
 	if (total > width)
 		h = option.fontMetrics.height() * 2 + 2;
 	return QSize(width, h);

@@ -226,6 +226,8 @@ void ShowRobotWindow::drawRobot(const QRect& bounds, QPainter& paint)
 
 void ShowRobotWindow::paintEvent(QPaintEvent* event)
 {
+  	(void)event ;
+	
 	QPainter paint(this);
 	QRect r;
 	DriveBaseModel* model = view_->getModel();

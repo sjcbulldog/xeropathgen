@@ -17,6 +17,3 @@ PropertyEditor::~PropertyEditor()
 {
 }
 
-void PropertyEditor::showEvent(QShowEvent* ev)
-{
-}

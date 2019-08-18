@@ -17,7 +17,6 @@ public:
 	}
 
 protected:
-	void showEvent(QShowEvent* ev); 
 
 private:
 	void okPushed();

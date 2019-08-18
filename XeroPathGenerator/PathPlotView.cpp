@@ -233,6 +233,10 @@ double PathPlotView::getValue(std::shared_ptr<PathTrajectory> traj, size_t index
 	case VarType::VTJerk:
 		ret = (*traj)[index].jerk();
 		break;
+
+	case VarType::VTTime:
+	  	ret = (*traj)[index].time() ;
+		break ;
 	}
 
 	return ret;

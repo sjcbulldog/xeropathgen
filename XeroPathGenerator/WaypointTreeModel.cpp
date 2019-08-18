@@ -13,11 +13,13 @@ WaypointTreeModel::~WaypointTreeModel()
 
 QModelIndex WaypointTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
+  	(void)parent) ;
 	return createIndex(row, col);
 }
 
 QModelIndex WaypointTreeModel::parent(const QModelIndex& index) const
 {
+  	(void)index ;
 	return QModelIndex();
 }
 
@@ -42,6 +44,8 @@ int WaypointTreeModel::rowCount(const QModelIndex& parent) const
 
 int WaypointTreeModel::columnCount(const QModelIndex& parent) const
 {
+  	(void)parent ;
+	
 	if (!enabled_)
 		return 0;
 
@@ -109,6 +113,8 @@ QVariant WaypointTreeModel::data(const QModelIndex& index, int role) const
 
 bool WaypointTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+  	(void)role ;
+	
 	if (index.isValid())
 	{
 		assert(index.column() == 1);

@@ -248,7 +248,6 @@ bool XeroPathGenerator::createLeftSide()
 bool XeroPathGenerator::createRightSide()
 {
 	QHBoxLayout* layout;
-	QAbstractItemModel* model;
 
 	paths_group_ = new QGroupBox(tr("Paths"), m_right_stack_);
 	layout = new QHBoxLayout();
@@ -836,6 +835,8 @@ void XeroPathGenerator::showEvent(QShowEvent* ev)
 		case QtMsgType::QtWarningMsg:
 			toggleWarningLogging();
 			break;
+		default:
+		  	break; 
 		}
 	}
 
@@ -890,6 +891,10 @@ void XeroPathGenerator::closeEvent(QCloseEvent* event)
 
 void XeroPathGenerator::waypointTreeDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles)
 {
+  	(void)topLeft ;
+	(void)bottomRight ;
+	(void)roles ;
+	
 	current_path_->replacePoint(path_view_->getSelected(), waypoint_model_.getWaypoint());
 	currentPathChanged();
 	path_view_->repaint();

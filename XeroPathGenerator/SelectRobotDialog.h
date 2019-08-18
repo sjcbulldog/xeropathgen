@@ -17,6 +17,6 @@ public:
 
 private:
 	Ui::SelectRobotDialog ui;
-	RobotManager& mgr_;
 	QStandardItemModel model_;
+	RobotManager& mgr_;
 };

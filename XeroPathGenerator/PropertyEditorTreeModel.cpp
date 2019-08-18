@@ -14,7 +14,7 @@ std::shared_ptr<EditableProperty> PropertyEditorTreeModel::getProperty(const QMo
 	if (!index.isValid())
 		return nullptr;
 
-	if (index.row() >= props_.size())
+	if (index.row() >= static_cast<int>(props_.size()))
 		return nullptr;
 
 	return props_[index.row()];
@@ -33,11 +33,13 @@ std::shared_ptr<EditableProperty> PropertyEditorTreeModel::getProperty(QString n
 
 QModelIndex PropertyEditorTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
+  	(void)parent ;
 	return createIndex(row, col);
 }
 
 QModelIndex PropertyEditorTreeModel::parent(const QModelIndex& index) const
 {
+  	(void)index ;
 	return QModelIndex();
 }
 
@@ -59,6 +61,7 @@ int PropertyEditorTreeModel::rowCount(const QModelIndex& parent) const
 
 int PropertyEditorTreeModel::columnCount(const QModelIndex& parent) const
 {
+  	(void)parent ;
 	return 3;
 }
 
@@ -110,6 +113,7 @@ QVariant PropertyEditorTreeModel::data(const QModelIndex& index, int role) const
 
 bool PropertyEditorTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+  	(void)role ;
 	if (index.isValid())
 	{
 		assert(index.column() == 1);
