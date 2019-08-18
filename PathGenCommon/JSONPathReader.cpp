@@ -5,6 +5,7 @@
 #include "DistanceVelocityConstraint.h"
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 namespace xero
 {

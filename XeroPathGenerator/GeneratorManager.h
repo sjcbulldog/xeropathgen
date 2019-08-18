@@ -37,25 +37,25 @@ public:
 
 
 private:
-	static constexpr char* nameTag = "name";
-	static constexpr char* programTag = "program";
-	static constexpr char* propertiesTag = "properties";
-	static constexpr char* execTag = "exec";
-	static constexpr char* unitsTag = "units";
-	static constexpr char* outputTag = "output";
-	static constexpr char* robotTag = "robot";
-	static constexpr char* pathsTag = "paths";
-	static constexpr char* timestepTag = "timestep";
-	static constexpr char* paramsTag = "parameters";
-	static constexpr char* paramsNameTag = "name";
-	static constexpr char* paramsDescTag = "description";
-	static constexpr char* paramsArgTag = "arg";
-	static constexpr char* paramsTypeTag = "type";
-	static constexpr char* paramsDefaultTag = "default";
+	static constexpr const char* nameTag = "name";
+	static constexpr const char* programTag = "program";
+	static constexpr const char* propertiesTag = "properties";
+	static constexpr const char* execTag = "exec";
+	static constexpr const char* unitsTag = "units";
+	static constexpr const char* outputTag = "output";
+	static constexpr const char* robotTag = "robot";
+	static constexpr const char* pathsTag = "paths";
+	static constexpr const char* timestepTag = "timestep";
+	static constexpr const char* paramsTag = "parameters";
+	static constexpr const char* paramsNameTag = "name";
+	static constexpr const char* paramsDescTag = "description";
+	static constexpr const char* paramsArgTag = "arg";
+	static constexpr const char* paramsTypeTag = "type";
+	static constexpr const char* paramsDefaultTag = "default";
 
 private:
 	virtual bool checkCount() {
-		if (generators_.size() < 0)
+		if (generators_.size() == 0)
 			qDebug() << "no generators found, cannot start application - must have at least one generator defined";
 
 		return generators_.size() > 0;

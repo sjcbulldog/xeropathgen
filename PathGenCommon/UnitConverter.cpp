@@ -1,5 +1,6 @@
 #include "UnitConverter.h"
 #include <stdexcept>
+#include <algorithm>
 
 namespace xero
 {

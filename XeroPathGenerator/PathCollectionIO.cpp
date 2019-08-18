@@ -1,7 +1,7 @@
 #include "PathCollectionIO.h"
 #include "DistanceVelocityConstraint.h"
 #include <QJsonDocument>
-#include <QJSonObject>
+//#include <QJSonObject>
 #include <QFile>
 #include <QDebug>
 
@@ -158,7 +158,8 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 			return false;
 		}
 
-		if (!readGroup(file, paths, groupval.toObject()))
+		QJsonObject obj = groupval.toObject() ;
+		if (!readGroup(file, paths, obj))
 			return false;
 	}
 
@@ -196,7 +197,8 @@ bool PathCollectionIO::readGroup(QFile &file, PathCollection& paths, QJsonObject
 			qWarning() << "JSON file '" << file.fileName() << "', object in 'paths' array is not an object";
 			return false;
 		}
-		if (!readPath(file, paths, groupobj, val.toObject()))
+		QJsonObject obj = val.toObject() ;
+		if (!readPath(file, paths, groupobj, obj))
 			return false;
 	}
 

@@ -14,7 +14,7 @@ INCLUDEPATH += $(SolutionDir)PathGenCommon \
     ./GeneratedFiles/$(ConfigurationName)\
     ../PathGenCommon
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
-    -lPathGenCommon
+    ../PathGenCommon/PathGenCommon.a
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
 OBJECTS_DIR += debug

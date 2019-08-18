@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QPointF>
 #include <QMouseEvent>
+#include <cmath>
 
 using namespace xero::paths;
 
@@ -120,6 +121,8 @@ QSize PathFieldView::sizeHint() const
 
 void PathFieldView::paintEvent(QPaintEvent* event)
 {
+  	(void)event ;
+	
 	//
 	// Draw the field
 	//
@@ -250,6 +253,8 @@ void PathFieldView::mousePressEvent(QMouseEvent* ev)
 
 void PathFieldView::mouseReleaseEvent(QMouseEvent* ev)
 {
+  	(void)ev ;
+	
 	if (model_ != nullptr)
 		return;
 
@@ -485,7 +490,6 @@ void PathFieldView::drawPoints(QPainter& paint)
 
 void PathFieldView::drawOnePoint(QPainter& paint, const Pose2d& pt, bool selected)
 {
-	static constexpr double tw = 6.0f;
 	if (selected)
 	{
 		QPen pen(QColor(0xff, 0xff, 0x00, 0xff));
@@ -592,6 +596,7 @@ void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair
 
 void PathFieldView::resizeEvent(QResizeEvent* event)
 {
+  	(void)event ;
 	createTransforms();
 }
 

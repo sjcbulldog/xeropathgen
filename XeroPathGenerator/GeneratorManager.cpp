@@ -162,7 +162,8 @@ bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::
 			return false;
 		}
 
-		if (!processParameter(file, av.toObject(), gen))
+		QJsonObject obj = av.toObject() ;
+		if (!processParameter(file, obj, gen))
 			return false;
 	}
 
