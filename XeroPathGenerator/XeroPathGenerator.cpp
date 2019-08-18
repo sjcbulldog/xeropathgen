@@ -902,6 +902,10 @@ void XeroPathGenerator::waypointTreeDataChanged(const QModelIndex& topLeft, cons
 
 void XeroPathGenerator::pathParamTreeDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles)
 {
+  	(void)topLeft ;
+	(void)bottomRight ;
+	(void)roles ;	
+
 	paths_model_.setDirty();
 	currentPathChanged();
 	setXeroWindowTitle();
@@ -909,12 +913,19 @@ void XeroPathGenerator::pathParamTreeDataChanged(const QModelIndex& topLeft, con
 
 void XeroPathGenerator::pathTreeDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector<int>& roles)
 {
+  	(void)topLeft ;
+	(void)bottomRight ;
+	(void)roles ;	
+
 	currentPathChanged();
 	path_view_->repaint();
 }
 
 void XeroPathGenerator::pathTreeSelectionChanged(const QModelIndex& current, const QModelIndex& prev)
 {
+  	(void)current ;
+	(void)prev ;
+  
 	setPath(paths_->getSelectedPath());
 
 	if (paths_->isPathSelected() || paths_->isGroupSelected())
@@ -1323,12 +1334,8 @@ void XeroPathGenerator::fileGenerateAs()
 
 void XeroPathGenerator::generate()
 {
-	bool err = false;
-	DriveModifier* mod = nullptr;
 	std::chrono::milliseconds delay(100);
 
-	bool swerve;
-	double maxvel;
 	size_t count = 0;
 	size_t total = paths_model_.getPathCollection().getPathCount() ;
 	size_t pending;
