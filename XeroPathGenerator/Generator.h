@@ -72,8 +72,8 @@ public:
 		return dir_ + "/" + exec_;
 	}
 
-	static constexpr char* DistanceContraintPropertyName = "distance_constraint";
-	static constexpr char* NonZeroStartEndVelocities = "nonzero_start_end_velocity";
+	static constexpr const char* DistanceContraintPropertyName = "distance_constraint";
+	static constexpr const char* NonZeroStartEndVelocities = "nonzero_start_end_velocity";
 
 private:
 	std::string name_;
