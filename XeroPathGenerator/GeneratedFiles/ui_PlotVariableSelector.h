@@ -57,7 +57,7 @@ public:
 
     void retranslateUi(QDialog *PlotVariableSelector)
     {
-        PlotVariableSelector->setWindowTitle(QCoreApplication::translate("PlotVariableSelector", "PlotVariableSelector", nullptr));
+        PlotVariableSelector->setWindowTitle(QCoreApplication::translate("PlotVariableSelector", "Trajectory Profile Variables", nullptr));
     } // retranslateUi
 
 };

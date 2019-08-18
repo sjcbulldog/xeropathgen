@@ -131,6 +131,7 @@ private:
 	void toggleInfoLogging();
 	void toggleWarningLogging();
 	void showAbout();
+	void showDocumentation();
 
 	void pathTreeSelectionChanged(const QModelIndex& current, const QModelIndex& prev);
 

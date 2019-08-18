@@ -6,7 +6,7 @@
 #define MyAppPublisher "ErrorCodeXero"
 #define MyAppURL "http://www.wilsonvillerobotics.com/"
 #define MyAppExeName "XeroPathGenerator.exe"
-#define MyUserName "butch"
+#define MyUserName "ButchGriffin"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 LicenseFile=C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\setup\license.txt
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputDir=C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\setup
+OutputDir=C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\
 OutputBaseFilename=xeropath
 Compression=lzma
 SolidCompression=yes
@@ -41,7 +41,7 @@ Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\XeroPathG
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.png"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGen.docx" ; DestDir: {userdesktop} ; Flags: ignoreversion
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGenerator.pdf" ; DestDir: {app} ; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion

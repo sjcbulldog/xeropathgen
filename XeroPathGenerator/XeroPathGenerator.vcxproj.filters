@@ -237,6 +237,9 @@
     <ClInclude Include="SwerveDriveBaseModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="build.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="PropertyEditor.ui">

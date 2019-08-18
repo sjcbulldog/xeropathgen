@@ -32,6 +32,25 @@ PathFieldView::~PathFieldView()
 {
 }
 
+bool PathFieldView::isInsertWaypointValid()
+{
+	if (path_ == nullptr)
+		return false;
+
+	//
+	// The -1 is because insert is also not valid if the last waypoint is selected
+	//
+	return selected_ < path_->size() - 1;
+}
+
+bool PathFieldView::isDeleteWaypointValid()
+{
+	if (path_ == nullptr)
+		return false;
+
+	return selected_ < path_->size() - 1 && selected_ != 0;
+}
+
 void PathFieldView::resetDemo()
 {
 	model_->reset();
@@ -270,6 +289,9 @@ void PathFieldView::insertWaypoint()
 	Translation2d t((p1.getTranslation().getX() + p2.getTranslation().getX()) / 2.0, (p1.getTranslation().getY() + p2.getTranslation().getY()) / 2.0);
 	Pose2d newpt(t, r);
 	path_->insertPoint(selected_, newpt) ;
+
+	// Move selected waypoint to the one we just created
+	selected_++;
 
 	emitWaypointInserted();
 	repaint(geometry());

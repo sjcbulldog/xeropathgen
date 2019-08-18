@@ -27,6 +27,8 @@
 #include <QLineSeries>
 #include <QToolBar>
 #include <QCheckBox>
+#include <QDesktopServices>
+#include <QUrl>
 #include <cstdio>
 
 using namespace xero::paths;
@@ -385,7 +387,9 @@ bool XeroPathGenerator::createMenus()
 	action = help_->addAction(tr("About"));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::showAbout);
 
-	help_->addAction(tr("Documentation"));
+	action = help_->addAction(tr("Documentation"));
+	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::showDocumentation);
+
 	logmenu_ = help_->addMenu("Logging");
 
 	debug_action_ = logmenu_->addAction("Debug");
@@ -1417,6 +1421,9 @@ void XeroPathGenerator::showEditMenu()
 		delete_path_or_group_action_->setEnabled(false);
 		delete_path_or_group_action_->setText(tr("Delete"));
 	}
+
+	insert_waypoint_action_->setEnabled(path_view_->isInsertWaypointValid());
+	delete_waypoint_action_->setEnabled(path_view_->isDeleteWaypointValid());
 }
 
 void XeroPathGenerator::insertWaypoint()
@@ -1542,6 +1549,13 @@ void XeroPathGenerator::showAbout()
 {
 	AboutDialog about;
 	about.exec();
+}
+
+void XeroPathGenerator::showDocumentation()
+{
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString imagepath = exedir + "/XeroPathGenerator.pdf";
+	QDesktopServices::openUrl(QUrl(imagepath));
 }
 
 void XeroPathGenerator::newFieldSelected(std::shared_ptr<GameField> field)

@@ -57,6 +57,9 @@ public:
 
 	void setDemoMode(bool b);
 
+	bool isInsertWaypointValid();
+	bool isDeleteWaypointValid();
+
 
 signals:
 	void mouseMoved(xero::paths::Translation2d pos);
