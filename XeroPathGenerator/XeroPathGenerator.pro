@@ -7,11 +7,12 @@ TARGET = XeroPathGenerator
 DESTDIR = ../x64/Debug
 QT += core network gui widgets charts
 CONFIG += debug
-DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE WIN64 QT_DLL QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
+DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
 INCLUDEPATH += $(SolutionDir)PathGenCommon \
     ./GeneratedFiles \
     . \
-    ./GeneratedFiles/$(ConfigurationName)
+    ./GeneratedFiles/$(ConfigurationName)\
+    ../PathGenCommon
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
     -lPathGenCommon
 DEPENDPATH += .
