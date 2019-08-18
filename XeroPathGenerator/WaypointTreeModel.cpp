@@ -13,7 +13,7 @@ WaypointTreeModel::~WaypointTreeModel()
 
 QModelIndex WaypointTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
-  	(void)parent) ;
+  	(void)parent ;
 	return createIndex(row, col);
 }
 
