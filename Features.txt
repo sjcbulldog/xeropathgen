@@ -1,2 +1,0 @@
-Help Documentation
-Zoom in/out plot view

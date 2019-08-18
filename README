@@ -1,0 +1,12 @@
+XeroPathGenerator
+
+This program is used by an FRC robotics team to generate paths
+that are to be followed by the robot.  See the documentation in
+the guide directory.
+
+Note, the program can be installed on a windows machine by executing
+the xeropath.exe located here at the top most directory.
+
+This application is built using Qt meaning it is portable to both
+Mac OS and Linux.  This work has not been done yet.
+
