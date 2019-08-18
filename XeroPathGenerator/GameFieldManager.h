@@ -25,17 +25,17 @@ public:
 
 	void convert(const std::string &units);
 
-	static constexpr char* gameTag = "game";
-	static constexpr char* imageTag = "field-image";
-	static constexpr char* cornersTag = "field-corners";
-	static constexpr char* topLeftCornerTag = "top-left";
-	static constexpr char* bottomRightCornerTag = "bottom-right";
-	static constexpr char* sizeTag = "field-size";
-	static constexpr char* unitsTag = "field-unit"; 
+	static constexpr const char* gameTag = "game";
+	static constexpr const char* imageTag = "field-image";
+	static constexpr const char* cornersTag = "field-corners";
+	static constexpr const char* topLeftCornerTag = "top-left";
+	static constexpr const char* bottomRightCornerTag = "bottom-right";
+	static constexpr const char* sizeTag = "field-size";
+	static constexpr const char* unitsTag = "field-unit"; 
 
 protected:
 	virtual bool checkCount() {
-		if (fields_.size() < 0)
+		if (fields_.size() == 0)
 			qDebug() << "no fields found, cannot start application - must have at least one field defined";
 
 		return fields_.size() > 0;

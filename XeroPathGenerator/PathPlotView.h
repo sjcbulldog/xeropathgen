@@ -88,6 +88,10 @@ private:
 		case VarType::VTJerk:
 			ret = "jerk";
 			break;
+
+		case VarType::VTTime:
+			ret = "time" ;
+			break ;
 		}
 
 		return ret;

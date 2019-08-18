@@ -270,7 +270,6 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	QByteArray ret;
 	QString readdata;
 	std::string error, output;
-	QProcess::ProcessState st;
 	int count = 120;			// Two minutes
 
 	qDebug() << "Waiting for generator to finish";
@@ -300,8 +299,6 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 		return false;
 	}
 
-	int code = p->exitCode();
-	QProcess::ExitStatus status = p->exitStatus();
 	if (p->exitCode() != 0)
 	{
 		qDebug() << "Generated exited with error, path '" << path->getName().c_str() << "'";

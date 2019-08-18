@@ -39,6 +39,7 @@ bool PathFileTreeModel::isNameValid(const QString &name)
 
 Qt::ItemFlags PathFileTreeModel::flags(const QModelIndex& index) const
 {
+  	(void)index ;
 	return Qt::ItemFlag::ItemIsEditable | Qt::ItemFlag::ItemIsSelectable | Qt::ItemFlag::ItemIsEnabled;
 }
 
@@ -128,6 +129,7 @@ int PathFileTreeModel::rowCount(const QModelIndex& parent) const
 
 int PathFileTreeModel::columnCount(const QModelIndex& parent) const
 {
+  	(void)parent ;
 	if (paths_.size() == 0)
 		return 0;
 

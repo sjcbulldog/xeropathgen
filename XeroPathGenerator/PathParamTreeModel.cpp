@@ -41,11 +41,13 @@ PathParamTreeModel::~PathParamTreeModel()
 
 QModelIndex PathParamTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
+  	(void)parent ;
 	return createIndex(row, col);
 }
 
 QModelIndex PathParamTreeModel::parent(const QModelIndex& index) const
 {
+  	(void)index ;
 	return QModelIndex();
 }
 
@@ -85,6 +87,7 @@ int PathParamTreeModel::rowCount(const QModelIndex& parent) const
 
 int PathParamTreeModel::columnCount(const QModelIndex& parent) const
 {
+ 	(void)parent ;
 	if (path_ == nullptr)
 		return 0;
 
@@ -182,6 +185,7 @@ QVariant PathParamTreeModel::data(const QModelIndex& index, int role) const
 
 bool PathParamTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+  	(void)role ;
 	if (index.isValid())
 	{
 		assert(index.column() == 1);

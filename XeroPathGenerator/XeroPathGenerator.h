@@ -147,36 +147,36 @@ private:
 	//
 	// Names of images
 	//
-	static constexpr char* PlayButtonImage = "play.png";
-	static constexpr char* StopButtonImage = "stop.png";
-	static constexpr char* ForwardOneButtonImage = "forward1.png";
-	static constexpr char* ForwardTenButtonImage = "forward10.png";
-	static constexpr char* RobotButtonImage = "gear.png";
+	static constexpr const char* PlayButtonImage = "play.png";
+	static constexpr const char* StopButtonImage = "stop.png";
+	static constexpr const char* ForwardOneButtonImage = "forward1.png";
+	static constexpr const char* ForwardTenButtonImage = "forward10.png";
+	static constexpr const char* RobotButtonImage = "gear.png";
 
 
 	//
 	// Names for settings values
 	//
-	static constexpr char* GeometrySetting = "geometry";
-	static constexpr char* WindowStateSetting = "windowState";
-	static constexpr char* LeftSplitterSetting = "leftSplitter";
-	static constexpr char* RightSplitterSetting = "rightSplitter";
-	static constexpr char* LeftRightSplitterSetting = "leftRightSplitter";
-	static constexpr char* UnitsSetting = "units";
-	static constexpr char* LastPathDirSetting = "lastpathdir";
-	static constexpr char* OutputTypeSetting = "outputtype";
-	static constexpr char* JsonOutputType = "JSON";
-	static constexpr char* CSVOutputType = "CSV";
+	static constexpr const char* GeometrySetting = "geometry";
+	static constexpr const char* WindowStateSetting = "windowState";
+	static constexpr const char* LeftSplitterSetting = "leftSplitter";
+	static constexpr const char* RightSplitterSetting = "rightSplitter";
+	static constexpr const char* LeftRightSplitterSetting = "leftRightSplitter";
+	static constexpr const char* UnitsSetting = "units";
+	static constexpr const char* LastPathDirSetting = "lastpathdir";
+	static constexpr const char* OutputTypeSetting = "outputtype";
+	static constexpr const char* JsonOutputType = "JSON";
+	static constexpr const char* CSVOutputType = "CSV";
 
-	static constexpr char* RobotDialogName = "Name";
-	static constexpr char* RobotDialogWidth = "Width";
-	static constexpr char* RobotDialogLength = "Length";
-	static constexpr char* RobotDialogMaxVelocity = "Max Velocity";
-	static constexpr char* RobotDialogMaxAcceleration = "Max Acceleration";
-	static constexpr char* RobotDialogMaxJerk = "Max Jerk";
-	static constexpr char* RobotDialogUnits = "Units";
-	static constexpr char* RobotDialogDriveType = "Drive Type";
-	static constexpr char* RobotDialogTimeStep = "Time Step";
+	static constexpr const char* RobotDialogName = "Name";
+	static constexpr const char* RobotDialogWidth = "Width";
+	static constexpr const char* RobotDialogLength = "Length";
+	static constexpr const char* RobotDialogMaxVelocity = "Max Velocity";
+	static constexpr const char* RobotDialogMaxAcceleration = "Max Acceleration";
+	static constexpr const char* RobotDialogMaxJerk = "Max Jerk";
+	static constexpr const char* RobotDialogUnits = "Units";
+	static constexpr const char* RobotDialogDriveType = "Drive Type";
+	static constexpr const char* RobotDialogTimeStep = "Time Step";
 
 private:
 	enum OutputType

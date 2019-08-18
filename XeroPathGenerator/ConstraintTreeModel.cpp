@@ -16,11 +16,13 @@ ConstraintTreeModel::~ConstraintTreeModel()
 
 QModelIndex ConstraintTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
+	(void)parent ;
 	return createIndex(row, col);
 }
 
 QModelIndex ConstraintTreeModel::parent(const QModelIndex& index) const
 {
+  	(void)index ;
 	return QModelIndex();
 }
 
@@ -48,6 +50,7 @@ int ConstraintTreeModel::rowCount(const QModelIndex& parent) const
 
 int ConstraintTreeModel::columnCount(const QModelIndex& parent) const
 {
+  	(void)parent ;
 	return 3;
 }
 
@@ -134,6 +137,8 @@ QVariant ConstraintTreeModel::data(const QModelIndex& index, int role) const
 
 bool ConstraintTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
+  	(void)role ;
+  
 	//
 	// This is the constraint
 	//
