@@ -4,9 +4,10 @@
 
 TEMPLATE = app
 TARGET = XeroPathGenerator
-DESTDIR = ../x64/Debug
+DESTDIR = debug
 QT += core network gui widgets charts
 CONFIG += debug
+QMAKE_CXXFLAGS += -std=c++17
 DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
 INCLUDEPATH += $(SolutionDir)PathGenCommon \
     ./GeneratedFiles \

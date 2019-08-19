@@ -1,5 +1,10 @@
 #include "pathfinder.h"
 #include <stdio.h>
+#include <string.h>
+
+#ifndef WIN32
+#define _strdup strdup
+#endif
 
 // CONVERSIONS //
 // We're using the manual stuff instead of fwrite on a double array so these files

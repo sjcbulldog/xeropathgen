@@ -5,3 +5,5 @@ generators/*.exe
 .vs
 docs
 *.csv
+xeropathgen
+**/*.o

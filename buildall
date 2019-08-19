@@ -1,0 +1,29 @@
+#!/bin/bash
+
+pushd PathGenCommon
+make
+popd
+
+pushd XeroPathGenerator
+make
+popd
+
+pushd XeroGenV1
+make
+popd
+
+pushd PathFinderV1Gen
+make
+popd
+
+mkdir -p xeropathgen
+mkdir -p xeropathgen/bin
+mkdir -p xeropathgen/fields
+mkdir -p xeropathgen/generators
+cp XeroPathGenerator/debug/XeroPathGenerator xeropathgen/bin
+cp XeroPathGenerator/*.png xeropathgen/bin
+cp guide/XeroPathGenerator.pdf xeropathgen/bin
+cp fields/* xeropathgen/fields
+cp generators/*.json xeropathgen/generators
+cp PathFinderV1Gen/PathFinderV1Gen xeropathgen/generators
+cp XeroGenV1/XeroGenV1 xeropathgen/generators
