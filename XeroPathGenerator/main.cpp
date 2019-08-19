@@ -71,6 +71,8 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationName("XeroPathGenerator");
 	QCoreApplication::setApplicationVersion("1.0.0");
 
+
+
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);
 	std::string error;
@@ -139,6 +141,15 @@ int main(int argc, char *argv[])
 	fields.addDirectory((appdir + "/fields").toStdString());
 	generators.addDirectory((appdir + "/generators").toStdString());
 	robots.addDirectory((appdir + "/robots").toStdString());
+
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString field = exedir + "/../fields";
+	QDir dir(field);
+	fields.addDirectory(dir.absolutePath().toStdString());
+
+	QString gen = exedir + "/../generators";
+	dir = QDir(gen);
+	generators.addDirectory(dir.absolutePath().toStdString());
 
 	if (!fields.initialize())
 	{

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifndef WIN32
+#ifndef _MSC_VER
 #define _strdup strdup
 #endif
 
