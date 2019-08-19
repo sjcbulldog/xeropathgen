@@ -33,9 +33,10 @@ namespace xero {
             /// \param end_velocity the final velocity for the profile
             void update(double dist, double start_velocity, double end_velocity) ;
 
-			virtual double getJerk(double t) const {
-				return 0.0;
-			}
+	    virtual double getJerk(double t) const {
+	    	(void)t ;
+	    	return 0.0;
+	    }
 
             /// \brief return the acceleration for the profile at the given time
             /// If the time is prior to zero for the profile, the max acceleration value
