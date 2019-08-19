@@ -26,6 +26,9 @@ namespace xero
 				jerk_ = jerk;
 			}
 
+			virtual ~Pose2dWithTrajectory() {
+			}
+
 			const Pose2d &pose() const {
 				return pose_;
 			}

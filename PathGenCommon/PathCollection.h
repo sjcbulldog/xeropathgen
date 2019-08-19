@@ -102,7 +102,7 @@ namespace xero
 			}
 
 			bool delGroup(const std::string& group) {
-				auto it = std::find_if(groups_.begin(), groups_.end(), [group](auto g) { return g->getName() == group; });
+			  auto it = std::find_if(groups_.begin(), groups_.end(), [group](std::shared_ptr<PathGroup> g) { return g->getName() == group; });
 				if (it == groups_.end())
 					return false;
 

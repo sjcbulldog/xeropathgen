@@ -18,8 +18,8 @@ namespace xero
 			Pose2d(const Rotation2d& pos);
 			Pose2d(const Translation2d& pos, const Rotation2d& rot);
 			Pose2d(const Pose2d& other);
-			~Pose2d();
-
+			virtual ~Pose2d();
+			
 			static Twist2d logfn(const Pose2d& transform);
 			static Pose2d expfn(const Twist2d& delta);
 

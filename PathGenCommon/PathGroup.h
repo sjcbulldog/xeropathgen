@@ -119,7 +119,7 @@ namespace xero
 			}
 
 			bool delPath(const std::string& path) {
-				auto it = std::find_if(paths_.begin(), paths_.end(), [path](auto p) {return p->getName() == path; });
+			  auto it = std::find_if(paths_.begin(), paths_.end(), [path](std::shared_ptr<RobotPath> p) {return p->getName() == path; });
 				if (it == paths_.end())
 					return false;
 

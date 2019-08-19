@@ -1669,7 +1669,7 @@ void XeroPathGenerator::deleteRobotAction()
 		if (robot_mgr_.deleteRobot(str.toStdString()))
 		{
 			auto actlist = robots_->actions();
-			auto it = std::find_if(actlist.begin(), actlist.end(), [str](auto item) { return item->text() == str; });
+			auto it = std::find_if(actlist.begin(), actlist.end(), [str](QAction *item) { return item->text() == str; });
 			robots_->removeAction(*it);
 		}
 	}

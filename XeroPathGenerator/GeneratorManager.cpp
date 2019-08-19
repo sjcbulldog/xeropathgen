@@ -16,13 +16,13 @@ GeneratorManager::~GeneratorManager()
 
 bool GeneratorManager::exists(const std::string& name)
 {
-	auto it = std::find_if(generators_.begin(), generators_.end(), [name](auto g) { return g->getName() == name; });
+  auto it = std::find_if(generators_.begin(), generators_.end(), [name](std::shared_ptr<Generator> g) { return g->getName() == name; });
 	return it != generators_.end();
 }
 
 std::shared_ptr<Generator> GeneratorManager::getGeneratorByName(const std::string& name)
 {
-	auto it = std::find_if(generators_.begin(), generators_.end(), [name](auto g) { return g->getName() == name; });
+  auto it = std::find_if(generators_.begin(), generators_.end(), [name](std::shared_ptr<Generator> g) { return g->getName() == name; });
 	if (it == generators_.end())
 		return nullptr;
 

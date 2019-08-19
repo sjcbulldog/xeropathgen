@@ -18,7 +18,7 @@ bool RobotManager::deleteRobot(const std::string& robot)
 {
 	bool ret = false;
 
-	auto it = std::find_if(robots_.begin(), robots_.end(), [robot](auto one) { return one->getName() == robot; });
+	auto it = std::find_if(robots_.begin(), robots_.end(), [robot](std::shared_ptr<RobotParams> one) { return one->getName() == robot; });
 	if (it != robots_.end())
 	{
 		auto robotobj = *it;

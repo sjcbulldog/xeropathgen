@@ -14,7 +14,7 @@ CSOURCES = \
 
 OBJECTS = $(CXXSOURCES:.cpp=.o) $(CSOURCES:.c=.o)
 
-CXXFLAGS = -I../PathGenCommon -Iinclude
+CXXFLAGS = -I../PathGenCommon -Iinclude -std=c++17
 CFLAGS = -Iinclude
 
 PathFinderV1Gen: $(OBJECTS)

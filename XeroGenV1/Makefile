@@ -1,4 +1,3 @@
-
 SOURCES = \
 	PathVelocitySegment.cpp\
 	XeroGenV1.cpp\
@@ -6,7 +5,7 @@ SOURCES = \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
-CXXFLAGS = -I../PathGenCommon
+CXXFLAGS = -std=c++17 -I../PathGenCommon
 
 XeroGenV1: $(OBJECTS)
 	g++ $(CXXFLAGS) -o $@ $(OBJECTS) ../PathGenCommon/PathGenCommon.a

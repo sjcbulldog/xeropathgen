@@ -97,7 +97,7 @@ namespace xero
 
 			void addTrajectory(std::shared_ptr<PathTrajectory> newtraj) {
 				trajectory_lock_.lock();
-				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [newtraj](auto traj) { return traj->name() == newtraj->name(); });
+				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [newtraj](std::shared_ptr<PathTrajectory> traj) { return traj->name() == newtraj->name(); });
 				if (it != trajectories_.end())
 					trajectories_.erase(it);
 				trajectories_.push_back(newtraj);
@@ -108,7 +108,7 @@ namespace xero
 				bool ret = false;
 
 				trajectory_lock_.lock();
-				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [name](auto traj) { return traj->name() == name; });
+				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [name](std::shared_ptr<PathTrajectory> traj) { return traj->name() == name; });
 				ret = (it != trajectories_.end());
 				trajectory_lock_.unlock();
 
@@ -119,7 +119,7 @@ namespace xero
 				std::shared_ptr<PathTrajectory> traj;
 
 				trajectory_lock_.lock();
-				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [name](auto traj) { return traj->name() == name; });
+				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [name](std::shared_ptr<PathTrajectory> traj) { return traj->name() == name; });
 				if (it != trajectories_.end())
 					traj = *it;
 				trajectory_lock_.unlock();

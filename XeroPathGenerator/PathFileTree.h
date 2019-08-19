@@ -11,8 +11,8 @@ public:
 	PathFileTree(QWidget *parent = Q_NULLPTR);
 	~PathFileTree();
 
-	void setModel(PathFileTreeModel* model) {
-		model_ = model;
+	virtual void setModel(QAbstractItemModel *model) {
+	  	model_ = dynamic_cast<PathFileTreeModel *>(model) ;
 		QTreeView::setModel(model);
 	}
 

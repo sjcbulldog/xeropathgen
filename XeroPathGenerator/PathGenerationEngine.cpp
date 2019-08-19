@@ -427,7 +427,6 @@ void PathGenerationEngine::threadFunction(thread_data* data)
 {
 	data->running_ = true;
 	data->stopped_ = false;
-	std::chrono::milliseconds delay(100);
 
 	while (data->running_)
 	{
