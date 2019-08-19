@@ -94,7 +94,7 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		else
 			ev = std::min(segments[i].velocity(), segments[i + 1].velocity());
 
-		segments[i].createProfile(false, maxaccel, sv, ev);
+		segments[i].createProfile(scurve_, maxaccel, sv, ev);
 		total += segments[i].time();
 	}
 

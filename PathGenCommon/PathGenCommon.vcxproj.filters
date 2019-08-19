@@ -87,6 +87,9 @@
     <ClCompile Include="DistanceView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SCurveProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSVWriter.h">

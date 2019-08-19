@@ -24,18 +24,12 @@
     <ClCompile Include="PathVelocitySegment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XeroGenV2PathGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="XeroGenV1PathGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PathVelocitySegment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XeroGenV2PathGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

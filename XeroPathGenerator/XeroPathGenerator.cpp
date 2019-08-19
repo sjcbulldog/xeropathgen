@@ -34,7 +34,19 @@
 using namespace xero::paths;
 using namespace QtCharts;
 
+const char* XeroPathGenerator::RobotDialogName = "Name";
+const char* XeroPathGenerator::RobotDialogWidth = "Width";
+const char* XeroPathGenerator::RobotDialogLength = "Length";
+const char* XeroPathGenerator::RobotDialogMaxVelocity = "Max Velocity";
+const char* XeroPathGenerator::RobotDialogMaxAcceleration = "Max Acceleration";
+const char* XeroPathGenerator::RobotDialogMaxJerk = "Max Jerk";
+const char* XeroPathGenerator::RobotDialogUnits = "Units";
+const char* XeroPathGenerator::RobotDialogDriveType = "Drive Type";
+const char* XeroPathGenerator::RobotDialogTimeStep = "Time Step";
+
 XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
+
+
 
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
 										std::ofstream& ostrm, std::stringstream& sstrm, QWidget* parent)

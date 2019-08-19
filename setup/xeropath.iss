@@ -42,6 +42,7 @@ Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.png"; D
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGenerator.pdf" ; DestDir: {app} ; Flags: ignoreversion
+Source: "C:\Qt\5.13.0\msvc2017_64\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion

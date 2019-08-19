@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpeedProfileGenerator.h"
+#include <vector>
 #include <cassert>
 
 namespace xero
@@ -10,9 +11,7 @@ namespace xero
 		class SCurveProfile : public SpeedProfileGenerator
 		{
 		public:
-			SCurveProfile() {
-
-			}
+			SCurveProfile(double jerkmax, double accmax, double accmin, double velmax);
 
 			virtual ~SCurveProfile() {
 
@@ -25,7 +24,6 @@ namespace xero
 			/// \param start_velocity the starting velocity for the profile
 			/// \param end_velocity the final velocity for the profile
 			virtual void update(double dist, double start_velocity, double end_velocity) {
-				assert(false);
 			}
 
 			/// \brief return the acceleration for the profile at the given time
@@ -89,6 +87,17 @@ namespace xero
 			}
 
 		private:
+			void rampUp(double start_velocity);
+			void rampDown(double end_velocity);
+
+		private:
+			std::vector<double> j_;
+			std::vector<double> t_;
+			std::vector<double> a_;
+			std::vector<double> v_;
+			std::vector<double> p_;
+
+			double step_;
 		};
 	}
 }

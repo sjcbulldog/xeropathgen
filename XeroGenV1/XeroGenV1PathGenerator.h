@@ -18,13 +18,13 @@ private:
 	static constexpr double kMaxDTheta = 0.1; //radians!
 
 public:
-	XeroGenV1PathGenerator(double diststep, double timestep) {
+	XeroGenV1PathGenerator(double diststep, double timestep, bool scurve) {
 		diststep_ = diststep;
 		timestep_ = timestep;
 		maxDx_ = kMaxDX;
 		maxDy_ = kMaxDY;
 		maxDTheta_ = kMaxDTheta;
-
+		scurve_ = scurve;
 	}
 
 	std::shared_ptr<xero::paths::PathTrajectory> generate(const std::vector<xero::paths::Pose2d>& points, 
@@ -46,5 +46,6 @@ private:
 	double maxDx_;
 	double maxDy_;
 	double maxDTheta_;
+	bool scurve_;
 };
 

@@ -178,12 +178,10 @@
     <ClCompile Include="PathVelocitySegment.cpp" />
     <ClCompile Include="XeroGenV1.cpp" />
     <ClCompile Include="XeroGenV1PathGenerator.cpp" />
-    <ClCompile Include="XeroGenV2PathGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PathVelocitySegment.h" />
     <ClInclude Include="XeroGenV1PathGenerator.h" />
-    <ClInclude Include="XeroGenV2PathGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

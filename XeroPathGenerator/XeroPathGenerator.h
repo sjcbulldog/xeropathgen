@@ -168,15 +168,15 @@ private:
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 
-	static constexpr const char* RobotDialogName = "Name";
-	static constexpr const char* RobotDialogWidth = "Width";
-	static constexpr const char* RobotDialogLength = "Length";
-	static constexpr const char* RobotDialogMaxVelocity = "Max Velocity";
-	static constexpr const char* RobotDialogMaxAcceleration = "Max Acceleration";
-	static constexpr const char* RobotDialogMaxJerk = "Max Jerk";
-	static constexpr const char* RobotDialogUnits = "Units";
-	static constexpr const char* RobotDialogDriveType = "Drive Type";
-	static constexpr const char* RobotDialogTimeStep = "Time Step";
+	static const char* RobotDialogName;
+	static const char* RobotDialogWidth;
+	static const char* RobotDialogLength;
+	static const char* RobotDialogMaxVelocity;
+	static const char* RobotDialogMaxAcceleration;
+	static const char* RobotDialogMaxJerk;
+	static const char* RobotDialogUnits ;
+	static const char* RobotDialogDriveType ;
+	static const char* RobotDialogTimeStep ;
 
 private:
 	enum OutputType

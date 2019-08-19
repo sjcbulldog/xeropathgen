@@ -123,7 +123,7 @@
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)*.png $(OutDir)</Command>
+      <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
