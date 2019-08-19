@@ -27,3 +27,5 @@ cp fields/* xeropathgen/fields
 cp generators/*.json xeropathgen/generators
 cp PathFinderV1Gen/PathFinderV1Gen xeropathgen/generators
 cp XeroGenV1/XeroGenV1 xeropathgen/generators
+
+tar cvf xeropath.tar xeropathgen

@@ -4,9 +4,11 @@ This program is used by an FRC robotics team to generate paths
 that are to be followed by the robot.  See the documentation in
 the guide directory.
 
-Note, the program can be installed on a windows machine by executing
+The program can be installed on a windows machine by executing
 the xeropath.exe located here at the top most directory.
 
-This application is built using Qt meaning it is portable to both
-Mac OS and Linux.  This work has not been done yet.
+The program can be installed on a linux machine by untarring the
+xeropath.tar in on disk and putting xeropathgen/bin in your path.
+
+Mac OS version is udnderway and will be in place soon.
 
