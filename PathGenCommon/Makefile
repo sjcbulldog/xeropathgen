@@ -1,3 +1,4 @@
+CXXFLAGS = -std=c++17
 
 SOURCES = \
 	DistanceVelocityConstraint.cpp\
