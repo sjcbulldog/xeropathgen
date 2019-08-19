@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SpeedProfileGenerator.h"
 #include <string>
 #include <vector>
 
@@ -12,7 +13,8 @@ namespace xero {
         /// accelerating to a crusing velocity, crusing at this fixed velocity, and decelerating to 
         /// this the descired end velocity at the desired distance.
         /// \sa https://hackaday.io/project/5765-flexsea-wearable-robotics-toolkit/log/24796-trajectory-generation-trapezoidal-speed-profile
-        class TrapezoidalProfile {
+
+        class TrapezoidalProfile : public SpeedProfileGenerator {
         public:
             /// \brief Create a new profile with the given acceleration, deceleration, and max velocity
             /// \param accel the acceleration to use any time the velocity needs to increase
@@ -31,20 +33,24 @@ namespace xero {
             /// \param end_velocity the final velocity for the profile
             void update(double dist, double start_velocity, double end_velocity) ;
 
+			virtual double getJerk(double t) const {
+				return 0.0;
+			}
+
             /// \brief return the acceleration for the profile at the given time
             /// If the time is prior to zero for the profile, the max acceleration value
             /// is returned.  If the time is past the end of the profile, the max deceleartion
             /// value is returned.
             /// \param t the time in question
             /// \returns the acceleration at the given point in time
-            double getAccel(double t) const ;
+			virtual double getAccel(double t) const ;
 
             /// \brief return the velocity at the given point in time
             /// If the time is less than zero, the initial velocity is returned.  If the
             /// time exceeds the time of the profile, the final velocity is returned.
             /// \param t the time in question
             /// \returns the velocity at a given point in time
-            double getVelocity(double t) const ;
+			virtual double getVelocity(double t) const ;
 
             /// \brief return the distance at the given point in time
             /// If the time is less than zero, the zero is returned.  If the time 
@@ -54,7 +60,7 @@ namespace xero {
             /// velocity after the end of a profile.
             /// \param t the time in question
             /// \returns the velocity at a given point in time          
-            double getDistance(double t) const ;
+			virtual double getDistance(double t) const ;
 
             /// \brief convert the profile to a human readable string
             /// \returns a human readable string
@@ -80,11 +86,11 @@ namespace xero {
 
             /// \brief get the total time for the profile
             /// \returns total time for the profile
-            double getTotalTime() const {
+			virtual double getTotalTime() const {
                 return ta_ + tc_ + td_ ;
             }
 
-			double getTotalDistance() const {
+			virtual double getTotalDistance() const {
 				return getDistance(getTotalTime());
 			}
 
@@ -107,13 +113,13 @@ namespace xero {
 
             /// \brief return the starting velocity for the profile
             /// \returns starting velocity for the robot
-            double getStartVelocity() const {
+			virtual double getStartVelocity() const {
                 return start_velocity_ ;
             }
 
             /// \brief return the end velocity for the profile
             /// \returns end velocity for the robot
-            double getEndVelocity() const {
+			virtual double getEndVelocity() const {
                 return end_velocity_ ;
             }
 

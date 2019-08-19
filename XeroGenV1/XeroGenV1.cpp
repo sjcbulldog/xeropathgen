@@ -3,6 +3,7 @@
 #include "CSVWriter.h"
 #include "PathTrajectory.h"
 #include "XeroGenV1PathGenerator.h"
+#include "XeroGenV2PathGenerator.h"
 #include <iostream>
 
 using namespace xero::paths;
@@ -14,6 +15,7 @@ std::string units = "in";
 double timestep = 0.02;
 double diststep = 1.0;
 xero::paths::PathCollection collection;
+int version = 2;
 
 extern void generateForGroup(const std::string& group);
 extern void generateForPath(PathGroup& group, const std::string& path);
@@ -82,6 +84,14 @@ int main(int ac, char** av)
 			}
 			ac--;
 			av++;
+		}
+		else if (arg == "--v1")
+		{
+			version = 1;
+		}
+		else if (arg == "--v2")
+		{
+			version = 2;
 		}
 		else if (arg == "--units")
 		{
@@ -193,9 +203,20 @@ void generateForPath(PathGroup& group, const std::string& path)
 	// variable and will be given by the allowed differences between points in the X, Y, and THETA
 	// values.
 	//
-	XeroGenV1PathGenerator gen(diststep, timestep);
-	auto trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
-		pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
+	std::shared_ptr<PathTrajectory> trajectory;
+
+	if (version == 1)
+	{
+		XeroGenV1PathGenerator gen(diststep, timestep);
+		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
+			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
+	}
+	else
+	{
+		XeroGenV2PathGenerator gen(timestep);
+		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
+			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
+	}
 
 	std::vector<std::string> headers =
 	{

@@ -33,7 +33,6 @@
     <ClCompile Include="RobotPath.cpp" />
     <ClCompile Include="Rotation2d.cpp" />
     <ClCompile Include="PathBase.cpp" />
-    <ClCompile Include="SCurveProfile.cpp" />
     <ClCompile Include="QuinticHermiteSpline.cpp" />
     <ClCompile Include="SplinePair.cpp" />
     <ClCompile Include="SwerveDriveModifier.cpp" />
@@ -70,6 +69,7 @@
     <ClInclude Include="Rotation2d.h" />
     <ClInclude Include="SCurveProfile.h" />
     <ClInclude Include="QuinticHermiteSpline.h" />
+    <ClInclude Include="SpeedProfileGenerator.h" />
     <ClInclude Include="SplinePair.h" />
     <ClInclude Include="SwerveDriveModifier.h" />
     <ClInclude Include="TankDriveModifier.h" />

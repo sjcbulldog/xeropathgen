@@ -25,9 +25,9 @@ public:
 	bool overlaps(const PathVelocitySegment&);
 	bool contains(const PathVelocitySegment&);
 
-	void createProfile(double maxacc, double startvel, double endvel);
+	void createProfile(bool scurve, double maxacc, double startvel, double endvel);
 
-	std::shared_ptr<xero::paths::TrapezoidalProfile> profile() { return profile_; }
+	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile() { return profile_; }
 
 private:
 	static constexpr double kEpsilon = 1e-5;
@@ -36,6 +36,6 @@ private:
 	double start_dist_;
 	double length_;
 	double velocity_;
-	std::shared_ptr<xero::paths::TrapezoidalProfile> profile_;
+	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile_;
 };
 

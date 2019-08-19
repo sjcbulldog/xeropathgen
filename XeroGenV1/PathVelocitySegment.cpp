@@ -1,4 +1,6 @@
 #include "PathVelocitySegment.h"
+#include <SCurveProfile.h>
+#include <TrapezoidalProfile.h>
 #include <cmath>
 #include <cassert>
 
@@ -15,10 +17,15 @@ PathVelocitySegment::~PathVelocitySegment()
 {
 }
 
-void PathVelocitySegment::createProfile(double maxacc, double startvel, double endvel)
+void PathVelocitySegment::createProfile(bool scurve, double maxacc, double startvel, double endvel)
 {
-	profile_ = std::make_shared<TrapezoidalProfile>(maxacc, -maxacc, velocity_);
+	if (scurve)
+		profile_ = std::make_shared<SCurveProfile>();
+	else
+		profile_ = std::make_shared<TrapezoidalProfile>(maxacc, -maxacc, velocity_);
+
 	profile_->update(length_, startvel, endvel);
+
 	assert(std::fabs(profile_->getDistance(profile_->getTotalTime()) - length_) < 0.1);
 }
 
