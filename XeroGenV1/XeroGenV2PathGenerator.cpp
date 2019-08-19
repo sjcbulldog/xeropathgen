@@ -48,6 +48,40 @@ std::shared_ptr<xero::paths::PathTrajectory> XeroGenV2PathGenerator::generate(co
 	//
 	// Step 4: now perform the walk down the path to find the velocities
 	//
+	double v0 = 0;
+	double a0 = 0;
+	double p0 = 0;
+	double j0 = 0;
+	double j;
+	double a;
+	double v;
+	double p;
+
+	std::vector<Pose2dWithTrajectory> traj;
+	while (dist < distview.length())
+	{
+		j = maxjerk;
+		a = a0 + j * timestep_;
+		v = v0 + a0 * t * timestep_ + 1.0 / 2.0 * j0 * timestep_ * timestep_;
+		p = p0 + v0 * timestep_ + 1.0 / 2.0 * a0 * timestep_ * timestep_ + 1.0 / 6.0 * j0 * timestep_ * timestep_ * timestep_;
+
+		if (a > maxaccel)
+		{
+
+		}
+
+		if (v > maxvel)
+		{
+
+		}
+
+		if (p > distview.length())
+		{
+
+		}
+
+
+	}
 
 	return nullptr;
 }
