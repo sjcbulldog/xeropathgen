@@ -23,8 +23,7 @@ void ManagerBase::dumpSearchPath(const char* name)
 	qDebug() << "-------------------------------------------";
 	for (auto d : dirs_)
 		qDebug() << index++ << ": " << d.c_str();
-
-	qDebug() << name << " search path";
+	qDebug() << "-------------------------------------------";
 }
 
 bool ManagerBase::initialize()

@@ -72,9 +72,6 @@
     <ClCompile Include="DriveBaseData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SCurveProfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Pose2dWithTrajectory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -195,6 +192,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DistanceView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedProfileGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

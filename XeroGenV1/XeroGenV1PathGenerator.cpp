@@ -3,6 +3,7 @@
 #include "PathVelocitySegment.h"
 #include <TrajectoryNames.h>
 #include <TrapezoidalProfile.h>
+#include <SCurveProfile.h>
 #include <RobotPath.h>
 #include <DistanceView.h>
 #include <DistanceVelocityConstraint.h>
@@ -93,7 +94,7 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		else
 			ev = std::min(segments[i].velocity(), segments[i + 1].velocity());
 
-		segments[i].createProfile(maxaccel, sv, ev);
+		segments[i].createProfile(false, maxaccel, sv, ev);
 		total += segments[i].time();
 	}
 
