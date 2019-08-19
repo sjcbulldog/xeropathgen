@@ -213,7 +213,7 @@ void generateForPath(PathGroup& group, const std::string& path)
 	}
 	else
 	{
-		XeroGenV2PathGenerator gen(timestep);
+		XeroGenV2PathGenerator gen(diststep, timestep);
 		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
 			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
 	}
