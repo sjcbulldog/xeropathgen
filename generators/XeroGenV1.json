@@ -5,7 +5,7 @@
     "nonzero_start_end_velocity"
   ],
   "program": {
-    "exec": "XeroGenV1.exe",
+    "exec": "XeroGenV1",
     "units" :  "--units $$",
     "output": "--outfile $$",
     "robot": "--robotfile $$",

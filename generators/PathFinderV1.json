@@ -3,7 +3,7 @@
   "properties": [
   ],
   "program": {
-    "exec": "PathFinderV1Gen.exe",
+    "exec": "PathFinderV1Gen",
     "units": "--units $$",
     "output": "--outfile $$",
     "robot": "--robotfile $$",
