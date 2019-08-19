@@ -175,6 +175,10 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 
+	fields.dumpSearchPath("Fields");
+	generators.dumpSearchPath("Generators");
+	robots.dumpSearchPath("Robots");
+
 	try {
 		XeroPathGenerator w(fields, generators, robots, logfilestream, log2stream);
 		w.show();

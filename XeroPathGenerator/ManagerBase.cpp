@@ -4,6 +4,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QDirIterator>
+#include <QDebug>
 
 using namespace xero::paths;
 
@@ -13,6 +14,17 @@ ManagerBase::ManagerBase()
 
 ManagerBase::~ManagerBase()
 {
+}
+
+void ManagerBase::dumpSearchPath(const char* name)
+{
+	int index = 0;
+	qDebug() << name << " search path";
+	qDebug() << "-------------------------------------------";
+	for (auto d : dirs_)
+		qDebug() << index++ << ": " << d.c_str();
+
+	qDebug() << name << " search path";
 }
 
 bool ManagerBase::initialize()

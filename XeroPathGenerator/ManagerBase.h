@@ -22,6 +22,8 @@ public:
 		dirs_.push_back(dir);
 	}
 
+	void dumpSearchPath(const char* name);
+
 protected:
 	virtual bool processPath(const std::string& path);
 	virtual bool processJSONFile(QFile& file) = 0;
