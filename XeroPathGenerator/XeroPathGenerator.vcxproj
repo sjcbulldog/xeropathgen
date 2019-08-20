@@ -84,8 +84,7 @@
       <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>c:\cygwin64\bin\bash incver.sh</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>
@@ -125,6 +124,9 @@
     <PostBuildEvent>
       <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>c:\cygwin64\bin\bash incver.sh</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AboutDialog.cpp" />

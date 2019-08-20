@@ -1,6 +1,11 @@
 #include "AboutDialog.h"
 #include "build.h"
 
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+
+#define BUILDVERSION STR(XERO_MAJOR_VERSION) "." STR(XERO_MINOR_VERSION) "." STR(XERO_MICRO_VERSION) "." STR(XERO_BUILD_VERSION)
+
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
 	QString exedir = QCoreApplication::applicationDirPath();

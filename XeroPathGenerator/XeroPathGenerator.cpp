@@ -941,7 +941,7 @@ void XeroPathGenerator::pathTreeSelectionChanged(const QModelIndex& current, con
   
 	setPath(paths_->getSelectedPath());
 
-	if (paths_->isPathSelected() || paths_->isGroupSelected())
+	if (paths_->isPathSelected() || (paths_->isGroupSelected() && paths_->getSelectedGroup()->size() > 0))
 	{
 		demo_mode_off_->setDisabled(false);
 		demo_mode_on_->setDisabled(false);
