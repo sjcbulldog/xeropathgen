@@ -18,7 +18,7 @@ class PathFieldView : public QWidget
 
 public:
 	PathFieldView(QWidget *parent = Q_NULLPTR);
-	~PathFieldView();
+	virtual ~PathFieldView();
 	
 	void setCursorTime(double time) {
 		cursor_time_ = time;
@@ -70,12 +70,12 @@ signals:
 	void waypointDeleted();
 
 protected:
-	void paintEvent(QPaintEvent* event) override;
-	void resizeEvent(QResizeEvent* event) override;
-	void mouseMoveEvent(QMouseEvent* event) override;
-	void mousePressEvent(QMouseEvent* event) override;
-	void mouseReleaseEvent(QMouseEvent* event) override;
-	void keyPressEvent(QKeyEvent* event) override;
+	virtual void paintEvent(QPaintEvent* event) override;
+	virtual void resizeEvent(QResizeEvent* event) override;
+	virtual void mouseMoveEvent(QMouseEvent* event) override;
+	virtual void mousePressEvent(QMouseEvent* event) override;
+	virtual void mouseReleaseEvent(QMouseEvent* event) override;
+	virtual void keyPressEvent(QKeyEvent* event) override;
 
 	QSize minimumSizeHint() const override;
 	QSize sizeHint() const override;

@@ -237,6 +237,7 @@ bool XeroPathGenerator::createWindows()
 bool XeroPathGenerator::createLeftSide()
 {
 	path_view_ = new PathFieldView(m_left_top_bottom_);
+	path_view_->setVisible(true);
 	(void)connect(path_view_, &PathFieldView::waypointMoved, this, &XeroPathGenerator::movedWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointMoved, this, &XeroPathGenerator::movingWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointInserted, this, &XeroPathGenerator::insertedWaypointProc);

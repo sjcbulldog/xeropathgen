@@ -37,7 +37,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\XeroPathGenerator.exe"; DestDir: "{app}"; Flags: ignoreversion 64bit
+Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.*"; DestDir: "{app}"; Flags: ignoreversion 64bit recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.png"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs

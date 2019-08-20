@@ -42,6 +42,7 @@ private:
 	static constexpr const char* propertiesTag = "properties";
 	static constexpr const char* execTag = "exec";
 	static constexpr const char* unitsTag = "units";
+	static constexpr const char* otherArgsTag = "others";
 	static constexpr const char* outputTag = "output";
 	static constexpr const char* robotTag = "robot";
 	static constexpr const char* pathsTag = "paths";

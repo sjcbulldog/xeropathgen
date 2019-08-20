@@ -1,0 +1,25 @@
+{
+  "name": "Xero Gen V1 - SCurve",
+  "properties": [
+    "distance_constraint",
+    "nonzero_start_end_velocity"
+  ],
+  "program": {
+    "exec": "XeroGenV1",
+    "output": "--outfile $$",
+    "parameters": [
+      {
+        "arg": "--diststep $$",
+        "default": 2.0,
+        "description": "The maximum distance between points internally when generating the path",
+        "name": "diststep",
+        "type": "double"
+      }
+    ],
+    "paths": "--pathfile $$",
+    "robot": "--robotfile $$",
+    "timestep": "--timestep $$",
+    "units": "--units $$",
+    "others" :  "--scurve true"
+  }
+}

@@ -122,13 +122,14 @@ QSize PathFieldView::sizeHint() const
 void PathFieldView::paintEvent(QPaintEvent* event)
 {
   	(void)event ;
-	
+
 	//
 	// Draw the field
 	//
 	QPainter paint(this);
 	QRectF rect(0.0f, 0.0f, field_image_.width() * image_scale_, field_image_.height() * image_scale_);
 	paint.drawImage(rect, field_image_);
+
 	//
 	// Draw the path
 	//

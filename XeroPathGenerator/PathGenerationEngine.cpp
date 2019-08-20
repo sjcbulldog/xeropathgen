@@ -235,6 +235,13 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	onearg = str.split(' ');
 	args.append(onearg);
 
+	if (generator_->hasOtherArgs())
+	{
+		str = generator_->getOtherArgs().c_str();
+		onearg = str.split(' ');
+		args.append(onearg);
+	}
+
 	store_lock_.lock();
 	for (const GeneratorParameter& p : generator_->getGeneratorParams())
 	{

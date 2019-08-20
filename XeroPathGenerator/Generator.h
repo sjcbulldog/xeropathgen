@@ -8,7 +8,7 @@ class Generator
 {
 public:
 	Generator(const std::string& name, const std::string &dir, std::string &exec, const std::string &units, std::string &out, 
-					const std::string &robot, const std::string &path, const std::string &timestep) {
+					const std::string &robot, const std::string &path, const std::string &timestep, const std::string &otherargs) {
 		name_ = name;
 		exec_ = exec;
 		dir_ = dir;
@@ -17,6 +17,7 @@ public:
 		robot_arg_ = robot;
 		path_arg_ = path;
 		timestep_arg_ = timestep;
+		other_args_ = otherargs;
 	}
 
 	void addProperty(const std::string& str) {
@@ -60,6 +61,14 @@ public:
 		return timestep_arg_;
 	}
 
+	const std::string& getOtherArgs() const {
+		return other_args_;
+	}
+
+	bool hasOtherArgs() const {
+		return other_args_.length() > 0;
+	}
+
 	GeneratorParameter &addGeneratorParam(const std::string &name, const std::string &desc, const std::string &type, const std::string &arg, QVariant def) {
 		params_.push_back(GeneratorParameter(name, desc, type, arg, def));
 		return params_.back();
@@ -85,6 +94,7 @@ private:
 	std::string robot_arg_;
 	std::string path_arg_;
 	std::string timestep_arg_;
+	std::string other_args_;
 	std::list<GeneratorParameter> params_;
 	std::list<std::string> properties_;
 };

@@ -108,7 +108,7 @@ bool GeneratorManager::processJSONFile(QFile& file)
 
 bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::string &name)
 {
-	std::string exec, out, robot, path, timestep, units;
+	std::string exec, out, robot, path, timestep, units, otherargs;
 
 	QFileInfo info(file);
 	QDir dir = info.dir();
@@ -131,7 +131,13 @@ bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::
 	if (!getJSONStringValue(file, obj, unitsTag, units))
 		return false;
 
-	std::shared_ptr<Generator> gen = std::make_shared<Generator>(name, dir.path().toStdString(), exec, units, out, robot, path, timestep);
+	if (obj.contains(otherArgsTag))
+	{
+		if (!getJSONStringValue(file, obj, otherArgsTag, otherargs))
+			return false;
+	}
+
+	std::shared_ptr<Generator> gen = std::make_shared<Generator>(name, dir.path().toStdString(), exec, units, out, robot, path, timestep, otherargs);
 
 	//
 	// Now process parameters
