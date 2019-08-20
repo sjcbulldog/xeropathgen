@@ -6,19 +6,27 @@
   ],
   "program": {
     "exec": "XeroGenV1",
-    "units" :  "--units $$",
     "output": "--outfile $$",
-    "robot": "--robotfile $$",
-    "paths": "--pathfile $$",
-    "timestep": "--timestep $$",
     "parameters": [
       {
-        "name": "diststep",
+        "arg": "--diststep $$",
+        "default": 2.0,
         "description": "The maximum distance between points internally when generating the path",
-        "type": "double",
-        "arg": "--dx $$",
-	      "default" : 2.0
+        "name": "diststep",
+        "type": "double"
+      },
+      {
+        "arg": "--scurve $$",
+        "default": "false",
+        "description": "Use SCurve (vs Trapezoidal) trajectory velocity profile",
+        "name": "scurve",
+        "type": "strings",
+        "choices" : ["true" , "false"]
       }
-    ]
+    ],
+    "paths": "--pathfile $$",
+    "robot": "--robotfile $$",
+    "timestep": "--timestep $$",
+    "units": "--units $$"
   }
 }

@@ -25,7 +25,7 @@ public:
 	bool overlaps(const PathVelocitySegment&);
 	bool contains(const PathVelocitySegment&);
 
-	void createProfile(bool scurve, double maxacc, double startvel, double endvel);
+	void createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel);
 
 	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile() { return profile_; }
 

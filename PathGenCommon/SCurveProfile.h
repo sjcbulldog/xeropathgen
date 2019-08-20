@@ -10,12 +10,13 @@ namespace xero
 	{
 		class SCurveProfile : public SpeedProfileGenerator
 		{
+		private:
+			static constexpr double kEpsilon = 1e-5;
+
 		public:
-			SCurveProfile(double jerkmax, double accmax, double accmin, double velmax);
+			SCurveProfile(double jerkmax, double jerkmin, double accmax, double accmin, double velmax);
 
-			virtual ~SCurveProfile() {
-
-			}
+			virtual ~SCurveProfile();
 
 			/// \brief update the profile to cover the distance given
 			/// This method must be called before any of the methods that return
@@ -23,8 +24,7 @@ namespace xero
 			/// \param dist the distance to cover with the velocity profile
 			/// \param start_velocity the starting velocity for the profile
 			/// \param end_velocity the final velocity for the profile
-			virtual void update(double dist, double start_velocity, double end_velocity) {
-			}
+			virtual void update(double dist, double start_velocity, double end_velocity);
 
 			/// \brief return the acceleration for the profile at the given time
 			/// If the time is prior to zero for the profile, the max acceleration value
@@ -32,20 +32,14 @@ namespace xero
 			/// value is returned.
 			/// \param t the time in question
 			/// \returns the acceleration at the given point in time
-			virtual double getAccel(double t) const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getAccel(double t) const;
 
 			/// \brief return the velocity at the given point in time
 			/// If the time is less than zero, the initial velocity is returned.  If the
 			/// time exceeds the time of the profile, the final velocity is returned.
 			/// \param t the time in question
 			/// \returns the velocity at a given point in time
-			virtual double getVelocity(double t) const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getVelocity(double t) const;
 
 			/// \brief return the distance at the given point in time
 			/// If the time is less than zero, the zero is returned.  If the time 
@@ -55,40 +49,26 @@ namespace xero
 			/// velocity after the end of a profile.
 			/// \param t the time in question
 			/// \returns the velocity at a given point in time          
-			virtual double getDistance(double t) const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getDistance(double t) const;
 
 			/// \brief get the total time for the profile
 			/// \returns total time for the profile
-			virtual double getTotalTime() const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getTotalTime() const;
 
-			virtual double getTotalDistance() const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getTotalDistance() const;
 
 			/// \brief return the starting velocity for the profile
 			/// \returns starting velocity for the robot
-			virtual double getStartVelocity() const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getStartVelocity() const;
 
 			/// \brief return the end velocity for the profile
 			/// \returns end velocity for the robot
-			virtual double getEndVelocity() const {
-				assert(false);
-				return 0.0;
-			}
+			virtual double getEndVelocity() const;
 
 		private:
-			void rampUp(double start_velocity);
-			void rampDown(double end_velocity);
+			void rampUp();
+			void rampDown();
+			size_t findRegion(double t) const ;
 
 		private:
 			std::vector<double> j_;

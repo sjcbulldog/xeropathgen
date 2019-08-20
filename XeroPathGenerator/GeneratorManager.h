@@ -52,6 +52,7 @@ private:
 	static constexpr const char* paramsArgTag = "arg";
 	static constexpr const char* paramsTypeTag = "type";
 	static constexpr const char* paramsDefaultTag = "default";
+	static constexpr const char* paramsChoicesTag = "choices";
 
 private:
 	virtual bool checkCount() {

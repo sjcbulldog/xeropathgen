@@ -242,9 +242,27 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 		{
 			str = p.getArg().c_str();
 			QVariant v = store_[p.getName().c_str()];
-			if (p.getType() == "double")
+			if (p.getType() == GeneratorParameter::DoublePropType)
 			{
 				str.replace("$$", std::to_string(v.toDouble()).c_str());
+				onearg = str.split(' ');
+				args.append(onearg);
+			}
+			else if (p.getType() == GeneratorParameter::IntegerPropType)
+			{
+				str.replace("$$", std::to_string(v.toInt()).c_str());
+				onearg = str.split(' ');
+				args.append(onearg);
+			}
+			else if (p.getType() == GeneratorParameter::StringPropType)
+			{
+				str.replace("$$", v.toString());
+				onearg = str.split(' ');
+				args.append(onearg);
+			}
+			else if (p.getType() == GeneratorParameter::StringListPropType)
+			{
+				str.replace("$$", v.toString());
 				onearg = str.split(' ');
 				args.append(onearg);
 			}

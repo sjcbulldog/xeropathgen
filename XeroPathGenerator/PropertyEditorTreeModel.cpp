@@ -103,6 +103,11 @@ QVariant PropertyEditorTreeModel::data(const QModelIndex& index, int role) const
 			double d = ret.toDouble();
 			ret = QString::number(d, 'f', 2);
 		}
+		else if (prop->getType() == EditableProperty::PropertyType::PTInteger)
+		{
+			int d = ret.toInt();
+			ret = QString::number(d);
+		}
 	}
 	else if (index.column() == 2)
 	{

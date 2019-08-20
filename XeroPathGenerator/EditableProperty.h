@@ -10,6 +10,7 @@ public:
 		PTDouble,
 		PTString,
 		PTStringList,
+		PTInteger,
 	};
 
 public:

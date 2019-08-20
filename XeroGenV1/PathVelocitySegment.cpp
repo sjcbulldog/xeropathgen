@@ -17,10 +17,10 @@ PathVelocitySegment::~PathVelocitySegment()
 {
 }
 
-void PathVelocitySegment::createProfile(bool scurve, double maxacc, double startvel, double endvel)
+void PathVelocitySegment::createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel)
 {
 	if (scurve)
-		profile_ = std::make_shared<SCurveProfile>();
+		profile_ = std::make_shared<SCurveProfile>(maxjerk, -maxjerk, maxacc, -maxacc, velocity_);
 	else
 		profile_ = std::make_shared<TrapezoidalProfile>(maxacc, -maxacc, velocity_);
 

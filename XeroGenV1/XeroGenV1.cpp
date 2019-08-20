@@ -37,23 +37,23 @@ int main(int ac, char** av)
 		if (arg == "--diststep")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected floating point nubmer following --step argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --diststep argument" << std::endl;
 				return 1;
 			}
 
 			arg = *av;
 			try {
-				diststep = std::stoi(arg, &index);
+				diststep = std::stod(arg, &index);
 			}
 			catch (...)
 			{
-				std::cerr << "pathfinderV1: expected floating point nubmer following --step argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --diststep argument" << std::endl;
 				return 1;
 			}
 
 			if (index != arg.length())
 			{
-				std::cerr << "pathfinderV1: expected floating point nubmer following --step argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --diststep argument" << std::endl;
 				return 1;
 			}
 			ac--;
@@ -62,7 +62,7 @@ int main(int ac, char** av)
 		else if (arg == "--timestep")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected floating point nubmer following --timestep argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --timestep argument" << std::endl;
 				return 1;
 			}
 
@@ -72,13 +72,13 @@ int main(int ac, char** av)
 			}
 			catch (...)
 			{
-				std::cerr << "pathfinderV1: expected floating point nubmer following --timestep argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --timestep argument" << std::endl;
 				return 1;
 			}
 
 			if (index != arg.length())
 			{
-				std::cerr << "pathfinderV1: expected floating point nubmer following --timestep argument" << std::endl;
+				std::cerr << "XeroGenV1: expected floating point number following --timestep argument" << std::endl;
 				return 1;
 			}
 			ac--;
@@ -86,16 +86,28 @@ int main(int ac, char** av)
 		}
 		else if (arg == "--scurve")
 		{
-			scurve = true;
-		}
-		else if (arg == "--trapezoid")
-		{
-			scurve = false;
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected integer number following --scurve argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			if (arg == "true")
+				scurve = true;
+			else if (arg == "false")
+				scurve = false;
+			else
+			{
+				std::cerr << "XeroGenV1: expected 'true' or 'false' following --scurve argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
 		}
 		else if (arg == "--units")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected units type following --units argument" << std::endl;
+				std::cerr << "XeroGenV1: expected units type following --units argument" << std::endl;
 				return 1;
 			}
 			units = *av++;
@@ -104,7 +116,7 @@ int main(int ac, char** av)
 		else if (arg == "--pathfile")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected directory name following --pathfile argument" << std::endl;
+				std::cerr << "XeroGenV1: expected directory name following --pathfile argument" << std::endl;
 				return 1;
 			}
 			pathfile = *av++;
@@ -113,7 +125,7 @@ int main(int ac, char** av)
 		else if (arg == "--robotfile")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected directory name following --robotfile argument" << std::endl;
+				std::cerr << "XeroGenV1: expected directory name following --robotfile argument" << std::endl;
 				return 1;
 			}
 			robotfile = *av++;
@@ -122,7 +134,7 @@ int main(int ac, char** av)
 		else if (arg == "--outfile")
 		{
 			if (ac == 0) {
-				std::cerr << "pathfinderV1: expected directory name following --output argument" << std::endl;
+				std::cerr << "XeroGenV1: expected directory name following --output argument" << std::endl;
 				return 1;
 			}
 
@@ -131,33 +143,33 @@ int main(int ac, char** av)
 		}
 		else
 		{
-			std::cerr << "pathfinderV1: invalid command line argument '" << arg << "'" << std::endl;
+			std::cerr << "XeroGenV1: invalid command line argument '" << arg << "'" << std::endl;
 			return 1;
 		}
 	}
 
 	if (robotfile.length() == 0)
 	{
-		std::cerr << "pathfinderV1: no robot file specified" << std::endl;
+		std::cerr << "XeroGenV1: no robot file specified" << std::endl;
 		return 1;
 	}
 
 	if (pathfile.length() == 0)
 	{
-		std::cerr << "pathfinderV1: no path file specified" << std::endl;
+		std::cerr << "XeroGenV1: no path file specified" << std::endl;
 		return 1;
 	}
 
 	RobotParams robot("");
 	if (!JSONPathReader::readJSONRobotFile(robotfile, robot))
 	{
-		std::cerr << "pathfinderV1: error reading robot file '" << robotfile << "'" << std::endl;
+		std::cerr << "XeroGenV1: error reading robot file '" << robotfile << "'" << std::endl;
 		return 1;
 	}
 	robot.convert(units);
 
 	if (!JSONPathReader::readJSONPathFile(pathfile, robot, collection)) {
-		std::cerr << "pathfinderV1: error reading path file '" << pathfile << "'" << std::endl;
+		std::cerr << "XeroGenV1: error reading path file '" << pathfile << "'" << std::endl;
 		return 1;
 	}
 
@@ -176,7 +188,7 @@ void generateForGroup(const std::string& group)
 	auto gptr = collection.getGroupByName(group);
 	if (gptr == nullptr)
 	{
-		std::cerr << "pathfinderV1: warning: path group '" << group << "' does not exist" << std::endl;
+		std::cerr << "XeroGenV1: warning: path group '" << group << "' does not exist" << std::endl;
 		return;
 	}
 
@@ -192,7 +204,7 @@ void generateForPath(PathGroup& group, const std::string& path)
 	auto pptr = group.findPathByName(path);
 	if (pptr == nullptr)
 	{
-		std::cerr << "pathfinderV1: warning: path '" << path << "' does not exist in group '";
+		std::cerr << "XeroGenV1: warning: path '" << path << "' does not exist in group '";
 		std::cerr << group.getName() << "'" << std::endl;
 		return;
 	}

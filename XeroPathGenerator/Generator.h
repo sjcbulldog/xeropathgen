@@ -60,8 +60,9 @@ public:
 		return timestep_arg_;
 	}
 
-	void addGeneratorParam(const std::string &name, const std::string &desc, const std::string &type, const std::string &arg, QVariant def) {
+	GeneratorParameter &addGeneratorParam(const std::string &name, const std::string &desc, const std::string &type, const std::string &arg, QVariant def) {
 		params_.push_back(GeneratorParameter(name, desc, type, arg, def));
+		return params_.back();
 	}
 
 	const std::list<GeneratorParameter>& getGeneratorParams() const {

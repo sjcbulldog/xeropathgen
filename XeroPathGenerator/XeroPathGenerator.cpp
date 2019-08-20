@@ -1602,6 +1602,8 @@ void XeroPathGenerator::newGeneratorSelected(std::shared_ptr<Generator> generato
 
 void XeroPathGenerator::editGeneratorParameters()
 {
+	std::shared_ptr<EditableProperty> prop;
+
 	//
 	// Get the existing values
 	//
@@ -1620,7 +1622,23 @@ void XeroPathGenerator::editGeneratorParameters()
 		else
 			value = p.getDefault();
 
-		auto prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTDouble, value, p.getDescription().c_str());
+		if (p.getType() == GeneratorParameter::DoublePropType)
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTDouble, value, p.getDescription().c_str());
+		else if (p.getType() == GeneratorParameter::IntegerPropType)
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTInteger, value, p.getDescription().c_str());
+		else if (p.getType() == GeneratorParameter::StringPropType)
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTString, value, p.getDescription().c_str());
+		else if (p.getType() == GeneratorParameter::StringListPropType)
+		{
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTStringList, value, p.getDescription().c_str());
+			for (const std::string& choice : p.getChoices())
+				prop->addChoice(choice.c_str());
+		}
+		else
+		{
+			qDebug() << "Generator " << current_generator_->getName().c_str() << " has unknown property type '" << p.getType().c_str();
+		}
+
 		editor.getModel().addProperty(prop);
 	}
 	if (editor.exec() == QDialog::Rejected)
@@ -1634,6 +1652,8 @@ void XeroPathGenerator::editGeneratorParameters()
 
 	writeGeneratorParams(current_generator_->getName(), store);
 	path_engine_.setGeneratorStore(store);
+
+	allPathsDirty();
 }
 
 void XeroPathGenerator::newRobotSelected(std::shared_ptr<RobotParams> robot)

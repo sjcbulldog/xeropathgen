@@ -189,10 +189,51 @@ bool GeneratorManager::processParameter(QFile& file, QJsonObject& obj, std::shar
 	if (!getJSONStringValue(file, obj, paramsArgTag, arg))
 		return false;
 
-	if (!getJSONDoubleValue(file, obj, paramsDefaultTag, def))
-		return false;
+	QVariant defval;
+	if (obj.contains(paramsDefaultTag))
+	{
+		QJsonValue v = obj[paramsDefaultTag];
+		if (v.isDouble())
+		{
+			if (type == GeneratorParameter::DoublePropType)
+			{
+				defval = QVariant(v.toDouble());
+			}
+			else if (type == GeneratorParameter::IntegerPropType)
+			{
+				defval = QVariant(static_cast<int>(v.toDouble()));
+			}
+		}
+		else if (v.isString())
+		{
+			defval = QVariant(v.toString());
+		}
+	}
+	GeneratorParameter &param = gen->addGeneratorParam(name, desc, type, arg, defval);
 
-	gen->addGeneratorParam(name, desc, type, arg, QVariant(def));
+	if (obj.contains(paramsChoicesTag))
+	{
+		QJsonValue varr = obj[paramsChoicesTag];
+		if (!varr.isArray())
+		{
+			qDebug() << "File '" << file << "': reading parameter '" << name.c_str() << "' got 'choices' property but it was not an array of values";
+		}
+		else
+		{
+			QJsonArray arr = varr.toArray();
+			for (auto value : arr)
+			{
+				if (!value.isString())
+				{
+					qDebug() << "File '" << file << ": reading param" << name.c_str() << "' got 'choices' property but value in array was not string";
+				}
+				else
+				{
+					param.addChoice(value.toString().toStdString());
+				}
+			}
+		}
+	}
 
 	return true;
 }
