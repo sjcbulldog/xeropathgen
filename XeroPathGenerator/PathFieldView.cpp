@@ -561,7 +561,7 @@ void PathFieldView::drawSplines(QPainter& paint)
 
 void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair)
 {
-	float step = 1.0f / 3000.0f;
+	double step = 1.0f / 1000.0;
 	double px, py;
 
 	QColor c(0xF0, 0x80, 0x80, 0xFF);
@@ -581,16 +581,13 @@ void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair
 		py = loc.getY() + robot_->getWidth() * heading.getCos() / 2.0;
 
 		QPointF qp = worldToWindow(QPointF(px, py));
-		QRectF rect(qp.rx() - SplinePathDiameter / 2.0, qp.ry() - SplinePathDiameter / 2.0, SplinePathDiameter, SplinePathDiameter);
-
-		paint.drawEllipse(rect);
+		paint.drawPoint(qp);
 
 		px = loc.getX() + robot_->getWidth() * heading.getSin() / 2.0;
 		py = loc.getY() - robot_->getWidth() * heading.getCos() / 2.0;
 
 		qp = worldToWindow(QPointF(px, py));
-		rect = QRectF(qp.rx() - SplinePathDiameter / 2.0, qp.ry() - SplinePathDiameter / 2.0, SplinePathDiameter, SplinePathDiameter);
-		paint.drawEllipse(rect);
+		paint.drawPoint(qp);
 	}
 }
 
