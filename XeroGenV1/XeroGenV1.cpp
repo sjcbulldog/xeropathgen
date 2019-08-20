@@ -217,8 +217,15 @@ void generateForPath(PathGroup& group, const std::string& path)
 	std::shared_ptr<PathTrajectory> trajectory;
 
 	XeroGenV1PathGenerator gen(diststep, timestep, scurve);
-	trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
-		pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
+	try {
+		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
+			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
+	}
+	catch (const std::runtime_error& ex)
+	{
+		std::cerr << "ERROR: " << ex.what() << std::endl;
+		exit(99);
+	}
 
 	std::vector<std::string> headers =
 	{

@@ -64,7 +64,7 @@ Qt::ItemFlags PathParamTreeModel::flags(const QModelIndex& index) const
 			return 0;
 	}
 
-	if (index.column() == 0 || index.row() > read_write_rows_)
+	if (index.column() == 0 || index.row() >= read_write_rows_)
 		return Qt::ItemFlag::ItemIsSelectable | Qt::ItemFlag::ItemIsEnabled;
 
 	return Qt::ItemFlag::ItemIsEditable | Qt::ItemFlag::ItemIsSelectable | Qt::ItemFlag::ItemIsEnabled;

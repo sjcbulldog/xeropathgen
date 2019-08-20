@@ -77,6 +77,11 @@ namespace xero
 			std::vector<double> v_;
 			std::vector<double> p_;
 
+			double jerkmax_;
+			double jerkmin_;
+			double accmin_;
+			double accmax_;
+
 			double step_;
 		};
 	}

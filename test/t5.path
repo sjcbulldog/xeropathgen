@@ -9,9 +9,9 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
-                    "maxacceleration": 50,
-                    "maxjerk": 200,
-                    "maxvelocity": 150,
+                    "maxacceleration": 100,
+                    "maxjerk": 100,
+                    "maxvelocity": 100,
                     "name": "Staight",
                     "points": [
                         {
@@ -21,7 +21,7 @@
                         },
                         {
                             "heading": 0,
-                            "x": 700,
+                            "x": 1000,
                             "y": 160
                         }
                     ],

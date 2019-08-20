@@ -3,6 +3,8 @@
 #include <cmath>
 #include <cassert>
 #include <numeric>
+#include <stdexcept>
+#include <iostream>
 
 namespace xero
 {
@@ -14,12 +16,17 @@ namespace xero
 			assert(accmin < 0.0);
 
 			t_ = std::vector<double>{ 0.0, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan("") };
-			j_ = std::vector<double>{ jerkmax, jerkmax, 0, jerkmin, 0, jerkmin, jerkmax, jerkmax };
+			j_ = std::vector<double>{ jerkmax, 0.0, jerkmin, 0, jerkmin, 0, jerkmax, 0.0 };
 			a_ = std::vector<double>{ 0.0, accmax, accmax, 0.0, 0.0, accmin, accmin, 0.0 };
-			v_ = std::vector<double>{ std::nan(""), std::nan(""), std::nan(""), std::nan(""), velmax, std::nan(""), std::nan(""), std::nan("") };
+			v_ = std::vector<double>{ 0.0, std::nan(""), std::nan(""), std::nan(""), velmax, std::nan(""), std::nan(""), std::nan("") };
 			p_ = std::vector<double>{ 0.0, std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan(""), std::nan("") };
 
 			step_ = 0.01;
+
+			jerkmax_ = jerkmax;
+			jerkmin_ = jerkmin;
+			accmin_ = accmin;
+			accmax_ = accmax;
 		}
 
 		SCurveProfile::~SCurveProfile()
@@ -31,11 +38,23 @@ namespace xero
 			v_[0] = start_velocity;
 			v_[7] = end_velocity;
 
-			rampUp();
-			rampDown();
+			while (v_[4] > 0)
+			{
+				rampUp();
+				rampDown();
 
-			p_[4] = dist - p_[1] - p_[2] - p_[3] - p_[5] - p_[6] - p_[7];
-			t_[4] = p_[4] / v_[4];
+				p_[4] = dist - p_[1] - p_[2] - p_[3] - p_[5] - p_[6] - p_[7];
+				if (p_[4] >= 0)
+				{
+					t_[4] = p_[4] / v_[4];
+					break;
+				}
+
+				v_[4] -= 10;
+			}
+
+			if (v_[4] <= 0.0)
+				throw std::runtime_error("jerk plus acceleration settings do provide for solutions");
 
 			double timetotal = 0.0;
 			double disttotal = 0.0;
@@ -58,18 +77,22 @@ namespace xero
 			double dt;
 			double veldist = v_[4] - v_[0];
 
-			TrapezoidalProfile profile(j_[1], j_[3], a_[1]);
+			TrapezoidalProfile profile(jerkmax_, jerkmin_, accmax_);
 			profile.update(veldist, 0.0, 0.0);
 
 			t_[1] = profile.getTimeAccel();
 			t_[2] = profile.getTimeCruise() ;
 			t_[3] = profile.getTimeDecel() ;
 
+			double vpeak = profile.getActualMaxVelocity();
+			a_[1] = vpeak;
+			a_[2] = vpeak;
+
 			for (size_t n = 1; n <= 3; n++)
 			{
 				dt = t_[n];
-				v_[n] = v_[n-1] + a_[n-1] * dt + 1.0 / 2.0 * j_[n] * dt * dt;
-				p_[n] = v_[n-1] * dt + a_[n-1] * dt * dt / 2.0 + j_[n] * dt * dt * dt / 6.0  ;
+				v_[n] = v_[n-1] + a_[n-1] * dt + 1.0 / 2.0 * j_[n - 1] * dt * dt;
+				p_[n] = v_[n-1] * dt + a_[n-1] * dt * dt / 2.0 + j_[n - 1] * dt * dt * dt / 6.0  ;
 			}
 		}
 
@@ -78,18 +101,22 @@ namespace xero
 			double dt;
 			double veldist = -(v_[7] - v_[4]);
 
-			TrapezoidalProfile profile(-j_[5],- j_[7], -a_[5]);
+			TrapezoidalProfile profile(-jerkmin_,-jerkmax_, -accmin_);
 			profile.update(veldist, 0.0, 0.0);
 
 			t_[5] = profile.getTimeAccel();
 			t_[6] = profile.getTimeCruise();
 			t_[7] = profile.getTimeDecel();
 
+			double vpeak = profile.getActualMaxVelocity();
+			a_[5] = -vpeak;
+			a_[6] = -vpeak;
+
 			for (size_t n = 5; n <= 7; n++)
 			{
 				dt = t_[n];
-				v_[n] = v_[n - 1] + a_[n - 1] * dt + 1.0 / 2.0 * j_[n] * dt * dt;
-				p_[n] = v_[n - 1] * dt + a_[n - 1] * dt * dt / 2.0 + j_[n] * dt * dt * dt / 6.0 ;
+				v_[n] = v_[n - 1] + a_[n - 1] * dt + 1.0 / 2.0 * j_[n - 1] * dt * dt;
+				p_[n] = v_[n - 1] * dt + a_[n - 1] * dt * dt / 2.0 + j_[n - 1] * dt * dt * dt / 6.0 ;
 			}
 		}
 
