@@ -28,10 +28,10 @@ cp fields/* xeropathgen/fields
 cp generators/*.json xeropathgen/generators
 cp PathFinderV1Gen/PathFinderV1Gen xeropathgen/generators
 cp XeroGenV1/XeroGenV1 xeropathgen/generators
-cp ~Qt/5.13.0/gcc_64/Qt5Widgets.so.5.13.0 xeropathgen/bin
-cp ~Qt/5.13.0/gcc_64/Qt5Core.so.5.13.0 xeropathgen/bin
-cp ~Qt/5.13.0/gcc_64/Qt5Charts.so.5.13.0 xeropathgen/bin
-cp ~Qt/5.13.0/gcc_64/Qt5Gui.so.5.13.0 xeropathgen/bin
-cp ~Qt/5.13.0/gcc_64/Qt5Svg.so.5.13.0 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libQt5Widgets.so.5.13.0 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libQt5Core.so.5.13.0 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libQt5Charts.so.5.13.0 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libQt5Gui.so.5.13.0 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libQt5Svg.so.5.13.0 xeropathgen/bin
 
 tar cvf xeropath.tar xeropathgen
