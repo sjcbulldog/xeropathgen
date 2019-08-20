@@ -5,6 +5,7 @@ make
 popd
 
 pushd XeroPathGenerator
+qmake -makefile
 make
 popd
 
