@@ -21,6 +21,8 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	total_scroll_x_ = 0;
 	total_scroll_y_ = 0;
 	lineitem_ = nullptr;
+
+	connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
 }
 
 PathPlotView::~PathPlotView()
@@ -89,8 +91,16 @@ void PathPlotView::keyPressEvent(QKeyEvent* event)
 	}
 }
 
+void PathPlotView::plotAreaChanged(const QRectF& rect)
+{
+	setCursorTime(cursor_time_);
+}
+
 void PathPlotView::setCursorTime(double stime)
 {
+	if (time_axis_ == nullptr)
+		return;
+
 	cursor_time_ = stime;
 	QPointF pt = chart()->mapToPosition(QPointF(stime, 0.0));
 	QRectF rect = chart()->plotArea();
@@ -443,6 +453,8 @@ void PathPlotView::updateWithPath()
 	t = VarType::VTJerk;
 	getAxis(t)->setRange(getMin(t), getMax(t));
 	getAxis(t)->applyNiceNumbers();
+
+	setCursorTime(0.0);
 }
 
 void PathPlotView::setMinMax(VarType t, double minv, double maxv)

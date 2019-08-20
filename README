@@ -10,5 +10,13 @@ the xeropath.exe located here at the top most directory.
 The program can be installed on a linux machine by untarring the
 xeropath.tar in on disk and putting xeropathgen/bin in your path.
 
-Mac OS version is udnderway and will be in place soon.
+The Mac OS version is underway and will be ready soon.
+
+To build this program under windows, you need the cygwin tools and
+they must be stored at c:\cygwin64.  In addition the environment variable
+VCINSTALLDIR must point at the directory above the redist directory to
+find the microsoft redistributable components.  For instance, on my
+build machine this is
+
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC
 
