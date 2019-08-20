@@ -23,6 +23,8 @@ namespace xero {
 
 		MinMaxAcceleration DistanceVelocityConstraint::getMinMacAccel(const Pose2dWithTrajectory& state, double velocity)
 		{
+			(void)velocity;
+			(void)state;
 			return MinMaxAcceleration();
 		}
 	}

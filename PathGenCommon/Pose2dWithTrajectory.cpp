@@ -1,4 +1,5 @@
 #include "Pose2dWithTrajectory.h"
+#include <cmath>
 
 namespace xero {
 	namespace paths {
@@ -16,7 +17,7 @@ namespace xero {
 
 		double Pose2dWithTrajectory::getField(const std::string& field) const
 		{
-			double v;
+			double v = std::nan("");
 
 			if (field == "x")
 			{

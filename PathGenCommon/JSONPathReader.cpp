@@ -54,7 +54,6 @@ namespace xero
 		bool JSONPathReader::readJSONRobotFile(const std::string& filename, RobotParams& robot)
 		{
 			std::wstring data;
-			bool ret = true;
 
 			if (!readFile(filename, data))
 				return false;
@@ -546,15 +545,15 @@ namespace xero
 			JSONArray ptarr = path[RobotPath::PointsTagW]->AsArray();
 			for (size_t i = 0; i < ptarr.size(); i++)
 			{
-				JSONValue* v = ptarr[i];
-				if (!v->IsObject())
+				JSONValue* vt = ptarr[i];
+				if (!vt->IsObject())
 				{
 					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
 					std::cerr << "         element in points array is not an object" << std::endl;
 					return false;
 				}
 
-				JSONObject pt = v->AsObject();
+				JSONObject pt = vt->AsObject();
 				double x, y;
 				double heading;
 

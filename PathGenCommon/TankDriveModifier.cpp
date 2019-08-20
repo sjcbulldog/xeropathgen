@@ -28,11 +28,11 @@ namespace xero
 			std::vector<Pose2dWithTrajectory> leftpts;
 			std::vector<Pose2dWithTrajectory> rightpts;
 
-			double lvel, lacc, lpos, ljerk;
-			double rvel, racc, rpos, rjerk;
-			double plx, ply, prx, pry;
-			double plvel, prvel;
-			double placc, pracc;
+			double lvel = 0, lacc = 0, lpos = 0, ljerk = 0;
+			double rvel = 0, racc = 0, rpos = 0, rjerk = 0;
+			double plx = 0, ply = 0, prx = 0, pry = 0;
+			double plvel = 0, prvel = 0;
+			double placc = 0, pracc = 0;
 
 			for (size_t i = 0; i < main->size(); i++)
 			{

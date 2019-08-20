@@ -79,7 +79,6 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 	}
 
 	double total = 0.0;
-	double chkdist = 0.0;
 	for (size_t i = 0; i < segments.size(); i++)
 	{
 		double sv, ev;
@@ -132,20 +131,13 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 			profile = segments[sindex].profile();
 		}
 
-		double d = profile->getDistance(t - tstart) + dstart;
+		double dst = profile->getDistance(t - tstart) + dstart;
 		double vel = profile->getVelocity(t - tstart);
 		double acc = profile->getAccel(t - tstart);
 		double jerk = (acc - prevacc) / timestep_;
 
-		std::cout << "iter " << count;
-		std::cout << " time " << t;
-		std::cout << " tstart " << tstart;
-		std::cout << " dist " << d;
-		std::cout << " dstart " << dstart;
-		std::cout << std::endl;
-
 		Pose2d pt = distview[d];
-		Pose2dWithTrajectory trajpt(pt, t, d, vel, acc, jerk);
+		Pose2dWithTrajectory trajpt(pt, t, dst, vel, acc, jerk);
 		result.push_back(trajpt);
 
 		prevacc = acc;

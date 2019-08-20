@@ -19,6 +19,8 @@ namespace xero
 
 		bool SwerveDriveModifier::modify(const RobotParams& robot, std::shared_ptr<RobotPath> path, const std::string &units)
 		{
+			(void)units;
+
 			std::shared_ptr<PathTrajectory> main = path->getTrajectory(TrajectoryName::Main);
 			if (main == nullptr)
 				return false;

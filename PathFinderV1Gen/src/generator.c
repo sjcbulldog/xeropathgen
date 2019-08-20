@@ -32,8 +32,19 @@ int pathfinder_prepare(const Waypoint *path, int path_length, void (*fit)(Waypoi
         totalLength += dist;
     }
     
-    TrajectoryConfig config = {dt, max_velocity, max_acceleration, max_jerk, 0, path[0].angle,
-        totalLength, 0, path[0].angle, sample_count};
+	TrajectoryConfig config =
+	{
+			dt,
+			max_velocity,
+			max_acceleration,
+			max_jerk,
+			0,
+			path[0].angle,
+			totalLength,
+			0,
+			path[0].angle,
+			sample_count
+	};
     TrajectoryInfo info = pf_trajectory_prepare(config);
     int trajectory_length = info.length;
     
@@ -72,7 +83,6 @@ int pathfinder_generate_LabVIEW(Segment *segments)
 int pathfinder_generate(TrajectoryCandidate *c, Segment *segments) {
     int trajectory_length = c->length;
     int path_length = c->path_length;
-    double totalLength = c->totalLength;
     
     Spline *splines = (c->saptr);
     double *splineLengths = (c->laptr);

@@ -19,9 +19,9 @@ namespace xero {
                     //
                     // Swap the result, the biggest should always be first
                     //
-                    double tmp = result[0] ;
+                    double tmp2 = result[0] ;
                     result[0] = result[1] ;
-                    result[1] = tmp ;
+                    result[1] = tmp2 ;
                 }
             }
             return result ;
