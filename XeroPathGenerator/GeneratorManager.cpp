@@ -168,8 +168,8 @@ bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::
 			return false;
 		}
 
-		QJsonObject obj = av.toObject() ;
-		if (!processParameter(file, obj, gen))
+		QJsonObject obj2 = av.toObject() ;
+		if (!processParameter(file, obj2, gen))
 			return false;
 	}
 
@@ -181,7 +181,6 @@ bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::
 bool GeneratorManager::processParameter(QFile& file, QJsonObject& obj, std::shared_ptr<Generator> gen)
 {
 	std::string name, desc, type, arg;
-	double def;
 
 	if (!getJSONStringValue(file, obj, paramsNameTag, name))
 		return false;

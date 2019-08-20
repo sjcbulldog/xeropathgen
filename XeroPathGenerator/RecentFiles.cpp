@@ -24,9 +24,9 @@ void RecentFiles::removeRecentFile(XeroPathGenerator* app, QString file)
 		files_.erase(it);
 
 	menu_.clear();
-	for (auto& file : files_) {
-		QAction* action = menu_.addAction(file);
-		connect(action, &QAction::triggered, app, [app, file] { app->fileOpenWithName(file); });
+	for (auto& file2 : files_) {
+		QAction* action = menu_.addAction(file2);
+		connect(action, &QAction::triggered, app, [app, file2] { app->fileOpenWithName(file2); });
 	}
 }
 
@@ -44,9 +44,9 @@ void RecentFiles::addRecentFile(XeroPathGenerator *app, QString file, bool end)
 	adjustSize();
 
 	menu_.clear();
-	for (auto& file : files_) {
-		QAction* action = menu_.addAction(file);
-		connect(action, &QAction::triggered, app, [app, file] { app->fileOpenWithName(file); });
+	for (auto& file2 : files_) {
+		QAction* action = menu_.addAction(file2);
+		connect(action, &QAction::triggered, app, [app, file2] { app->fileOpenWithName(file2); });
 	}
 
 	if (!end)

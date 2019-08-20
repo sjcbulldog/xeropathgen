@@ -45,7 +45,7 @@ int ConstraintTreeModel::rowCount(const QModelIndex& parent) const
 	if (parent.isValid())
 		return 0;
 
-	return path_->getConstraints().size();
+	return static_cast<int>(path_->getConstraints().size());
 }
 
 int ConstraintTreeModel::columnCount(const QModelIndex& parent) const

@@ -13,7 +13,8 @@ namespace xero {
 			enum class DriveType : int
 			{
 				TankDrive,
-				SwerveDrive
+				SwerveDrive,
+				Invalid
 			};
 
 			static constexpr const char* NameTag = "name";

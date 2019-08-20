@@ -118,6 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)PathGenCommon;$(ProjectDir)include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4204</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,6 +168,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)PathGenCommon;$(ProjectDir)include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4204</DisableSpecificWarnings>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

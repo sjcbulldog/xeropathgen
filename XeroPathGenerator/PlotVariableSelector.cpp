@@ -6,14 +6,6 @@
 
 using namespace xero::paths;
 
-std::vector<PathPlotView::VarType> vtypes =
-{
-	PathPlotView::VarType::VTPosition,
-	PathPlotView::VarType::VTVelocity,
-	PathPlotView::VarType::VTAcceleration,
-	PathPlotView::VarType::VTJerk,
-};
-
 PlotVariableSelector::PlotVariableSelector(RobotParams::DriveType type, QList<QString> selected, QWidget *parent) : QDialog(parent)
 {
 	std::vector<PathPlotView::VarType> vtypes =

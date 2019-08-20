@@ -440,7 +440,7 @@ void PathFieldView::drawCursor(QPainter& paint)
 	paint.setPen(pen);
 
 	std::vector<QPointF> robotsel = worldToWindow(transformPoints(mm, robot));
-	paint.drawPolygon(&robotsel[0], robotsel.size());
+	paint.drawPolygon(&robotsel[0], static_cast<int>(robotsel.size()));
 }
 
 void PathFieldView::drawRobot(QPainter& paint)
@@ -538,13 +538,12 @@ void PathFieldView::drawOnePoint(QPainter& paint, const Pose2d& pt, bool selecte
 		paint.setPen(pen);
 
 		std::vector<QPointF> robotsel = worldToWindow(transformPoints(mm, robot));
-		paint.drawPolygon(&robotsel[0], robotsel.size());
+		paint.drawPolygon(&robotsel[0], static_cast<int>(robotsel.size()));
 
 		std::vector<QPointF> linesel = worldToWindow(transformPoints(mm, line));
 		paint.drawLine(linesel[0], linesel[1]);
 
-		QBrush brush(QColor(0xff, 0xff, 0x00, 0xff));
-		paint.setBrush(brush);
+		paint.setBrush(QBrush(QColor(0xff, 0xff, 0x00, 0xff)));
 		QPointF tip(0.0, rw * 3.0 / 4.0);
 		QPointF tipsel = worldToWindow(mm.map(tip));
 		QRectF circle(tipsel.rx() - CircleRadius, tipsel.ry() - CircleRadius, CircleRadius * 2.0, CircleRadius * 2.0);

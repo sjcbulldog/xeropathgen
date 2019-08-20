@@ -93,6 +93,7 @@ void PathPlotView::keyPressEvent(QKeyEvent* event)
 
 void PathPlotView::plotAreaChanged(const QRectF& rect)
 {
+	(void)rect;
 	setCursorTime(cursor_time_);
 }
 

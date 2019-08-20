@@ -17,13 +17,14 @@ namespace xero
 
 			static constexpr const char* TankDriveName = "Tank Drive";
 			static constexpr const char* SwerveDriveName = "Swerve Drive";
+			static constexpr const char* InvalidDriveName = "Invalid Drive";
 
 			static const std::vector<std::string> getTrajectories(RobotParams::DriveType type);
 
 
 			static RobotParams::DriveType nameToType(const std::string& name)
 			{
-				RobotParams::DriveType ret;
+				RobotParams::DriveType ret = RobotParams::DriveType::Invalid;
 
 				if (name == TankDriveName)
 					ret = RobotParams::DriveType::TankDrive;
@@ -48,6 +49,10 @@ namespace xero
 
 				case RobotParams::DriveType::SwerveDrive:
 					ret = SwerveDriveName;
+					break;
+
+				case RobotParams::DriveType::Invalid:
+					ret = InvalidDriveName;
 					break;
 
 				default:

@@ -761,8 +761,6 @@ void XeroPathGenerator::timerProc()
 					step_count_--;
 				}
 
-				auto path = path_view_->getPath();
-
 				play_action_->setDisabled(true);
 				forward_one_action_->setDisabled(true);
 				forward_ten_action_->setDisabled(true);
@@ -1349,9 +1347,9 @@ void XeroPathGenerator::generate()
 {
 	std::chrono::milliseconds delay(100);
 
-	size_t count = 0;
-	size_t total = paths_model_.getPathCollection().getPathCount() ;
-	size_t pending;
+	int count = 0;
+	auto total = static_cast<int>(paths_model_.getPathCollection().getPathCount()) ;
+	int pending;
 
 	prog_bar_->setVisible(true);
 	prog_bar_->setRange(0, total);
@@ -1361,7 +1359,7 @@ void XeroPathGenerator::generate()
 	status_text_->setText("Generating Paths");
 
 	do {
-		pending = path_engine_.waitingPaths();
+		pending = static_cast<int>(path_engine_.waitingPaths());
 		prog_bar_->setValue(total - pending);
 		std::this_thread::sleep_for(delay);
 	} while (pending > 0);
@@ -1524,8 +1522,8 @@ void XeroPathGenerator::toggleDebugLogging()
 	else
 	{
 		debug_action_->setChecked(true);
-		auto it = std::find(messages_.begin(), messages_.end(), QtMsgType::QtDebugMsg);
-		if (it == messages_.end())
+		auto it2 = std::find(messages_.begin(), messages_.end(), QtMsgType::QtDebugMsg);
+		if (it2 == messages_.end())
 			messages_.push_back(QtMsgType::QtDebugMsg);
 	}
 	if (write_messages_)
@@ -1543,8 +1541,8 @@ void XeroPathGenerator::toggleInfoLogging()
 	else
 	{
 		info_action_->setChecked(true);
-		auto it = std::find(messages_.begin(), messages_.end(), QtMsgType::QtInfoMsg);
-		if (it == messages_.end())
+		auto it2 = std::find(messages_.begin(), messages_.end(), QtMsgType::QtInfoMsg);
+		if (it2 == messages_.end())
 			messages_.push_back(QtMsgType::QtInfoMsg);
 	}
 	if (write_messages_)
@@ -1562,8 +1560,8 @@ void XeroPathGenerator::toggleWarningLogging()
 	else
 	{
 		warning_action_->setChecked(true);
-		auto it = std::find(messages_.begin(), messages_.end(), QtMsgType::QtWarningMsg);
-		if (it == messages_.end())
+		auto it2 = std::find(messages_.begin(), messages_.end(), QtMsgType::QtWarningMsg);
+		if (it2 == messages_.end())
 			messages_.push_back(QtMsgType::QtWarningMsg);
 	}
 	if (write_messages_)
@@ -1648,8 +1646,8 @@ void XeroPathGenerator::editGeneratorParameters()
 	//
 	// Now move the values from the property editor to the store
 	//
-	for (auto prop : editor.getModel().getProperties())
-		store[prop->getName()] = prop->getValue();
+	for (auto prop2 : editor.getModel().getProperties())
+		store[prop2->getName()] = prop2->getValue();
 
 	writeGeneratorParams(current_generator_->getName(), store);
 	path_engine_.setGeneratorStore(store);
@@ -1877,7 +1875,7 @@ void XeroPathGenerator::addPathGroupAction()
 {
 	std::string name = "New Group";
 	size_t index = 1;
-	size_t row = paths_model_.getGroupCount();
+	int row = static_cast<int>(paths_model_.getGroupCount());
 
 	while (paths_model_.containsPathGroup(name))
 	{

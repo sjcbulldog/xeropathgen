@@ -158,8 +158,8 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 			return false;
 		}
 
-		QJsonObject obj = groupval.toObject() ;
-		if (!readGroup(file, paths, obj))
+		QJsonObject obj2 = groupval.toObject() ;
+		if (!readGroup(file, paths, obj2))
 			return false;
 	}
 
@@ -197,8 +197,8 @@ bool PathCollectionIO::readGroup(QFile &file, PathCollection& paths, QJsonObject
 			qWarning() << "JSON file '" << file.fileName() << "', object in 'paths' array is not an object";
 			return false;
 		}
-		QJsonObject obj = val.toObject() ;
-		if (!readPath(file, paths, groupobj, obj))
+		QJsonObject obj2 = val.toObject() ;
+		if (!readPath(file, paths, groupobj, obj2))
 			return false;
 	}
 
@@ -265,16 +265,16 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	{
 		QString str;
 
-		QJsonValue v = obj[RobotPath::ConstraintsTag];
+		QJsonValue v2 = obj[RobotPath::ConstraintsTag];
 		if (v.isArray())
 		{
-			QJsonArray arr = v.toArray();
-			for (const QJsonValue& v : arr)
+			QJsonArray arr = v2.toArray();
+			for (const QJsonValue& v3 : arr)
 			{
-				if (!v.isObject())
+				if (!v3.isObject())
 					continue;
 
-				QJsonObject vo = v.toObject();
+				QJsonObject vo = v3.toObject();
 
 				if (!readString(file, vo, "constraint", RobotPath::TypeTag, str))
 					continue;

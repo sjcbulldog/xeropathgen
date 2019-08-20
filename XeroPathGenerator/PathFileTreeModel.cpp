@@ -89,8 +89,6 @@ QModelIndex PathFileTreeModel::index(int row, int col, const QModelIndex& parent
 
 		return createIndex(row, col, path.get());
 	}
-
-	return QModelIndex();
 }
 
 QModelIndex PathFileTreeModel::parent(const QModelIndex& index) const
@@ -103,8 +101,8 @@ QModelIndex PathFileTreeModel::parent(const QModelIndex& index) const
 	if (path != nullptr)
 	{
 		auto group = path->getParent();
-		size_t index = paths_.getIndexForGroup(group);
-		return createIndex(index, 0, group.get());
+		auto index2 = static_cast<int>(paths_.getIndexForGroup(group));
+		return createIndex(index2, 0, group.get());
 	}
 
 	return QModelIndex();
@@ -113,7 +111,7 @@ QModelIndex PathFileTreeModel::parent(const QModelIndex& index) const
 int PathFileTreeModel::rowCount(const QModelIndex& parent) const
 {
 	if (!parent.isValid())
-		return paths_.size();
+		return static_cast<int>(paths_.size());
 
 	PathBase* base = static_cast<PathBase*>(parent.internalPointer());
 	RobotPath* path = dynamic_cast<RobotPath*>(base);
@@ -122,7 +120,7 @@ int PathFileTreeModel::rowCount(const QModelIndex& parent) const
 
 	PathGroup* group = dynamic_cast<PathGroup*>(base);
 	if (group != nullptr)
-		return group->size();
+		return static_cast<int>(group->size());
 
 	return 0;
 }
@@ -194,7 +192,7 @@ std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup(const std::string& na
 {
 	QModelIndex root;
 
-	beginInsertRows(root, paths_.size(), paths_.size());
+	beginInsertRows(root, static_cast<int>(paths_.size()), static_cast<int>(paths_.size()));
 	auto group = paths_.addGroup(name);
 	endInsertRows();
 	dirty_ = true;
@@ -208,10 +206,10 @@ std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& gr
 	if (grobj == nullptr)
 		return nullptr ;
 
-	size_t row = paths_.getIndexForGroup(grobj);
+	auto row = static_cast<int>(paths_.getIndexForGroup(grobj));
 
 	QModelIndex parent = createIndex(row, 0, grobj.get());
-	beginInsertRows(parent, grobj->size(), grobj->size());
+	beginInsertRows(parent, static_cast<int>(grobj->size()), static_cast<int>(grobj->size()));
 	auto path = paths_.addPath(group, name);
 	path->addPoint(Pose2d(0.0, 0.0, Rotation2d::fromDegrees(0.0)));
 	path->addPoint(Pose2d(100.0, 0.0, Rotation2d::fromDegrees(0.0)));
