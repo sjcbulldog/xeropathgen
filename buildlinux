@@ -35,6 +35,10 @@ cp ~/Qt/5.13.0/gcc_64/lib/libQt5Charts.so.5.13.0 xeropathgen/bin
 cp ~/Qt/5.13.0/gcc_64/lib/libQt5Gui.so.5.13.0 xeropathgen/bin
 cp ~/Qt/5.13.0/gcc_64/lib/libQt5Svg.so.5.13.0 xeropathgen/bin
 
+cp ~/Qt/5.13.0/gcc_64/lib/libicui18n.so.56.1 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libicuuc.so.56.1 xeropathgen/bin
+cp ~/Qt/5.13.0/gcc_64/lib/libicudata.so.56.1 xeropathgen/bin
+
 pushd xeropathgen/bin
 ln -s libQt5Widgets.so.5.13.0 libQt5Widgets.so.5.13
 ln -s libQt5Widgets.so.5.13.0 libQt5Widgets.so.5
@@ -56,6 +60,16 @@ ln -s libQt5Svg.so.5.13.0 libQt5Svg.so.5.13
 ln -s libQt5Svg.so.5.13.0 libQt5Svg.so.5
 ln -s libQt5Svg.so.5.13.0 libQt5Svg.so
 
+ln -s libicui18n.so.56.1 libicui18n.so.56
+ln -s libicui18n.so.56.1 libicui18n.so
+
+ln -s libicuuc.so.56.1 libicuuc.so.56
+ln -s libicuuc.so.56.1 libicuuc.so
+
+ln -s libicudata.so.56.1 libicudata.so.56
+ln -s libicudata.so.56.1 libicudata.so
+
 popd
 
 tar cvf xeropath.tar xeropathgen
+bzip2 xeropath.tar
