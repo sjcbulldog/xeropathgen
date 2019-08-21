@@ -1803,6 +1803,17 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 		drivetype = DriveBaseData::nameToType(model.getProperty(RobotDialogDriveType)->getValue().toString().toStdString());
 		timestep = model.getProperty(RobotDialogTimeStep)->getValue().toDouble();
 
+		if (create && model.getProperty(RobotDialogName)->getValue().toString().length() == 0)
+		{
+			std::string msg("The robot name is empty, a robot name must be supplied.");
+			QMessageBox box(QMessageBox::Icon::Critical,
+				"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+			box.exec();
+
+			delete editor;
+			continue;
+		}
+
 		if (create && robot_mgr_.exists(model.getProperty(RobotDialogName)->getValue().toString().toStdString()))
 		{
 			std::string msg("A robot with the name'");

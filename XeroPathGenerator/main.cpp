@@ -44,6 +44,24 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext& context, const QS
 	log2stream << localMsg.constData() << std::endl;
 }
 
+static void pruneLogFiles(QDir &logdir)
+{
+	int count = 0;
+	QStringList paths;
+	QStringList list;
+	list << "*.log";
+	QFileInfoList files = logdir.entryInfoList(list, QDir::Filter::NoFilter, QDir::SortFlag::Time);
+	while (files.size() > 20)
+	{
+		QFile file(files.back().absoluteFilePath());
+		file.remove();
+		files.pop_back();
+		count++;
+	}
+
+	qDebug() << "Pruning old log files, " << count << "deleted";
+}
+
 static bool createLogFile()
 {
 	QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation);
@@ -52,7 +70,8 @@ static bool createLogFile()
 		return false;
 
 	dir += "/logs";
-	if (!QDir(dir).exists())
+	QDir logdir(dir);
+	if (!logdir.exists())
 	{
 		if (!QDir().mkpath(dir))
 			return false;
@@ -61,6 +80,10 @@ static bool createLogFile()
 	QDateTime now = QDateTime::currentDateTime();
 	QString log = dir + "/" + now.toString("dd_MM_yyyy_hh_mm_ss_zzz.'log'");
 	logfilestream.open(log.toStdString());
+
+
+	pruneLogFiles(logdir);
+
 	return true;
 }
 

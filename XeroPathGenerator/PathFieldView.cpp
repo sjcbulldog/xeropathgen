@@ -111,7 +111,7 @@ void PathFieldView::setDemoMode(bool b)
 
 QSize PathFieldView::minimumSizeHint() const
 {
-	return QSize(field_image_.size().width() / 2, field_image_.size().height() / 2);
+	return QSize(field_image_.size().width() / 4, field_image_.size().height() / 4);
 }
 
 QSize PathFieldView::sizeHint() const
