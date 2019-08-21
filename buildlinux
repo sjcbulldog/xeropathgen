@@ -72,4 +72,5 @@ ln -s libicudata.so.56.1 libicudata.so
 popd
 
 tar cvf xeropath.tar xeropathgen
+rm xeropath.tar.bz2
 bzip2 xeropath.tar
