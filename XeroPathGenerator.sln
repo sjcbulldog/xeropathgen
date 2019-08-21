@@ -15,12 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathFinderV1Gen", "PathFind
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PathGenCommon", "PathGenCommon\PathGenCommon.vcxproj", "{B4BAEF8D-0066-4126-B0E0-9380750E5276}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TODO", "TODO", "{8534A33F-6FD7-4828-B2CC-21AC6B96B9DB}"
-	ProjectSection(SolutionItems) = preProject
-		Bugs.txt = Bugs.txt
-		Features.txt = Features.txt
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Generators", "Generators", "{A1EBFD9D-A389-4733-90C4-B539538A8282}"
 	ProjectSection(SolutionItems) = preProject
 		generators\PathFinderV1.json = generators\PathFinderV1.json
