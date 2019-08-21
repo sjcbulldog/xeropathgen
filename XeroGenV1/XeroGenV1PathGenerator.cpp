@@ -114,7 +114,6 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 	double dstart = 0.0;
 	double prevacc = 0.0;
 	size_t count = 0;
-	double d = 0.0;
 
 	for (double t = 0; t <= total; t += timestep_)
 	{
@@ -136,7 +135,7 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		double acc = profile->getAccel(t - tstart);
 		double jerk = (acc - prevacc) / timestep_;
 
-		Pose2d pt = distview[d];
+		Pose2d pt = distview[dst];
 		Pose2dWithTrajectory trajpt(pt, t, dst, vel, acc, jerk);
 		result.push_back(trajpt);
 
