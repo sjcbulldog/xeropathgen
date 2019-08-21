@@ -87,6 +87,7 @@ private:
 	void fileClose();
 	void fileGenerate();
 	void fileGenerateAs();
+	void filePublish();
 	void generate();
 	void showFileMenu();
 
@@ -103,6 +104,7 @@ private:
 	// View menu
 	//
 	void viewPlotEdit();
+	void viewTrajectoryData();
 
 	//
 	// Generator menu related
@@ -284,6 +286,7 @@ private:
 	QAction* add_group_action_;
 	QMenu* view_;
 	QAction* view_plot_action_;
+	QAction* view_trajectory_data_;
 
 	QMenu* games_;
 	QActionGroup* games_group_;

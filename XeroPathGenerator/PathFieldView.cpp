@@ -301,6 +301,7 @@ void PathFieldView::insertWaypoint()
 	selected_++;
 
 	emitWaypointInserted();
+	emitWaypointSelected(selected_);
 	repaint(geometry());
 }
 

@@ -377,6 +377,9 @@ bool XeroPathGenerator::createMenus()
 	view_plot_action_ = view_->addAction(tr("Plot Variables ..."));
 	(void)connect(view_plot_action_, &QAction::triggered, this, &XeroPathGenerator::viewPlotEdit);
 
+	view_trajectory_data_ = view_->addAction(tr("Trajectory Data ..."));
+	(void)connect(view_trajectory_data_, &QAction::triggered, this, &XeroPathGenerator::viewTrajectoryData);
+
 	//
 	// Robot menu - gets filled in the populateRobotsMenu() method
 	//
@@ -1419,6 +1422,11 @@ void XeroPathGenerator::generate()
 	setCursor(Qt::ArrowCursor);
 }
 
+void XeroPathGenerator::filePublish()
+{
+	NetworkTableInstance 
+}
+
 void XeroPathGenerator::viewPlotEdit()
 {
 	if (current_robot_ == nullptr)
@@ -1433,6 +1441,12 @@ void XeroPathGenerator::viewPlotEdit()
 		plots_->setPath(current_path_);
 		savePlotVars();
 	}
+}
+
+void XeroPathGenerator::viewTrajectoryData()
+{
+	if (current_robot_ == nullptr || current_path_ == nullptr)
+		return;
 }
 
 void XeroPathGenerator::showEditMenu()
