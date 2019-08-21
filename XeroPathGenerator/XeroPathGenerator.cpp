@@ -31,6 +31,11 @@
 #include <QUrl>
 #include <cstdio>
 
+#pragma warning(push)
+#pragma warning(disable: 4100 4458)
+#include <networktables/NetworkTableInstance.h>
+#pragma warning(pop)
+
 using namespace xero::paths;
 using namespace QtCharts;
 
@@ -53,6 +58,9 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	assert(theOne == nullptr);
 	theOne = this;
 	write_messages_ = false;
+
+	auto inst = nt::NetworkTableInstance::GetDefault();
+	inst.StartClient();
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/icon.png";
@@ -1424,7 +1432,9 @@ void XeroPathGenerator::generate()
 
 void XeroPathGenerator::filePublish()
 {
-	NetworkTableInstance 
+	nt::NetworkTableInstance inst = nt::NetworkTableInstance::GetDefault();
+	auto pubtable = inst.GetTable("XeroPaths");
+	pubtable->PutString("PATH", "VALUE");
 }
 
 void XeroPathGenerator::viewPlotEdit()
