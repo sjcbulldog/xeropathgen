@@ -46,8 +46,6 @@ const char* XeroPathGenerator::RobotDialogTimeStep = "Time Step";
 
 XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 
-
-
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
 										std::ofstream& ostrm, std::stringstream& sstrm, QWidget* parent)
 	: QMainWindow(parent), fields_mgr_(fields), generators_mgr_(generators), robot_mgr_(robots), logstream_(ostrm), strstream_(sstrm)
@@ -142,6 +140,14 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		QList<int> sizes;
 		for (const QVariant& v : stored)
 			sizes.push_back(v.toInt());
+		m_left_top_bottom_->setSizes(sizes);
+	}
+
+	if (path_view_->height() < 20)
+	{
+		QList<int> sizes;
+		sizes << m_left_top_bottom_->height() / 2;
+		sizes << m_left_top_bottom_->height() / 2;
 		m_left_top_bottom_->setSizes(sizes);
 	}
 

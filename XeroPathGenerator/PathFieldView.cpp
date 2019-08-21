@@ -27,6 +27,7 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	dragging_ = false;
 	rotating_ = false;
 	model_ = nullptr;
+	cursor_ = true;
 }
 
 PathFieldView::~PathFieldView()
@@ -556,12 +557,12 @@ void PathFieldView::drawSplines(QPainter& paint)
 	auto splines = path_->getSplines();
 
 	for (size_t i = 0; i < splines.size(); i++)
-		drawSpline(paint, splines[i]);
+		drawSpline(paint, splines[i], 2.0 * path_->getDistance(i + 1));
 }
 
-void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair)
+void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair, double length)
 {
-	double step = 1.0f / 1000.0;
+	double step = 1.0 / length;
 	double px, py;
 
 	QColor c(0xF0, 0x80, 0x80, 0xFF);

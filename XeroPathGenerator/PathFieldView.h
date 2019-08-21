@@ -123,7 +123,7 @@ private:
 	void drawPoints(QPainter& paint);
 	void drawOnePoint(QPainter& paint, const xero::paths::Pose2d& pt, bool selected);
 	void drawSplines(QPainter &paint);
-	void drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair);
+	void drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair, double length);
 	void drawRobot(QPainter& paint);
 	void drawCursor(QPainter& paint);
 	bool hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRegion& region);
