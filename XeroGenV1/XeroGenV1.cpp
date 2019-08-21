@@ -238,5 +238,12 @@ void generateForPath(PathGroup& group, const std::string& path)
 		RobotPath::JerkTag,
 		RobotPath::HeadingTag
 	};
-	CSVWriter::write<PathTrajectory::const_iterator>(outfile, headers, trajectory->begin(), trajectory->end());
+
+	std::ofstream strm(outfile);
+	if (!strm.is_open())
+	{
+		std::cerr << "XeroGenV1: could not open file '" << outfile << "' for writing." << std::endl;
+		return;
+	}
+	CSVWriter::write<PathTrajectory::const_iterator>(strm, headers, trajectory->begin(), trajectory->end());
 }

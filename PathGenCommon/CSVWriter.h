@@ -16,15 +16,8 @@ namespace xero
 			~CSVWriter() = delete;
 
 			template<class InputIt>
-			static bool write(const std::string& filename, std::vector<std::string> &headers, InputIt first, InputIt last)
+			static bool write(std::ostream &strm, std::vector<std::string> &headers, InputIt first, InputIt last)
 			{
-				std::ofstream strm(filename);
-				if (!strm.is_open())
-				{
-					std::cerr << "CSVWriter: could not open file '" << filename << "' for writing" << std::endl;
-					return false;
-				}
-
 				for (size_t i = 0; i < headers.size(); i++)
 				{
 					strm << '"' << headers[i] << '"';

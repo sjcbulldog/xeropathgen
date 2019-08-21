@@ -89,6 +89,7 @@ private:
 	void fileGenerateAs();
 	void filePublish();
 	void generate();
+	void generateOnePath(std::shared_ptr<xero::paths::RobotPath> path, const std::string& trajname, std::ostream& outfile);
 	void showFileMenu();
 
 	//
@@ -277,6 +278,7 @@ private:
 	//
 	QMenu* file_;
 	QAction* file_save_;
+	QAction* file_publish_;
 	QMenu* recent_menu_;
 	QMenu* edit_;
 	QAction* insert_waypoint_action_;

@@ -3,7 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QFile>
+#include <iostream>
 #include <vector>
 
 namespace xero
@@ -17,12 +17,8 @@ namespace xero
 			~JSONWriter() = delete;
 
 			template<class InputIt>
-			static bool write(const std::string& filename, std::vector<std::string>& headers, InputIt first, InputIt last)
+			static bool write(std::ostream &strm, std::vector<std::string>& headers, InputIt first, InputIt last)
 			{
-				QFile file(filename.c_str());
-				if (!file.open(QIODevice::WriteOnly))
-					return false;
-
 				QJsonArray trajectory;
 				QJsonObject pt;
 				for (auto it = first; it != last; it++)
@@ -38,8 +34,7 @@ namespace xero
 				}
 				QJsonDocument doc;
 				doc.setArray(trajectory);
-				file.write(doc.toJson());
-				file.close();
+				strm << doc.toJson().toStdString();
 
 				return true;
 			}

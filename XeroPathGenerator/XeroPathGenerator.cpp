@@ -345,6 +345,9 @@ bool XeroPathGenerator::createMenus()
 	action = file_->addAction(tr("Generate Paths"));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::fileGenerate);
 	file_->addSeparator();
+	file_publish_ = file_->addAction(tr("Publish path"));
+	(void)connect(file_publish_, &QAction::triggered, this, &XeroPathGenerator::filePublish);
+	file_->addSeparator();
 	recent_menu_ = file_->addMenu("Recent Files");
 
 	//
@@ -1165,6 +1168,11 @@ void XeroPathGenerator::showFileMenu()
 		file_save_->setEnabled(true);
 	else
 		file_save_->setEnabled(false);
+
+	if (paths_->isPathSelected())
+		file_publish_->setEnabled(true);
+	else
+		file_publish_->setEnabled(false);
 }
 
 void XeroPathGenerator::fileNew()
@@ -1360,6 +1368,31 @@ void XeroPathGenerator::fileGenerateAs()
 	generate();
 }
 
+void XeroPathGenerator::generateOnePath(std::shared_ptr<RobotPath> path, const std::string &trajname, std::ostream& outfile)
+{
+	std::vector<std::string> headers =
+	{
+		RobotPath::TimeTag,
+		RobotPath::XTag,
+		RobotPath::YTag,
+		RobotPath::PositionTag,
+		RobotPath::VelocityTag,
+		RobotPath::AccelerationTag,
+		RobotPath::JerkTag,
+		RobotPath::HeadingTag
+	};
+
+	auto t = path->getTrajectory(trajname);
+	if (output_type_ == OutputType::OutputCSV)
+	{
+		CSVWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
+	}
+	else
+	{
+		JSONWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
+	}
+}
+
 void XeroPathGenerator::generate()
 {
 	std::chrono::milliseconds delay(100);
@@ -1381,17 +1414,7 @@ void XeroPathGenerator::generate()
 		std::this_thread::sleep_for(delay);
 	} while (pending > 0);
 
-	std::vector<std::string> headers =
-	{
-		RobotPath::TimeTag,
-		RobotPath::XTag,
-		RobotPath::YTag,
-		RobotPath::PositionTag,
-		RobotPath::VelocityTag,
-		RobotPath::AccelerationTag,
-		RobotPath::JerkTag,
-		RobotPath::HeadingTag
-	};
+
 	status_text_->setText("Writing Paths");
 	count = 0;
 	std::list<std::shared_ptr<RobotPath>> pathlist;
@@ -1412,15 +1435,14 @@ void XeroPathGenerator::generate()
 			if (output_type_ == OutputType::OutputCSV)
 			{
 				outfile = last_path_dir_ + "/" + path->getParent()->getName() + "_" + path->getName() + "_" + trajname + ".csv";
-				auto t = path->getTrajectory(trajname);
-				CSVWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
 			}
 			else
 			{
 				outfile = last_path_dir_ + "/"  + path->getParent()->getName() + "_" + path->getName() + "_" + trajname + ".json";
-				auto t = path->getTrajectory(trajname);
-				JSONWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
 			}
+
+			std::ofstream outstrm(outfile);
+			generateOnePath(path, trajname, outstrm);
 		}
 		count++;
 	}
@@ -1435,6 +1457,28 @@ void XeroPathGenerator::filePublish()
 	nt::NetworkTableInstance inst = nt::NetworkTableInstance::GetDefault();
 	auto pubtable = inst.GetTable("XeroPaths");
 	pubtable->PutString("PATH", "VALUE");
+
+	auto path = paths_->getSelectedPath();
+	if (path == nullptr)
+	{
+		std::string msg("There is no path selected, path not published to robot.");
+		QMessageBox box(QMessageBox::Icon::Warning,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		box.exec();
+	}
+	else
+	{
+		const std::vector<std::string>& trajnames = DriveBaseData::getTrajectories(current_robot_->getDriveType());
+
+		for (const std::string& trajname : trajnames)
+		{
+			std::string name = path->getParent()->getName() + "_" + path->getName() + "_" + trajname;
+			std::stringstream sstrm;
+
+			generateOnePath(path, TrajectoryName::Left, sstrm);
+			pubtable->PutString(name, sstrm.str());
+		}
+	}
 }
 
 void XeroPathGenerator::viewPlotEdit()
