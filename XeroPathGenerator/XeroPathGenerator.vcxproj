@@ -84,7 +84,7 @@
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe</Command>
+      <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe &amp; copy $(SolutionDir)external\wpi\bin\$(Configuration)\*.dll $(OutDir)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>c:\cygwin64\bin\bash incver.sh</Command>
@@ -129,7 +129,7 @@
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe</Command>
+      <Command>copy $(ProjectDir)*.png $(OutDir) &amp; copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir) &amp; windeployqt $(OutDir)$(ProjectName).exe &amp; copy $(SolutionDir)external\wpi\bin\$(Configuration)\*.dll $(OutDir)</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>c:\cygwin64\bin\bash incver.sh</Command>

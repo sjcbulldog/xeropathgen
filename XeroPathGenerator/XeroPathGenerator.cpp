@@ -49,6 +49,10 @@ const char* XeroPathGenerator::RobotDialogUnits = "Units";
 const char* XeroPathGenerator::RobotDialogDriveType = "Drive Type";
 const char* XeroPathGenerator::RobotDialogTimeStep = "Time Step";
 
+const char* XeroPathGenerator::PrefDialogUnits = "Units";
+const char* XeroPathGenerator::PrefDialogOutputFormat = "Output Format";
+const char* XeroPathGenerator::PrefDialogNTServer = "NT Server Addr";
+
 XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
@@ -59,8 +63,7 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	theOne = this;
 	write_messages_ = false;
 
-	auto inst = nt::NetworkTableInstance::GetDefault();
-	inst.StartClient();
+
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/icon.png";
@@ -190,6 +193,19 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		else
 			output_type_ = OutputType::OutputCSV;
 	}
+
+	if (settings_.contains(NTServerIPAddress))
+	{
+		ntserver_ = settings_.value(NTServerIPAddress).toString().toStdString();
+	}
+
+	if (ntserver_.length() == 0)
+	{
+		ntserver_ = "127.0.0.1";
+	}
+
+	auto inst = nt::NetworkTableInstance::GetDefault();
+	inst.StartClient(ntserver_.c_str());
 
 	(void)connect(path_view_, &PathFieldView::mouseMoved, this, &XeroPathGenerator::pathWindowMouseMoved);
 
@@ -2000,7 +2016,7 @@ void XeroPathGenerator::editPreferences()
 	PropertyEditor dialog;
 	std::shared_ptr<EditableProperty> prop;
 
-	prop = std::make_shared<EditableProperty>(RobotDialogUnits, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(PrefDialogUnits, EditableProperty::PTStringList,
 		QVariant(units_.c_str()), "The units of measurement for the robot, can differ from the paths");
 	auto list = UnitConverter::getAllUnits();
 	for (auto& unit : list)
@@ -2011,19 +2027,30 @@ void XeroPathGenerator::editPreferences()
 	if (output_type_ == OutputType::OutputCSV)
 		value = CSVOutputType;
 
-	prop = std::make_shared<EditableProperty>("Output Format", EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(PrefDialogOutputFormat, EditableProperty::PTStringList,
 		QVariant(value), "The format for trajectory output");
 	prop->addChoice(JsonOutputType);
 	prop->addChoice(CSVOutputType);
 	dialog.getModel().addProperty(prop);
 
+	prop = std::make_shared<EditableProperty>(PrefDialogNTServer, EditableProperty::PTString,
+		QVariant(ntserver_.c_str()), "The IP address of the Network Table server");
+	dialog.getModel().addProperty(prop);
+
 	if (dialog.exec() == QDialog::Rejected)
 		return;
 
-	std::string units = dialog.getModel().getProperty(RobotDialogUnits)->getValue().toString().toStdString();
+	std::string units = dialog.getModel().getProperty(PrefDialogUnits)->getValue().toString().toStdString();
 	setUnits(units);
 
-	value = dialog.getModel().getProperty("Output Format")->getValue().toString();
+	ntserver_ = dialog.getModel().getProperty(PrefDialogNTServer)->getValue().toString().toStdString();
+	auto inst = nt::NetworkTableInstance::GetDefault();
+	inst.StopClient();
+	inst.StartClient(ntserver_.c_str());
+	settings_.setValue(NTServerIPAddress, ntserver_.c_str());
+
+
+	value = dialog.getModel().getProperty(PrefDialogOutputFormat)->getValue().toString();
 	if (value == JsonOutputType)
 	{
 		output_type_ = OutputType::OutputJSON;

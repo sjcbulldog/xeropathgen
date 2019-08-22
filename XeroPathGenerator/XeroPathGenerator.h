@@ -168,6 +168,7 @@ private:
 	static constexpr const char* UnitsSetting = "units";
 	static constexpr const char* LastPathDirSetting = "lastpathdir";
 	static constexpr const char* OutputTypeSetting = "outputtype";
+	static constexpr const char* NTServerIPAddress = "ntserver";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 
@@ -180,6 +181,10 @@ private:
 	static const char* RobotDialogUnits ;
 	static const char* RobotDialogDriveType ;
 	static const char* RobotDialogTimeStep ;
+
+	static const char* PrefDialogUnits;
+	static const char* PrefDialogOutputFormat;
+	static const char* PrefDialogNTServer;
 
 private:
 	enum OutputType
@@ -370,4 +375,6 @@ private:
 	std::thread::id gui_thread_;
 	std::mutex log_messages_lock_;
 	QList<QString> log_messages_;
+
+	std::string ntserver_;
 };

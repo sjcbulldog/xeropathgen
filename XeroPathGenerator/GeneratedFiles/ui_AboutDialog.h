@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'AboutDialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.2
+** Created by: Qt User Interface Compiler version 5.13.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -69,9 +69,9 @@ public:
 
     void retranslateUi(QDialog *AboutDialog)
     {
-        AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About XeroPathGenerator", nullptr));
+        AboutDialog->setWindowTitle(QCoreApplication::translate("AboutDialog", "About XeroPathGenerator", nullptr));
         image_->setText(QString());
-        text_->setDocumentTitle(QApplication::translate("AboutDialog", "About ", nullptr));
+        text_->setDocumentTitle(QCoreApplication::translate("AboutDialog", "About ", nullptr));
     } // retranslateUi
 
 };

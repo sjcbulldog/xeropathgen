@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'SelectRobotDialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.2
+** Created by: Qt User Interface Compiler version 5.13.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -53,7 +53,7 @@ public:
 
     void retranslateUi(QDialog *SelectRobotDialog)
     {
-        SelectRobotDialog->setWindowTitle(QApplication::translate("SelectRobotDialog", "SelectRobotDialog", nullptr));
+        SelectRobotDialog->setWindowTitle(QCoreApplication::translate("SelectRobotDialog", "SelectRobotDialog", nullptr));
     } // retranslateUi
 
 };
