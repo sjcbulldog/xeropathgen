@@ -50,11 +50,11 @@ namespace xero
 					break;
 				}
 
-				v_[4] -= 10;
+				v_[4] -= 1;
 			}
 
 			if (v_[4] <= 0.0)
-				throw std::runtime_error("jerk plus acceleration settings do provide for solutions");
+				throw std::runtime_error("jerk plus acceleration settings do not provide for solutions");
 
 			double timetotal = 0.0;
 			double disttotal = 0.0;
