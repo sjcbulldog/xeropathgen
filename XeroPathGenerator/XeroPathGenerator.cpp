@@ -52,6 +52,7 @@ const char* XeroPathGenerator::RobotDialogTimeStep = "Time Step";
 const char* XeroPathGenerator::PrefDialogUnits = "Units";
 const char* XeroPathGenerator::PrefDialogOutputFormat = "Output Format";
 const char* XeroPathGenerator::PrefDialogNTServer = "NT Server Addr";
+const char* XeroPathGenerator::PrefDialogNTTableName = "NT Table Name";
 
 XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 
@@ -202,6 +203,15 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	if (ntserver_.length() == 0)
 	{
 		ntserver_ = "127.0.0.1";
+	}
+
+	if (settings_.contains(NTServerTableName))
+	{
+		nttable_name_ = settings_.value(NTServerTableName).toString().toStdString();
+	}
+	else
+	{
+		nttable_name_ = "XeroPaths";
 	}
 
 	auto inst = nt::NetworkTableInstance::GetDefault();
@@ -1472,10 +1482,6 @@ void XeroPathGenerator::generate()
 
 void XeroPathGenerator::filePublish()
 {
-	nt::NetworkTableInstance inst = nt::NetworkTableInstance::GetDefault();
-	auto pubtable = inst.GetTable("XeroPaths");
-	pubtable->PutString("PATH", "VALUE");
-
 	auto path = paths_->getSelectedPath();
 	if (path == nullptr)
 	{
@@ -1486,6 +1492,9 @@ void XeroPathGenerator::filePublish()
 	}
 	else
 	{
+		nt::NetworkTableInstance inst = nt::NetworkTableInstance::GetDefault();
+		auto pubtable = inst.GetTable(nttable_name_.c_str());
+
 		const std::vector<std::string>& trajnames = DriveBaseData::getTrajectories(current_robot_->getDriveType());
 
 		for (const std::string& trajname : trajnames)
@@ -2047,6 +2056,10 @@ void XeroPathGenerator::editPreferences()
 		QVariant(ntserver_.c_str()), "The IP address of the Network Table server");
 	dialog.getModel().addProperty(prop);
 
+	prop = std::make_shared<EditableProperty>(PrefDialogNTTableName, EditableProperty::PTString,
+		QVariant(nttable_name_.c_str()), "The name of the network table for path publishing");
+	dialog.getModel().addProperty(prop);
+
 	if (dialog.exec() == QDialog::Rejected)
 		return;
 
@@ -2058,6 +2071,8 @@ void XeroPathGenerator::editPreferences()
 	inst.StopClient();
 	inst.StartClient(ntserver_.c_str());
 	settings_.setValue(NTServerIPAddress, ntserver_.c_str());
+
+	nttable_name_ = dialog.getModel().getProperty(PrefDialogNTTableName)->getValue().toString().toStdString();
 
 
 	value = dialog.getModel().getProperty(PrefDialogOutputFormat)->getValue().toString();

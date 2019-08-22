@@ -170,6 +170,7 @@ private:
 	static constexpr const char* LastPathDirSetting = "lastpathdir";
 	static constexpr const char* OutputTypeSetting = "outputtype";
 	static constexpr const char* NTServerIPAddress = "ntserver";
+	static constexpr const char* NTServerTableName = "tablename";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 
@@ -186,6 +187,7 @@ private:
 	static const char* PrefDialogUnits;
 	static const char* PrefDialogOutputFormat;
 	static const char* PrefDialogNTServer;
+	static const char* PrefDialogNTTableName;
 
 private:
 	enum OutputType
@@ -380,4 +382,5 @@ private:
 	QList<QString> log_messages_;
 
 	std::string ntserver_;
+	std::string nttable_name_;
 };
