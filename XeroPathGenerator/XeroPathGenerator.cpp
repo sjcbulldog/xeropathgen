@@ -1222,6 +1222,7 @@ void XeroPathGenerator::fileOpen()
 		return;
 
 	fileOpenWithName(filename);
+
 }
 
 void XeroPathGenerator::fileOpenWithName(QString filename)
@@ -1259,7 +1260,7 @@ void XeroPathGenerator::fileOpenWithName(QString filename)
 	recents_->addRecentFile(this, filename);
 	paths_model_.reset();
 	setFileName(filename);
-
+	setPath(nullptr);
 	allPathsDirty();
 }
 
@@ -1523,7 +1524,7 @@ void XeroPathGenerator::viewTrajectoryData()
 		traj_window_ = new TrajectoryViewWindow();
 
 	if (current_path_->hasTrajectory(TrajectoryName::Main))
-		traj_window_->setTrajectory(current_path_->getTrajectory(TrajectoryName::Main));
+		traj_window_->setPath(current_path_);
 
 	traj_window_->show();
 }

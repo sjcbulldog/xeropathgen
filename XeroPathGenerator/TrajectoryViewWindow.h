@@ -1,9 +1,10 @@
 #pragma once
 
-#include "PathTrajectory.h"
+#include "RobotPath.h"
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QTableWidget>
+#include <QComboBox>
 
 class TrajectoryViewWindow : public QDialog
 {
@@ -13,10 +14,14 @@ public:
 	TrajectoryViewWindow(QWidget *parent = Q_NULLPTR);
 	~TrajectoryViewWindow();
 
-	void setTrajectory(std::shared_ptr<xero::paths::PathTrajectory> traj);
+	void setPath(std::shared_ptr<xero::paths::RobotPath> path);
+
+private:
+	void updateTrajectory(const QString &text);
 
 private:
 	QVBoxLayout* layout_;
+	QComboBox* box_;
 	QTableWidget* table_;
-	std::shared_ptr<xero::paths::PathTrajectory> traj_;
+	std::shared_ptr<xero::paths::RobotPath> path_;
 };
