@@ -14,7 +14,7 @@ namespace xero
 			static constexpr double kEpsilon = 1e-5;
 
 		public:
-			SCurveProfile(double jerkmax, double jerkmin, double accmax, double accmin, double velmax);
+			SCurveProfile(double jerkmax, double jerkmin, double accmax, double accmin, double velmax, double velmin, double thresh = 5.0);
 
 			virtual ~SCurveProfile();
 
@@ -69,6 +69,7 @@ namespace xero
 			void rampUp();
 			void rampDown();
 			size_t findRegion(double t) const ;
+			bool tryOne(double dist, double maxv);
 
 		private:
 			std::vector<double> j_;
@@ -81,6 +82,8 @@ namespace xero
 			double jerkmin_;
 			double accmin_;
 			double accmax_;
+			double velmin_;
+			double thresh_;
 
 			double step_;
 		};

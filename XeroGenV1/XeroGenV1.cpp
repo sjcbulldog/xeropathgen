@@ -7,6 +7,10 @@
 
 using namespace xero::paths;
 
+static constexpr double kMaxDX = 2.0; //inches
+static constexpr double kMaxDY = 0.05; //inches
+static constexpr double kMaxDTheta = 0.1; //radians!
+
 std::string pathfile;
 std::string robotfile;
 std::string outfile;
@@ -15,6 +19,11 @@ double timestep = 0.02;
 double diststep = 1.0;
 xero::paths::PathCollection collection;
 bool scurve = true;
+double maxdx = kMaxDX;
+double maxdy = kMaxDY;
+double maxtheta = kMaxDTheta;
+double velmin = 10.0;
+double deltav = 5.0;
 
 extern void generateForGroup(const std::string& group);
 extern void generateForPath(PathGroup& group, const std::string& path);
@@ -79,6 +88,131 @@ int main(int ac, char** av)
 			if (index != arg.length())
 			{
 				std::cerr << "XeroGenV1: expected floating point number following --timestep argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
+		}
+		else if (arg == "--maxdx")
+		{
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected floating point number following --maxdx argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			try {
+				maxdx = std::stod(arg, &index);
+			}
+			catch (...)
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxdx argument" << std::endl;
+				return 1;
+			}
+
+			if (index != arg.length())
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxdx argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
+		}
+		else if (arg == "--maxdy")
+		{
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected floating point number following --maxdy argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			try {
+				maxdy = std::stod(arg, &index);
+			}
+			catch (...)
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxdy argument" << std::endl;
+				return 1;
+			}
+
+			if (index != arg.length())
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxdy argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
+		}
+		else if (arg == "--maxtheta")
+		{
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected floating point number following --maxtheta argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			try {
+				maxtheta = std::stod(arg, &index);
+			}
+			catch (...)
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxtheta argument" << std::endl;
+				return 1;
+			}
+
+			if (index != arg.length())
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --maxtheta argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
+		}
+		else if (arg == "--minvel")
+		{
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			try {
+				velmin = std::stod(arg, &index);
+			}
+			catch (...)
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
+				return 1;
+			}
+
+			if (index != arg.length())
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
+				return 1;
+			}
+			ac--;
+			av++;
+		}
+		else if (arg == "--delvel")
+		{
+			if (ac == 0) {
+				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
+				return 1;
+			}
+
+			arg = *av;
+			try {
+				deltav = std::stod(arg, &index);
+			}
+			catch (...)
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
+				return 1;
+			}
+
+			if (index != arg.length())
+			{
+				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
 				return 1;
 			}
 			ac--;
@@ -216,7 +350,7 @@ void generateForPath(PathGroup& group, const std::string& path)
 	//
 	std::shared_ptr<PathTrajectory> trajectory;
 
-	XeroGenV1PathGenerator gen(diststep, timestep, scurve);
+	XeroGenV1PathGenerator gen(diststep, timestep, scurve, maxdx, maxdy, maxtheta, deltav, velmin);
 	try {
 		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
 			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());

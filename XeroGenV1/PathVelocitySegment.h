@@ -6,7 +6,7 @@
 class PathVelocitySegment
 {
 public:
-	PathVelocitySegment(double start, double length, double vel);
+	PathVelocitySegment(double start, double length, double vel, double velmin = 10.0);
 	virtual ~PathVelocitySegment();
 
 	double time() const { return profile_->getTotalTime(); }
@@ -18,6 +18,7 @@ public:
 	double end() const { return start_dist_ + length_; }
 	void setEnd(double v) { length_ = v - start_dist_; }
 	double velocity() const { return velocity_; }
+	void setVelocity(double v) { velocity_ = v; }
 
 	bool startsSame(const PathVelocitySegment& seg);
 	bool endsSame(const PathVelocitySegment& seg);
@@ -25,7 +26,7 @@ public:
 	bool overlaps(const PathVelocitySegment&);
 	bool contains(const PathVelocitySegment&);
 
-	void createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel);
+	bool createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel);
 
 	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile() { return profile_; }
 
@@ -36,6 +37,7 @@ private:
 	double start_dist_;
 	double length_;
 	double velocity_;
+	double velmin_;
 	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile_;
 };
 

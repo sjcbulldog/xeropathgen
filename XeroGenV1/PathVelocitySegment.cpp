@@ -6,27 +6,39 @@
 
 using namespace xero::paths;
 
-PathVelocitySegment::PathVelocitySegment(double start, double length, double vel)
+PathVelocitySegment::PathVelocitySegment(double start, double length, double vel, double velmin)
 {
 	start_dist_ = start;
 	length_ = length;
 	velocity_ = vel;
+	velmin_ = velmin;
 }
 
 PathVelocitySegment::~PathVelocitySegment()
 {
 }
 
-void PathVelocitySegment::createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel)
+bool PathVelocitySegment::createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel)
 {
+	bool ret = true;
+
 	if (scurve)
-		profile_ = std::make_shared<SCurveProfile>(maxjerk, -maxjerk, maxacc, -maxacc, velocity_);
+	{
+		profile_ = std::make_shared<SCurveProfile>(maxjerk, -maxjerk, maxacc, -maxacc, velocity_, velmin_);
+	}
 	else
 		profile_ = std::make_shared<TrapezoidalProfile>(maxacc, -maxacc, velocity_);
 
-	profile_->update(length_, startvel, endvel);
+	try {
+		profile_->update(length_, startvel, endvel);
+	}
+	catch (...)
+	{
+		ret = false;
+	}
 
-	assert(std::fabs(profile_->getDistance(profile_->getTotalTime()) - length_) < 0.1);
+	assert(ret == false || std::fabs(profile_->getDistance(profile_->getTotalTime()) - length_) < 0.1);
+	return ret;
 }
 
 bool PathVelocitySegment::startsSame(const PathVelocitySegment& seg)

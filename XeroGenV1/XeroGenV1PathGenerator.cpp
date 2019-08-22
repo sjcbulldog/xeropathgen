@@ -1,6 +1,7 @@
 #include "XeroGenV1PathGenerator.h"
 #include "TrajectoryUtils.h"
 #include "PathVelocitySegment.h"
+#include "UnitConverter.h"
 #include <TrajectoryNames.h>
 #include <TrapezoidalProfile.h>
 #include <SCurveProfile.h>
@@ -52,6 +53,66 @@ XeroGenV1PathGenerator::generateSplines(const std::vector<xero::paths::Pose2d>& 
 	return path.getSplines();
 }
 
+void XeroGenV1PathGenerator::getMinMaxVel(std::vector<PathVelocitySegment>& segs, size_t index, double& sv, double& ev, double startvel, double endvel)
+{
+	if (index != 0)
+		sv = std::min(segs[index - 1].velocity(), segs[index].velocity());
+	else
+		sv = startvel;
+
+	if (index != segs.size() - 1)
+		ev = std::min(segs[index].velocity(), segs[index + 1].velocity());
+	else
+		ev = endvel;
+}
+
+bool XeroGenV1PathGenerator::adjustPrevious(std::vector<PathVelocitySegment>& segs, size_t index, double startvel, double endvel, double maxjerk, double maxaccel)
+{
+	if (index == 0)
+		return false;
+
+	double sv, ev;
+	double newprev = segs[index - 1].velocity() - deltav_;
+
+	while (newprev >= velmin_)
+	{
+		//
+		// Reduce the end velocity of the previous segment
+		//
+		segs[index - 1].setVelocity(newprev);
+
+		//
+		// Run and see if the new end velocity works.  It could fail if the end velocity causes
+		// the previous segment to not be achieivable because the gap from start velocity to 
+		// end velocity is too great
+		//
+		getMinMaxVel(segs, index - 1, sv, ev, startvel, endvel);
+		if (!segs[index - 1].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
+		{
+			//
+			// Recursively adjust the segment before the previous segment, all the way
+			// back to the beginning if necessary.
+			//
+			if (!adjustPrevious(segs, index - 1, startvel, endvel, maxjerk, maxaccel))
+				throw std::runtime_error("cannot find solution for scurve constraints");
+		}
+
+		//
+		// Now run the current segment with the adjusted prev segment
+		//
+		getMinMaxVel(segs, index, sv, ev, startvel, endvel);
+		if (segs[index].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
+			return true;
+
+		//
+		// Reduce the end velocity for the previous segment and try again
+		//
+		newprev -= velmin_;
+	}
+
+	return false;
+}
+
 std::vector<Pose2dWithTrajectory> 
 XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const ConstraintCollection& constraints, double startvel, double endvel,
 											double maxvel, double maxaccel, double maxjerk)
@@ -59,9 +120,16 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 	std::vector<Pose2dWithTrajectory> result;
 	std::vector<PathVelocitySegment> segments;
 
+	//
+	// Create the first segment, which is start to finish with max velocity.  Constraints will
+	// be added to break this segment up into smaller pieces
+	//
 	PathVelocitySegment s(0.0, distview.length(), maxvel);
 	segments.push_back(s);
 
+	//
+	// Add the constraints, this breaks the segments into smaller pieces to consider the constraints
+	//
 	for(const auto &con: constraints)
 	{ 
 		auto distcon = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
@@ -78,6 +146,9 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		}
 	}
 
+	//
+	// Create the profile
+	//
 	double total = 0.0;
 	for (size_t i = 0; i < segments.size(); i++)
 	{
@@ -93,7 +164,20 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		else
 			ev = std::min(segments[i].velocity(), segments[i + 1].velocity());
 
-		segments[i].createProfile(scurve_, maxjerk, maxaccel, sv, ev);
+		if (!segments[i].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
+		{
+#ifdef NOTYET
+			//
+			// We cannot create this profile, we are over constrained.  This generally means the end 
+			// of the last segment velocity is high enough that we cannot get down to the start velocity
+			// of this segment.  See if we can lower the end velocity of the last segment.
+			//
+			if (!adjustPrevious(segments, i, startvel, endvel, maxjerk, maxaccel))
+				throw std::runtime_error("cannot find solution for scurve constraints");
+#else
+			throw std::runtime_error("cannot find solution for scurve constraints");
+#endif
+		}
 		total += segments[i].time();
 	}
 

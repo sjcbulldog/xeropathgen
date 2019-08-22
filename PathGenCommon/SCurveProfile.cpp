@@ -10,7 +10,7 @@ namespace xero
 {
 	namespace paths
 	{
-		SCurveProfile::SCurveProfile(double jerkmax, double jerkmin, double accmax, double accmin, double velmax) 
+		SCurveProfile::SCurveProfile(double jerkmax, double jerkmin, double accmax, double accmin, double velmax, double velmin, double thresh)
 		{
 			assert(jerkmin < 0.0);
 			assert(accmin < 0.0);
@@ -27,34 +27,58 @@ namespace xero
 			jerkmin_ = jerkmin;
 			accmin_ = accmin;
 			accmax_ = accmax;
+			velmin_ = velmin;
+			thresh_ = thresh;
 		}
 
 		SCurveProfile::~SCurveProfile()
 		{
 		}
 
+		bool SCurveProfile::tryOne(double dist, double maxv)
+		{
+			v_[4] = maxv;
+
+			rampUp();
+			rampDown();
+
+			p_[4] = dist - p_[1] - p_[2] - p_[3] - p_[5] - p_[6] - p_[7];
+			t_[4] = p_[4] / v_[4];
+			return p_[4] >= 0;
+		}
+
 		void SCurveProfile::update(double dist, double start_velocity, double end_velocity)
 		{
+			double high = v_[4];
+			double low = velmin_;
+			double answer, mid;
+
 			v_[0] = start_velocity;
 			v_[7] = end_velocity;
 
-			while (v_[4] > 0)
+			answer = high;
+			if (!tryOne(dist, answer))
 			{
-				rampUp();
-				rampDown();
+				if (!tryOne(dist, low))
+					throw std::runtime_error("jerk plus acceleration settings do not provide for solutions");
 
-				p_[4] = dist - p_[1] - p_[2] - p_[3] - p_[5] - p_[6] - p_[7];
-				if (p_[4] >= 0)
+				while (high - low > thresh_)
 				{
-					t_[4] = p_[4] / v_[4];
-					break;
+					mid = (high + low) / 2.0;
+					if (tryOne(dist, mid))
+					{
+						answer = mid;
+						low = mid;
+					}
+					else
+					{
+						answer = low;
+						high = mid;
+					}
 				}
-
-				v_[4] -= 1;
 			}
 
-			if (v_[4] <= 0.0)
-				throw std::runtime_error("jerk plus acceleration settings do not provide for solutions");
+			assert(tryOne(dist, answer) == true);
 
 			double timetotal = 0.0;
 			double disttotal = 0.0;

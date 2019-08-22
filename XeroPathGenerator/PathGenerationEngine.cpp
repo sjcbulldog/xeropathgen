@@ -459,12 +459,10 @@ void PathGenerationEngine::threadFunction(thread_data* data)
 		if (path == nullptr)
 			continue;
 
-		if (runOnePath(path, data))
-		{
-			complete_paths_locks.lock();
-			complete_.push_back(path);
-			complete_paths_locks.unlock();
-		}
+		runOnePath(path, data);
+		complete_paths_locks.lock();
+		complete_.push_back(path);
+		complete_paths_locks.unlock();
 	}
 
 	per_thread_data_lock_.lock();
