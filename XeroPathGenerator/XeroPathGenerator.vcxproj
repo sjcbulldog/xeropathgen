@@ -164,6 +164,7 @@
     <ClCompile Include="ShowRobotWindow.cpp" />
     <ClCompile Include="SwerveDriveBaseModel.cpp" />
     <ClCompile Include="TankDriveBaseModel.cpp" />
+    <ClCompile Include="TrajectoryViewWindow.cpp" />
     <ClCompile Include="WaypointTreeModel.cpp" />
     <ClCompile Include="XeroPathGenerator.cpp" />
   </ItemGroup>
@@ -241,6 +242,10 @@
     </QtMoc>
     <ClInclude Include="SwerveDriveBaseModel.h" />
     <ClInclude Include="TankDriveBaseModel.h" />
+    <QtMoc Include="TrajectoryViewWindow.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets</IncludePath>
+    </QtMoc>
     <ClInclude Include="WaypointTreeModel.h" />
     <ClInclude Include="RobotManager.h" />
     <QtMoc Include="PathFieldView.h">

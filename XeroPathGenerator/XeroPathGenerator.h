@@ -16,6 +16,7 @@
 #include "ShowRobotWindow.h"
 #include "PlotMainWindow.h"
 #include "PathFileTree.h"
+#include "TrajectoryViewWindow.h"
 
 #include <QProgressBar>
 #include <QMainWindow>
@@ -321,6 +322,8 @@ private:
 	QRadioButton* demo_mode_off_;
 	QRadioButton* demo_mode_on_;
 	ShowRobotWindow* robot_window_;
+
+	TrajectoryViewWindow* traj_window_;
 
 	//
 	// The field, generator, and robot managers

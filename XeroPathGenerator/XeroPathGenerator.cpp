@@ -218,6 +218,7 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 
 	demo_mode_ = DemoMode::ModeNone;
 	robot_window_ = nullptr;
+	traj_window_ = nullptr;
 }
 
 XeroPathGenerator::~XeroPathGenerator()
@@ -1517,6 +1518,14 @@ void XeroPathGenerator::viewTrajectoryData()
 {
 	if (current_robot_ == nullptr || current_path_ == nullptr)
 		return;
+
+	if (traj_window_ == nullptr)
+		traj_window_ = new TrajectoryViewWindow();
+
+	if (current_path_->hasTrajectory(TrajectoryName::Main))
+		traj_window_->setTrajectory(current_path_->getTrajectory(TrajectoryName::Main));
+
+	traj_window_->show();
 }
 
 void XeroPathGenerator::showEditMenu()

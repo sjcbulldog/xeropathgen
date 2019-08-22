@@ -123,6 +123,9 @@
     <ClCompile Include="AboutDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TrajectoryViewWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="AboutDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TrajectoryViewWindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
