@@ -64,7 +64,7 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	theOne = this;
 	write_messages_ = false;
 
-
+	traj_window_ = nullptr;
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/icon.png";
@@ -828,6 +828,8 @@ void XeroPathGenerator::timerProc()
 			}
 		}
 		plots_->setCursorTime(path_view_->getDemoTime());
+		if (traj_window_ != nullptr)
+			traj_window_->setCurrentTime(path_view_->getDemoTime());
 		QString timestr = QString::number(path_view_->getDemoTime(), 'f', 2);
 		status_text_->setText(timestr);
 		path_view_->repaint();
@@ -2160,6 +2162,8 @@ void XeroPathGenerator::scrollBarChanged()
 	double stime = plot_main_->getTime();
 	path_view_->setCursorTime(stime);
 	plots_->setCursorTime(stime);
+	if (traj_window_ != nullptr)
+		traj_window_->setCurrentTime(stime);
 
 	if (current_path_ != nullptr)
 	{

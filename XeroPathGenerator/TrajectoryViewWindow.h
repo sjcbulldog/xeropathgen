@@ -15,6 +15,7 @@ public:
 	~TrajectoryViewWindow();
 
 	void setPath(std::shared_ptr<xero::paths::RobotPath> path);
+	void setCurrentTime(double t);
 
 private:
 	void updateTrajectory(const QString &text);
@@ -24,4 +25,5 @@ private:
 	QComboBox* box_;
 	QTableWidget* table_;
 	std::shared_ptr<xero::paths::RobotPath> path_;
+	std::string which_;
 };

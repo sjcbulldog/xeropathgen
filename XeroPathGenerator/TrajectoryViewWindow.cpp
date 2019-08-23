@@ -23,7 +23,8 @@ TrajectoryViewWindow::~TrajectoryViewWindow()
 
 void TrajectoryViewWindow::updateTrajectory(const QString& text)
 {
-	auto traj = path_->getTrajectory(text.toStdString());
+	which_ = text.toStdString();
+	auto traj = path_->getTrajectory(which_);
 
 	table_->clearContents();
 
@@ -39,35 +40,35 @@ void TrajectoryViewWindow::updateTrajectory(const QString& text)
 	for (const auto& pt : (*traj))
 	{
 		item = new QTableWidgetItem(QString::number(pt.time(), 'f', 2));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 0, item);
 
 		item = new QTableWidgetItem(QString::number(pt.x(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 1, item);
 
 		item = new QTableWidgetItem(QString::number(pt.y(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 2, item);
 
 		item = new QTableWidgetItem(QString::number(pt.rotation().toDegrees(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 3, item);
 
 		item = new QTableWidgetItem(QString::number(pt.position(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 4, item);
 
 		item = new QTableWidgetItem(QString::number(pt.velocity(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 5, item);
 
 		item = new QTableWidgetItem(QString::number(pt.acceleration(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 6, item);
 
 		item = new QTableWidgetItem(QString::number(pt.jerk(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled);
+		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 		table_->setItem(row, 7, item);
 
 		row++;
@@ -85,4 +86,20 @@ void TrajectoryViewWindow::setPath(std::shared_ptr<RobotPath> path)
 	auto names =  path_->getTrajectoryNames();
 	for (const std::string& name : names)
 		box_->addItem(name.c_str());
+}
+
+void TrajectoryViewWindow::setCurrentTime(double t)
+{
+	auto traj = path_->getTrajectory(which_);
+	int row = static_cast<int>(traj->getIndex(t));
+
+	if (row < table_->rowCount())
+	{
+		auto model = table_->model();
+		auto index = model->index(row, 0);
+		table_->scrollTo(index);
+
+		QTableWidgetSelectionRange range(row, 0, row, 7);
+		table_->setRangeSelected(range, true);
+	}
 }
