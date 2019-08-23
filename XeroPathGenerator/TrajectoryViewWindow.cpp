@@ -99,7 +99,10 @@ void TrajectoryViewWindow::setCurrentTime(double t)
 		auto index = model->index(row, 0);
 		table_->scrollTo(index);
 
-		QTableWidgetSelectionRange range(row, 0, row, 7);
+		QTableWidgetSelectionRange deselect(0, 0, table_->rowCount() - 1, table_->columnCount() - 1);
+		table_->setRangeSelected(deselect, false);
+
+		QTableWidgetSelectionRange range(row, 0, row, table_->columnCount() - 1);
 		table_->setRangeSelected(range, true);
 	}
 }
