@@ -1795,24 +1795,34 @@ void XeroPathGenerator::editRobotAction()
 
 void XeroPathGenerator::deleteRobotAction()
 {
-	SelectRobotDialog dialog(robot_mgr_);
-
-	if (dialog.exec() == QDialog::Accepted)
+	if (robot_mgr_.getRobots().size() == 1)
 	{
-		QString str = dialog.getSelectedRobot();
-		if (current_robot_ != nullptr && str == current_robot_->getName().c_str())
-		{
-			QMessageBox box(QMessageBox::Icon::Critical,
-				"Error", "You cannot delete the current robot", QMessageBox::StandardButton::Ok);
-			box.exec();
-			return;
-		}
+		std::string msg = "Only a single robot exists and it cannot be deleted";
+		QMessageBox box(QMessageBox::Icon::Critical,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		box.exec();
+	}
+	else
+	{
+		SelectRobotDialog dialog(robot_mgr_, current_robot_);
 
-		if (robot_mgr_.deleteRobot(str.toStdString()))
+		if (dialog.exec() == QDialog::Accepted)
 		{
-			auto actlist = robots_->actions();
-			auto it = std::find_if(actlist.begin(), actlist.end(), [str](QAction *item) { return item->text() == str; });
-			robots_->removeAction(*it);
+			QString str = dialog.getSelectedRobot();
+			if (current_robot_ != nullptr && str == current_robot_->getName().c_str())
+			{
+				QMessageBox box(QMessageBox::Icon::Critical,
+					"Error", "You cannot delete the current robot", QMessageBox::StandardButton::Ok);
+				box.exec();
+				return;
+			}
+
+			if (robot_mgr_.deleteRobot(str.toStdString()))
+			{
+				auto actlist = robots_->actions();
+				auto it = std::find_if(actlist.begin(), actlist.end(), [str](QAction* item) { return item->text() == str; });
+				robots_->removeAction(*it);
+			}
 		}
 	}
 }

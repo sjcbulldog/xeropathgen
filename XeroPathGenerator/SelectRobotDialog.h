@@ -10,7 +10,7 @@ class SelectRobotDialog : public QDialog
 	Q_OBJECT
 
 public:
-	SelectRobotDialog(RobotManager &mgr, QWidget *parent = Q_NULLPTR);
+	SelectRobotDialog(RobotManager &mgr, std::shared_ptr<xero::paths::RobotParams> robot, QWidget *parent = Q_NULLPTR);
 	~SelectRobotDialog();
 
 	QString getSelectedRobot();

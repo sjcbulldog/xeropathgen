@@ -1,7 +1,9 @@
 #include "SelectRobotDialog.h"
 #include <QAction>
 
-SelectRobotDialog::SelectRobotDialog(RobotManager &mgr, QWidget *parent) : QDialog(parent), mgr_(mgr)
+using namespace xero::paths;
+
+SelectRobotDialog::SelectRobotDialog(RobotManager &mgr, std::shared_ptr<RobotParams> current, QWidget *parent) : QDialog(parent), mgr_(mgr)
 {
 	ui.setupUi(this);
 	ui.robots_->setModel(&model_);
@@ -11,11 +13,14 @@ SelectRobotDialog::SelectRobotDialog(RobotManager &mgr, QWidget *parent) : QDial
 
 	for (auto robot : mgr_.getRobots())
 	{
-		QList<QStandardItem*> item =
+		if (robot != current)
 		{
-			new QStandardItem(robot->getName().c_str())
-		};
-		model_.appendRow(item);
+			QList<QStandardItem*> item =
+			{
+				new QStandardItem(robot->getName().c_str())
+			};
+			model_.appendRow(item);
+		}
 	}
 }
 
