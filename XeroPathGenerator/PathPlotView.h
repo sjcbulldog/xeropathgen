@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Callout.h"
 #include <RobotPath.h>
 #include <QChartView>
 #include <QValueAxis>
@@ -55,6 +56,8 @@ protected:
 
 private:
 	void plotAreaChanged(const QRectF& plotArea);
+	void seriesHover(QtCharts::QLineSeries*series, const QPointF& point, bool state);
+	void seriesClick(QtCharts::QLineSeries* series, const QPointF& point);
 
 private:
 	struct Variable
@@ -127,4 +130,7 @@ private:
 	double total_scroll_x_;
 	double total_scroll_y_;
 	QGraphicsLineItem* lineitem_;
+	Callout* callout_;
+	QLineSeries* first_;
+	std::list<Callout*> callouts_;
 };

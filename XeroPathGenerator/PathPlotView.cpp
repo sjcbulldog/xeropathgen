@@ -21,6 +21,7 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	total_scroll_x_ = 0;
 	total_scroll_y_ = 0;
 	lineitem_ = nullptr;
+	callout_ = nullptr;
 
 	connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
 }
@@ -84,6 +85,9 @@ void PathPlotView::keyPressEvent(QKeyEvent* event)
 		chart()->zoomReset();
 		total_scroll_x_ = 0;
 		total_scroll_y_ = 0;
+		for (auto callout : callouts_)
+			delete callout;
+		callouts_.clear();
 		break;
 	default:
 		QGraphicsView::keyPressEvent(event);
@@ -389,6 +393,7 @@ void PathPlotView::updateWithPath()
 	ch->removeAllSeries();
 	ch->setTitle("Trajectory Profile");
 	ch->setDropShadowEnabled(true);
+	first_ = nullptr;
 
 	createAxis(ch);
 	createLegend(ch);
@@ -400,6 +405,12 @@ void PathPlotView::updateWithPath()
 	{
 		std::string vname = typeToName(var.type_);
 		ser = new QLineSeries();
+		if (first_ == nullptr)
+			first_ = ser;
+
+		(void)connect(ser, &QLineSeries::hovered, this, [ser, this](const QPointF& pt, bool state) { this->seriesHover(ser, pt, state); });
+		(void)connect(ser, &QLineSeries::clicked, this, [ser, this](const QPointF& pt) { this->seriesClick(ser, pt); });
+
 		std::string name = var.trajectory_ + "-" + vname;
 		ser->setName(name.c_str());
 
@@ -493,4 +504,40 @@ double PathPlotView::getMax(VarType t)
 		return 0.0;
 
 	return min_max_[t].second;
+}
+
+void PathPlotView::seriesHover(QLineSeries *ser, const QPointF &pt, bool state)
+{
+	QPointF npt = chart()->mapToPosition(pt, ser);
+	npt = chart()->mapToValue(npt, first_);
+
+	(void)ser;
+	if (callout_ == nullptr)
+		callout_ = new Callout(chart());
+
+	if (state)
+	{
+		QString text;
+		
+		text += "Time: " + QString::number(pt.x(), 'f', 2) + "\n";
+		text += ser->name() + ": " + QString::number(pt.y(), 'f', 1);
+
+		callout_->setText(text);
+		callout_->setAnchor(npt);
+		callout_->setZValue(11);
+		callout_->updateGeometry();
+		callout_->show();
+	}
+	else
+		callout_->hide();
+}
+
+
+void PathPlotView::seriesClick(QLineSeries* ser, const QPointF& pt)
+{
+	(void)ser;
+	(void)pt;
+
+	callouts_.push_back(callout_);
+	callout_ = nullptr;
 }

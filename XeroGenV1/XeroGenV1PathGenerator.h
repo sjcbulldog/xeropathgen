@@ -39,6 +39,8 @@ private:
 	bool adjustPrevious(std::vector<PathVelocitySegment> &segs, size_t i, double startvel, double endvel, double maxjerk, double maxaccel);
 	void getMinMaxVel(std::vector<PathVelocitySegment>& segs, size_t i, double& sv, double& ev, double startvel, double endvel);
 
+	void dumpSegments(const std::string &title, std::vector<PathVelocitySegment>& segs);
+
 private:
 	double diststep_;
 	double timestep_;

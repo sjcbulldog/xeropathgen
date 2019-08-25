@@ -81,12 +81,15 @@ bool XeroGenV1PathGenerator::adjustPrevious(std::vector<PathVelocitySegment>& se
 		//
 		segs[index - 1].setVelocity(newprev);
 
+		dumpSegments("Attempting", segs);
+
 		//
 		// Run and see if the new end velocity works.  It could fail if the end velocity causes
 		// the previous segment to not be achieivable because the gap from start velocity to 
 		// end velocity is too great
 		//
 		getMinMaxVel(segs, index - 1, sv, ev, startvel, endvel);
+		std::cout << "CreateProfile: index " << index - 1 << " start " << sv << " end " << ev << std::endl;
 		if (!segs[index - 1].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
 		{
 			//
@@ -101,6 +104,7 @@ bool XeroGenV1PathGenerator::adjustPrevious(std::vector<PathVelocitySegment>& se
 		// Now run the current segment with the adjusted prev segment
 		//
 		getMinMaxVel(segs, index, sv, ev, startvel, endvel);
+		std::cout << "CreateProfile: index " << index << " start " << sv << " end " << ev << std::endl;
 		if (segs[index].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
 			return true;
 
@@ -111,6 +115,23 @@ bool XeroGenV1PathGenerator::adjustPrevious(std::vector<PathVelocitySegment>& se
 	}
 
 	return false;
+}
+
+void XeroGenV1PathGenerator::dumpSegments(const std::string &title, std::vector<PathVelocitySegment>& segs)
+{
+	std::cout << "===========================================" << std::endl;
+	std::cout << title << std::endl;
+	std::cout << "===========================================" << std::endl;
+	for (size_t i = 0; i < segs.size(); i++)
+	{
+		const PathVelocitySegment& seg = segs[i];
+		std::cout << i << ":";
+		std::cout << " start " << seg.start();
+		std::cout << " end " << seg.end();
+		std::cout << " velocity " << seg.velocity(); 
+		std::cout << std::endl;
+	}
+	std::cout << "===========================================" << std::endl;
 }
 
 std::vector<Pose2dWithTrajectory> 
@@ -126,6 +147,8 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 	//
 	PathVelocitySegment s(0.0, distview.length(), maxvel);
 	segments.push_back(s);
+
+	dumpSegments("Before constraints", segments);
 
 	//
 	// Add the constraints, this breaks the segments into smaller pieces to consider the constraints
@@ -146,50 +169,56 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		}
 	}
 
-	//
-	// Create the profile
-	//
-	double total = 0.0;
-	for (size_t i = 0; i < segments.size(); i++)
+	dumpSegments("After Constraints", segments);
+	bool looping = true;
+	double total = 0;
+
+	while (looping)
 	{
-		double sv, ev;
-
-		if (i == 0)
-			sv = startvel;
-		else
-			sv = std::min(segments[i - 1].velocity(), segments[i].velocity());
-
-		if (i == segments.size() - 1)
-			ev = endvel;
-		else
-			ev = std::min(segments[i].velocity(), segments[i + 1].velocity());
-
-		if (!segments[i].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
+		looping = false;
+		//
+		// Create the profile
+		//
+		total = 0.0;
+		for (size_t i = 0; i < segments.size(); i++)
 		{
-#ifdef NOTYET
-			//
-			// We cannot create this profile, we are over constrained.  This generally means the end 
-			// of the last segment velocity is high enough that we cannot get down to the start velocity
-			// of this segment.  See if we can lower the end velocity of the last segment.
-			//
-			if (!adjustPrevious(segments, i, startvel, endvel, maxjerk, maxaccel))
-				throw std::runtime_error("cannot find solution for scurve constraints");
+			double sv, ev;
+
+			if (i == 0)
+				sv = startvel;
+			else
+				sv = std::min(segments[i - 1].velocity(), segments[i].velocity());
+
+			if (i == segments.size() - 1)
+				ev = endvel;
+			else
+				ev = std::min(segments[i].velocity(), segments[i + 1].velocity());
+
+			if (!segments[i].createProfile(scurve_, maxjerk, maxaccel, sv, ev))
+			{
+#ifdef TRY_RECURSION
+				//
+				// We cannot create this profile, we are over constrained.  This generally means the end 
+				// of the last segment velocity is high enough that we cannot get down to the start velocity
+				// of this segment.  See if we can lower the end velocity of the last segment.
+				//
+				if (!adjustPrevious(segments, i, startvel, endvel, maxjerk, maxaccel))
+					throw std::runtime_error("cannot find solution for scurve constraints");
 #else
-			throw std::runtime_error("cannot find solution for scurve constraints");
+				throw std::runtime_error("cannot find solution for scurve constraints");
 #endif
+				looping = true;
+			}
+			total += segments[i].time();
 		}
-		total += segments[i].time();
 	}
+	dumpSegments("Complete", segments);
 
 	for (size_t i = 0; i < segments.size(); i++)
 	{
-		PathVelocitySegment& seg = segments[i];
-		std::cout << "Segment " << i;
-		std::cout << ", start " << seg.start();
-		std::cout << ", len " << seg.length();
-		std::cout << ", velocity " << seg.velocity();
-		std::cout << ", prdist " << seg.profile()->getTotalDistance();
-		std::cout << ", prtime " << seg.profile()->getTotalTime();
+		std::cout << "Segment " << i << ":";
+		std::cout << " start velocity " << segments[i].profile()->getStartVelocity();
+		std::cout << " end velocity " << segments[i].profile()->getEndVelocity();
 		std::cout << std::endl;
 	}
 
