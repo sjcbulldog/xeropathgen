@@ -23,7 +23,7 @@ namespace xero
 			//
 			// Get the width of the robot in the same units used by the paths
 			//
-			double width = UnitConverter::convert(robot.getWidth(), robot.getUnits(), units);
+			double width = UnitConverter::convert(robot.getEffectiveWidth(), robot.getUnits(), units);
 
 			std::vector<Pose2dWithTrajectory> leftpts;
 			std::vector<Pose2dWithTrajectory> rightpts;

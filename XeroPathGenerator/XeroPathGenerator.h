@@ -175,8 +175,10 @@ private:
 	static constexpr const char* CSVOutputType = "CSV";
 
 	static const char* RobotDialogName;
-	static const char* RobotDialogWidth;
-	static const char* RobotDialogLength;
+	static const char* RobotDialogEWidth;
+	static const char* RobotDialogELength;
+	static const char* RobotDialogRWidth;
+	static const char* RobotDialogRLength;
 	static const char* RobotDialogMaxVelocity;
 	static const char* RobotDialogMaxAcceleration;
 	static const char* RobotDialogMaxJerk;

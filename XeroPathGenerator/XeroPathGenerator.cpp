@@ -40,8 +40,10 @@ using namespace xero::paths;
 using namespace QtCharts;
 
 const char* XeroPathGenerator::RobotDialogName = "Name";
-const char* XeroPathGenerator::RobotDialogWidth = "Width";
-const char* XeroPathGenerator::RobotDialogLength = "Length";
+const char* XeroPathGenerator::RobotDialogEWidth = "Effective Width";
+const char* XeroPathGenerator::RobotDialogELength = "Effective Length";
+const char* XeroPathGenerator::RobotDialogRWidth = "Physical Width";
+const char* XeroPathGenerator::RobotDialogRLength = "Physical Length";
 const char* XeroPathGenerator::RobotDialogMaxVelocity = "Max Velocity";
 const char* XeroPathGenerator::RobotDialogMaxAcceleration = "Max Acceleration";
 const char* XeroPathGenerator::RobotDialogMaxJerk = "Max Jerk";
@@ -1484,6 +1486,29 @@ void XeroPathGenerator::generate()
 
 void XeroPathGenerator::filePublish()
 {
+	if (paths_model_.isDirty())
+	{
+		std::string msg("The paths have been changed without being saved.  You must save the paths to publish them to the robot.  Do you want to save the paths?");
+		QMessageBox box(QMessageBox::Icon::Warning,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No);
+		int result = box.exec();
+
+		if (result == QMessageBox::StandardButton::No)
+			return;
+
+		save();
+	}
+
+	if (paths_model_.isDirty())
+	{
+		std::string msg("You choose not to save the paths, therefore the path selected will NOT be published to the robot.");
+		QMessageBox box(QMessageBox::Icon::Warning,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		box.exec();
+
+		return;
+	}
+
 	auto path = paths_->getSelectedPath();
 	if (path == nullptr)
 	{
@@ -1504,7 +1529,7 @@ void XeroPathGenerator::filePublish()
 			std::string name = path->getParent()->getName() + "_" + path->getName() + "_" + trajname;
 			std::stringstream sstrm;
 
-			generateOnePath(path, TrajectoryName::Left, sstrm);
+			generateOnePath(path, trajname, sstrm);
 			pubtable->PutString(name, sstrm.str());
 		}
 	}
@@ -1829,7 +1854,8 @@ void XeroPathGenerator::deleteRobotAction()
 
 void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 {	
-	double length, width, velocity, accel, jerk, timestep;
+	double elength, ewidth, rlength, rwidth;
+	double velocity, accel, jerk, timestep;
 	RobotParams::DriveType drivetype;
 	std::string units;
 	std::string name;
@@ -1839,8 +1865,10 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 	{
 		//
 		// Creating a new robot, use defaules
-		length = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultUnits, units_);
-		width = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultUnits, units_);
+		elength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultUnits, units_);
+		ewidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultUnits, units_);
+		rlength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultUnits, units_);
+		rwidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultUnits, units_);
 		velocity = UnitConverter::convert(RobotParams::DefaultMaxVelocity, RobotParams::DefaultUnits, units_);
 		accel = UnitConverter::convert(RobotParams::DefaultMaxAcceleration, RobotParams::DefaultUnits, units_);
 		jerk = UnitConverter::convert(RobotParams::DefaultMaxJerk, RobotParams::DefaultUnits, units_);
@@ -1850,8 +1878,10 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 	}
 	else
 	{
-		length = robot->getLength();
-		width = robot->getWidth();
+		elength = robot->getEffectiveLength();
+		ewidth = robot->getEffectiveWidth();
+		rlength = robot->getRobotLength();
+		rwidth = robot->getRobotWidth();
 		velocity = robot->getMaxVelocity();
 		accel = robot->getMaxAccel();
 		jerk = robot->getMaxJerk();
@@ -1878,12 +1908,20 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 			prop->addChoice(unit.c_str());
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogLength, EditableProperty::PTDouble, 
-			std::to_string(length).c_str(), "The length of the robot");
+		prop = std::make_shared<EditableProperty>(RobotDialogELength, EditableProperty::PTDouble, 
+			std::to_string(elength).c_str(), "The effective length of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogWidth, EditableProperty::PTDouble,
-			std::to_string(width).c_str(), "The width of the robot");
+		prop = std::make_shared<EditableProperty>(RobotDialogEWidth, EditableProperty::PTDouble,
+			std::to_string(ewidth).c_str(), "The effective width of the robot");
+		model.addProperty(prop);
+
+		prop = std::make_shared<EditableProperty>(RobotDialogRLength, EditableProperty::PTDouble,
+			std::to_string(rlength).c_str(), "The physical length of the robot (outside bumper to outside bumper)");
+		model.addProperty(prop);
+
+		prop = std::make_shared<EditableProperty>(RobotDialogRWidth, EditableProperty::PTDouble,
+			std::to_string(rwidth).c_str(), "The physical width of the robot (outside bumper to outside bumpter)");
 		model.addProperty(prop);
 
 		prop = std::make_shared<EditableProperty>(RobotDialogMaxVelocity, EditableProperty::PTDouble,
@@ -1916,8 +1954,10 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 			return;
 		}
 
-		length = model.getProperty(RobotDialogLength)->getValue().toDouble();
-		width = model.getProperty(RobotDialogWidth)->getValue().toDouble();
+		elength = model.getProperty(RobotDialogELength)->getValue().toDouble();
+		ewidth = model.getProperty(RobotDialogEWidth)->getValue().toDouble();
+		rlength = model.getProperty(RobotDialogRLength)->getValue().toDouble();
+		rwidth = model.getProperty(RobotDialogRWidth)->getValue().toDouble();
 		velocity = model.getProperty(RobotDialogMaxVelocity)->getValue().toDouble();
 		accel = model.getProperty(RobotDialogMaxAcceleration)->getValue().toDouble();
 		jerk = model.getProperty(RobotDialogMaxJerk)->getValue().toDouble();
@@ -1951,8 +1991,10 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 		if (create)
 			robot = std::make_shared<RobotParams>(model.getProperty(RobotDialogName)->getValue().toString().toStdString());
 
-		robot->setWidth(width);
-		robot->setLength(length);
+		robot->setEffectiveWidth(ewidth);
+		robot->setEffectiveLength(elength);
+		robot->setRobotWidth(rwidth);
+		robot->setRobotLength(rlength);
 		robot->setMaxVelocity(velocity);
 		robot->setMaxAcceleration(accel);
 		robot->setMaxJerk(jerk);

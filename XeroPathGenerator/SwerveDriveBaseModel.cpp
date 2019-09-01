@@ -41,13 +41,13 @@ void SwerveDriveBaseModel::reset()
 	//
 	// Get the positon of the four wheels
 	//
-	flpos_ = Translation2d(getRobot()->getLength() / 2.0, getRobot()->getWidth() / 2.0).
+	flpos_ = Translation2d(getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).
 									rotateBy(location_.getRotation()).translateBy(location_.getTranslation());
-	frpos_ = Translation2d(getRobot()->getLength() / 2.0, -getRobot()->getWidth() / 2.0).
+	frpos_ = Translation2d(getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).
 									rotateBy(location_.getRotation()).translateBy(location_.getTranslation());
-	blpos_ = Translation2d(-getRobot()->getLength() / 2.0, getRobot()->getWidth() / 2.0).
+	blpos_ = Translation2d(-getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).
 									rotateBy(location_.getRotation()).translateBy(location_.getTranslation());
-	brpos_ = Translation2d(-getRobot()->getLength() / 2.0, -getRobot()->getWidth() / 2.0).
+	brpos_ = Translation2d(-getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).
 									rotateBy(location_.getRotation()).translateBy(location_.getTranslation());
 }
 

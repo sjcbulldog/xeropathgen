@@ -89,10 +89,10 @@ namespace xero
 				Translation2d bla = rotblacc + pathacc;
 				Translation2d bra = rotbracc + pathacc;
 
-				Translation2d flpos = Translation2d(robot.getLength() / 2.0, robot.getWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
-				Translation2d frpos = Translation2d(robot.getLength() / 2.0, -robot.getWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
-				Translation2d blpos = Translation2d(-robot.getLength() / 2.0, robot.getWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
-				Translation2d brpos = Translation2d(-robot.getLength() / 2.0, -robot.getWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
+				Translation2d flpos = Translation2d(robot.getEffectiveLength() / 2.0, robot.getEffectiveWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
+				Translation2d frpos = Translation2d(robot.getEffectiveLength() / 2.0, -robot.getEffectiveWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
+				Translation2d blpos = Translation2d(-robot.getEffectiveLength() / 2.0, robot.getEffectiveWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
+				Translation2d brpos = Translation2d(-robot.getEffectiveLength() / 2.0, -robot.getEffectiveWidth() / 2.0).rotateBy(angle).translateBy(pt.translation());
 
 				if (!first)
 				{
@@ -148,23 +148,23 @@ namespace xero
 			switch (w)
 			{
 			case Wheel::FL:
-				dx = robot.getLength() / 2.0;
-				dy = robot.getWidth() / 2.0;
+				dx = robot.getEffectiveLength() / 2.0;
+				dy = robot.getEffectiveWidth() / 2.0;
 				break;
 
 			case Wheel::FR:
-				dx = robot.getLength() / 2.0;
-				dy = -robot.getWidth() / 2.0;
+				dx = robot.getEffectiveLength() / 2.0;
+				dy = -robot.getEffectiveWidth() / 2.0;
 				break;
 
 			case Wheel::BL:
-				dx = -robot.getLength() / 2.0;
-				dy = robot.getWidth() / 2.0;
+				dx = -robot.getEffectiveLength() / 2.0;
+				dy = robot.getEffectiveWidth() / 2.0;
 				break;
 
 			case Wheel::BR:
-				dx = -robot.getLength() / 2.0;
-				dy = -robot.getWidth() / 2.0;
+				dx = -robot.getEffectiveLength() / 2.0;
+				dy = -robot.getEffectiveWidth() / 2.0;
 				break;
 			}
 
@@ -191,14 +191,14 @@ namespace xero
 
 		double SwerveDriveModifier::RotationalToGround(const RobotParams robot, double rv)
 		{
-			double diameter = std::sqrt(robot.getWidth() * robot.getWidth() +robot.getLength() * robot.getLength());
+			double diameter = std::sqrt(robot.getEffectiveWidth() * robot.getEffectiveWidth() +robot.getEffectiveLength() * robot.getEffectiveLength());
 			double circum = diameter * MathUtils::kPI;
 			return rv * circum / 360.0;
 		}
 
 		double SwerveDriveModifier::GroundToRotational(RobotParams robot, double gr)
 		{
-			double diameter = std::sqrt(robot.getWidth() * robot.getWidth() + robot.getLength() * robot.getLength());
+			double diameter = std::sqrt(robot.getEffectiveWidth() * robot.getEffectiveWidth() + robot.getEffectiveLength() * robot.getEffectiveLength());
 			double circum = diameter * MathUtils::kPI;
 			return gr * 360.0 / circum;
 		}

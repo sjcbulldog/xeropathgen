@@ -120,35 +120,65 @@ namespace xero
 			}
 			robot.setTimestep(root[RobotParams::TimeStepTagW]->AsNumber());
 
-			if (root.find(RobotParams::LengthTagW) == root.end())
+			if (root.find(RobotParams::EffectiveLengthTagW) == root.end())
 			{
-				std::cerr << "pathgen: robot file '" << filename << "' is not a valid path file" << std::endl;
-				std::cerr << "         group object does not contain 'length' field" << std::endl;
+				std::cerr << "pathgen: robot file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object does not contain 'efflength' field" << std::endl;
 				return false;
 			}
 
-			if (!root[RobotParams::LengthTagW]->IsNumber())
+			if (!root[RobotParams::EffectiveLengthTagW]->IsNumber())
 			{
 				std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
-				std::cerr << "         group object 'length' field is not a number" << std::endl;
+				std::cerr << "         group object 'efflength' field is not a number" << std::endl;
 				return false;
 			}
-			robot.setLength(root[RobotParams::LengthTagW]->AsNumber());
+			robot.setEffectiveLength(root[RobotParams::EffectiveLengthTagW]->AsNumber());
 
-			if (root.find(RobotParams::WidthTagW) == root.end())
+			if (root.find(RobotParams::EffectiveWidthTagW) == root.end())
 			{
-				std::cerr << "pathgen: robot file '" << filename << "' is not a valid path file" << std::endl;
-				std::cerr << "         group object does not contain 'width' field" << std::endl;
+				std::cerr << "pathgen: robot file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object does not contain 'effwidth' field" << std::endl;
 				return false;
 			}
 
-			if (!root[RobotParams::WidthTagW]->IsNumber())
+			if (!root[RobotParams::EffectiveWidthTagW]->IsNumber())
 			{
 				std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
-				std::cerr << "         group object 'width' field is not a number" << std::endl;
+				std::cerr << "         group object 'effwidth' field is not a number" << std::endl;
 				return false;
 			}
-			robot.setWidth(root[RobotParams::WidthTagW]->AsNumber());
+			robot.setEffectiveWidth(root[RobotParams::EffectiveWidthTagW]->AsNumber());
+
+			if (root.find(RobotParams::RobotLengthTagW) == root.end())
+			{
+				std::cerr << "pathgen: robot file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object does not contain 'robotlength' field" << std::endl;
+				return false;
+			}
+
+			if (!root[RobotParams::RobotLengthTagW]->IsNumber())
+			{
+				std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object 'robotlength' field is not a number" << std::endl;
+				return false;
+			}
+			robot.setRobotLength(root[RobotParams::RobotLengthTagW]->AsNumber());
+
+			if (root.find(RobotParams::RobotWidthTagW) == root.end())
+			{
+				std::cerr << "pathgen: robot file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object does not contain 'robotwidth' field" << std::endl;
+				return false;
+			}
+
+			if (!root[RobotParams::RobotWidthTagW]->IsNumber())
+			{
+				std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
+				std::cerr << "         group object 'robotwidth' field is not a number" << std::endl;
+				return false;
+			}
+			robot.setRobotWidth(root[RobotParams::RobotWidthTagW]->AsNumber());
 
 			if (root.find(RobotParams::MaxVelocityTagW) == root.end())
 			{

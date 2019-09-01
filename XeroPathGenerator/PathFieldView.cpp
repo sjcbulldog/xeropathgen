@@ -407,13 +407,13 @@ void PathFieldView::drawCursor(QPainter& paint)
 
 	Rotation2d heading = pt.pose().getRotation();
 	Translation2d loc = pt.pose().getTranslation();
-	double px = loc .getX() - robot_->getWidth() * heading.getSin() / 2.0;
-	double py = loc.getY() + robot_->getWidth() * heading.getCos() / 2.0;
+	double px = loc .getX() - robot_->getRobotWidth() * heading.getSin() / 2.0;
+	double py = loc.getY() + robot_->getRobotWidth() * heading.getCos() / 2.0;
 
 	QPointF p1 = worldToWindow(QPointF(px, py));
 
-	px = loc.getX() + robot_->getWidth() * heading.getSin() / 2.0;
-	py = loc.getY() - robot_->getWidth() * heading.getCos() / 2.0;
+	px = loc.getX() + robot_->getRobotWidth() * heading.getSin() / 2.0;
+	py = loc.getY() - robot_->getRobotWidth() * heading.getCos() / 2.0;
 
 	QPointF p2 = worldToWindow(QPointF(px, py));
 	QPen pen(QColor(0x00, 0xFF, 0x00, 0xFF));
@@ -425,8 +425,8 @@ void PathFieldView::drawCursor(QPainter& paint)
 	mm.translate(pt.translation().getX(), pt.translation().getY());
 	mm.rotateRadians(pt.rotation().toRadians());
 
-	double rl = robot_->getLength();
-	double rw = robot_->getWidth();
+	double rl = robot_->getRobotLength();
+	double rw = robot_->getRobotWidth();
 
 	std::vector<QPointF> robot =
 	{
@@ -517,8 +517,8 @@ void PathFieldView::drawOnePoint(QPainter& paint, const Pose2d& pt, bool selecte
 
 	if (selected)
 	{
-		double rl = robot_->getLength();
-		double rw = robot_->getWidth();
+		double rl = robot_->getRobotLength();
+		double rw = robot_->getRobotWidth();
 
 		std::vector<QPointF> robot =
 		{
@@ -579,14 +579,14 @@ void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair
 		Translation2d loc = pair->evalPosition(t);
 		Rotation2d heading = pair->evalHeading(t);
 
-		px = loc.getX() - robot_->getWidth() * heading.getSin() / 2.0;
-		py = loc.getY() + robot_->getWidth() * heading.getCos() / 2.0;
+		px = loc.getX() - robot_->getRobotWidth() * heading.getSin() / 2.0;
+		py = loc.getY() + robot_->getRobotWidth() * heading.getCos() / 2.0;
 
 		QPointF qp = worldToWindow(QPointF(px, py));
 		paint.drawPoint(qp);
 
-		px = loc.getX() + robot_->getWidth() * heading.getSin() / 2.0;
-		py = loc.getY() - robot_->getWidth() * heading.getCos() / 2.0;
+		px = loc.getX() + robot_->getRobotWidth() * heading.getSin() / 2.0;
+		py = loc.getY() - robot_->getRobotWidth() * heading.getCos() / 2.0;
 
 		qp = worldToWindow(QPointF(px, py));
 		paint.drawPoint(qp);
@@ -728,7 +728,7 @@ bool PathFieldView::hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRe
 		mm.translate(ppt.getTranslation().getX(), ppt.getTranslation().getY());
 		mm.rotateRadians(ppt.getRotation().toRadians());
 
-		QPointF bubble = mm.map(QPointF(0.0, robot_->getWidth() * 3.0 / 4.0));
+		QPointF bubble = mm.map(QPointF(0.0, robot_->getRobotWidth() * 3.0 / 4.0));
 		QRectF rect(bubble.rx() - RotateBubbleHalo, bubble.ry() - RotateBubbleHalo, RotateBubbleHalo * 2.0, RotateBubbleHalo * 2.0);
 		QPointF wpt = windowToWorld(pt);
 		if (rect.contains(wpt))

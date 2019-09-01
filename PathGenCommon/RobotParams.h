@@ -21,10 +21,14 @@ namespace xero {
 			static constexpr const wchar_t* VersionTagW = L"_version";
 			static constexpr const char* NameTag = "name";
 			static constexpr const wchar_t* NameTagW = L"name";
-			static constexpr const char* LengthTag = "length";
-			static constexpr const wchar_t* LengthTagW = L"length";
-			static constexpr const char* WidthTag = "width";
-			static constexpr const wchar_t* WidthTagW = L"width";
+			static constexpr const char* RobotLengthTag = "robotlength";
+			static constexpr const wchar_t* RobotLengthTagW = L"robotlength";
+			static constexpr const char* RobotWidthTag = "robotwidth";
+			static constexpr const wchar_t* RobotWidthTagW = L"robotwidth";
+			static constexpr const char* EffectiveLengthTag = "efflength";
+			static constexpr const wchar_t* EffectiveLengthTagW = L"efflength";
+			static constexpr const char* EffectiveWidthTag = "effwidth";
+			static constexpr const wchar_t* EffectiveWidthTagW = L"effwidth";
 			static constexpr const char* MaxVelocityTag = "maxvelocity";
 			static constexpr const wchar_t* MaxVelocityTagW = L"maxvelocity";
 			static constexpr const char* MaxAccelerationTag = "maxacceleration";
@@ -50,8 +54,10 @@ namespace xero {
 			RobotParams(const std::string &name) {
 				name_ = name;
 				drivetype_ = DefaultDriveType;
-				length_ = DefaultLength;
-				width_ = DefaultWidth;
+				rlength_ = DefaultLength;
+				rwidth_ = DefaultWidth;
+				elength_ = DefaultLength;
+				ewidth_ = DefaultWidth;
 				max_velocity_ = DefaultMaxVelocity;
 				max_acceleration_ = DefaultMaxAcceleration;
 				max_jerk_ = DefaultMaxJerk;
@@ -100,28 +106,46 @@ namespace xero {
 			}
 
 			void convert(const std::string& units) {
-				length_ = UnitConverter::convert(length_, units_, units);
-				width_ = UnitConverter::convert(width_, units_, units);
+				elength_ = UnitConverter::convert(elength_, units_, units);
+				ewidth_ = UnitConverter::convert(ewidth_, units_, units);
+				rlength_ = UnitConverter::convert(rlength_, units_, units);
+				rwidth_ = UnitConverter::convert(rwidth_, units_, units);
 				max_velocity_ = UnitConverter::convert(max_velocity_, units_, units);
 				max_acceleration_ = UnitConverter::convert(max_acceleration_, units_, units);
 				max_jerk_ = UnitConverter::convert(max_jerk_, units_, units);
 				units_ = units;
 			}
 
-			double getWidth() const {
-				return width_;
+			double getEffectiveWidth() const {
+				return ewidth_;
 			}
 
-			void setWidth(double v) {
-				width_ = v;
+			void setEffectiveWidth(double v) {
+				ewidth_ = v;
 			}
 
-			double getLength() const {
-				return length_;
+			double getEffectiveLength() const {
+				return elength_;
 			}
 
-			void setLength(double v) {
-				length_ = v;
+			void setEffectiveLength(double v) {
+				elength_ = v;
+			}
+
+			double getRobotWidth() const {
+				return rwidth_;
+			}
+
+			void setRobotWidth(double v) {
+				rwidth_ = v;
+			}
+
+			double getRobotLength() const {
+				return rlength_;
+			}
+
+			void setRobotLength(double v) {
+				rlength_ = v;
 			}
 
 			double getMaxVelocity() const {
@@ -157,8 +181,10 @@ namespace xero {
 			}
 
 		private:
-			double width_;
-			double length_;
+			double rwidth_;
+			double rlength_;
+			double ewidth_;
+			double elength_;
 			double max_velocity_;
 			double max_acceleration_;
 			double max_jerk_;

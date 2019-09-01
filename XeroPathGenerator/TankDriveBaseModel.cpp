@@ -52,8 +52,8 @@ void TankDriveBaseModel::update(double left, double right, double heading)
 		y = location_.getTranslation().getY() + right * rot.getSin();
 	}
 	else {
-		double r = getRobot()->getWidth() * (left + right) / (2 * (right - left));
-		double wd = (right - left) / getRobot()->getWidth();
+		double r = getRobot()->getEffectiveWidth() * (left + right) / (2 * (right - left));
+		double wd = (right - left) / getRobot()->getEffectiveWidth();
 		x = location_.getTranslation().getX() + r * std::sin(wd + rot.toRadians()) - r * std::sin(rot.toRadians());
 		y = location_.getTranslation().getY() - r * std::cos(wd + rot.toRadians()) + r * std::cos(rot.toRadians());
 	}
@@ -63,10 +63,10 @@ void TankDriveBaseModel::update(double left, double right, double heading)
 
 void TankDriveBaseModel::getLocation(Translation2d &fl, Translation2d& fr, Translation2d& bl, Translation2d& br)
 {
-	fl = location_.getTranslation() + Translation2d(getRobot()->getLength() / 2.0, getRobot()->getWidth() / 2.0).rotateBy(location_.getRotation());
-	fr = location_.getTranslation() + Translation2d(getRobot()->getLength() / 2.0, -getRobot()->getWidth() / 2.0).rotateBy(location_.getRotation());
-	bl = location_.getTranslation() + Translation2d(-getRobot()->getLength() / 2.0, getRobot()->getWidth() / 2.0).rotateBy(location_.getRotation());
-	br = location_.getTranslation() + Translation2d(-getRobot()->getLength() / 2.0, -getRobot()->getWidth() / 2.0).rotateBy(location_.getRotation());
+	fl = location_.getTranslation() + Translation2d(getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
+	fr = location_.getTranslation() + Translation2d(getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
+	bl = location_.getTranslation() + Translation2d(-getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
+	br = location_.getTranslation() + Translation2d(-getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
 }
 
 void TankDriveBaseModel::reset()

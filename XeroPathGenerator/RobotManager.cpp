@@ -89,8 +89,10 @@ std::list<std::shared_ptr<RobotParams>> RobotManager::getRobots()
 bool RobotManager::processJSONFile(QFile& file)
 {
 	std::string name_value, verstr;
-	double width_value;
-	double length_value;
+	double ewidth_value;
+	double elength_value;
+	double rwidth_value;
+	double rlength_value;
 	double velocity_value;
 	double accel_value;
 	double jerk_value;
@@ -151,10 +153,16 @@ bool RobotManager::processJSONFile(QFile& file)
 	if (!getJSONStringValue(file, doc, RobotParams::NameTag, name_value))
 		return false;
 
-	if (!getJSONDoubleValue(file, doc, RobotParams::WidthTag, width_value))
+	if (!getJSONDoubleValue(file, doc, RobotParams::EffectiveWidthTag, ewidth_value))
 		return false;
 
-	if (!getJSONDoubleValue(file, doc, RobotParams::LengthTag, length_value))
+	if (!getJSONDoubleValue(file, doc, RobotParams::EffectiveLengthTag, elength_value))
+		return false;
+
+	if (!getJSONDoubleValue(file, doc, RobotParams::RobotWidthTag, rwidth_value))
+		return false;
+
+	if (!getJSONDoubleValue(file, doc, RobotParams::RobotLengthTag, rlength_value))
 		return false;
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::MaxVelocityTag, velocity_value))
@@ -175,8 +183,10 @@ bool RobotManager::processJSONFile(QFile& file)
 	std::shared_ptr<RobotParams> robot = std::make_shared<RobotParams>(name_value);
 	robot->setFilename(file.fileName().toStdString());
 	robot->setTimestep(timestep_value);
-	robot->setWidth(width_value);
-	robot->setLength(length_value);
+	robot->setEffectiveWidth(ewidth_value);
+	robot->setEffectiveLength(elength_value);
+	robot->setRobotWidth(rwidth_value);
+	robot->setRobotLength(rlength_value);
 	robot->setMaxVelocity(velocity_value);
 	robot->setMaxAcceleration(accel_value);
 	robot->setMaxJerk(jerk_value);
@@ -252,8 +262,10 @@ bool RobotManager::save(std::shared_ptr<xero::paths::RobotParams> robot, QFile &
 	obj[RobotParams::NameTag] = robot->getName().c_str();
 	obj[RobotParams::DriveTypeTag] = static_cast<int>(robot->getDriveType());
 	obj[RobotParams::TimeStepTag] = robot->getTimestep();
-	obj[RobotParams::WidthTag] = robot->getWidth();
-	obj[RobotParams::LengthTag] = robot->getLength();
+	obj[RobotParams::EffectiveWidthTag] = robot->getEffectiveWidth();
+	obj[RobotParams::EffectiveLengthTag] = robot->getEffectiveLength();
+	obj[RobotParams::RobotWidthTag] = robot->getRobotWidth();
+	obj[RobotParams::RobotLengthTag] = robot->getRobotLength();
 	obj[RobotParams::MaxVelocityTag] = robot->getMaxVelocity();
 	obj[RobotParams::MaxAccelerationTag] = robot->getMaxAccel();
 	obj[RobotParams::MaxJerkTag] = robot->getMaxJerk();
