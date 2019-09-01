@@ -405,22 +405,6 @@ void PathFieldView::drawCursor(QPainter& paint)
 	if (!path_->getPoseAtTime(cursor_time_, pt))
 		return;
 
-	Rotation2d heading = pt.pose().getRotation();
-	Translation2d loc = pt.pose().getTranslation();
-	double px = loc .getX() - robot_->getRobotWidth() * heading.getSin() / 2.0;
-	double py = loc.getY() + robot_->getRobotWidth() * heading.getCos() / 2.0;
-
-	QPointF p1 = worldToWindow(QPointF(px, py));
-
-	px = loc.getX() + robot_->getRobotWidth() * heading.getSin() / 2.0;
-	py = loc.getY() - robot_->getRobotWidth() * heading.getCos() / 2.0;
-
-	QPointF p2 = worldToWindow(QPointF(px, py));
-	QPen pen(QColor(0x00, 0xFF, 0x00, 0xFF));
-	pen.setWidth(3);
-	paint.setPen(pen);
-	paint.drawLine(p1, p2);
-
 	QTransform mm;
 	mm.translate(pt.translation().getX(), pt.translation().getY());
 	mm.rotateRadians(pt.rotation().toRadians());
@@ -436,13 +420,47 @@ void PathFieldView::drawCursor(QPainter& paint)
 		{ rl / 2.0, -rw / 2.0 },
 	};
 
+	std::vector<QPointF> wheel =
+	{
+		{ 0, 0 },
+		{ rl / 4.0, 0.0 }, 
+		{ rl / 4.0, rw / 8.0},
+		{ 0.0, rw / 8.0},
+	};
+
 	paint.setBrush(Qt::BrushStyle::NoBrush);
-	pen = QPen(QColor(0xff, 0xff, 0x00, 0xff));
+	QPen pen = QPen(QColor(0x00, 0x00, 0x00, 0xff));
 	pen.setWidthF(2.0f);
 	paint.setPen(pen);
 
-	std::vector<QPointF> robotsel = worldToWindow(transformPoints(mm, robot));
-	paint.drawPolygon(&robotsel[0], static_cast<int>(robotsel.size()));
+	std::vector<QPointF> drawpts = worldToWindow(transformPoints(mm, robot));
+	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+
+	paint.setBrush(QBrush(QColor(0, 0, 0, 0xff)));
+
+	QTransform trans;
+	trans.translate(rl / 4.0, rw / 2.0);
+	drawpts = transformPoints(trans, wheel);
+	drawpts = worldToWindow(transformPoints(mm, drawpts));
+	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+
+	trans = QTransform();
+	trans.translate(rl / 4.0, -rw / 2.0 - rw / 8.0);
+	drawpts = transformPoints(trans, wheel);
+	drawpts = worldToWindow(transformPoints(mm, drawpts));
+	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+
+	trans = QTransform();
+	trans.translate(-rl / 2.0, rw / 2.0);
+	drawpts = transformPoints(trans, wheel);
+	drawpts = worldToWindow(transformPoints(mm, drawpts));
+	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+
+	trans = QTransform();
+	trans.translate(-rl / 2.0, -rw / 2.0 - rw / 8.0);
+	drawpts = transformPoints(trans, wheel);
+	drawpts = worldToWindow(transformPoints(mm, drawpts));
+	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
 }
 
 void PathFieldView::drawRobot(QPainter& paint)
