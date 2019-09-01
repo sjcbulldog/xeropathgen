@@ -1,4 +1,5 @@
 {
+  "_version": "1",
   "name": "Xero Gen V1 - Trapezoidal",
   "properties": [
     "distance_constraint",

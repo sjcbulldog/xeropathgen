@@ -21,6 +21,9 @@ namespace xero
 			{
 				QJsonArray trajectory;
 				QJsonObject pt;
+				QJsonObject top;
+
+				top["_version"] = "1";
 				for (auto it = first; it != last; it++)
 				{
 					pt = QJsonObject();
@@ -32,8 +35,9 @@ namespace xero
 					}
 					trajectory.append(pt);
 				}
+				top["points"] = trajectory;
 				QJsonDocument doc;
-				doc.setArray(trajectory);
+				doc.setObject(top);
 				strm << doc.toJson().toStdString();
 
 				return true;

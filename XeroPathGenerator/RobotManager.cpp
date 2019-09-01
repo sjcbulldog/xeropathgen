@@ -88,7 +88,7 @@ std::list<std::shared_ptr<RobotParams>> RobotManager::getRobots()
 
 bool RobotManager::processJSONFile(QFile& file)
 {
-	std::string name_value;
+	std::string name_value, verstr;
 	double width_value;
 	double length_value;
 	double velocity_value;
@@ -97,6 +97,8 @@ bool RobotManager::processJSONFile(QFile& file)
 	double timestep_value;
 	int drivetype_value;
 	QString text;
+	int version;
+	size_t len;
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
@@ -116,6 +118,34 @@ bool RobotManager::processJSONFile(QFile& file)
 	{
 		qWarning() << "JSON file '" << file.fileName() << "' does not hold a JSON object";
 		return false;
+	}
+
+	if (!getJSONStringValue(file, doc, RobotParams::VersionTag, verstr))
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' does not have a '_version' value, assuming version 1";
+	}
+	else
+	{
+		try {
+			version = std::stoi(verstr, &len);
+		}
+		catch (...)
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
+			return false;
+		}
+
+		if (len != verstr.length())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
+			return false;
+		}
+
+		if (version != 1)
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' field '" << version << "' that is not valid";
+			return false;
+		}
 	}
 
 	if (!getJSONStringValue(file, doc, RobotParams::NameTag, name_value))
@@ -218,6 +248,7 @@ bool RobotManager::save(std::shared_ptr<xero::paths::RobotParams> robot, QFile &
 	if (!dir.exists())
 		dir.mkpath(dir.path());
 
+	obj[RobotParams::VersionTag] = "1";
 	obj[RobotParams::NameTag] = robot->getName().c_str();
 	obj[RobotParams::DriveTypeTag] = static_cast<int>(robot->getDriveType());
 	obj[RobotParams::TimeStepTag] = robot->getTimestep();

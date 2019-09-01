@@ -22,6 +22,7 @@ namespace xero
 		class RobotPath : public PathBase
 		{
 		public:
+			static constexpr const char* VersionTag = "_version";
 			static constexpr const char* TimeTag = "time";
 			static constexpr const char* GroupsTag = "groups";
 			static constexpr const char* PositionTag = "position";

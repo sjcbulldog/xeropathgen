@@ -1,4 +1,5 @@
 {
+  "_version" :  "1",
   "name": "Xero Gen V1 - SCurve",
   "properties": [
     "distance_constraint",
@@ -20,6 +21,6 @@
     "robot": "--robotfile $$",
     "timestep": "--timestep $$",
     "units": "--units $$",
-    "others" :  "--scurve true"
+    "others": "--scurve true"
   }
 }

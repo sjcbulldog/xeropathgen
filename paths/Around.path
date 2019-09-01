@@ -1,22 +1,11 @@
 {
+    "_version": "1",
     "groups": [
         {
             "name": "AroundTest",
             "paths": [
                 {
                     "constraints": [
-                        {
-                            "after": 420,
-                            "before": 540,
-                            "type": "distance_velocity",
-                            "velocity": 40
-                        },
-                        {
-                            "after": 590,
-                            "before": 720,
-                            "type": "distance_velocity",
-                            "velocity": 40
-                        }
                     ],
                     "endangle": 0,
                     "endangledelay": 0,

@@ -14,6 +14,8 @@ bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& pa
 
 	if (!createGroupArray(a, paths))
 		return false;
+
+	obj[RobotPath::VersionTag] = "1";
 	obj[RobotPath::GroupsTag] = a;
 
 	QJsonDocument doc(obj);
@@ -134,7 +136,47 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 		return false;
 	}
 
+	int version = 1;
 	QJsonObject obj = doc.object();
+	if (!obj.contains(RobotPath::VersionTag))
+		qWarning() << "JSON file '" << file.fileName() << "' does not contains '_version' value - assuming version 1";
+	else
+	{
+		QJsonValue vobj = obj[RobotPath::VersionTag];
+		if (!vobj.isString())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has '_version' value that is not a string, invalid file";
+			return false;
+		}
+
+		size_t len;
+		std::string verstr = vobj.toString().toStdString();
+		try
+		{
+			version = std::stoi(verstr, &len);
+		}
+		catch (...)
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has '_version' value that is a string, but is not a legal version number";
+			return false;
+		}
+
+		if (len != verstr.length())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "' has '_version' value that is a string, but is not a legal version number";
+			return false;
+		}
+	}
+
+	if (version != 1)
+	{
+		//
+		// When we create a version 2, here is where the logic will go to read both version 1 and version 2 files.
+		//
+		qWarning() << "JSON file '" << file.fileName() << "' has '_version' value that is not a known version";
+		return false;
+	}
+
 	if (!obj.contains(RobotPath::GroupsTag))
 	{
 		qWarning() << "JSON file '" << file.fileName() << "' does not contains 'group' array";

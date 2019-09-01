@@ -17,6 +17,8 @@ namespace xero {
 				Invalid
 			};
 
+			static constexpr const char* VersionTag = "_version";
+			static constexpr const wchar_t* VersionTagW = L"_version";
 			static constexpr const char* NameTag = "name";
 			static constexpr const wchar_t* NameTagW = L"name";
 			static constexpr const char* LengthTag = "length";

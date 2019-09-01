@@ -32,7 +32,9 @@ std::shared_ptr<Generator> GeneratorManager::getGeneratorByName(const std::strin
 bool GeneratorManager::processJSONFile(QFile& file)
 {
 	QString text;
-	std::string name;
+	std::string name, version;
+	int vnum;
+	size_t len;
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
@@ -54,6 +56,30 @@ bool GeneratorManager::processJSONFile(QFile& file)
 	if (!doc.isObject())
 	{
 		qWarning() << "JSON file '" << file.fileName() << "' does not hold a JSON object";
+		return false;
+	}
+
+	if (!getJSONStringValue(file, doc, versionTag, version))
+		return false;
+
+	try {
+		vnum = std::stoi(version, &len);
+	}
+	catch (...)
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
+		return false;
+	}
+
+	if (len != version.length())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
+		return false;
+	}
+
+	if (vnum != 1)
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' has a '_version' field '" << vnum << "' that is not valid";
 		return false;
 	}
 

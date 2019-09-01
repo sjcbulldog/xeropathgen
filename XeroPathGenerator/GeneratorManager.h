@@ -37,6 +37,7 @@ public:
 
 
 private:
+	static constexpr const char* versionTag = "_version";
 	static constexpr const char* nameTag = "name";
 	static constexpr const char* programTag = "program";
 	static constexpr const char* propertiesTag = "properties";
