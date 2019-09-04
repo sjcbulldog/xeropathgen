@@ -171,6 +171,8 @@ private:
 	static constexpr const char* OutputTypeSetting = "outputtype";
 	static constexpr const char* NTServerIPAddress = "ntserver";
 	static constexpr const char* NTServerTableName = "tablename";
+	static constexpr const char* GridEnabled = "gridEnabled";
+	static constexpr const char* GridComplete = "gridComplete";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 

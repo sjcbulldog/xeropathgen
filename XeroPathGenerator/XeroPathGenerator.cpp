@@ -216,6 +216,18 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		nttable_name_ = "XeroPaths";
 	}
 
+	if (settings_.contains(GridEnabled))
+	{
+		bool b = settings_.value(GridEnabled).toBool();
+		path_view_->enableGrid(b);
+	}
+
+	if (settings_.contains(GridComplete))
+	{
+		bool b = settings_.value(GridComplete).toBool();
+		path_view_->completeGrid(b);
+	}
+
 	auto inst = nt::NetworkTableInstance::GetDefault();
 	inst.StartClient(ntserver_.c_str());
 
@@ -2114,6 +2126,18 @@ void XeroPathGenerator::editPreferences()
 		QVariant(nttable_name_.c_str()), "The name of the network table for path publishing");
 	dialog.getModel().addProperty(prop);
 
+	prop = std::make_shared<EditableProperty>(GridEnabled, EditableProperty::PTStringList,
+		QVariant(path_view_->isGridEnabled() ? "true" : "false"), "If true, the grid is drawn on the field");
+	prop->addChoice("true");
+	prop->addChoice("false");
+	dialog.getModel().addProperty(prop);
+
+	prop = std::make_shared<EditableProperty>(GridComplete, EditableProperty::PTStringList,
+		QVariant(path_view_->isCompleteGrid() ? "true" : "false"), "If the grid is drawn, and this is true, a mesh grid is drawn");
+	prop->addChoice("true");
+	prop->addChoice("false");
+	dialog.getModel().addProperty(prop);
+
 	if (dialog.exec() == QDialog::Rejected)
 		return;
 
@@ -2127,7 +2151,6 @@ void XeroPathGenerator::editPreferences()
 	settings_.setValue(NTServerIPAddress, ntserver_.c_str());
 
 	nttable_name_ = dialog.getModel().getProperty(PrefDialogNTTableName)->getValue().toString().toStdString();
-
 
 	value = dialog.getModel().getProperty(PrefDialogOutputFormat)->getValue().toString();
 	if (value == JsonOutputType)
@@ -2144,6 +2167,32 @@ void XeroPathGenerator::editPreferences()
 	{
 		settings_.remove(OutputTypeSetting);
 	}
+
+	value = dialog.getModel().getProperty(GridEnabled)->getValue().toString();
+	if (value == "true")
+	{
+		settings_.setValue(GridEnabled, true);
+		path_view_->enableGrid(true);
+	}
+	else if (value == "false")
+	{
+		settings_.setValue(GridEnabled, false);
+		path_view_->enableGrid(false);
+	}
+
+	value = dialog.getModel().getProperty(GridComplete)->getValue().toString();
+	if (value == "true")
+	{
+		settings_.setValue(GridComplete, true);
+		path_view_->completeGrid(true);
+	}
+	else if (value == "false")
+	{
+		settings_.setValue(GridComplete, false);
+		path_view_->completeGrid(false);
+	}
+
+	path_view_->repaint();
 }
 
 void XeroPathGenerator::initRecentFiles()

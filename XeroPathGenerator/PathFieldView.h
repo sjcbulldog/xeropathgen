@@ -29,6 +29,22 @@ public:
 		cursor_ = b;
 	}
 
+	void enableGrid(bool b) {
+		draw_grid_ = b;
+	}
+
+	bool isGridEnabled() const {
+		return draw_grid_;
+	}
+
+	void completeGrid(bool b) {
+		grid_complete_ = b;
+	}
+
+	bool isCompleteGrid() const {
+		return grid_complete_;
+	}
+
 	void demoStep();
 	double getDemoTime();
 	bool isDemoPathDone();
@@ -59,7 +75,6 @@ public:
 
 	bool isInsertWaypointValid();
 	bool isDeleteWaypointValid();
-
 
 signals:
 	void mouseMoved(xero::paths::Translation2d pos);
@@ -126,6 +141,7 @@ private:
 	void drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair, double length);
 	void drawRobot(QPainter& paint);
 	void drawCursor(QPainter& paint);
+	void drawGrid(QPainter& paint);
 	bool hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRegion& region);
 	void invalidateWaypoint(size_t index);
 
@@ -143,6 +159,11 @@ private:
 	bool rotating_;
 	DriveBaseModel* model_;
 	size_t demo_step_;
+	bool draw_grid_;
+	QColor grid_color_;
+	double grid_spacing_;
+	double grid_tick_size_;
+	bool grid_complete_;
 
 	bool cursor_;
 	double cursor_time_;

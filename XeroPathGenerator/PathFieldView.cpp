@@ -28,6 +28,12 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	rotating_ = false;
 	model_ = nullptr;
 	cursor_ = true;
+
+	draw_grid_ = true;
+	grid_color_ = QColor(0xC0, 0xC0, 0xC0, 0xFF);
+	grid_spacing_ = 36.0;
+	grid_tick_size_ = 6.0;
+	grid_complete_ = true;
 }
 
 PathFieldView::~PathFieldView()
@@ -132,6 +138,15 @@ void PathFieldView::paintEvent(QPaintEvent* event)
 	paint.drawImage(rect, field_image_);
 
 	//
+	// Draw the grid
+	//
+#ifdef NOTYET
+	if (draw_grid_)
+		drawGrid(paint);
+#endif
+
+
+	//
 	// Draw the path
 	//
 	if (path_ != nullptr)
@@ -142,6 +157,79 @@ void PathFieldView::paintEvent(QPaintEvent* event)
 
 	if (cursor_ && model_ == nullptr && selected_ == std::numeric_limits<size_t>::max())
 		drawCursor(paint);
+}
+
+void PathFieldView::drawGrid(QPainter& paint)
+{
+	QPointF p1, p2;
+
+	paint.save();
+	paint.setPen(QPen(grid_color_));
+	paint.setBrush(Qt::BrushStyle::NoBrush);
+
+	for (double x = 0; x < field_->getSize().getX(); x += grid_spacing_)
+	{
+		if (grid_complete_)
+		{
+			p1 = QPointF(x, field_->getSize().getY());
+			p2 = QPointF(x, 0);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+		}
+		else
+		{
+			p1 = QPointF(x, field_->getSize().getY());
+			p2 = QPointF(x, field_->getSize().getY() - grid_tick_size_);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+
+			p1 = QPointF(x, 0.0);
+			p2 = QPointF(x, grid_tick_size_);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+		}
+	}
+
+	for (double y = 0; y < field_->getSize().getY(); y += grid_spacing_)
+	{
+		if (grid_complete_)
+		{
+			p1 = QPointF(0, y);
+			p2 = QPointF(field_->getSize().getX(), y);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+		}
+		else
+		{
+			p1 = QPointF(field_->getSize().getX(), y);
+			p1 = QPointF(field_->getSize().getX() - grid_tick_size_, y);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+
+			p1 = QPointF(0.0, y);
+			p2 = QPointF(grid_tick_size_, y);
+
+			p1 = worldToWindow(p1);
+			p2 = worldToWindow(p2);
+
+			paint.drawLine(p1, p2);
+		}
+	}
 }
 
 void PathFieldView::emitMouseMoved(Translation2d pos)
