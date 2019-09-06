@@ -4,18 +4,20 @@
 
 TEMPLATE = app
 TARGET = XeroPathGenerator
-DESTDIR = debug
+DESTDIR = ../x64/Debug
 QT += core network gui widgets charts
 CONFIG += debug
-QMAKE_CXXFLAGS += -std=c++17
-DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
-INCLUDEPATH += $(SolutionDir)PathGenCommon \
+DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE WIN64 QT_DLL QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
+INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
+    $(SolutionDir)PathGenCommon \
     ./GeneratedFiles \
     . \
-    ./GeneratedFiles/$(ConfigurationName)\
-    ../PathGenCommon
+    ./GeneratedFiles/$(ConfigurationName)
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
-    ../PathGenCommon/PathGenCommon.a
+    -L"$(SolutionDir)external/wpi/windows/lib/$(Configuration)" \
+    -lPathGenCommon \
+    -lntcored \
+    -lwpiutild
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
 OBJECTS_DIR += debug

@@ -8,6 +8,7 @@ message("You are running qmake on a generated .pro file. This may not work!")
 
 
 HEADERS += ./build.h \
+    ./Callout.h \
     ./CSVParser.h \
     ./DriveBaseModel.h \
     ./EditableProperty.h \
@@ -41,8 +42,10 @@ HEADERS += ./build.h \
     ./SelectRobotDialog.h \
     ./RecentFiles.h \
     ./ShowRobotWindow.h \
+    ./TrajectoryViewWindow.h \
     ./PathFieldView.h
 SOURCES += ./AboutDialog.cpp \
+    ./Callout.cpp \
     ./ConstraintEditor.cpp \
     ./ConstraintTreeModel.cpp \
     ./CSVParser.cpp \
@@ -70,6 +73,7 @@ SOURCES += ./AboutDialog.cpp \
     ./ShowRobotWindow.cpp \
     ./SwerveDriveBaseModel.cpp \
     ./TankDriveBaseModel.cpp \
+    ./TrajectoryViewWindow.cpp \
     ./WaypointTreeModel.cpp \
     ./XeroPathGenerator.cpp
 FORMS += ./AboutDialog.ui \
