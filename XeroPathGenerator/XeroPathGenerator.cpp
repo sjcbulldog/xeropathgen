@@ -1657,6 +1657,14 @@ void XeroPathGenerator::populateRobotsMenu()
 
 	action = robots_->addAction(tr("Delete Robot"));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::deleteRobotAction);
+
+	robots_->addSeparator();
+
+	action = robots_->addAction(tr("Export Current Robot ..."));
+	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::exportCurrentRobot);
+
+	action = robots_->addAction(tr("Import Robot ..."));
+	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::importRobot);
 }
 
 void XeroPathGenerator::toggleDebugLogging()
@@ -1828,6 +1836,48 @@ void XeroPathGenerator::newRobotAction()
 void XeroPathGenerator::editRobotAction()
 {
 	createEditRobot(current_robot_);
+}
+
+void XeroPathGenerator::exportCurrentRobot()
+{
+	QFileDialog dialog;
+
+	QString filename = QFileDialog::getSaveFileName(this, tr("Save Robot File"), "", tr("Path File (*.robot);;All Files (*)"));
+	if (filename.length() == 0)
+		return;
+
+	QFile file(filename);
+	robot_mgr_.save(current_robot_, file);
+}
+
+void XeroPathGenerator::importRobot()
+{
+	QString filename = QFileDialog::getOpenFileName(this, tr("Load Path File"), "", tr("Path File (*.robot);;All Files (*)"));
+	if (filename.length() == 0)
+		return;
+
+	QFile file(filename);
+	try
+	{
+		auto robot = robot_mgr_.importRobot(file);
+		QAction* newRobotAction = new QAction(robot->getName().c_str());
+		robots_group_->addAction(newRobotAction);
+		robots_->insertAction(robot_seperator_, newRobotAction);
+		newRobotAction->setCheckable(true);
+		(void)connect(newRobotAction, &QAction::triggered, this, [this, robot] { newRobotSelected(robot); });
+		setRobot(robot->getName());
+	}
+	catch(const std::runtime_error &error)
+	{
+		std::string msg = "Could not import robot file '";
+		msg += filename.toStdString();
+		msg += "' - ";
+		msg += error.what();
+
+		QMessageBox box(QMessageBox::Icon::Critical,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		box.exec();
+	}
 }
 
 void XeroPathGenerator::deleteRobotAction()

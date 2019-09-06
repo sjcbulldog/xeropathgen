@@ -127,6 +127,8 @@ private:
 	void editRobotAction();
 	void showRobotMenu();
 	void deleteRobotAction();
+	void exportCurrentRobot();
+	void importRobot();
 
 	//
 	// Help menu related

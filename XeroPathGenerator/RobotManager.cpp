@@ -31,6 +31,20 @@ bool RobotManager::deleteRobot(const std::string& robot)
 	return ret;
 }
 
+std::shared_ptr<xero::paths::RobotParams> RobotManager::importRobot(QFile &file)
+{
+	processJSONFile(file) ;
+
+	auto robot = robots_.back();
+	robot->setFilename("");
+	if (!add(robot))
+	{
+		deleteRobot(robot->getName());
+		throw std::runtime_error("cannot save robot file");
+	}
+	return robot;
+}
+
 void RobotManager::convert(const std::string& units)
 {
 	for (auto robot : robots_)
@@ -103,23 +117,17 @@ bool RobotManager::processJSONFile(QFile& file)
 	size_t len;
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-	{
-		qWarning() << "Cannot open file '" << file.fileName() << "' for reading";
-		return false;
-	}
+		throw std::runtime_error("cannot open file for reading");
 
 	text = file.readAll();
 	QJsonDocument doc = QJsonDocument::fromJson(text.toUtf8());
 	if (doc.isNull())
-	{
-		qWarning() << "Cannot parse file '" << file.fileName() << "' for reading";
-		return false;
-	}
+		throw std::runtime_error("invalid JSON text in file");
 
 	if (!doc.isObject())
 	{
 		qWarning() << "JSON file '" << file.fileName() << "' does not hold a JSON object";
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 	}
 
 	if (!getJSONStringValue(file, doc, RobotParams::VersionTag, verstr))
@@ -134,51 +142,57 @@ bool RobotManager::processJSONFile(QFile& file)
 		catch (...)
 		{
 			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
-			return false;
+			throw std::runtime_error("valid JSON, but not correct format for a robot file");
 		}
 
 		if (len != verstr.length())
 		{
 			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
-			return false;
+			throw std::runtime_error("valid JSON, but not correct format for a robot file");
 		}
 
 		if (version != 1)
 		{
 			qWarning() << "JSON file '" << file.fileName() << "' has a '_version' field '" << version << "' that is not valid";
-			return false;
+			throw std::runtime_error("valid JSON, but not correct format for a robot file");
 		}
 	}
 
 	if (!getJSONStringValue(file, doc, RobotParams::NameTag, name_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
+
+	if (exists(name_value))
+	{
+		std::string msg = "robot with the name '" + name_value + "' already exists";
+		throw std::runtime_error(msg.c_str());
+	}
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::EffectiveWidthTag, ewidth_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::EffectiveLengthTag, elength_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::RobotWidthTag, rwidth_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::RobotLengthTag, rlength_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::MaxVelocityTag, velocity_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::MaxAccelerationTag, accel_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::MaxJerkTag, jerk_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::TimeStepTag, timestep_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	if (!getJSONIntegerValue(file, doc, RobotParams::DriveTypeTag, drivetype_value))
-		return false;
+		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
 	std::shared_ptr<RobotParams> robot = std::make_shared<RobotParams>(name_value);
 	robot->setFilename(file.fileName().toStdString());

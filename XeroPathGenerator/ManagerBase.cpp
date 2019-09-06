@@ -30,8 +30,7 @@ bool ManagerBase::initialize()
 {
 	for (const std::string& path : dirs_)
 	{
-		if (!processPath(path))
-			return false;
+		processPath(path);
 	}
 
 	if (!checkCount())
@@ -49,7 +48,14 @@ bool ManagerBase::processPath(const std::string& path)
 	while (iter.hasNext())
 	{
 		QFile f(iter.next());
-		processJSONFile(f);
+		try {
+			if (!processJSONFile(f))
+				return false;
+		}
+		catch (const std::runtime_error& )
+		{
+			return false;
+		}
 	}
 
 	return true;

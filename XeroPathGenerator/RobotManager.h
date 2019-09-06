@@ -24,6 +24,8 @@ public:
 
 	bool add(std::shared_ptr<xero::paths::RobotParams> robot);
 	bool save(std::shared_ptr<xero::paths::RobotParams> robot);
+	std::shared_ptr<xero::paths::RobotParams>  importRobot(QFile &file);
+
 	static bool save(std::shared_ptr<xero::paths::RobotParams> robot, QFile& file);
 
 	bool deleteRobot(const std::string& name);
