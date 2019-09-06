@@ -1,4 +1,5 @@
 #include "PathFileTreeModel.h"
+#include <QMessageBox>
 
 using namespace xero::paths;
 
@@ -167,7 +168,12 @@ bool PathFileTreeModel::setData(const QModelIndex& index, const QVariant& value,
 	{
 		QString name = value.toString();
 		if (!isNameValid(name))
+		{
+			QMessageBox box(QMessageBox::Icon::Critical,
+				"Error", "invalid path or pathgroup name, must start with letter or underscore, and be all letters, numbers, or underscores", QMessageBox::StandardButton::Ok);
+			box.exec();
 			return false;
+		}
 
 		PathBase* base = static_cast<PathBase*>(index.internalPointer());
 		base->setName(value.toString().toStdString());
