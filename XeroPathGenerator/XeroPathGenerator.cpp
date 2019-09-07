@@ -31,10 +31,16 @@
 #include <QUrl>
 #include <cstdio>
 
+#ifdef _MSVC
 #pragma warning(push)
 #pragma warning(disable: 4100 4458)
+#endif
+
 #include <networktables/NetworkTableInstance.h>
+
+#ifdef _MSVC
 #pragma warning(pop)
+#endif
 
 using namespace xero::paths;
 using namespace QtCharts;

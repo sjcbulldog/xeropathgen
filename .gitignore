@@ -1,4 +1,5 @@
 **/x64
+**/.qmake.stash
 **/Debug
 **/Release
 generators/*.exe
@@ -7,3 +8,4 @@ docs
 *.csv
 xeropathgen
 **/*.o
+PathGenCommon/PathGenCommon.a
