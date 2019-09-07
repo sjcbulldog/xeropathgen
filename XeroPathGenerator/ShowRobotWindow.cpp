@@ -97,7 +97,7 @@ void ShowRobotWindow::augmentRobotTank(const QRect& bounds, QPainter& paint)
 void ShowRobotWindow::augmentRobotSwerve(const QRect& bounds, QPainter& paint)
 {
 	DriveBaseModel* model = view_->getModel();
-	QPoint fl, fr, bl, br, pt;
+	QPoint fl, fr, bl, br;
 	double angle, velocity, accel;
 	QString str;
 	QFont font = paint.font();
