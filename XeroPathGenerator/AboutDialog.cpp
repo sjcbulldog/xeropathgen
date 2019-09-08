@@ -9,7 +9,7 @@
 AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 {
 	QString exedir = QCoreApplication::applicationDirPath();
-	QString imagepath = exedir + "/ErrorCodeXero.png";
+	QString imagepath = exedir + "/images/ErrorCodeXero.png";
 	QPixmap image(imagepath);
 
 	ui.setupUi(this);

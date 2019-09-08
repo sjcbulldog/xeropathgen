@@ -9,7 +9,7 @@ QT += core network gui widgets charts
 CONFIG += debug
 CONFIG += c++17
 CONFIG += app_bundle
-ICON=
+ICON=icon.icns
 DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE WIN64 QT_DLL QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
 INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
     $(SolutionDir)PathGenCommon \
@@ -22,6 +22,10 @@ LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
     ../PathGenCommon/PathGenCommon.a\
     ../external/wpi/macos/debug/lib/ntsim.a\
     ../external/wpi/macos/debug/lib/wpiutilsim.a
+
+images.files=$$PWD/images
+images.path=Contents/MacOS
+QMAKE_BUNDLE_DATA += images
 
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)

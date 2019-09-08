@@ -848,12 +848,22 @@ qmake_all: FORCE
 ../x64/Debug/XeroPathGenerator.app/Contents/Info.plist: 
 	@test -d ../x64/Debug/XeroPathGenerator.app/Contents || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents
 	@$(DEL_FILE) ../x64/Debug/XeroPathGenerator.app/Contents/Info.plist
-	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,\$${QMAKE_SHORT_VERSION},1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,\$${QMAKE_FULL_VERSION},1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.XeroPathGenerator,g" -e "s,\$${PRODUCT_BUNDLE_IDENTIFIER},com.yourcompany.XeroPathGenerator,g" -e "s,\$${MACOSX_DEPLOYMENT_TARGET},10.12,g" -e "s,\$${IPHONEOS_DEPLOYMENT_TARGET},,g" -e "s,\$${TVOS_DEPLOYMENT_TARGET},,g" -e "s,\$${WATCHOS_DEPLOYMENT_TARGET},,g" -e "s,@ICON@,,g" -e "s,\$${ASSETCATALOG_COMPILER_APPICON_NAME},,g" -e "s,@EXECUTABLE@,XeroPathGenerator,g" -e "s,@LIBRARY@,XeroPathGenerator,g" -e "s,\$${EXECUTABLE_NAME},XeroPathGenerator,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" ../../../Qt/5.13.0/clang_64/mkspecs/macx-clang/Info.plist.app >../x64/Debug/XeroPathGenerator.app/Contents/Info.plist
+	@sed -e "s,@SHORT_VERSION@,1.0,g" -e "s,\$${QMAKE_SHORT_VERSION},1.0,g" -e "s,@FULL_VERSION@,1.0.0,g" -e "s,\$${QMAKE_FULL_VERSION},1.0.0,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" -e "s,@BUNDLEIDENTIFIER@,com.yourcompany.XeroPathGenerator,g" -e "s,\$${PRODUCT_BUNDLE_IDENTIFIER},com.yourcompany.XeroPathGenerator,g" -e "s,\$${MACOSX_DEPLOYMENT_TARGET},10.12,g" -e "s,\$${IPHONEOS_DEPLOYMENT_TARGET},,g" -e "s,\$${TVOS_DEPLOYMENT_TARGET},,g" -e "s,\$${WATCHOS_DEPLOYMENT_TARGET},,g" -e "s,@ICON@,icon.icns,g" -e "s,\$${ASSETCATALOG_COMPILER_APPICON_NAME},icon.icns,g" -e "s,@EXECUTABLE@,XeroPathGenerator,g" -e "s,@LIBRARY@,XeroPathGenerator,g" -e "s,\$${EXECUTABLE_NAME},XeroPathGenerator,g" -e "s,@TYPEINFO@,????,g" -e "s,\$${QMAKE_PKGINFO_TYPEINFO},????,g" ../../../Qt/5.13.0/clang_64/mkspecs/macx-clang/Info.plist.app >../x64/Debug/XeroPathGenerator.app/Contents/Info.plist
+../x64/Debug/XeroPathGenerator.app/Contents/Resources/icon.icns: icon.icns
+	@test -d ../x64/Debug/XeroPathGenerator.app/Contents/Resources/ || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents/Resources/
+	@$(DEL_FILE) ../x64/Debug/XeroPathGenerator.app/Contents/Resources/icon.icns
+	@$(COPY_FILE) icon.icns ../x64/Debug/XeroPathGenerator.app/Contents/Resources/icon.icns
+../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images: images
+	@test -d ../x64/Debug/XeroPathGenerator.app/Contents/MacOS || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents/MacOS
+	@$(DEL_FILE) -r ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images
+	@$(COPY_DIR) images ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images
 
 all: Makefile \
 		../x64/Debug/XeroPathGenerator.app/Contents/PkgInfo \
 		../x64/Debug/XeroPathGenerator.app/Contents/Resources/empty.lproj \
-		../x64/Debug/XeroPathGenerator.app/Contents/Info.plist ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
+		../x64/Debug/XeroPathGenerator.app/Contents/Info.plist \
+		../x64/Debug/XeroPathGenerator.app/Contents/Resources/icon.icns \
+		../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
@@ -1747,7 +1757,9 @@ debug/PathFieldView.o: PathFieldView.cpp PathFieldView.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QPointF \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qpoint.h \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
-		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qevent.h
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qevent.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QFontMetrics \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/PathFieldView.o PathFieldView.cpp
 
 debug/PathFileTree.o: PathFileTree.cpp PathFileTree.h \

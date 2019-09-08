@@ -75,7 +75,7 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	traj_window_ = nullptr;
 
 	QString exedir = QCoreApplication::applicationDirPath();
-	QString imagepath = exedir + "/icon.png";
+	QString imagepath = exedir + "/images//icon.png";
 	QPixmap image(imagepath);
 	QIcon icon(image);
 	setWindowIcon(icon);
@@ -506,7 +506,7 @@ bool XeroPathGenerator::createToolbar()
 
 	QString exedir = QCoreApplication::applicationDirPath();
 
-	imagepath = exedir + "/" + PlayButtonImage;
+	imagepath = exedir + "/images/" + PlayButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -515,7 +515,7 @@ bool XeroPathGenerator::createToolbar()
 	play_action_->setDisabled(true);
 	(void)connect(button, &QPushButton::pressed, this, &XeroPathGenerator::demoPlay);
 
-	imagepath = exedir + "/" + StopButtonImage;
+	imagepath = exedir + "/images/" + StopButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -526,7 +526,7 @@ bool XeroPathGenerator::createToolbar()
 
 	toolbar_->addSeparator();
 
-	imagepath = exedir + "/" + ForwardOneButtonImage;
+	imagepath = exedir + "/images/" + ForwardOneButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -535,7 +535,7 @@ bool XeroPathGenerator::createToolbar()
 	forward_one_action_->setDisabled(true);
 	(void)connect(button, &QPushButton::pressed, this, &XeroPathGenerator::demoForwardOne);
 
-	imagepath = exedir + "/" + ForwardTenButtonImage;
+	imagepath = exedir + "/images/" + ForwardTenButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -546,7 +546,7 @@ bool XeroPathGenerator::createToolbar()
 
 	toolbar_->addSeparator();
 
-	imagepath = exedir + "/" + RobotButtonImage;
+	imagepath = exedir + "/images/" + RobotButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
