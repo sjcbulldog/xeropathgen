@@ -74,6 +74,8 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	QIcon icon(image);
 	setWindowIcon(icon);
 
+	setWindowFlag(Qt::WindowContextHelpButtonHint);
+
 	resize(1024, 768);
 	gui_thread_ = std::this_thread::get_id();
 
