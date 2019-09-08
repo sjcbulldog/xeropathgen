@@ -94,8 +94,6 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationName("XeroPathGenerator");
 	QCoreApplication::setApplicationVersion("1.0.0");
 
-
-
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);
 	std::string error;

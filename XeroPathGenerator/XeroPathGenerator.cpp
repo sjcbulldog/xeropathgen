@@ -83,6 +83,11 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	resize(1024, 768);
 	gui_thread_ = std::this_thread::get_id();
 
+	QString msg = exedir ;
+	QMessageBox box(QMessageBox::Icon::Critical,"Error", msg, QMessageBox::StandardButton::Ok);
+	box.exec();
+
+
 	if (!createWindows())
 	{
 		QMessageBox box(QMessageBox::Icon::Critical,

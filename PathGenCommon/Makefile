@@ -1,4 +1,4 @@
-CXXFLAGS = -std=c++17
+CXXFLAGS = -std=c++17 -mmacosx-version-min=10.12
 
 SOURCES = \
 	DistanceVelocityConstraint.cpp\

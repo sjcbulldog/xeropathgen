@@ -40,7 +40,7 @@ DISTNAME      = XeroPathGenerator1.0.0
 DISTDIR = /Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/debug/XeroPathGenerator1.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -Wl,-syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.12 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/jackgriffin/Qt/5.13.0/clang_64/lib
-LIBS          = $(SUBLIBS) -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib -L$(SolutionDir)$(Platform)/$(Configuration) ../PathGenCommon/PathGenCommon.a ../external/wpi/macos/lib/ntsim.a ../external/wpi/macos/lib/wpiutilsim.a -framework QtCharts -framework QtWidgets -framework QtGui -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL   
+LIBS          = $(SUBLIBS) -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib -L$(SolutionDir)$(Platform)/$(Configuration) ../PathGenCommon/PathGenCommon.a ../external/wpi/macos/debug/lib/ntsim.a ../external/wpi/macos/debug/lib/wpiutilsim.a -framework QtCharts -framework QtWidgets -framework QtGui -framework QtNetwork -framework QtCore -framework DiskArbitration -framework IOKit -framework OpenGL -framework AGL   
 AR            = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cq
 RANLIB        = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib -s
 SED           = sed

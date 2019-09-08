@@ -1,11 +1,17 @@
+**/*~
 **/x64
 **/.qmake.stash
 **/Debug
 **/Release
 generators/*.exe
+generators/PathFinderV1Gen
+generators/XeroGenV1
+PathFinderV1Gen/PathFinderV1Gen
+XeroGenV1/XeroGenV1
 .vs
 docs
 *.csv
 xeropathgen
 **/*.o
 PathGenCommon/PathGenCommon.a
+.DS_Store
