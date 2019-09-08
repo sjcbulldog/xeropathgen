@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd PathGenCommon
+make CONFIG=Release
+cd ..
+
+cd XeroGenV1
+make CONFIG=Release
+cd ..
+
+cd PathFinderV1Gen
+make CONFIG=Release
+cd ..
+
+cd XeroPathGenerator
+make
+cd ..
+
+cd x64/release
+zip ../../xeropathmacos.zip XeroPathGenerator.app
+cd ../..
+

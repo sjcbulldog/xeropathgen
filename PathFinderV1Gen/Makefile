@@ -1,3 +1,9 @@
+CXXFLAGS = -std=c++17 -mmacosx-version-min=10.12 -I../PathGenCommon -Iinclude
+CFLAGS = -mmacosx-version-min=10.12 -Iinclude
+
+ifeq ($(CONFIG),)
+$(error CONFIG not set, must be Debug or Release)
+endif
 
 CXXSOURCES = \
 	PathFinderV1Gen.cpp\
@@ -12,11 +18,19 @@ CSOURCES = \
 	src/trajectory.c\
 	src/fit/hermite.c
 
-OBJECTS = $(CXXSOURCES:.cpp=.o) $(CSOURCES:.c=.o)
+OBJECTS = $(addprefix $(CONFIG)/,$(CXXSOURCES:.cpp=.o)) $(addprefix $(CONFIG)/,$(CSOURCES:.c=.o))
 
-CXXFLAGS = -I../PathGenCommon -Iinclude -std=c++17
-CFLAGS = -Iinclude
-
-PathFinderV1Gen: $(OBJECTS)
+$(CONFIG)/PathFinderV1Gen: $(OBJECTS)
 	g++ $(CXXFLAGS) -o $@ $(OBJECTS) ../PathGenCommon/PathGenCommon.a
 
+
+$(CONFIG)/%.o: %.cpp
+	@echo "    "Compiling $<
+	@mkdir -p $(dir $@)
+	@$(CXX) -c -o $@ $(CXXFLAGS) $<
+
+
+$(CONFIG)/%.o: %.c
+	@echo "    "Compiling $<
+	@mkdir -p $(dir $@)
+	@$(CC) -c -o $@ $(CFLAGS) $<

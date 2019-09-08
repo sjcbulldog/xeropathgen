@@ -33,7 +33,7 @@ SOURCES = \
 
 OBJECTS = $(addprefix $(CONFIG)/,$(SOURCES:.cpp=.o))
 
-PathGenCommon.a: $(OBJECTS)
+$(CONFIG)/PathGenCommon.a: $(OBJECTS)
 	rm -f $(CONFIG)/PathGenCommon.a
 	ar r $(CONFIG)/PathGenCommon.a $(OBJECTS)
 

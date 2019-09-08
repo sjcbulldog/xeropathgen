@@ -43,7 +43,8 @@ HEADERS += ./build.h \
     ./RecentFiles.h \
     ./ShowRobotWindow.h \
     ./TrajectoryViewWindow.h \
-    ./PathFieldView.h
+    ./PathFieldView.h\
+    ./NetworkDownloadManager.h
 SOURCES += ./AboutDialog.cpp \
     ./Callout.cpp \
     ./ConstraintEditor.cpp \
@@ -75,7 +76,8 @@ SOURCES += ./AboutDialog.cpp \
     ./TankDriveBaseModel.cpp \
     ./TrajectoryViewWindow.cpp \
     ./WaypointTreeModel.cpp \
-    ./XeroPathGenerator.cpp
+    ./XeroPathGenerator.cpp\
+    ./NetworkDownloadManager.cpp
 FORMS += ./AboutDialog.ui \
     ./ConstraintEditor.ui \
     ./PlotVariableSelector.ui \

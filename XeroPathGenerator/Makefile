@@ -83,7 +83,8 @@ SOURCES       = AboutDialog.cpp \
 		TankDriveBaseModel.cpp \
 		TrajectoryViewWindow.cpp \
 		WaypointTreeModel.cpp \
-		XeroPathGenerator.cpp GeneratedFiles/qrc_XeroPathGenerator.cpp \
+		XeroPathGenerator.cpp \
+		NetworkDownloadManager.cpp GeneratedFiles/qrc_XeroPathGenerator.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp \
@@ -97,7 +98,8 @@ SOURCES       = AboutDialog.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp \
-		GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp
+		GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp \
+		GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp
 OBJECTS       = release/AboutDialog.o \
 		release/Callout.o \
 		release/ConstraintEditor.o \
@@ -130,6 +132,7 @@ OBJECTS       = release/AboutDialog.o \
 		release/TrajectoryViewWindow.o \
 		release/WaypointTreeModel.o \
 		release/XeroPathGenerator.o \
+		release/NetworkDownloadManager.o \
 		release/qrc_XeroPathGenerator.o \
 		release/moc_XeroPathGenerator.o \
 		release/moc_ConstraintEditor.o \
@@ -144,7 +147,8 @@ OBJECTS       = release/AboutDialog.o \
 		release/moc_RecentFiles.o \
 		release/moc_ShowRobotWindow.o \
 		release/moc_TrajectoryViewWindow.o \
-		release/moc_PathFieldView.o
+		release/moc_PathFieldView.o \
+		release/moc_NetworkDownloadManager.o
 DIST          = ../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		../../../Qt/5.13.0/clang_64/mkspecs/qdevice.pri \
 		../../../Qt/5.13.0/clang_64/mkspecs/features/device_config.prf \
@@ -375,7 +379,8 @@ DIST          = ../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		RecentFiles.h \
 		ShowRobotWindow.h \
 		TrajectoryViewWindow.h \
-		PathFieldView.h AboutDialog.cpp \
+		PathFieldView.h \
+		NetworkDownloadManager.h AboutDialog.cpp \
 		Callout.cpp \
 		ConstraintEditor.cpp \
 		ConstraintTreeModel.cpp \
@@ -406,7 +411,8 @@ DIST          = ../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		TankDriveBaseModel.cpp \
 		TrajectoryViewWindow.cpp \
 		WaypointTreeModel.cpp \
-		XeroPathGenerator.cpp
+		XeroPathGenerator.cpp \
+		NetworkDownloadManager.cpp
 QMAKE_TARGET  = XeroPathGenerator
 DESTDIR       = ../x64/release/
 TARGET        = ../x64/release/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
@@ -883,8 +889,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents XeroPathGenerator.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents build.h Callout.h CSVParser.h DriveBaseModel.h EditableProperty.h GameField.h GameFieldManager.h Generator.h GeneratorManager.h GeneratorParameter.h GeneratorParameterStore.h JSONWriter.h ManagerBase.h PathCollectionIO.h PathFileTreeModel.h PathGenerationEngine.h PathParamTreeModel.h PropertyEditorItemDelegate.h PropertyEditorTreeModel.h SwerveDriveBaseModel.h TankDriveBaseModel.h WaypointTreeModel.h RobotManager.h XeroPathGenerator.h ConstraintEditor.h ConstraintTreeModel.h AboutDialog.h PathFileTree.h PathPlotView.h PropertyEditor.h PlotVariableSelector.h PlotMainWindow.h SelectRobotDialog.h RecentFiles.h ShowRobotWindow.h TrajectoryViewWindow.h PathFieldView.h $(DISTDIR)/
-	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp ConstraintTreeModel.cpp CSVParser.cpp DriveBaseModel.cpp GameFieldManager.cpp GeneratorManager.cpp GeneratorParameterStore.cpp main.cpp ManagerBase.cpp PathCollectionIO.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathGenerationEngine.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp RobotManager.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents build.h Callout.h CSVParser.h DriveBaseModel.h EditableProperty.h GameField.h GameFieldManager.h Generator.h GeneratorManager.h GeneratorParameter.h GeneratorParameterStore.h JSONWriter.h ManagerBase.h PathCollectionIO.h PathFileTreeModel.h PathGenerationEngine.h PathParamTreeModel.h PropertyEditorItemDelegate.h PropertyEditorTreeModel.h SwerveDriveBaseModel.h TankDriveBaseModel.h WaypointTreeModel.h RobotManager.h XeroPathGenerator.h ConstraintEditor.h ConstraintTreeModel.h AboutDialog.h PathFileTree.h PathPlotView.h PropertyEditor.h PlotVariableSelector.h PlotMainWindow.h SelectRobotDialog.h RecentFiles.h ShowRobotWindow.h TrajectoryViewWindow.h PathFieldView.h NetworkDownloadManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp ConstraintTreeModel.cpp CSVParser.cpp DriveBaseModel.cpp GameFieldManager.cpp GeneratorManager.cpp GeneratorParameterStore.cpp main.cpp ManagerBase.cpp PathCollectionIO.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathGenerationEngine.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp RobotManager.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp NetworkDownloadManager.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents AboutDialog.ui ConstraintEditor.ui PlotVariableSelector.ui PropertyEditor.ui SelectRobotDialog.ui ShowRobotWindow.ui $(DISTDIR)/
 
 
@@ -925,9 +931,9 @@ compiler_moc_predefs_clean:
 GeneratedFiles/$(ConfigurationName)/moc_predefs.h: ../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -std=c++17 -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.12 -Wall -W -dM -E -o GeneratedFiles/moc_predefs.h ../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp
+compiler_moc_header_make_all: GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp
+	-$(DEL_FILE) GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp
 GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator.h \
 		GameFieldManager.h \
 		ManagerBase.h \
@@ -1026,6 +1032,15 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		NetworkDownloadManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1350,6 +1365,39 @@ GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp: PathFieldView.h \
 		../../../Qt/5.13.0/clang_64/bin/moc
 	/Users/jackgriffin/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include '/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/Users/jackgriffin/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)PathGenCommon' -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/Users/jackgriffin/rtools/xeropathgen/external/wpi/include -I/Users/jackgriffin/rtools/xeropathgen/PathGenCommon -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib PathFieldView.h -o GeneratedFiles/moc_PathFieldView.cpp
 
+GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp: NetworkDownloadManager.h \
+		GameFieldManager.h \
+		ManagerBase.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonArray \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		GeneratorManager.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
+		../../../Qt/5.13.0/clang_64/bin/moc
+	/Users/jackgriffin/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include '/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/Users/jackgriffin/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)PathGenCommon' -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/Users/jackgriffin/rtools/xeropathgen/external/wpi/include -I/Users/jackgriffin/rtools/xeropathgen/PathGenCommon -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib NetworkDownloadManager.h -o GeneratedFiles/moc_NetworkDownloadManager.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -1646,6 +1694,15 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		NetworkDownloadManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -2180,6 +2237,15 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		NetworkDownloadManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -2475,6 +2541,15 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		NetworkDownloadManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -2536,8 +2611,6 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
-		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
-		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
 		../external/wpi/include/networktables/NetworkTableInstance.h \
 		../external/wpi/include/wpi/ArrayRef.h \
 		../external/wpi/include/wpi/Hashing.h \
@@ -2574,6 +2647,41 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../external/wpi/include/tables/ITable.h \
 		../external/wpi/include/networktables/NetworkTableInstance.inl
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/XeroPathGenerator.o XeroPathGenerator.cpp
+
+release/NetworkDownloadManager.o: NetworkDownloadManager.cpp NetworkDownloadManager.h \
+		GameFieldManager.h \
+		ManagerBase.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonArray \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		GeneratorManager.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonobject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/NetworkDownloadManager.o NetworkDownloadManager.cpp
 
 release/qrc_XeroPathGenerator.o: GeneratedFiles/qrc_XeroPathGenerator.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/qrc_XeroPathGenerator.o GeneratedFiles/qrc_XeroPathGenerator.cpp
@@ -2619,6 +2727,9 @@ release/moc_TrajectoryViewWindow.o: GeneratedFiles/$(ConfigurationName)/moc_Traj
 
 release/moc_PathFieldView.o: GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_PathFieldView.o GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp
+
+release/moc_NetworkDownloadManager.o: GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_NetworkDownloadManager.o GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp
 
 ####### Install
 
