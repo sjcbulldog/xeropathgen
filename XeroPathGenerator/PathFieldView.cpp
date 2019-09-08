@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QPointF>
 #include <QMouseEvent>
+#include <QFontMetrics>
 #include <cmath>
 
 using namespace xero::paths;
@@ -140,11 +141,8 @@ void PathFieldView::paintEvent(QPaintEvent* event)
 	//
 	// Draw the grid
 	//
-#ifdef NOTYET
 	if (draw_grid_)
 		drawGrid(paint);
-#endif
-
 
 	//
 	// Draw the path
@@ -166,6 +164,11 @@ void PathFieldView::drawGrid(QPainter& paint)
 	paint.save();
 	paint.setPen(QPen(grid_color_));
 	paint.setBrush(Qt::BrushStyle::NoBrush);
+
+	QFont f = paint.font();
+	f.setBold(true);
+	f.setPointSize(14);
+	paint.setFont(f);
 
 	for (double x = 0; x < field_->getSize().getX(); x += grid_spacing_)
 	{
@@ -197,6 +200,20 @@ void PathFieldView::drawGrid(QPainter& paint)
 
 			paint.drawLine(p1, p2);
 		}
+
+		paint.save();
+		paint.setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF, 0xFF)));
+		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
+
+		p1 = QPointF(x, -8.0);
+		p1 = worldToWindow(p1);
+		QRectF r(p1.rx() - 100, p1.ry() - 100, 200, 200);
+		QString txt = QString::number(x, 'f', 0);
+		QTextOption option;
+		option.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+		paint.drawText(r, txt, option);
+
+		paint.restore();
 	}
 
 	for (double y = 0; y < field_->getSize().getY(); y += grid_spacing_)
@@ -214,7 +231,7 @@ void PathFieldView::drawGrid(QPainter& paint)
 		else
 		{
 			p1 = QPointF(field_->getSize().getX(), y);
-			p1 = QPointF(field_->getSize().getX() - grid_tick_size_, y);
+			p2 = QPointF(field_->getSize().getX() - grid_tick_size_, y);
 
 			p1 = worldToWindow(p1);
 			p2 = worldToWindow(p2);
@@ -229,6 +246,19 @@ void PathFieldView::drawGrid(QPainter& paint)
 
 			paint.drawLine(p1, p2);
 		}
+
+		paint.save();
+		paint.setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF, 0xFF)));
+		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
+		QFontMetrics metrics(paint.font());
+		p1 = QPointF(0.0, y);
+		p1 = worldToWindow(p1);
+		QString txt = QString::number(y, 'f', 0);
+		int width = metrics.horizontalAdvance(txt) * 3 / 2;
+		int height = metrics.lineWidth();
+		p1 = QPointF(p1.rx() - width, p1.ry() +  4 * height);
+		paint.drawText(p1, txt);
+		paint.restore();
 	}
 }
 

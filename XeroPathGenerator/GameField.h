@@ -52,6 +52,8 @@ public:
 			double y = xero::paths::UnitConverter::convert(size_.getY(), units_, units);
 
 			size_ = xero::paths::Translation2d(x, y);
+
+			units_ = units;
 		}
 	}
 

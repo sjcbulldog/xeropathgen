@@ -86,31 +86,36 @@ QVariant PropertyEditorTreeModel::data(const QModelIndex& index, int role) const
 {
 	QVariant ret;
 
-	if (role != Qt::DisplayRole && role != Qt::EditRole)
-		return ret;
-
-	auto prop = props_[index.row()];
-	if (index.column() == 0)
+	if (role == Qt::DisplayRole || role == Qt::EditRole)
 	{
-
-		ret = prop->getName();
-	}
-	else if (index.column() == 1)
-	{
-		ret = prop->getValue();
-		if (prop->getType() == EditableProperty::PropertyType::PTDouble)
+		auto prop = props_[index.row()];
+		if (index.column() == 0)
 		{
-			double d = ret.toDouble();
-			ret = QString::number(d, 'f', 2);
+
+			ret = prop->getName();
 		}
-		else if (prop->getType() == EditableProperty::PropertyType::PTInteger)
+		else if (index.column() == 1)
 		{
-			int d = ret.toInt();
-			ret = QString::number(d);
+			ret = prop->getValue();
+			if (prop->getType() == EditableProperty::PropertyType::PTDouble)
+			{
+				double d = ret.toDouble();
+				ret = QString::number(d, 'f', 2);
+			}
+			else if (prop->getType() == EditableProperty::PropertyType::PTInteger)
+			{
+				int d = ret.toInt();
+				ret = QString::number(d);
+			}
+		}
+		else if (index.column() == 2)
+		{
+			ret = prop->getDescription();
 		}
 	}
-	else if (index.column() == 2)
+	else if (role == Qt::WhatsThisRole)
 	{
+		auto prop = props_[index.row()];
 		ret = prop->getDescription();
 	}
 	return ret;
