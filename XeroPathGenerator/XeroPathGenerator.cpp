@@ -31,7 +31,7 @@
 #include <QUrl>
 #include <cstdio>
 
-#ifdef _MSVC
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4100 4458)
 #endif
@@ -84,11 +84,6 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 
 	resize(1024, 768);
 	gui_thread_ = std::this_thread::get_id();
-
-	QString msg = exedir ;
-	QMessageBox box(QMessageBox::Icon::Critical,"Error", msg, QMessageBox::StandardButton::Ok);
-	box.exec();
-
 
 	if (!createWindows())
 	{
@@ -1746,8 +1741,16 @@ void XeroPathGenerator::showAbout()
 void XeroPathGenerator::showDocumentation()
 {
 	QString exedir = QCoreApplication::applicationDirPath();
-	QString imagepath = exedir + "/XeroPathGenerator.pdf";
-	QDesktopServices::openUrl(QUrl(imagepath));
+	QString doc = exedir + "/docs/XeroPathGenerator.pdf";
+	if (!QFile::exists(doc))
+	{
+		QString msg = "Documentation file '";
+		msg += doc;
+		msg += "' does not exists - installation is not valid, try reinstalling application";
+		QMessageBox box(QMessageBox::Icon::Critical, "Error", msg, QMessageBox::StandardButton::Ok);
+		box.exec();
+	}
+	QDesktopServices::openUrl(QUrl(doc));
 }
 
 void XeroPathGenerator::newFieldSelected(std::shared_ptr<GameField> field)
