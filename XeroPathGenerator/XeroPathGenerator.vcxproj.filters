@@ -129,6 +129,9 @@
     <ClCompile Include="Callout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkDownloadManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="TrajectoryViewWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="NetworkDownloadManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

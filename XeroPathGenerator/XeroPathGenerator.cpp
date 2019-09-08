@@ -66,7 +66,8 @@ XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
 										std::ofstream& ostrm, std::stringstream& sstrm, QWidget* parent)
-	: QMainWindow(parent), fields_mgr_(fields), generators_mgr_(generators), robot_mgr_(robots), logstream_(ostrm), strstream_(sstrm)
+	: QMainWindow(parent), fields_mgr_(fields), generators_mgr_(generators), robot_mgr_(robots), 
+		logstream_(ostrm), strstream_(sstrm), download_mgr_(fields, generators)
 {
 	assert(theOne == nullptr);
 	theOne = this;
@@ -234,6 +235,17 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	{
 		bool b = settings_.value(GridComplete).toBool();
 		path_view_->completeGrid(b);
+	}
+
+	if (settings_.contains(DownloadSite) && settings_.contains(DownloadLocation))
+	{
+		download_mgr_.setSite(settings_.value(DownloadSite).toString());
+		download_mgr_.setLocation(settings_.value(DownloadLocation).toString());
+	}
+	else
+	{
+		download_mgr_.setSite(DefaultDownloadSite);
+		download_mgr_.setLocation(DefaultDownloadLocation);
 	}
 
 	auto inst = nt::NetworkTableInstance::GetDefault();
@@ -470,6 +482,11 @@ bool XeroPathGenerator::createMenus()
 
 	action = help_->addAction(tr("Documentation"));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::showDocumentation);
+
+	action = help_->addAction(tr("Check For New Fields ..."));
+	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::checkForUpdates);
+
+	help_->addSeparator();
 
 	logmenu_ = help_->addMenu("Logging");
 
@@ -857,6 +874,15 @@ void XeroPathGenerator::timerProc()
 		QString timestr = QString::number(path_view_->getDemoTime(), 'f', 2);
 		status_text_->setText(timestr);
 		path_view_->repaint();
+	}
+
+	download_mgr_.tick();
+
+	if (download_mgr_.newFields())
+	{
+		QMessageBox box(QMessageBox::Icon::Information,
+			"Information", "New game fields have been downloaded, restart program to make these available", QMessageBox::StandardButton::Ok);
+		box.exec();
 	}
 }
 
@@ -1753,6 +1779,11 @@ void XeroPathGenerator::showDocumentation()
 		box.exec();
 	}
 	QDesktopServices::openUrl(QUrl(doc));
+}
+
+void XeroPathGenerator::checkForUpdates()
+{
+	download_mgr_.updateFields();
 }
 
 void XeroPathGenerator::newFieldSelected(std::shared_ptr<GameField> field)

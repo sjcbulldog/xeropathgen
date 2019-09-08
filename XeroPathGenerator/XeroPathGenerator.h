@@ -17,6 +17,7 @@
 #include "PlotMainWindow.h"
 #include "PathFileTree.h"
 #include "TrajectoryViewWindow.h"
+#include "NetworkDownloadManager.h"
 
 #include <QProgressBar>
 #include <QMainWindow>
@@ -138,6 +139,7 @@ private:
 	void toggleWarningLogging();
 	void showAbout();
 	void showDocumentation();
+	void checkForUpdates();
 
 	void pathTreeSelectionChanged(const QModelIndex& current, const QModelIndex& prev);
 
@@ -175,6 +177,10 @@ private:
 	static constexpr const char* NTServerTableName = "tablename";
 	static constexpr const char* GridEnabled = "gridEnabled";
 	static constexpr const char* GridComplete = "gridComplete";
+	static constexpr const char* DownloadSite = "downloadsite";
+	static constexpr const char* DownloadLocation = "downloadlocation";
+	static constexpr const char* DefaultDownloadSite = "www.mewserver.net";
+	static constexpr const char* DefaultDownloadLocation = "/fields";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 
@@ -389,4 +395,6 @@ private:
 
 	std::string ntserver_;
 	std::string nttable_name_;
+
+	NetworkDownloadManager download_mgr_;
 };

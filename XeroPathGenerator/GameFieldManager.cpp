@@ -15,6 +15,12 @@ GameFieldManager::~GameFieldManager()
 {
 }
 
+bool GameFieldManager::hasFile(QString filename)
+{
+	QString path = QString(getDefaultDir().c_str()) + "/" + filename ;
+	return QFile::exists(path);
+}
+
 void GameFieldManager::convert(const std::string &units)
 {
 	for (auto field : fields_)

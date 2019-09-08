@@ -19,6 +19,7 @@ public:
 	std::list<std::shared_ptr<GameField>> getFields();
 
 	bool exists(const std::string& name);
+	bool hasFile(QString filename);
 
 	std::shared_ptr<GameField> getFieldByName(const std::string& name);
 	std::shared_ptr<GameField> getDefaultField();
