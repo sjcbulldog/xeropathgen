@@ -11,6 +11,12 @@ public:
 	ManagerBase();
 	virtual ~ManagerBase();
 
+	const std::string& getDefaultDir() const {
+		return default_dir_;
+	}
+
+	void copyDefaults(const std::string& subdir);
+
 	virtual bool initialize();
 
 	void setDirectory(const std::string& dir) {
@@ -21,6 +27,12 @@ public:
 	void addDirectory(const std::string& dir) {
 		dirs_.push_back(dir);
 	}
+
+	void addDefaultDirectory(const std::string& dir) {
+		addDirectory(dir);
+		default_dir_ = dir;
+	}
+
 
 	void dumpSearchPath(const char* name);
 
@@ -43,6 +55,7 @@ protected:
 	bool getJSONPointValue(QFile& file, QJsonDocument& doc, const char* name, xero::paths::Translation2d& t2d);
 
 private:
+	std::string default_dir_;
 	std::list<std::string> dirs_;
 };
 

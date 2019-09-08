@@ -75,7 +75,7 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	traj_window_ = nullptr;
 
 	QString exedir = QCoreApplication::applicationDirPath();
-	QString imagepath = exedir + "/images//icon.png";
+	QString imagepath = exedir + "/images/icon.png";
 	QPixmap image(imagepath);
 	QIcon icon(image);
 	setWindowIcon(icon);

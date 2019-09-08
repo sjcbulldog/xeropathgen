@@ -84,18 +84,16 @@
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>echo mkdir image directory
-mkdir $(OutDir)\images
-echo copying images
+      <Command>mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
-echo mkdir doc directory
 mkdir $(OutDir)\docs
-echo copying user guide
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-echo deploying Qt application
 windeployqt $(OutDir)$(ProjectName).exe
-echo copying NT and WPIUTIL dlls
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
+mkdir $(OutDir)\fields
+copy $(ProjectDir)..\fields\* $(OutDir)\fields
+mkdir $(OutDir)\generators
+copy $(ProjectDir)..\generators\* $(OutDir)\generators
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -141,18 +139,16 @@ copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>echo mkdir image directory
-mkdir $(OutDir)\images
-echo copying images
+      <Command>mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
-echo mkdir doc directory
 mkdir $(OutDir)\docs
-echo copying user guide
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-echo deploying Qt application
 windeployqt $(OutDir)$(ProjectName).exe
-echo copying NT and WPIUTIL dlls
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
+mkdir $(OutDir)\fields
+copy $(ProjectDir)..\fields\* $(OutDir)\fields
+mkdir $(OutDir)\generators
+copy $(ProjectDir)..\generators\* $(OutDir)\generators
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>

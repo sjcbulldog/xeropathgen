@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QDirIterator>
 #include <QDebug>
+#include <QCoreApplication>
 
 using namespace xero::paths;
 
@@ -214,4 +215,32 @@ bool ManagerBase::getJSONPointValue(QFile &file, const QJsonValue &point, const 
 	t2d = Translation2d(arr[0].toDouble(), arr[1].toDouble());
 
 	return true;
+}
+
+void ManagerBase::copyDefaults(const std::string& subdir)
+{
+	if (default_dir_.length() == 0)
+		return;
+
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString src = exedir + "/" + QString(subdir.c_str());
+
+	QDir srcdir(src);
+	QDir destdir(default_dir_.c_str());
+
+	if (!destdir.exists())
+	{
+		if (!destdir.mkpath(default_dir_.c_str()))
+			return;
+	}
+
+	QStringList list = srcdir.entryList(QDir::Filter::Files);
+	for (QString item : list)
+	{
+		QString srcfile = srcdir.absoluteFilePath(item);
+		QString destfile = destdir.absoluteFilePath(item);
+
+		if (!QFile::exists(destfile))
+			QFile::copy(srcfile, destfile);
+	}
 }

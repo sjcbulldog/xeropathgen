@@ -159,9 +159,9 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	fields.addDirectory((appdir + "/fields").toStdString());
-	generators.addDirectory((appdir + "/generators").toStdString());
-	robots.addDirectory((appdir + "/robots").toStdString());
+	fields.addDefaultDirectory((appdir + "/fields").toStdString());
+	generators.addDefaultDirectory((appdir + "/generators").toStdString());
+	robots.addDefaultDirectory((appdir + "/robots").toStdString());
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString field = exedir + "/../fields";
@@ -171,6 +171,9 @@ int main(int argc, char *argv[])
 	QString gen = exedir + "/../generators";
 	dir = QDir(gen);
 	generators.addDirectory(dir.absolutePath().toStdString());
+
+	fields.copyDefaults("fields");
+	generators.copyDefaults("generators");
 
 	if (!fields.initialize())
 	{
