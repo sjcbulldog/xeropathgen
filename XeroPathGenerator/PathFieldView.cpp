@@ -234,6 +234,7 @@ void PathFieldView::drawGrid(QPainter& paint)
 	f.setBold(true);
 	f.setPointSize(14);
 	paint.setFont(f);
+	QFontMetrics metrics(f);
 
 	for (double x = 0; x < field_->getSize().getX(); x += grid_spacing_)
 	{
@@ -267,13 +268,23 @@ void PathFieldView::drawGrid(QPainter& paint)
 		}
 
 		paint.save();
-		paint.setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF, 0xFF)));
-		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
+
+		QString txt = QString::number(x, 'f', 0);
+		int totalw = metrics.horizontalAdvance(txt);
+		int totalh = metrics.lineSpacing();
+
+		paint.setBrush(QBrush(QColor(0x0, 0x0, 0x0, 0x80)));
+		paint.setPen(Qt::NoPen);
 
 		p1 = QPointF(x, -8.0);
 		p1 = worldToWindow(p1);
-		QRectF r(p1.rx() - 100, p1.ry() - 100, 200, 200);
-		QString txt = QString::number(x, 'f', 0);
+
+		QRectF r(p1.rx() - totalw / 2, p1.ry() - totalh / 3.0, totalw, totalh);
+		paint.drawRect(r);
+
+		paint.setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF, 0xFF)));
+		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
+
 		QTextOption option;
 		option.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 		paint.drawText(r, txt, option);
@@ -313,16 +324,26 @@ void PathFieldView::drawGrid(QPainter& paint)
 		}
 
 		paint.save();
+
+		QString txt = QString::number(y, 'f', 0);
+		int totalw = metrics.horizontalAdvance(txt);
+		int totalh = metrics.lineSpacing();
+
+		p1 = QPointF(-4.0, y);
+		p1 = worldToWindow(p1);
+
+		paint.setBrush(QBrush(QColor(0x0, 0x0, 0x0, 0x80)));
+		paint.setPen(Qt::NoPen);
+
+		QRectF r(p1.rx() - totalw, p1.ry() - totalh / 2.0, totalw, totalh);
+		paint.drawRect(r);
+
 		paint.setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF, 0xFF)));
 		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
-		QFontMetrics metrics(paint.font());
-		p1 = QPointF(0.0, y);
-		p1 = worldToWindow(p1);
-		QString txt = QString::number(y, 'f', 0);
-		int width = metrics.horizontalAdvance(txt) * 3 / 2;
-		int height = metrics.lineWidth();
-		p1 = QPointF(p1.rx() - width, p1.ry() +  4 * height);
-		paint.drawText(p1, txt);
+
+		QTextOption option;
+		option.setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+		paint.drawText(r, txt, option);
 		paint.restore();
 	}
 }
