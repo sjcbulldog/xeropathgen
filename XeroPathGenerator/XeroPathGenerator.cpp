@@ -810,7 +810,9 @@ void XeroPathGenerator::timerProc()
 
 	std::shared_ptr<RobotPath> path = path_engine_.getComplete();
 	if (path == current_path_ && path != nullptr)
-		plots_->update();
+	{
+		plot_main_->update();
+	}
 
 	if (demo_mode_ != DemoMode::ModeNone)
 	{
@@ -1320,7 +1322,7 @@ void XeroPathGenerator::allPathsDirty()
 	{
 		path->clearTrajectories();
 		if (path == current_path_)
-			plots_->update();
+			plot_main_->update();
 
 		path_engine_.markPathDirty(path);
 	}

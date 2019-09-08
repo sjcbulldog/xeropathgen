@@ -27,7 +27,11 @@ void PlotMainWindow::setPath(std::shared_ptr<RobotPath> path) {
 	// Setup the scroll bar range to be in milliseconds
 	//
 	path_ = path;
+	updateScrollBar();
+}
 
+void PlotMainWindow::updateScrollBar()
+{
 	int pathmax;
 	if (path_ == nullptr)
 		pathmax = 0;
@@ -37,4 +41,12 @@ void PlotMainWindow::setPath(std::shared_ptr<RobotPath> path) {
 	bar_->setValue(0);
 	bar_->setRange(0, pathmax);
 	bar_->setSingleStep(20);		// TODO - this should come from the robot timestep
+}
+
+void PlotMainWindow::update()
+{
+	if (view_ != nullptr)
+		view_->update();
+
+	updateScrollBar();
 }

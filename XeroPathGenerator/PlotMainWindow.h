@@ -28,6 +28,11 @@ public:
 		return bar_->value() / 1000.0;
 	}
 
+	void update();
+
+private:
+	void updateScrollBar();
+
 private:
 	QVBoxLayout* layout_;
 	QScrollBar* bar_;
