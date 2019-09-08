@@ -45,6 +45,14 @@ public:
 		return grid_complete_;
 	}
 
+	void showEquation(bool b) {
+		show_equations_ = b;
+	}
+
+	bool isShowEquation() const {
+		return  show_equations_;
+	}
+
 	void demoStep();
 	double getDemoTime();
 	bool isDemoPathDone();

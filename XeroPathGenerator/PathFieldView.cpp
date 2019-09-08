@@ -171,31 +171,39 @@ void PathFieldView::drawEquations(QPainter& paint)
 	std::shared_ptr<SplinePair> pair = path_->getSplineAtTime(cursor_time_);
 	if (pair != nullptr)
 	{
-
+		int topbottom = 10;
+		int side = 15;
 		paint.save();
 
 		QFont font = paint.font();
 		font.setBold(true);
-		font.setPointSize(16);
+		font.setPointSize(12);
 		paint.setFont(font);
-
-		paint.setBrush(QBrush(QColor(0xff, 0xff, 0xff, 0xff)));
-		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
 
 		QString xequ, yequ;
 
 		xequ = createEquation("x", pair->getX().a(), pair->getX().b(), pair->getX().c(), pair->getX().d(), pair->getX().e(), pair->getX().f());
 		yequ = createEquation("y", pair->getY().a(), pair->getY().b(), pair->getY().c(), pair->getY().d(), pair->getY().e(), pair->getY().f());
 
+		QString equ = xequ + "         " + yequ;
+
 		QFontMetrics metric(font);
-		QRect r(0, 0, width(), metric.lineSpacing());
+		QRect r;
+
+		int totalw = metric.horizontalAdvance(equ) + 2 * side;
+		int totalh = metric.lineSpacing() + 2 * topbottom;
+
+		r = QRect(width() / 2 - totalw / 2, topbottom, totalw, totalh);
+		paint.setBrush(QBrush(QColor(0x40, 0x40, 0x40, 0x90)));
+		paint.setPen(Qt::NoPen);
+		paint.drawRect(r);
+
+		paint.setBrush(QBrush(QColor(0xff, 0xff, 0xff, 0xff)));
+		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
 
 		QTextOption option;
 		option.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-		paint.drawText(r, xequ, option);
-
-		r = QRect(0, metric.lineSpacing(), width(), metric.lineSpacing());
-		paint.drawText(r, yequ, option);
+		paint.drawText(r, equ, option);
 
 		paint.restore();
 	}
@@ -206,11 +214,11 @@ QString PathFieldView::createEquation(QString left,  double a, double b, double 
 	QString str = left + "=";
 
 	str += QString::number(a, 'f', 3) + QString("*t^5");
-	str += QString::number(b, 'f', 3) + QString("*t^4");
-	str += QString::number(c, 'f', 3) + QString("*t^3");
-	str += QString::number(d, 'f', 3) + QString("*t^2");
-	str += QString::number(e, 'f', 3) + QString("*t^1");
-	str += QString::number(f, 'f', 3);
+	str += QString(" + ") + QString::number(b, 'f', 3) + QString("*t^4");
+	str += QString(" + ") + QString::number(c, 'f', 3) + QString("*t^3");
+	str += QString(" + ") + QString::number(d, 'f', 3) + QString("*t^2");
+	str += QString(" + ") + QString::number(e, 'f', 3) + QString("*t");
+	str += QString(" + ") + QString::number(f, 'f', 3);
 	return str;
 }
 

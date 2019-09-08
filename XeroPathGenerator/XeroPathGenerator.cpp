@@ -237,6 +237,12 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		path_view_->completeGrid(b);
 	}
 
+	if (settings_.contains(ShowEquation))
+	{
+		bool b = settings_.value(ShowEquation).toBool();
+		path_view_->showEquation(b);
+	}
+
 	if (settings_.contains(DownloadSite) && settings_.contains(DownloadLocation))
 	{
 		download_mgr_.setSite(settings_.value(DownloadSite).toString());
@@ -2237,6 +2243,12 @@ void XeroPathGenerator::editPreferences()
 	prop->addChoice("false");
 	dialog.getModel().addProperty(prop);
 
+	prop = std::make_shared<EditableProperty>(ShowEquation, EditableProperty::PTStringList,
+		QVariant(path_view_->isShowEquation() ? "true" : "false"), "If true, the Spline equations are displayed");
+	prop->addChoice("true");
+	prop->addChoice("false");
+	dialog.getModel().addProperty(prop);
+
 	if (dialog.exec() == QDialog::Rejected)
 		return;
 
@@ -2289,6 +2301,18 @@ void XeroPathGenerator::editPreferences()
 	{
 		settings_.setValue(GridComplete, false);
 		path_view_->completeGrid(false);
+	}
+
+	value = dialog.getModel().getProperty(ShowEquation)->getValue().toString();
+	if (value == "true")
+	{
+		settings_.setValue(ShowEquation, true);
+		path_view_->showEquation(true);
+	}
+	else if (value == "false")
+	{
+		settings_.setValue(ShowEquation, false);
+		path_view_->showEquation(false);
 	}
 
 	path_view_->repaint();
