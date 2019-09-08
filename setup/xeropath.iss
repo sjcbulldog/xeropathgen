@@ -38,9 +38,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.*"; DestDir: "{app}"; Flags: ignoreversion 64bit recursesubdirs
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.png"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\fields\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}fields" ; Flags: ignoreversion recursesubdirs
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\generators\*" ; DestDir: "{localappdata}{\}ErrorCodeXero{\}XeroPathGenerator{\}generators" ; Flags: ignoreversion recursesubdirs
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGenerator.pdf" ; DestDir: {app} ; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
