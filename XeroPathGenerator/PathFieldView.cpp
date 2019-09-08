@@ -35,6 +35,8 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	grid_spacing_ = 36.0;
 	grid_tick_size_ = 6.0;
 	grid_complete_ = true;
+
+	show_equations_ = true;
 }
 
 PathFieldView::~PathFieldView()
@@ -153,8 +155,63 @@ void PathFieldView::paintEvent(QPaintEvent* event)
 	if (model_ != nullptr)
 		drawRobot(paint);
 
+	if (show_equations_)
+		drawEquations(paint);
+
 	if (cursor_ && model_ == nullptr && selected_ == std::numeric_limits<size_t>::max())
 		drawCursor(paint);
+
+}
+
+void PathFieldView::drawEquations(QPainter& paint)
+{
+	if (path_ == nullptr)
+		return;
+
+	std::shared_ptr<SplinePair> pair = path_->getSplineAtTime(cursor_time_);
+	if (pair != nullptr)
+	{
+
+		paint.save();
+
+		QFont font = paint.font();
+		font.setBold(true);
+		font.setPointSize(16);
+		paint.setFont(font);
+
+		paint.setBrush(QBrush(QColor(0xff, 0xff, 0xff, 0xff)));
+		paint.setPen(QPen(QColor(0xff, 0xff, 0xff, 0xff)));
+
+		QString xequ, yequ;
+
+		xequ = createEquation("x", pair->getX().a(), pair->getX().b(), pair->getX().c(), pair->getX().d(), pair->getX().e(), pair->getX().f());
+		yequ = createEquation("y", pair->getY().a(), pair->getY().b(), pair->getY().c(), pair->getY().d(), pair->getY().e(), pair->getY().f());
+
+		QFontMetrics metric(font);
+		QRect r(0, 0, width(), metric.lineSpacing());
+
+		QTextOption option;
+		option.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+		paint.drawText(r, xequ, option);
+
+		r = QRect(0, metric.lineSpacing(), width(), metric.lineSpacing());
+		paint.drawText(r, yequ, option);
+
+		paint.restore();
+	}
+}
+
+QString PathFieldView::createEquation(QString left,  double a, double b, double c, double d, double e, double f)
+{
+	QString str = left + "=";
+
+	str += QString::number(a, 'f', 3) + QString("*t^5");
+	str += QString::number(b, 'f', 3) + QString("*t^4");
+	str += QString::number(c, 'f', 3) + QString("*t^3");
+	str += QString::number(d, 'f', 3) + QString("*t^2");
+	str += QString::number(e, 'f', 3) + QString("*t^1");
+	str += QString::number(f, 'f', 3);
+	return str;
 }
 
 void PathFieldView::drawGrid(QPainter& paint)

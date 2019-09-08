@@ -96,14 +96,8 @@ namespace xero
 
 			double getTime();
 
-			void addTrajectory(std::shared_ptr<PathTrajectory> newtraj) {
-				trajectory_lock_.lock();
-				auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [newtraj](std::shared_ptr<PathTrajectory> traj) { return traj->name() == newtraj->name(); });
-				if (it != trajectories_.end())
-					trajectories_.erase(it);
-				trajectories_.push_back(newtraj);
-				trajectory_lock_.unlock();
-			}
+			void addTrajectory(std::shared_ptr<PathTrajectory> newtraj);
+
 
 			bool hasTrajectory(const std::string& name) {
 				bool ret = false;
@@ -356,6 +350,7 @@ namespace xero
 			}
 
 			bool getPoseAtTime(double time, Pose2dWithTrajectory& p2d);
+			std::shared_ptr<SplinePair> getSplineAtTime(double time);
 			bool getDistance(double time, double& value);
 
 			double sumDCurvature2();
@@ -413,6 +408,11 @@ namespace xero
 			// The path group this path belong to
 			//
 			std::shared_ptr<PathGroup> parent_;
+
+			//
+			// The times for each waypoint, extracted from the main trajectory
+			//
+			std::vector<double> times_;
 
 			//
 			// These are physical trajector paths returned by the path generator.  All path

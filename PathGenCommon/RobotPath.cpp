@@ -9,13 +9,30 @@ namespace xero
 {
 	namespace paths
 	{
+		std::shared_ptr<SplinePair> RobotPath::getSplineAtTime(double time)
+		{
+			if (times_.size() == 0)
+				return nullptr;
+
+			if (times_.size() != points_.size())
+				return nullptr;
+
+			for (size_t i = 0; i < points_.size(); i++)
+			{
+				if (time < times_[i])
+					return splines_[i - 1];
+			}
+
+			return nullptr;
+		}
+
 		double RobotPath::getTime()
 		{
 			auto traj = getTrajectory(TrajectoryName::Main);
 			if (traj == nullptr || traj->size() == 0)
 				return 0.0;
 
-			return (*traj)[traj->size() - 1].time();;
+			return (*traj)[traj->size() - 1].time();
 		}
 
 		bool RobotPath::getDistance(double time, double &dist)
@@ -234,6 +251,56 @@ namespace xero
 				spline->ddxy1(spline->ddx1() + controlPoints[i].ddx, spline->ddy1() + controlPoints[i].ddy);
 				splinenext->ddxy0(splinenext->ddx0() + controlPoints[i].ddx, splinenext->ddy0() + controlPoints[i].ddy);
 			}
+		}
+
+		void RobotPath::addTrajectory(std::shared_ptr<PathTrajectory> newtraj)
+		{
+			trajectory_lock_.lock();
+			auto it = std::find_if(trajectories_.begin(), trajectories_.end(), [newtraj](std::shared_ptr<PathTrajectory> traj) { return traj->name() == newtraj->name(); });
+			if (it != trajectories_.end())
+				trajectories_.erase(it);
+			trajectories_.push_back(newtraj);
+
+
+			if (newtraj->name() == TrajectoryName::Main)
+			{
+				size_t i = 0;
+				size_t current = 1;
+				times_.clear();
+				times_.push_back(0.0);
+				double curdist = std::numeric_limits<double>::max();
+
+				while (i < newtraj->size())
+				{
+					const Pose2dWithTrajectory& pt = (*newtraj)[i];
+					double dist = points_[current].distance(pt.pose());
+					if (dist <= curdist)
+					{
+						//
+						// Still approaching
+						//
+						curdist = dist;
+					}
+					else
+					{
+						//
+						// We found it, it was the previous point
+						//
+						if (i == 0)
+							times_.push_back(0.0);
+						else
+							times_.push_back((*newtraj)[i - 1].time());
+
+						curdist = std::numeric_limits<double>::max();
+						current++;
+					}
+
+					i++;
+				}
+				times_.push_back((*newtraj)[newtraj->size() - 1].time());
+			}
+
+			trajectory_lock_.unlock();
 		}
 	}
 }

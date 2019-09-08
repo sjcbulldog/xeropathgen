@@ -142,8 +142,11 @@ private:
 	void drawRobot(QPainter& paint);
 	void drawCursor(QPainter& paint);
 	void drawGrid(QPainter& paint);
+	void drawEquations(QPainter& paint);
 	bool hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRegion& region);
 	void invalidateWaypoint(size_t index);
+
+	QString createEquation(QString left, double a, double b, double c, double d, double e, double f);
 
 private:
 	QImage field_image_;
@@ -164,6 +167,7 @@ private:
 	double grid_spacing_;
 	double grid_tick_size_;
 	bool grid_complete_;
+	bool show_equations_;
 
 	bool cursor_;
 	double cursor_time_;

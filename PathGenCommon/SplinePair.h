@@ -17,6 +17,14 @@ namespace xero
 			SplinePair(const QuinticHermiteSpline& x, const QuinticHermiteSpline& y);
 			virtual ~SplinePair();
 
+			QuinticHermiteSpline& getX() {
+				return *x_;
+			}
+
+			QuinticHermiteSpline& getY() {
+				return *y_;
+			}
+
 			double x0() { return x_->v0(); }
 			double x1() { return x_->v0(); }
 			double dx0() { return x_->dv0(); }
