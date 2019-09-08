@@ -1,5 +1,9 @@
 CXXFLAGS = -std=c++17 -mmacosx-version-min=10.12
 
+ifeq ($(CONFIG),)
+$(error CONFIG not set, must be Debug or Release)
+endif
+
 SOURCES = \
 	DistanceVelocityConstraint.cpp\
 	DistanceView.cpp\
@@ -27,9 +31,13 @@ SOURCES = \
 	UnitConverter.cpp\
 	WaypointReader.cpp
 
-OBJECTS = $(SOURCES:.cpp=.o)
+OBJECTS = $(addprefix $(CONFIG)/,$(SOURCES:.cpp=.o))
 
 PathGenCommon.a: $(OBJECTS)
-	rm -f PathGenCommon.a
-	ar r PathGenCommon.a $(OBJECTS)
+	rm -f $(CONFIG)/PathGenCommon.a
+	ar r $(CONFIG)/PathGenCommon.a $(OBJECTS)
 
+$(CONFIG)/%.o: %.cpp
+	@echo "    "Compiling $<
+	@mkdir -p $(dir $@)
+	@$(CXX) -c -o $@ $(CXXFLAGS) $<

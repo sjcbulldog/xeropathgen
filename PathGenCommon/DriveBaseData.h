@@ -66,6 +66,7 @@ namespace xero
 		private:
 			static std::vector<std::string> tank_drive_trajectories_;
 			static std::vector<std::string> swerve_drive_trajectories_;
+			static std::vector<std::string> invalid_drive_trajectories_ ;
 		};
 	}
 }

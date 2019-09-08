@@ -19,6 +19,11 @@ namespace xero {
 			"br"
 		};
 
+		std::vector<std::string> DriveBaseData::invalid_drive_trajectories_ =
+		{
+		};
+
+
 		const std::vector<std::string> DriveBaseData::getTrajectories(RobotParams::DriveType type)
 		{
 			switch (type)
@@ -28,6 +33,9 @@ namespace xero {
 
 			case RobotParams::DriveType::SwerveDrive:
 				return swerve_drive_trajectories_;
+
+			case RobotParams::DriveType::Invalid:
+			  	return invalid_drive_trajectories_ ;
 			}
 
 			assert(false);
