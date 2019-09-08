@@ -27,6 +27,14 @@ images.files=$$PWD/images
 images.path=Contents/MacOS
 QMAKE_BUNDLE_DATA += images
 
+fields.files=$$PWD/../fields
+fields.path=Contents/MacOS
+QMAKE_BUNDLE_DATA += fields
+
+generators.files=$$PWD/../generators
+generators.path=Contents/MacOS
+QMAKE_BUNDLE_DATA += generators
+
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/$(ConfigurationName)
 OBJECTS_DIR += debug

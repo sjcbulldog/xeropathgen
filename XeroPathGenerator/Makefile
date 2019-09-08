@@ -857,13 +857,23 @@ qmake_all: FORCE
 	@test -d ../x64/Debug/XeroPathGenerator.app/Contents/MacOS || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents/MacOS
 	@$(DEL_FILE) -r ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images
 	@$(COPY_DIR) images ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images
+../x64/Debug/XeroPathGenerator.app/Contents/MacOS/fields: ../fields
+	@test -d ../x64/Debug/XeroPathGenerator.app/Contents/MacOS || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents/MacOS
+	@$(DEL_FILE) -r ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/fields
+	@$(COPY_DIR) ../fields ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/fields
+../x64/Debug/XeroPathGenerator.app/Contents/MacOS/generators: ../generators
+	@test -d ../x64/Debug/XeroPathGenerator.app/Contents/MacOS || mkdir -p ../x64/Debug/XeroPathGenerator.app/Contents/MacOS
+	@$(DEL_FILE) -r ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/generators
+	@$(COPY_DIR) ../generators ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/generators
 
 all: Makefile \
 		../x64/Debug/XeroPathGenerator.app/Contents/PkgInfo \
 		../x64/Debug/XeroPathGenerator.app/Contents/Resources/empty.lproj \
 		../x64/Debug/XeroPathGenerator.app/Contents/Info.plist \
 		../x64/Debug/XeroPathGenerator.app/Contents/Resources/icon.icns \
-		../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
+		../x64/Debug/XeroPathGenerator.app/Contents/MacOS/images \
+		../x64/Debug/XeroPathGenerator.app/Contents/MacOS/fields \
+		../x64/Debug/XeroPathGenerator.app/Contents/MacOS/generators ../x64/Debug/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
 
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
