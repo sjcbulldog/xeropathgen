@@ -21,6 +21,7 @@ std::vector<QPointF> PathFieldView::triangle_ =
 
 PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 {
+	units_ = "in";
 	setMouseTracking(true);
 	setFocusPolicy(Qt::ClickFocus);
 	selected_ = std::numeric_limits<size_t>::max();
@@ -34,6 +35,11 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	grid_color_ = QColor(0xC0, 0xC0, 0xC0, 0xFF);
 	grid_spacing_ = 36.0;
 	grid_tick_size_ = 6.0;
+	grid_y_label_descend_ = -8.0;
+	grid_x_label_gap_ = -4.0;
+
+
+
 	grid_complete_ = true;
 
 	show_equations_ = true;
@@ -42,6 +48,25 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 
 PathFieldView::~PathFieldView()
 {
+}
+
+void PathFieldView::setUnits(const std::string& units)
+{
+	grid_spacing_ = UnitConverter::convert(grid_spacing_, units_, units);
+	grid_tick_size_ = UnitConverter::convert(grid_tick_size_, units_, units);
+	grid_y_label_descend_ = UnitConverter::convert(grid_y_label_descend_, units_, units);
+	grid_x_label_gap_ = UnitConverter::convert(grid_x_label_gap_, units_, units);
+
+	for (size_t i = 0; i < triangle_.size(); i++)
+	{
+		double x = UnitConverter::convert(triangle_[i].rx(), units_, units);
+		double y = UnitConverter::convert(triangle_[i].rx(), units_, units);
+		triangle_[i] = QPointF(x, y);
+	}
+
+	units_ = units;
+	createTransforms();
+	repaint();
 }
 
 bool PathFieldView::isInsertWaypointValid()
@@ -300,7 +325,7 @@ void PathFieldView::drawGrid(QPainter& paint)
 		paint.setBrush(QBrush(QColor(0x0, 0x0, 0x0, 0x80)));
 		paint.setPen(Qt::NoPen);
 
-		p1 = QPointF(x, -8.0);
+		p1 = QPointF(x, grid_y_label_descend_);
 		p1 = worldToWindow(p1);
 
 		QRectF r(p1.rx() - totalw / 2, p1.ry() - totalh / 3.0, totalw, totalh);
@@ -353,7 +378,7 @@ void PathFieldView::drawGrid(QPainter& paint)
 		int totalw = metrics.horizontalAdvance(txt);
 		int totalh = metrics.lineSpacing();
 
-		p1 = QPointF(-4.0, y);
+		p1 = QPointF(grid_x_label_gap_, y);
 		p1 = worldToWindow(p1);
 
 		paint.setBrush(QBrush(QColor(0x0, 0x0, 0x0, 0x80)));

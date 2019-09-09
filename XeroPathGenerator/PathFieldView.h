@@ -68,7 +68,8 @@ public:
 	void setField(std::shared_ptr<GameField> field);
 	void setPath(std::shared_ptr<xero::paths::RobotPath> path);
 	void setRobot(std::shared_ptr<xero::paths::RobotParams> params);
-	void setUnits(const std::string units) { units_ = units; }
+	void setUnits(const std::string &units);
+
 	void resetDemo();
 
 	std::shared_ptr<xero::paths::RobotPath> getPath() {
@@ -178,11 +179,17 @@ private:
 	bool rotating_;
 	DriveBaseModel* model_;
 	size_t demo_step_;
+
+	double triangle_size_;
+
 	bool draw_grid_;
 	QColor grid_color_;
 	double grid_spacing_;
 	double grid_tick_size_;
+	double grid_y_label_descend_;
+	double grid_x_label_gap_;
 	bool grid_complete_;
+
 	bool show_equations_;
 	bool equations_stacked_;
 
