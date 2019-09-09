@@ -53,6 +53,14 @@ public:
 		return  show_equations_;
 	}
 
+	void equationsStacked(bool b) {
+		equations_stacked_ = b;
+	}
+
+	bool areEquationsStacked() const {
+		return equations_stacked_;
+	}
+
 	void demoStep();
 	double getDemoTime();
 	bool isDemoPathDone();
@@ -154,7 +162,7 @@ private:
 	bool hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRegion& region);
 	void invalidateWaypoint(size_t index);
 
-	QString createEquation(QString left, double a, double b, double c, double d, double e, double f);
+	QString createEquation(QString left, int places, double a, double b, double c, double d, double e, double f);
 
 private:
 	QImage field_image_;
@@ -176,6 +184,7 @@ private:
 	double grid_tick_size_;
 	bool grid_complete_;
 	bool show_equations_;
+	bool equations_stacked_;
 
 	bool cursor_;
 	double cursor_time_;

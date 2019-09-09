@@ -178,6 +178,7 @@ private:
 	static constexpr const char* GridEnabled = "gridEnabled";
 	static constexpr const char* GridComplete = "gridComplete";
 	static constexpr const char* ShowEquation = "showEquations";
+	static constexpr const char* EquationsStacked = "equationsStacked";
 	static constexpr const char* DownloadSite = "downloadsite";
 	static constexpr const char* DownloadLocation = "downloadlocation";
 	static constexpr const char* DefaultDownloadSite = "www.mewserver.net";

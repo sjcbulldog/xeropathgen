@@ -243,6 +243,12 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		path_view_->showEquation(b);
 	}
 
+	if (settings_.contains(EquationsStacked))
+	{
+		bool b = settings_.value(EquationsStacked).toBool();
+		path_view_->equationsStacked(b);
+	}
+
 	if (settings_.contains(DownloadSite) && settings_.contains(DownloadLocation))
 	{
 		download_mgr_.setSite(settings_.value(DownloadSite).toString());
@@ -2249,6 +2255,12 @@ void XeroPathGenerator::editPreferences()
 	prop->addChoice("false");
 	dialog.getModel().addProperty(prop);
 
+	prop = std::make_shared<EditableProperty>(EquationsStacked, EditableProperty::PTStringList,
+		QVariant(path_view_->areEquationsStacked() ? "true" : "false"), "If true and equations are shown, they are stacked x then y");
+	prop->addChoice("true");
+	prop->addChoice("false");
+	dialog.getModel().addProperty(prop);
+
 	if (dialog.exec() == QDialog::Rejected)
 		return;
 
@@ -2313,6 +2325,18 @@ void XeroPathGenerator::editPreferences()
 	{
 		settings_.setValue(ShowEquation, false);
 		path_view_->showEquation(false);
+	}
+
+	value = dialog.getModel().getProperty(EquationsStacked)->getValue().toString();
+	if (value == "true")
+	{
+		settings_.setValue(EquationsStacked, true);
+		path_view_->equationsStacked(true);
+	}
+	else if (value == "false")
+	{
+		settings_.setValue(EquationsStacked, false);
+		path_view_->equationsStacked(false);
 	}
 
 	path_view_->repaint();

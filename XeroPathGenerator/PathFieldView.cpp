@@ -37,6 +37,7 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	grid_complete_ = true;
 
 	show_equations_ = true;
+	equations_stacked_ = true;
 }
 
 PathFieldView::~PathFieldView()
@@ -171,7 +172,8 @@ void PathFieldView::drawEquations(QPainter& paint)
 	std::shared_ptr<SplinePair> pair = path_->getSplineAtTime(cursor_time_);
 	if (pair != nullptr)
 	{
-		int topbottom = 10;
+		int topgap = 10;
+		int topbottom = 5;
 		int side = 15;
 		paint.save();
 
@@ -182,18 +184,28 @@ void PathFieldView::drawEquations(QPainter& paint)
 
 		QString xequ, yequ;
 
-		xequ = createEquation("x", pair->getX().a(), pair->getX().b(), pair->getX().c(), pair->getX().d(), pair->getX().e(), pair->getX().f());
-		yequ = createEquation("y", pair->getY().a(), pair->getY().b(), pair->getY().c(), pair->getY().d(), pair->getY().e(), pair->getY().f());
+		xequ = createEquation("x", 2, pair->getX().a(), pair->getX().b(), pair->getX().c(), pair->getX().d(), pair->getX().e(), pair->getX().f());
+		yequ = createEquation("y", 2, pair->getY().a(), pair->getY().b(), pair->getY().c(), pair->getY().d(), pair->getY().e(), pair->getY().f());
 
 		QString equ = xequ + "         " + yequ;
 
 		QFontMetrics metric(font);
 		QRect r;
 
-		int totalw = metric.horizontalAdvance(equ) + 2 * side;
-		int totalh = metric.lineSpacing() + 2 * topbottom;
+		int totalw, totalh;
 
-		r = QRect(width() / 2 - totalw / 2, topbottom, totalw, totalh);
+		if (equations_stacked_)
+		{
+			totalw = std::max(metric.horizontalAdvance(xequ), metric.horizontalAdvance(yequ)) + 2 * side;
+			totalh = 2 * metric.lineSpacing() + 2 * topbottom;
+		}
+		else
+		{
+			totalw = metric.horizontalAdvance(equ) + 2 * side;
+			totalh = metric.lineSpacing() + 2 * topbottom;
+		}
+
+		r = QRect(width() / 2 - totalw / 2, topgap, totalw, totalh);
 		paint.setBrush(QBrush(QColor(0x40, 0x40, 0x40, 0x90)));
 		paint.setPen(Qt::NoPen);
 		paint.drawRect(r);
@@ -203,22 +215,34 @@ void PathFieldView::drawEquations(QPainter& paint)
 
 		QTextOption option;
 		option.setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-		paint.drawText(r, equ, option);
+
+		if (equations_stacked_)
+		{
+			r = QRect(width() / 2 - totalw / 2, topgap + topbottom, totalw, metric.lineSpacing());
+			paint.drawText(r, xequ, option);
+
+			r = QRect(width() / 2 - totalw / 2, topgap + topbottom + metric.lineSpacing(), totalw, metric.lineSpacing());
+			paint.drawText(r, yequ, option);
+		}
+		else
+		{
+			paint.drawText(r, equ, option);
+		}
 
 		paint.restore();
 	}
 }
 
-QString PathFieldView::createEquation(QString left,  double a, double b, double c, double d, double e, double f)
+QString PathFieldView::createEquation(QString left, int places, double a, double b, double c, double d, double e, double f)
 {
 	QString str = left + "=";
 
 	str += QString::number(a, 'f', 3) + QString("*t^5");
-	str += QString(" + ") + QString::number(b, 'f', 3) + QString("*t^4");
-	str += QString(" + ") + QString::number(c, 'f', 3) + QString("*t^3");
-	str += QString(" + ") + QString::number(d, 'f', 3) + QString("*t^2");
-	str += QString(" + ") + QString::number(e, 'f', 3) + QString("*t");
-	str += QString(" + ") + QString::number(f, 'f', 3);
+	str += QString(" + ") + QString::number(b, 'f', places) + QString("*t^4");
+	str += QString(" + ") + QString::number(c, 'f', places) + QString("*t^3");
+	str += QString(" + ") + QString::number(d, 'f', places) + QString("*t^2");
+	str += QString(" + ") + QString::number(e, 'f', places) + QString("*t");
+	str += QString(" + ") + QString::number(f, 'f', places);
 	return str;
 }
 
