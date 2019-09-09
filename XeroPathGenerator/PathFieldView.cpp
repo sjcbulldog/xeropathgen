@@ -60,7 +60,7 @@ void PathFieldView::setUnits(const std::string& units)
 	for (size_t i = 0; i < triangle_.size(); i++)
 	{
 		double x = UnitConverter::convert(triangle_[i].rx(), units_, units);
-		double y = UnitConverter::convert(triangle_[i].rx(), units_, units);
+		double y = UnitConverter::convert(triangle_[i].ry(), units_, units);
 		triangle_[i] = QPointF(x, y);
 	}
 
@@ -395,6 +395,8 @@ void PathFieldView::drawGrid(QPainter& paint)
 		paint.drawText(r, txt, option);
 		paint.restore();
 	}
+
+	paint.restore();
 }
 
 void PathFieldView::emitMouseMoved(Translation2d pos)
@@ -834,7 +836,8 @@ void PathFieldView::drawSplines(QPainter& paint)
 
 void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair, double length)
 {
-	double step = 1.0 / length;
+	double elength = UnitConverter::convert(length, units_, "in");
+	double step = 1.0 / elength;
 	double px, py;
 
 	QColor c(0xF0, 0x80, 0x80, 0xFF);

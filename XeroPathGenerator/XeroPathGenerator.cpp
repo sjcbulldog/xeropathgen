@@ -671,11 +671,16 @@ void XeroPathGenerator::setUnits(const std::string& units)
 	units_ = units;
 
 	fields_mgr_.convert(units_);
+	robot_mgr_.convert(units_);
+
 	path_view_->setUnits(units_);
 	path_engine_.setUnits(units_);
 	plots_->setUnits(units.c_str());
 	if (oldunits.length() > 0)
 		paths_model_.convert(oldunits, units_);
+
+	allPathsDirty();
+
 }
 
 void XeroPathGenerator::setDefaultField()
@@ -2275,6 +2280,7 @@ void XeroPathGenerator::editPreferences()
 
 	std::string units = dialog.getModel().getProperty(PrefDialogUnits)->getValue().toString().toStdString();
 	setUnits(units);
+	settings_.setValue(UnitsSetting, units.c_str());
 
 	ntserver_ = dialog.getModel().getProperty(PrefDialogNTServer)->getValue().toString().toStdString();
 	auto inst = nt::NetworkTableInstance::GetDefault();

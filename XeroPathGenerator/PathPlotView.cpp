@@ -287,6 +287,21 @@ QValueAxis *PathPlotView::getAxis(VarType t)
 	return axis;
 }
 
+void PathPlotView::updateAxisUnits()
+{
+	if (pos_axis_ != nullptr)
+		pos_axis_->setTitleText("Position (" + units_ + ")");
+
+	if (vel_axis_ != nullptr)
+		vel_axis_->setTitleText("Velocity (" + units_ + " / sec)");
+
+	if (acc_axis_ != nullptr)
+		acc_axis_->setTitleText("Accel (" + units_ + " / sec^2)");
+
+	if (jerk_axis_ != nullptr)
+		jerk_axis_->setTitleText("Jerk (" + units_ + " / sec^3)");
+}
+
 void PathPlotView::createAxis(QChart *ch)
 {
 	if (time_axis_ == nullptr)

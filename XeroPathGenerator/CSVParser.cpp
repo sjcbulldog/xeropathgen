@@ -8,6 +8,12 @@ CSVParser::CSVParser()
 
 CSVParser::~CSVParser()
 {
+	close();
+}
+
+void CSVParser::close()
+{
+	in_.close();
 }
 
 bool CSVParser::open(const std::string& filename)
@@ -18,10 +24,16 @@ bool CSVParser::open(const std::string& filename)
 		return false;
 
 	if (!parseHeaders())
+	{
+		in_.close();
 		return false;
+	}
 
 	if (!next())
+	{
+		in_.close();
 		return false;
+	}
 
 	return true;
 }

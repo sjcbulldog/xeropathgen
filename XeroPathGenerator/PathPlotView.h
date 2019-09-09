@@ -31,7 +31,11 @@ public:
 	void setCursorTime(double stime);
 
 	void setPath(std::shared_ptr<xero::paths::RobotPath> path);
-	void setUnits(QString u) { units_ = u; }
+	void setUnits(QString u) { 
+		units_ = u; 
+		updateAxisUnits();
+		repaint();
+	}
 	void update();
 
 	void addPlotVariable(const char* trajname, VarType type) {
@@ -58,6 +62,7 @@ private:
 	void plotAreaChanged(const QRectF& plotArea);
 	void seriesHover(QtCharts::QLineSeries*series, const QPointF& point, bool state);
 	void seriesClick(QtCharts::QLineSeries* series, const QPointF& point);
+	void updateAxisUnits();
 
 private:
 	struct Variable

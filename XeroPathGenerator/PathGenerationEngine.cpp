@@ -175,6 +175,9 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	QTemporaryFile pathfile;
 	QTemporaryFile robotfile;
 
+	pathfile.setAutoRemove(true);
+	robotfile.setAutoRemove(true);
+
 	path->setImpossible(false);
 
 	//
@@ -230,10 +233,12 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	onearg = str.split(' ');
 	args.append(onearg);
 
+#ifdef NOTYET
 	str = generator_->getUnitsArg().c_str();
 	str.replace("$$", units_.c_str());
 	onearg = str.split(' ');
 	args.append(onearg);
+#endif
 
 	if (generator_->hasOtherArgs())
 	{
@@ -281,8 +286,18 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	}
 	store_lock_.unlock();
 
+#ifdef XERO_COPY_FILES
+	QFile::copy(robotfile.fileName(), "C:/cygwin64/home/ButchGriffin/temp/robot.json");
+	QFile::copy(pathfile.fileName(), "C:/cygwin64/home/ButchGriffin/temp/path.json");
+#endif
+
 	qDebug() << "==================================================";
 	qDebug() << "Running path'" << path->getName().c_str() << "'";
+	qDebug() << "Args: ";
+	for (QString arg : args)
+	{
+		qDebug() << "     " << arg;
+	}
 	QProcess* p = new QProcess();
 	std::string genpath = generator_->fullPath();
 	p->start(genpath.c_str(), args);
@@ -377,6 +392,7 @@ bool PathGenerationEngine::readResults(QFile& outfile, std::vector<Pose2dWithTra
 			return false;
 	}
 
+	parser.close();
 	return true;
 }
 
@@ -406,6 +422,7 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 		pts.clear();
 
 		outfile = new QTemporaryFile();
+		outfile->setAutoRemove(true);
 		outfile->open();
 		outfile->close();
 
@@ -418,6 +435,7 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 			//
 			// Generation failed, no results to process
 			//
+			delete outfile;
 			return false;
 		}
 
@@ -425,7 +443,10 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 		// Now parse the data the results
 		//
 		if (!readResults(*outfile, pts))
+		{
+			delete outfile;
 			return false;
+		}
 
 		auto traj = std::make_shared<PathTrajectory>(TrajectoryName::Main, pts);
 		path->addTrajectory(traj);
@@ -438,7 +459,10 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 		}
 
 		if (mod->modify(*robot_, path, units_))
+		{
+			delete outfile;
 			break;
+		}
 
 		percent += 0.05;
 		delete outfile;

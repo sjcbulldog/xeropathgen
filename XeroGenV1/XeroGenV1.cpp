@@ -68,6 +68,7 @@ int main(int ac, char** av)
 			ac--;
 			av++;
 		}
+
 		else if (arg == "--timestep")
 		{
 			if (ac == 0) {
@@ -300,7 +301,7 @@ int main(int ac, char** av)
 		std::cerr << "XeroGenV1: error reading robot file '" << robotfile << "'" << std::endl;
 		return 1;
 	}
-	robot.convert(units);
+	// robot.convert(units);
 
 	if (!JSONPathReader::readJSONPathFile(pathfile, robot, collection)) {
 		std::cerr << "XeroGenV1: error reading path file '" << pathfile << "'" << std::endl;

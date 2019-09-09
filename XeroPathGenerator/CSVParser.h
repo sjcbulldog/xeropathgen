@@ -26,6 +26,9 @@ public:
 	/// @returns true if the file was opened sucessfully
 	bool open(const std::string& filename);
 
+	/// @brief close the file
+	void close();
+
 	/// @brief Returns status of data available in the file
 	/// @returns true if there is more data to read, false otherwise
 	bool hasData();
