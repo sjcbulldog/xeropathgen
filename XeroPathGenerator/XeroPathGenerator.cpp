@@ -33,6 +33,7 @@
 #include <QHelpEngineCore>
 #include <QLatin1String>
 #include <QTextBrowser>
+#include <QProcess>
 #include <cstdio>
 
 #ifdef _MSC_VER
@@ -1812,10 +1813,30 @@ void XeroPathGenerator::showDocumentation()
 	}
 	QDesktopServices::openUrl(QUrl(doc));
 #else
+#ifdef NOTYET
 	if (help_display_ == nullptr)
 		help_display_ = std::make_shared<HelpDisplay>();
 
 	help_display_->show();
+#else
+	QString exedir = QCoreApplication::applicationDirPath();
+
+	if (help_process_ == nullptr)
+		help_process_ = std::make_shared<QProcess>();
+
+
+	QStringList args;
+	args.push_back("-collectionFile");
+	args.push_back(exedir + "/xeropath.qhc");
+	help_process_->setWorkingDirectory(exedir);
+	help_process_->start(exedir + "/assistant", args);
+	help_process_->waitForStarted();
+
+	QByteArray a;
+	a.append("register " + exedir + "/xeropath.qhc");
+	help_process_->write(a);
+
+#endif
 #endif
 }
 

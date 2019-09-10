@@ -94,10 +94,19 @@ mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
-qhelpgenerator $(SolutionDir)html\xeropath.qhp -o xeropath.qch
-qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o xeropath.qhc
-copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+echo Building help file
+qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
+echo Building collection
+qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
+echo Copying help file
 copy $(SolutionDir)html\xeropath.qch $(OutDir)
+echo Copying help collection
+copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+echo Copying Assistant
+copy $(QTDIR)\bin\assistant.exe $(OutDir)
+copy $(SolutionDir)html\images\*.png $(OutDir)\images
+
+
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -153,10 +162,19 @@ mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
-qhelpgenerator $(SolutionDir)html\xeropath.qhp -o xeropath.qch
-qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o xeropath.qhc
-copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+echo Building help file
+qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
+echo Building collection
+qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
+echo Copying help file
 copy $(SolutionDir)html\xeropath.qch $(OutDir)
+echo Copying help collection
+copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+echo Copying Assistant
+copy $(QTDIR)\bin\assistant.exe $(OutDir)
+copy $(SolutionDir)html\images\*.png $(OutDir)\images
+
+
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>

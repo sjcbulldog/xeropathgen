@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Path File Window</title>
+</head>
+<body>
+    <h2>Path File Window</h2>
+    <br>
+    <img src="images/pathprop.png" height=400 width=800>
+    <br>
+    <br>
+    <font size="+2">
+        The path properties window is a property editor window just below the Path File window.
+        This property editor provides a way for the properties associated with a path to be
+        changed.  The following properties are available.
+
+        <br>
+        <table>
+             <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Start Velocity</td>
+                <td>The starting velocity of the robot when this path is started.  This allows two paths to be concatenated with the robot in motion. </td>
+            </tr>
+            <tr>
+                <td>End Velocity</td>
+                <td>The ending velocity of the robot when the path is complete.</td>
+            </tr>
+            <tr>
+                <td>Max Velocity</td>
+                <td>The maximum velocity of the robot when executing this path. </td>
+            </tr>
+            <tr>
+                <td>Max Acceleration</td>
+                <td>The maximum acceleration of the robot when executing this path. </td>
+            </tr>
+            <tr>
+                <td>Max Jerk</td>
+                <td>The maximum jerk of the robot when executing this path.  Not all path generators honor this value.</td>
+            </tr>
+            <tr>
+                <td>Start Angle</td>
+                <td>For swerve drive only, this is the angle the robot is facing at the start of the path.</td>
+            </tr>
+            <tr>
+                <td>Start Angle Delay</td>
+                <td>
+                    For swerve drive only, this is the delay from the start of the path before the robot starts to rotate to the desired end angle.
+                    This value gives the robot time to clear any obstructions before trying to rotate.
+                </td>
+            </tr>
+            <tr>
+                <td>End Angle</td>
+                <td>For swerve drive only, this is the angle the robot is facing at the end of the path.</td>
+            </tr>
+            <tr>
+                <td>End Angle Delay</td>
+                <td>
+                    For swerve drive only, this is the delay from the end of the path when the robot much reach the end angle.
+                    This prevents the robot from trying to complete a rotation as it approaches and obstruction.
+                </td>
+            </tr>
+            <tr>
+                <td>Length</td>
+                <td>This property is read only and display the length of the path in the user’s chosen distance units.</td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td>This property is read only and displays the time of the path in seconds.</td>
+            </tr>
+        </table>
+    </font>
+</body>
+</html>

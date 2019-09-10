@@ -27,6 +27,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroGenV1", "XeroGenV1\Xero
 		{B4BAEF8D-0066-4126-B0E0-9380750E5276} = {B4BAEF8D-0066-4126-B0E0-9380750E5276}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpFiles", "HelpFiles", "{D2F1301F-C63A-41EE-8261-9A824982BA45}"
+	ProjectSection(SolutionItems) = preProject
+		html\coordinates.html = html\coordinates.html
+		html\definitions.html = html\definitions.html
+		html\intro.html = html\intro.html
+		html\pathfile.html = html\pathfile.html
+		html\pathprops.html = html\pathprops.html
+		html\windows.html = html\windows.html
+		html\xeropath.qhcp = html\xeropath.qhcp
+		html\xeropath.qhp = html\xeropath.qhp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

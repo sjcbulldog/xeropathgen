@@ -36,6 +36,7 @@
 #include <QCheckBox>
 #include <QRadioButton>
 #include <QHelpEngineCore>
+#include <QProcess>
 
 #include <fstream>
 #include <sstream>
@@ -402,4 +403,6 @@ private:
 
 	NetworkDownloadManager download_mgr_;
 	std::shared_ptr<HelpDisplay> help_display_;
+
+	std::shared_ptr<QProcess> help_process_;
 };

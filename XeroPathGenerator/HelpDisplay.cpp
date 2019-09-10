@@ -4,6 +4,7 @@
 #include <QHelpIndexWidget>
 #include <QStandardPaths>
 #include <QFile>
+#include <QDir>
 #include <QDebug>
 
 
@@ -12,6 +13,10 @@ HelpDisplay::HelpDisplay(QWidget *parent) : QSplitter(parent)
 	auto dirs = QStandardPaths::standardLocations(QStandardPaths::CacheLocation).front();
 	if (dirs.size() == 0)
 		return;
+
+	QDir dirobj(dirs);
+	if (!dirobj.exists())
+		dirobj.mkpath(dirs);
 
 	QString helpfile = dirs + "/xeropath.qhc";
 	help_ = new QHelpEngine(helpfile);
@@ -44,10 +49,13 @@ HelpDisplay::HelpDisplay(QWidget *parent) : QSplitter(parent)
 	
 	browser_ = new QTextBrowser();
 	QUrl url("qthelp://errorcodexero.pathgen.help/doc/intro.html");
-	browser_->setSource(url);
+	auto databytes = help_->fileData(url);
+	browser_->setHtml(QString(databytes));
+	browser_->setOpenLinks(false);
 
-	connect(help_->contentWidget(), &QHelpContentWidget::linkActivated, this, &HelpDisplay::gotoLink);
-	connect(help_->indexWidget(), &QHelpIndexWidget::linkActivated, this, &HelpDisplay::gotoLinkWithKeyword);
+	(void)connect(help_->contentWidget(), &QHelpContentWidget::linkActivated, this, &HelpDisplay::gotoLink);
+	(void)connect(help_->indexWidget(), &QHelpIndexWidget::linkActivated, this, &HelpDisplay::gotoLinkWithKeyword);
+	(void)connect(browser_, &QTextBrowser::anchorClicked, this, &HelpDisplay::gotoLink);
 
 	insertWidget(0, tabs_);
 	insertWidget(1, browser_);
@@ -59,14 +67,30 @@ HelpDisplay::~HelpDisplay()
 
 void HelpDisplay::gotoLink(const QUrl& url)
 {
-	auto databytes = help_->fileData(url);
-	qDebug() << "setting help browser source '" << url << "'";
-	browser_->setSource(url);
+	QUrl toload;
+
+	if (url.isRelative())
+	{
+		QString str = url.toString();
+		if (str.startsWith("./"))
+			str = str.mid(2);
+		str = "qthelp://errorcodexero.pathgen.help/doc/" + str;
+		toload = QUrl(str);
+	}
+	else
+	{
+		toload = url;
+	}
+
+	qDebug() << "setting help browser source '" << toload << "'";
+	auto databytes = help_->fileData(toload);
+	browser_->setHtml(QString(databytes));
 }
 
 void HelpDisplay::gotoLinkWithKeyword(const QUrl& url, const QString& keyword)
 {
 	(void)keyword;
 	qDebug() << "setting help browser source '" << url << "'";
-	browser_->setSource(url);
+	auto databytes = help_->fileData(url);
+	browser_->setHtml(QString(databytes));
 }
