@@ -1825,12 +1825,21 @@ void XeroPathGenerator::showDocumentation()
 	QStringList args;
 	args.push_back("-collectionFile");
 	args.push_back(exedir + "/xeropath.qhc");
+	args.push_back("-enableRemoteControl");
 	help_process_->setWorkingDirectory(exedir);
 	help_process_->start(exedir + "/assistant", args);
 	help_process_->waitForStarted();
 
 	QByteArray a;
-	a.append("register " + exedir + "/xeropath.qhc");
+	a.append("register " + exedir + "/xeropath.qhc;\r\n");
+	help_process_->write(a);
+
+	a.clear();
+	a.append("setSource qthelp://errorcodexero.pathgen.help/doc/intro.html\n;");
+	help_process_->write(a);
+
+	a.clear();
+	a.append("expandToc -1;");
 	help_process_->write(a);
 
 #endif

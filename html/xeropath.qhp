@@ -43,6 +43,7 @@
     <keywords>
       <keyword name="Introduction" ref="./intro.html"/>
       <keyword name="Definitions" ref = "./definitions.html"/>
+      <keyword name="Coordinates" ref="./coordinates.html"/>
     </keywords>
     <files>
       <file>intro.html</file>
