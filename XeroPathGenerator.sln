@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpFiles", "HelpFiles", "{
 		html\cursor.html = html\cursor.html
 		html\definitions.html = html\definitions.html
 		html\defrobot.html = html\defrobot.html
+		html\demomode.html = html\demomode.html
 		html\editmenu.html = html\editmenu.html
 		html\editpath.html = html\editpath.html
 		html\filemenu.html = html\filemenu.html

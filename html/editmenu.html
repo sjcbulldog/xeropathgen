@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Edit Menu</title>
+</head>
+<body>
+    <h2>File Menu</h2>
+    <br>
+    <font size="+2">
+        <table cellspacing="10">
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Insert Waypoint</td>
+                <td>
+                    Insert a new waypoint after the current waypoint in the current path.  This item
+                    is disabled if no path is selected, or no waypoint is seletcted, or if the last
+                    waypoint in the path is selected.
+                </td>
+            </tr>
+            <tr>
+                <td>Delete Waypoint</td>
+                <td>
+                    Delete the currently selected waypoint in the current path.  This item is disabled
+                    if no path or no waypoint is selected.  It is also disabled if the first or last waypoint
+                    in a path is selected as these cannot be deleted.
+                </td>
+            </tr>
+            <tr>
+                <td>Delete (Path or Path Group)</td>
+                <td>
+                    Delte either a path or path group depending on what is selected.  The name of this menu item
+                    will change based on what is selected.
+                </td>
+            </tr>
+            <tr>
+                <td>Add Path Group</td>
+                <td>
+                    Add a new path group with a unique name to the path file.  The new group will be named "NewGroup" or
+                    "NewGroup_number".
+                </td>
+            </tr>
+            <tr>
+                <td>Add Path</td>
+                <td>
+                    Add a new path with a unique name to the currently selected path group.  The new path will be named "NewPath" or
+                    "NewGroup_number".
+                </td>
+            </tr>
+            <tr>
+                <td>Preferences</td>
+                <td>
+                    Display the <a href="./preference.html">Preference Editor</a>.
+                </td>
+            </tr>
+        </table>
+    </font>
+</body>
+</html>

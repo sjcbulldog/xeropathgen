@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>File Menu</title>
+</head>
+<body>
+    <h2>File Menu</h2>
+    <br>
+    <font size="+2">
+        <table cellspacing="10">
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>New</td>
+                <td>
+                    Creates a new path file.  If the current path file has been modified and not
+                    saved, you will be prompted to save the current path file.
+                </td>
+            </tr>
+            <tr>
+                <td>Open</td>
+                <td>
+                    Open an existing path file on disk.  If the current path file has been modified and
+                    not saved, you will be prompted to save the current path file.
+                </td>
+            </tr>
+            <tr>
+                <td>Save</td>
+                <td>
+                    Save the current path file to disk.  If there is not disk file assocaited with the
+                    current path file, for instance if it is new, then you will be prompted for the name
+                    of a file to stored the paths in.
+                </td>
+            </tr>
+            <tr>
+                <td>Save As</td>
+                <td>
+                    Prompt for a new file name and store the current set of paths in the new file.  The new
+                    file name becomes the name assocaited with the current paths file and subsequence save
+                    commands will also save to this new file name.
+                </td>
+            </tr>
+            <tr>
+                <td>Close</td>
+                <td>
+                    Close the current path file. If the current path file has been modified and
+                    not saved, you will be prompted to save the current path file.
+                </td>
+            </tr>
+            <tr>
+                <td>Generate Paths As</td>
+                <td>
+                    Prompt for a new directory and generate trajectories for each path in this new directory.  The
+                    output will be either JSON or CSV depending on the output settings option.  This can be changed
+                    via the Preferences dialog.
+                </td>
+            </tr>
+            <tr>
+                <td>Generate Paths</td>
+                <td>
+                    Generate trajectories for each path in the path file in the paths directory.  If no paths
+                    directory is set, you are prompted for a path directory.  This can be changed
+                    via the Preferences dialog.
+                </td>
+            </tr>
+            <tr>
+                <td>Publish Path</td>
+                <td>
+                    Publish the generated trajectories for the currently selected path into the network table.  By
+                    default the table name will be "XeroPlot", but this can be changed via the Preferences dialog.  The
+                    entry in the table will be PathGroup_PathName_left, PathGroup_PathName_right, and PathGroup_PathName_main
+                    for a tank drive.  PathGroup will be replaced with the actual name of the path group of the currently
+                    selected path.  PathName will be replaced with the path name of the currently selected path.
+                </td>
+            </tr>
+            <tr>
+                <td>Recent Files</td>
+                <td>
+                    This menu will contain up to four path files that have been recently accessed.  This is an easy way to
+                    find a recently used path file.
+                </td>
+            </tr>
+        </table>
+    </font>
+</body>
+</html>

@@ -37,11 +37,7 @@
           <section title="Generator Menu" ref="generatormenu.html"/>
           <section title="Help Menu" ref="helpmenu.html"/>
         </section>
-        <section title="Demo Mode" ref="demomode.html">
-          <section title="Demo Path" ref="demopath.html"/>
-          <section title="Demo Path Group" ref="demogroup.html"/>
-          <section title="View Robot Velocity Vectors" ref="viewvector.html"/>
-        </section>
+        <section title="Demo Mode" ref="demomode.html" />
       </section>
     </toc>
     <keywords>
@@ -77,6 +73,7 @@
       <file>helpmenu.html</file>
       <file>preference.html</file>
       <file>plotvars.html</file>
+      <file>demomode.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
@@ -91,6 +88,7 @@
       <file>images/createpath.png</file>
       <file>images/preferences.png</file>
       <file>images/plotvars.png</file>
+      <file>images/demomode.png</file>
     </files>
   </filterSection>
 </QtHelpProject>

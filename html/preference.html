@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Preferences Window</title>
+</head>
+<body>
+    <h2>Preferences Window</h2>
+    <br>
+    <img src="images/preferences.png">
+    <br>
+    <br>
+    <font size="+2">
+        This dialog provides a way to edit program preferences.
+
+        <br>
+        <table cellspacing="10">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Units</td>
+                <td>
+                    The units for the program.  The program understands inches, feet, meters, and centimeters.
+                </td>
+            </tr>
+            <tr>
+                <td>Output format</td>
+                <td>
+                    The output format for trajectory information.  This can be JSON or CSV.
+                </td>
+            </tr>
+            <tr>
+                <td>NT Server Addr</td>
+                <td>
+                    The address of the network table server for path trajectories.
+                </td>
+            </tr>
+            <tr>
+                <td>NT Table Name</td>
+                <td>
+                    The name of the table to use when publishing trajectories to the network tables.
+                </td>
+            </tr>
+            <tr>
+                <td>Grid Enabled</td>
+                <td>
+                    If true, a grid is drawn across the field image.
+                </td>
+            </tr>
+            <tr>
+                <td>Grid Complete</td>
+                <td>
+                    If a grid is drawn, and this is true, the grid is a mesh that extends across the field.  If this
+                    is false, ticks are drawn along the edge of the field.
+                </td>
+            </tr>
+            <tr>
+                <td>Show Equations</td>
+                <td>
+                    If true, show the spline equation at the top of the field for each segment of the path.  The
+                    <a href="./cursor.html">cursor</a> can be used to move the robot within a path to see the various
+                    equations that make up a path.
+                </td>
+            </tr>
+            <tr>
+                <td>Equations Stacked</td>
+                <td>
+                    If true, and equestions are displayed, this stacks the X and Y equations at the top of the screen.  If
+                    false, the equestion are displayed side by side at the top of the screen.
+                </td>
+            </tr>
+        </table>
+    </font>
+</body>
+</html>
