@@ -36,9 +36,9 @@
           <section title="Help Menu" ref="helpmenu.html"/>
         </section>
         <section title="Demo Mode" ref="demomode.html">
-          <section title="Demo Path" ref="filemenu.html"/>
-          <section title="Demo Path Group" ref="filemenu.html"/>
-          <section title="View Robot Velocity Vectors" ref="filemenu.html"/>
+          <section title="Demo Path" ref="demopath.html"/>
+          <section title="Demo Path Group" ref="demogroup.html"/>
+          <section title="View Robot Velocity Vectors" ref="viewvector.html"/>
         </section>
       </section>
     </toc>
@@ -59,6 +59,13 @@
       <file>trajectory.html</file>
       <file>log.html</file>
       <file>cursor.html</file>
+      <file>defrobot.html</file>
+      <file>creategroup.html</file>
+      <file>createpath.html</file>
+      <file>editpath.html</file>
+      <file>savepath.html</file>
+      <file>gentrajs.html</file>
+      <file>started.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
@@ -68,6 +75,9 @@
       <file>images/trajectory.png</file>
       <file>images/log.png</file>
       <file>images/cursor.png</file>
+      <file>images/defrobot.png</file>
+      <file>images/creategroup.png</file>
+      <file>images/createpath.png</file>
     </files>
   </filterSection>
 </QtHelpProject>
