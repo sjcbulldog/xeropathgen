@@ -24,6 +24,8 @@
           <section title="Path Editor" ref="pathedit.html"/>
           <section title="Trajectory" ref="trajectory.html"/>
           <section title="Log" ref="log.html"/>
+          <section title="Preference Editor" ref="preference.html"/>
+          <section title="Plot Variables" ref="plotvars.html"/>
         </section>
         <section title="Cursor" ref="cursor.html"/>
         <section title="Menus" ref="menus.html">
@@ -66,6 +68,15 @@
       <file>savepath.html</file>
       <file>gentrajs.html</file>
       <file>started.html</file>
+      <file>filemenu.html</file>
+      <file>editmenu.html</file>
+      <file>viewmenu.html</file>
+      <file>robotsmenu.html</file>
+      <file>gamesmenu.html</file>
+      <file>generatormenu.html</file>
+      <file>helpmenu.html</file>
+      <file>preference.html</file>
+      <file>plotvars.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
@@ -78,6 +89,8 @@
       <file>images/defrobot.png</file>
       <file>images/creategroup.png</file>
       <file>images/createpath.png</file>
+      <file>images/preferences.png</file>
+      <file>images/plotvars.png</file>
     </files>
   </filterSection>
 </QtHelpProject>

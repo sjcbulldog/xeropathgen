@@ -178,10 +178,10 @@ private:
 	static constexpr const char* OutputTypeSetting = "outputtype";
 	static constexpr const char* NTServerIPAddress = "ntserver";
 	static constexpr const char* NTServerTableName = "tablename";
-	static constexpr const char* GridEnabled = "gridEnabled";
-	static constexpr const char* GridComplete = "gridComplete";
-	static constexpr const char* ShowEquation = "showEquations";
-	static constexpr const char* EquationsStacked = "equationsStacked";
+	static constexpr const char* GridEnabled = "Grid Enabled";
+	static constexpr const char* GridComplete = "Grid Complete";
+	static constexpr const char* ShowEquation = "Show Equations";
+	static constexpr const char* EquationsStacked = "Equations Stacked";
 	static constexpr const char* DownloadSite = "downloadsite";
 	static constexpr const char* DownloadLocation = "downloadlocation";
 	static constexpr const char* DefaultDownloadSite = "www.mewserver.net";

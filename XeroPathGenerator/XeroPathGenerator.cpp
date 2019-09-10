@@ -507,9 +507,6 @@ bool XeroPathGenerator::createMenus()
 	action = help_->addAction(tr("Documentation"));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::showDocumentation);
 
-	action = help_->addAction(tr("Check For New Fields ..."));
-	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::checkForUpdates);
-
 	help_->addSeparator();
 
 	logmenu_ = help_->addMenu("Logging");
@@ -2223,7 +2220,7 @@ void XeroPathGenerator::addPathGroupAction()
 
 	while (paths_model_.containsPathGroup(name))
 	{
-		name = "NewGroup " + std::to_string(index++);
+		name = "NewGroup_" + std::to_string(index++);
 	}
 	(void)paths_model_.addPathGroup(name);
 	QModelIndex idx = paths_model_.index(row, 0, QModelIndex());
@@ -2242,7 +2239,7 @@ void XeroPathGenerator::addRobotPathAction()
 
 			while (paths_model_.containsPath(group->getName(), name))
 			{
-				name = "NewPath " + std::to_string(index++);
+				name = "NewPath_" + std::to_string(index++);
 			}
 			auto path = paths_model_.addRobotPath(group->getName(), name);
 			paths_->expandAll();
