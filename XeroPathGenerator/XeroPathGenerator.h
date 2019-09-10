@@ -18,6 +18,7 @@
 #include "PathFileTree.h"
 #include "TrajectoryViewWindow.h"
 #include "NetworkDownloadManager.h"
+#include "HelpDisplay.h"
 
 #include <QProgressBar>
 #include <QMainWindow>
@@ -34,6 +35,7 @@
 #include <QSettings>
 #include <QCheckBox>
 #include <QRadioButton>
+#include <QHelpEngineCore>
 
 #include <fstream>
 #include <sstream>
@@ -399,4 +401,5 @@ private:
 	std::string nttable_name_;
 
 	NetworkDownloadManager download_mgr_;
+	std::shared_ptr<HelpDisplay> help_display_;
 };

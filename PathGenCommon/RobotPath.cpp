@@ -270,7 +270,7 @@ namespace xero
 				times_.push_back(0.0);
 				double curdist = std::numeric_limits<double>::max();
 
-				while (i < newtraj->size())
+				while (i < newtraj->size() && current < points_.size())
 				{
 					const Pose2dWithTrajectory& pt = (*newtraj)[i];
 					double dist = points_[current].distance(pt.pose());

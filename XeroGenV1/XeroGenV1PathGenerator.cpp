@@ -36,7 +36,7 @@ XeroGenV1PathGenerator::generate(const std::vector<Pose2d>& points, const Constr
 	DistanceView distview(paramtraj, diststep_);
 
 	//
-	// Step 4: apply the solver
+	// Step 4: apply the trajectory generation to the set of points
 	// 
 	std::vector<Pose2dWithTrajectory> trajpts = generateTrajPoints(distview, constraints,  startvel, endvel, maxvel, maxaccel, maxjerk);
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="CoffeeCup HTML Editor (www.coffeecup.com)">
+    <meta name="dcterms.created" content="Tue, 10 Sep 2019 00:45:01 GMT">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <title>Introduction</title>
+    
+    <style type="text/css">
+    <!--
+    body {
+      color:#000000;
+      background-color:#FFFFFF;
+      background-image:url('Background Image');
+      background-repeat:no-repeat;
+    }
+    a  { color:#0000FF; }
+    a:visited { color:#800080; }
+    a:hover { color:#008000; }
+    a:active { color:#FF0000; }
+    -->
+    </style>
+    <!--[if IE]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <title>Introduction</title>
+  <body>
+  <h1>Introduction</h1>
+One of the big challenges in FRC robotics is the autonomous mode.  This is the 15 second time period at the 
+start of a match where the robot must be 100% controlled by software.  Within autonomous, moving the robot to 
+a desired location is a big part of the challenge.  To date, the best approach for doing this is some form of 
+path following algorithm.  Path following is exactly what is sounds like it should be.  A path is defined and 
+the robot does its best to follow the path.  Generally, the path is defined on a computer and then downloaded 
+to the robot.  The robot follows the path using a follower algorithm.  There are several types of follower 
+algorithms and it is not the intent of this document to get into these algorithms here.  What is key is that 
+these following algorithms either want the waypoints along the path as input, or they want some type of periodic 
+information describing the behavior of the robot drivebase.  The XeroPathGenerator was written to provide a 
+powerful and flexible application to generate these paths.<br><br>
+Another goal of this program was to provide information to help teach students about path following.  To 
+that end, this program shows plots of the generated velocity profile for the path.  This program can also 
+run in demo mode, showing the motion of the robot.  Finally, when running in demo mode, the program can show a 
+rough diagram of the forces acting on the robot. <br><br>
+The XeroPathGenerator was written to be easy to extend.  There are two key extensions that are possible. New 
+game fields can be added to the program by providing a graphics image for the field and a JSON file describing
+the field.  This format is identical to the format used by the First provided path editing software 
+(FRC Path Weaver).  Generators can be added by adding a new executable program that reads path description and 
+robot descriptions, and outputs trajectories.  This new executable is accompanied by a JSON file describing the 
+generator. The program ships with the PowerUp field and the Deep Space field.<br><br>
+The program ships with the PathFinder V1 can be found in github (https://github.com/JacisNonsense/Pathfinder).  
+It also ships with a backend generator known as XeroGen which was created for this application, but leans heavily 
+on ideas, concept, and algorithms from Cheesy Poofs. The program supports tank drive and swerve drive style drive 
+bases.  Error Code Xero is actively building a swerve drive as a summer project, but as of the writing of this 
+document, it is not ready for test of this code by software.  Therefore, all swerve drive support is very 
+experimental and has not been tested on a real robot yet. As of this point, this program is very much an alpha 
+release.  Do not rely on this for a competition robot until it has had more testing by more people.  All feedback 
+is welcome. 
+<br><br>
+<a href="./definitions.html">Definitions</a>
+</body>
+</html>

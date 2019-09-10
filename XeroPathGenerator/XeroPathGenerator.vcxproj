@@ -52,8 +52,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -67,13 +67,13 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>PathGenCommon.lib;ntcored.lib;wpiutild.lib;qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Networkd.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PathGenCommon.lib;ntcored.lib;wpiutild.lib;qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Networkd.lib;Qt5Widgetsd.lib;Qt5Helpd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
+      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;%(AdditionalIncludeDirectories)</IncludePath>
+      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -88,12 +88,16 @@
 copy $(ProjectDir)images\*.png $(OutDir)\images
 mkdir $(OutDir)\docs
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-windeployqt $(OutDir)$(ProjectName).exe
+windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
+qhelpgenerator $(SolutionDir)html\xeropath.qhp -o xeropath.qch
+qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o xeropath.qhc
+copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+copy $(SolutionDir)html\xeropath.qch $(OutDir)
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -107,8 +111,8 @@ copy $(ProjectDir)..\generators\* $(OutDir)\generators
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -122,13 +126,13 @@ copy $(ProjectDir)..\generators\* $(OutDir)\generators
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>PathGenCommon.lib;ntcore.lib;wpiutil.lib;qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Network.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PathGenCommon.lib;ntcore.lib;wpiutil.lib;qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Network.lib;Qt5Widgets.lib;Qt5Help.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</IncludePath>
-      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</Define>
+      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;%(AdditionalIncludeDirectories)</IncludePath>
+      <Define>UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
@@ -143,12 +147,16 @@ copy $(ProjectDir)..\generators\* $(OutDir)\generators
 copy $(ProjectDir)images\*.png $(OutDir)\images
 mkdir $(OutDir)\docs
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-windeployqt $(OutDir)$(ProjectName).exe
+windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
+qhelpgenerator $(SolutionDir)html\xeropath.qhp -o xeropath.qch
+qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o xeropath.qhc
+copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+copy $(SolutionDir)html\xeropath.qch $(OutDir)
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -165,6 +173,7 @@ copy $(ProjectDir)..\generators\* $(OutDir)\generators
     <ClCompile Include="GameFieldManager.cpp" />
     <ClCompile Include="GeneratorManager.cpp" />
     <ClCompile Include="GeneratorParameterStore.cpp" />
+    <ClCompile Include="HelpDisplay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="NetworkDownloadManager.cpp" />
@@ -223,6 +232,10 @@ copy $(ProjectDir)..\generators\* $(OutDir)\generators
     <ClInclude Include="GeneratorManager.h" />
     <ClInclude Include="GeneratorParameter.h" />
     <ClInclude Include="GeneratorParameterStore.h" />
+    <QtMoc Include="HelpDisplay.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp</IncludePath>
+    </QtMoc>
     <ClInclude Include="JSONWriter.h" />
     <ClInclude Include="ManagerBase.h" />
     <QtMoc Include="NetworkDownloadManager.h">

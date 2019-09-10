@@ -22,8 +22,9 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	total_scroll_y_ = 0;
 	lineitem_ = nullptr;
 	callout_ = nullptr;
+	errors_ = nullptr;
 
-	connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
+	(void)connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
 }
 
 PathPlotView::~PathPlotView()
@@ -173,10 +174,36 @@ void PathPlotView::setPath(std::shared_ptr<RobotPath> path)
 
 void PathPlotView::update()
 {
-	if (path_ == nullptr || path_->getTrajectory(TrajectoryName::Main) == nullptr || path_->getImpossible())
+	if (path_ == nullptr || path_->getTrajectory(TrajectoryName::Main) == nullptr || !path_->hasData())
 		updateEmpty();
 	else
 		updateWithPath();
+
+	if (path_ != nullptr && path_->hasErrors())
+	{
+		if (errors_ == nullptr)
+			errors_ = new Callout(chart());
+
+		QString txt;
+		for (const std::string & str : path_->errors())
+		{
+			if (txt.length() > 0)
+				txt += "\r\n";
+
+			txt += str.c_str();
+		}
+
+		errors_->setText(txt);
+		errors_->setAnchor(QPointF(0, 0));
+		errors_->setZValue(11);
+		errors_->updateGeometry();
+		errors_->show();
+	}
+	else
+	{
+		if (errors_ != nullptr)
+			errors_->setVisible(false) ;
+	}
 }
 
 size_t PathPlotView::countType(VarType t)
@@ -202,10 +229,10 @@ void PathPlotView::updateEmpty()
 	ch->setTitleFont(font);
 	if (path_ == nullptr)
 		ch->setTitle("No path selected");
-	else if (path_->getImpossible())
-		ch->setTitle("Path is not possible, too many constraints?");
+	else if (path_->hasErrors())
+		ch->setTitle("Errors in the path - no trajectory data available");
 	else
-		ch->setTitle("No trajectory information available");
+		ch->setTitle("Unknown issues - no trajectory data available");
 
 	ch->removeAllSeries();
 	QLegend* legend = ch->legend();
@@ -406,7 +433,10 @@ void PathPlotView::updateWithPath()
 	ch->setTitleFont(font);
 
 	ch->removeAllSeries();
-	ch->setTitle("Trajectory Profile");
+	if (path_->hasErrors())
+		ch->setTitle("Trajectory Profile (errors)");
+	else
+		ch->setTitle("Trajectory Profile");
 	ch->setDropShadowEnabled(true);
 	first_ = nullptr;
 

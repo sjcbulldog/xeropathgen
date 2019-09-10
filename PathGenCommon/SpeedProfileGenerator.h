@@ -7,13 +7,13 @@ namespace xero
 		class SpeedProfileGenerator
 		{
 		public:
+			/// \brief create a speed profile generator
 			SpeedProfileGenerator() {
 			}
 
+			/// \brief destroy the speed profile generator
 			virtual ~SpeedProfileGenerator() {
-
 			}
-
 
 			/// \brief update the profile to cover the distance given
 			/// This method must be called before any of the methods that return
@@ -52,6 +52,8 @@ namespace xero
 			/// \returns total time for the profile
 			virtual double getTotalTime() const = 0;
 
+			/// \brief get the total distance covered by the speed profile
+			/// \returns the total distance covered by the profile
 			virtual double getTotalDistance() const = 0; 
 
 			/// \brief return the starting velocity for the profile

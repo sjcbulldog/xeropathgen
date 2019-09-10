@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>errorcodexero.pathgen.help</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <filterSection>
+        <toc>
+            <section title="Introduction" ref="intro.html"/>
+            <section title="Definitions" ref="definitions.html"/>
+            <section title="Coordinates" ref="coordinates.html"/>
+            <section title="Getting Started" ref="started.html">
+                <section title="Defining A Robot" ref="defrobot.html"/>
+                <section title="Create A Path Group" ref="pathgroup.html"/>
+                <section title="Create A Path" ref="path.html"/>
+                <section title="Edit A Path" ref="editpath.html"/>
+                <section title="Save The Path File" ref="savepath.html"/>
+                <section title="Generate Trajectories" ref="generate.html"/>
+            </section>
+            <section title="Windows" ref="windows.html">
+                <section title="Path Properties" ref="pathprops.html"/>
+                <section title="Constraints" ref="constraints.html"/>
+                <section title="Waypoints" ref="waypoints.html"/>
+                <section title="Path Editor" ref="patheditor.html"/>
+                <section title="Trajectory" ref="trajectory.html"/>
+                <section title="Log" ref="log.html"/>
+            </section>
+            <section title="Cursor" ref="cursor.html"/>
+            <section title="Menus" ref="menus.html">
+                <section title="File Menu" ref="filemenu.html"/>
+                <section title="Edit Menu" ref="editmenu.html"/>
+                <section title="View Menu" ref="viewmenu.html"/>
+                <section title="Robots Menu" ref="robotsmenu.html"/>
+                <section title="Games Menu" ref="gamesmenu.html"/>
+                <section title="Generator Menu" ref="generatormenu.html"/>
+                <section title="Help Menu" ref="helpmenu.html"/>
+            </section>
+            <section title="Demo Mode" ref="demomode.html">
+                <section title="Demo Path" ref="filemenu.html"/>
+                <section title="Demo Path Group" ref="filemenu.html"/>
+                <section title="View Robot Velocity Vectors" ref="filemenu.html"/>
+            </section>                
+        </toc>
+        <keywords>
+            <keyword name="Introduction" ref="./intro.html"/>
+            <keyword name="Definitions" ref = "./definitions.html"/>
+        </keywords>
+        <files>
+            <file>intro.html</file>
+            <file>definitions.html</file>
+            <file>coordinates.html</file>
+            <file>images/coordinates.png</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

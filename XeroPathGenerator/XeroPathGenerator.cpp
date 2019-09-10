@@ -10,6 +10,7 @@
 #include "SelectRobotDialog.h"
 #include "PlotVariableSelector.h"
 #include "AboutDialog.h"
+#include "HelpDisplay.h"
 #include <DriveBaseData.h>
 #include <TrajectoryNames.h>
 #include <JSONWriter.h>
@@ -29,6 +30,9 @@
 #include <QCheckBox>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QHelpEngineCore>
+#include <QLatin1String>
+#include <QTextBrowser>
 #include <cstdio>
 
 #ifdef _MSC_VER
@@ -89,8 +93,6 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	QPixmap image(imagepath);
 	QIcon icon(image);
 	setWindowIcon(icon);
-
-	setWindowFlag(Qt::WindowContextHelpButtonHint);
 
 	resize(1024, 768);
 	gui_thread_ = std::this_thread::get_id();
@@ -991,6 +993,9 @@ void XeroPathGenerator::showEvent(QShowEvent* ev)
 
 void XeroPathGenerator::closeEvent(QCloseEvent* event)
 {
+	if (help_display_ != nullptr)
+		help_display_->close();
+
 	if (paths_model_.isDirty())
 	{
 		QMessageBox::StandardButton reply;
@@ -1794,6 +1799,7 @@ void XeroPathGenerator::showAbout()
 
 void XeroPathGenerator::showDocumentation()
 {
+#ifdef USE_PDF_FILE
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString doc = exedir + "/docs/XeroPathGenerator.pdf";
 	if (!QFile::exists(doc))
@@ -1805,6 +1811,12 @@ void XeroPathGenerator::showDocumentation()
 		box.exec();
 	}
 	QDesktopServices::openUrl(QUrl(doc));
+#else
+	if (help_display_ == nullptr)
+		help_display_ = std::make_shared<HelpDisplay>();
+
+	help_display_->show();
+#endif
 }
 
 void XeroPathGenerator::checkForUpdates()

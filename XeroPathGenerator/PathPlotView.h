@@ -138,4 +138,5 @@ private:
 	Callout* callout_;
 	QLineSeries* first_;
 	std::list<Callout*> callouts_;
+	Callout* errors_;
 };

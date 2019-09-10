@@ -178,7 +178,7 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	pathfile.setAutoRemove(true);
 	robotfile.setAutoRemove(true);
 
-	path->setImpossible(false);
+	path->clearErrors();
 
 	//
 	// Write the paths to the pathfile temporary file
@@ -353,7 +353,7 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 		qDebug() << "stderr: " << error.c_str();
 
 		if (p->exitCode() == 99)
-			path->setImpossible(true);
+			path->addError(true, "cannot generate trajectory for this path");
 
 		return false;
 	}

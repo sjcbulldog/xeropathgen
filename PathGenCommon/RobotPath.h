@@ -80,18 +80,33 @@ namespace xero
 				end_angle_ = 0.0;
 				end_angle_delay_ = 0.0;
 				parent_ = parent;
-				impossible_ = false;
 			}
 
 			virtual ~RobotPath() {
 			}
 
-			bool getImpossible() const {
-				return impossible_;
+			bool hasErrors() const {
+				return errors_.size() > 0;
 			}
 
-			void setImpossible(bool b) {
-				impossible_ = b;
+			const std::list<std::string>& errors() const {
+				return errors_;
+			}
+
+			bool hasData() const {
+				return !nodata_;
+			}
+
+			void addError(bool nodata, const std::string& err) {
+				if (nodata)
+					nodata_ = true;
+
+				errors_.push_back(err);
+			}
+
+			void clearErrors() {
+				errors_.clear();
+				nodata_ = false;
 			}
 
 			double getTime();
@@ -439,10 +454,14 @@ namespace xero
 			std::vector<double> distances_;
 
 			//
-			// If true, path generation cannot find a solution for this path, maybe
-			// too many constraints and call cannot be met
+			// Errors assocaited with this path
 			//
-			bool impossible_;
+			std::list<std::string> errors_;
+
+			//
+			// If true, the errors cause no data to be generated
+			//
+			bool nodata_;
 		};
 	}
 }
