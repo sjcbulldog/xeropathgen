@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "XeroPathGenerator"
-#define MyAppVersion "0.6"
+#define MyAppVersion "0.7"
 #define MyAppPublisher "ErrorCodeXero"
 #define MyAppURL "http://www.wilsonvillerobotics.com/"
 #define MyAppExeName "XeroPathGenerator.exe"
@@ -38,7 +38,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\x64\Release\*.*"; DestDir: "{app}"; Flags: ignoreversion 64bit recursesubdirs
-Source: "C:\cygwin64\home\{#MyUserName}\rtools\xeropathgen\guide\XeroPathGenerator.pdf" ; DestDir: {app} ; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\Qt\5.13.0\msvc2017_64\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion

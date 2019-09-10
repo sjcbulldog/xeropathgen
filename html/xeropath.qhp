@@ -10,18 +10,18 @@
         <section title="Coordinates" ref="coordinates.html"/>
         <section title="Getting Started" ref="started.html">
           <section title="Defining A Robot" ref="defrobot.html"/>
-          <section title="Create A Path Group" ref="pathgroup.html"/>
-          <section title="Create A Path" ref="path.html"/>
+          <section title="Create A Path Group" ref="creategroup.html"/>
+          <section title="Create A Path" ref="createpath.html"/>
           <section title="Edit A Path" ref="editpath.html"/>
           <section title="Save The Path File" ref="savepath.html"/>
-          <section title="Generate Trajectories" ref="generate.html"/>
+          <section title="Generate Trajectories" ref="gentrajs.html"/>
         </section>
         <section title="Windows" ref="windows.html">
           <section title="Path File" ref="pathfile.html"/>
           <section title="Path Properties" ref="pathprops.html"/>
           <section title="Constraints" ref="constraints.html"/>
-          <section title="Waypoints" ref="waypoints.html"/>
-          <section title="Path Editor" ref="patheditor.html"/>
+          <section title="Waypoints" ref="waypoint.html"/>
+          <section title="Path Editor" ref="pathedit.html"/>
           <section title="Trajectory" ref="trajectory.html"/>
           <section title="Log" ref="log.html"/>
         </section>
@@ -53,9 +53,21 @@
       <file>windows.html</file>
       <file>pathfile.html</file>
       <file>pathprops.html</file>
+      <file>constraints.html</file>
+      <file>waypoint.html</file>
+      <file>pathedit.html</file>
+      <file>trajectory.html</file>
+      <file>log.html</file>
+      <file>cursor.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
+      <file>images/constraints.png</file>
+      <file>images/waypoint.png</file>
+      <file>images/pathedit.png</file>
+      <file>images/trajectory.png</file>
+      <file>images/log.png</file>
+      <file>images/cursor.png</file>
     </files>
   </filterSection>
 </QtHelpProject>
