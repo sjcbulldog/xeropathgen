@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Robot Window</title>
+</head>
+<body>
+    <h2>Log File Window</h2>
+    <br>
+    <img src="images/createrobot.png" height=400 width=800>
+    <br>
+    <br>
+    <font size="+2">
+        This window is used to create or edit the parameters assocated with a robot.
+
+        <br>
+        <table cellspacing="10">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>The name of the robot. This is the name that will appear in the <a href="./robotsmenu.html">Robot Menu</a></td>
+            </tr>
+            <tr>
+                <td>Units</td>
+                <td>The units for all speed and distance related measurements.</td>
+            </tr>
+            <tr>
+                <td>Effective Length</td>
+                <td>
+                    The effecitve length of the robot for purposes of calculating path trajectories.  This value is generally
+                    identical to the physical length of the robot.
+                </td>
+            </tr>
+            <tr>
+                <td>Effective Width</td>
+                <td>
+                    The effective width of the robot for the purposes of calculating path trajectories.  This value is generally
+                    smaller than the physical width of the robot due to the "scrub" of the wheels when turning.  Search
+                    <a href="www.chiefdelphi.com">Chief Delphi</a> for information on calculating the effecitive width (or scrub)
+                    of a robot
+                </td>
+            </tr>
+            <tr>
+                <td>Physical Length</td>
+                <td>
+                    The physical (bumper to bumper) length of the robot.  This is used to set the dimensions of the robot as
+                    drawn on the field when defining paths.
+                </td>
+            </tr>
+            <tr>
+                <td>Physical Width</td>
+                <td>
+                    The physical (bumper to bumper) width of the robot.  This is used to set the dimensions of the robot as
+                    drawn on the field when defining paths.
+                </td>
+            </tr>
+            <tr>
+                <td>Max Velocity</td>
+                <td>
+                    This is the maximum velocity of the robot for path following.  This is not the maximum that the robot can
+                    do, but something less than this giving some "headroom" for the software to actually control the robot.
+                </td>
+            </tr>
+            <tr>
+                <td>Max Acceleration</td>
+                <td>
+                    This is the maximum acceleration of the robot for path following.  This is not the maximum that the robot can
+                    do, but something less than this giving some "headroom" for the software to actually control the robot.
+                </td>
+            </tr>
+            <tr>
+                <td>Max Jerk</td>
+                <td>
+                    This is the maximum jerk of the robot for path following.  This is not the maximum that the robot can
+                    do, but something less than this giving some "headroom" for the software to actually control the robot.
+                </td>
+            </tr>
+            <tr>
+                <td>Drive Type</td>
+                <td>
+                    This is the drive type. <b>Swerve support is experimental and does not currently work</b>
+                </td>
+            </tr>
+            <tr>
+                <td>Time Step</td>
+                <td>This timestep of the control loop for the drive base.</td>
+            </tr>
+        </table>
+    </font>
+</body>
+</html>

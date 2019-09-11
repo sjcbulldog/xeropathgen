@@ -26,6 +26,7 @@
           <section title="Log" ref="log.html"/>
           <section title="Preference Editor" ref="preference.html"/>
           <section title="Plot Variables" ref="plotvars.html"/>
+          <section title="Edit/Create Robot" ref="createrobot.html"/>
         </section>
         <section title="Cursor" ref="cursor.html"/>
         <section title="Menus" ref="menus.html">
@@ -75,6 +76,7 @@
       <file>preference.html</file>
       <file>plotvars.html</file>
       <file>demomode.html</file>
+      <file>createrobot.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
@@ -84,7 +86,6 @@
       <file>images/trajectory.png</file>
       <file>images/log.png</file>
       <file>images/cursor.png</file>
-      <file>images/defrobot.png</file>
       <file>images/creategroup.png</file>
       <file>images/createpath.png</file>
       <file>images/preferences.png</file>

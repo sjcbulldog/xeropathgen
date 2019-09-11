@@ -9,7 +9,7 @@ class PropertyEditor : public QDialog
 	Q_OBJECT
 
 public:
-	PropertyEditor(QWidget *parent = Q_NULLPTR);
+	PropertyEditor(QString title, QWidget *parent = Q_NULLPTR);
 	~PropertyEditor();
 
 	PropertyEditorTreeModel& getModel() {

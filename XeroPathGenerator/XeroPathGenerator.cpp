@@ -1882,7 +1882,7 @@ void XeroPathGenerator::editGeneratorParameters()
 	// Move the existing values to the property editor.  If an existing value is
 	// missing, use the default.
 	//
-	PropertyEditor editor(this);
+	PropertyEditor editor("Generator Parameters", this);
 	for (const auto& p : current_generator_->getGeneratorParams())
 	{
 		QVariant value;
@@ -2036,6 +2036,7 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 	std::string units;
 	std::string name;
 	bool create = (robot == nullptr);
+	QString title;
 
 	if (robot == nullptr)
 	{
@@ -2051,6 +2052,7 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 		timestep = RobotParams::DefaultTimestep;
 		drivetype = RobotParams::DefaultDriveType;
 		units = RobotParams::DefaultUnits;
+		title = "Create Robot";
 	}
 	else
 	{
@@ -2065,11 +2067,12 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 		drivetype = robot->getDriveType();
 		name = robot->getName();
 		units = robot->getUnits();
+		title = "Edit Robot";
 	}
 
 	while (1)
 	{
-		PropertyEditor* editor = new PropertyEditor(this);
+		PropertyEditor* editor = new PropertyEditor(title, this);
 		PropertyEditorTreeModel& model = editor->getModel();
 		std::shared_ptr<EditableProperty> prop;
 
@@ -2262,7 +2265,7 @@ void XeroPathGenerator::addRobotPathAction()
 
 void XeroPathGenerator::editPreferences()
 {
-	PropertyEditor dialog;
+	PropertyEditor dialog("Edit Preferences");
 	std::shared_ptr<EditableProperty> prop;
 
 	prop = std::make_shared<EditableProperty>(PrefDialogUnits, EditableProperty::PTStringList,

@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpFiles", "HelpFiles", "{
 		html\coordinates.html = html\coordinates.html
 		html\creategroup.html = html\creategroup.html
 		html\createpath.html = html\createpath.html
+		html\createrobot.html = html\createrobot.html
 		html\cursor.html = html\cursor.html
 		html\definitions.html = html\definitions.html
 		html\defrobot.html = html\defrobot.html

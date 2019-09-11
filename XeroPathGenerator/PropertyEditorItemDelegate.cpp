@@ -28,13 +28,32 @@ void PropertyEditorItemDelegate::paint(QPainter* painter, const QStyleOptionView
 
 QSize PropertyEditorItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-	int h = option.fontMetrics.height() + 2;
+	QSize ret;
+	int h = option.fontMetrics.lineSpacing();
 	auto prop = model_.getProperty(index);
-	QString text = prop->getDescription();
+	QString txt;
+	int total;
 
-	int width = option.fontMetrics.horizontalAdvance("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-	int total = option.fontMetrics.horizontalAdvance(text);
-	if (total > width)
-		h = option.fontMetrics.height() * 2 + 2;
-	return QSize(width, h);
+	if (index.column() == 0)
+	{
+		txt = prop->getName();
+		total = option.fontMetrics.horizontalAdvance(txt);
+		ret = QSize(total, h);
+	}
+	else if (index.column() == 1)
+	{
+		ret = QSize(80, h);
+	}
+	if (index.column() == 2)
+	{
+		txt = prop->getDescription();
+		total = option.fontMetrics.horizontalAdvance(txt);
+
+		int width = option.fontMetrics.horizontalAdvance("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		if (total > width)
+			h = option.fontMetrics.lineSpacing() * 2;
+		ret = QSize(width, h);
+	}
+
+	return ret;
 }
