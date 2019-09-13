@@ -8,6 +8,7 @@
         <section title="Introduction" ref="intro.html"/>
         <section title="Definitions" ref="definitions.html"/>
         <section title="Coordinates" ref="coordinates.html"/>
+        <section title="Splines" ref="splines.html"/>
         <section title="Getting Started" ref="started.html">
           <section title="Defining A Robot" ref="defrobot.html"/>
           <section title="Create A Path Group" ref="creategroup.html"/>
@@ -77,6 +78,7 @@
       <file>plotvars.html</file>
       <file>demomode.html</file>
       <file>createrobot.html</file>
+      <file>splines.html</file>
       <file>images/coordinates.png</file>
       <file>images/pathfile.png</file>
       <file>images/pathprop.png</file>
@@ -91,6 +93,7 @@
       <file>images/preferences.png</file>
       <file>images/plotvars.png</file>
       <file>images/demomode.png</file>
+      <file>images/splines.png</file>
     </files>
   </filterSection>
 </QtHelpProject>

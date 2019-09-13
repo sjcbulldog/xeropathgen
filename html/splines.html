@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Splines</title>
+</head>
+<body>
+    <h1>Splines</h1>
+
+    Give two points, p0 and p1, each with an X and Y coordiante and a heading, a path between these points can be
+    modeled using two polynomials.  These equations are shown below, where at t = 0 you are at the first point.  At
+    t = 1 you are at the second point, and between zero and one are the points between.
+
+    <br>
+    <img src="images/splines.png">
+    <br>
+    The values of ax, bx, cx, dx, ex, fx, ay, by, cy, dy, ey, and fy can be cacluated as follows.
+
+    <ul>
+        <li>dist = p0.distance(p1)</li>
+        <li>scale = 1.2 * dist</li>
+        <li>x0 = p0.x</li>
+        <li>x1 = p1.x</li>
+        <li>dx0 = cos(p0.heading) * scale</li>
+        <li>dx0 = cos(p1.heading) * scale</li>
+        <li>ddx0 = 0.0</li>
+        <li>ddx1 = 0.0</li>
+    </ul>
+
+    And the cooefficients of the spline are
+
+    <ul>
+        <li>ax = -6 * v0_ - 3 * dv0_ - 0.5 * ddv0_ + 0.5 * ddv1_ - 3 * dv1_ + 6 * v1_;</li>
+        <li>bx = 15 * v0_ + 8 * dv0_ + 1.5 * ddv0_ - ddv1_ + 7 * dv1_ - 15 * v1_;</li>
+        <li>cx = -10 * v0_ - 6 * dv0_ - 1.5 * ddv0_ + 0.5 * ddv1_ - 4 * dv1_ + 10 * v1_;</li>
+        <li>dx = 0.5 * ddv0_;</li>
+        <li>ex = dv0_;</li>
+        <li>fx = v0_;</li>
+    </ul>
+
+    <br>
+    And for the Y equestion
+
+    <br>
+    <ul>
+        <li>dist = p0.distance(p1)</li>
+        <li>scale = 1.2 * dist</li>
+        <li>y0 = p0.y</li>
+        <li>y1 = p1.y</li>
+        <li>dy0 = sin(p0.heading) * scale</li>
+        <li>dy0 = sin(p1.heading) * scale</li>
+        <li>ddy0 = 0.0</li>
+        <li>ddy1 = 0.0</li>
+    </ul>
+
+    And the cooefficients of the spline are
+
+    <ul>
+        <li>ay = -6 * v0_ - 3 * dv0_ - 0.5 * ddv0_ + 0.5 * ddv1_ - 3 * dv1_ + 6 * v1_;</li>
+        <li>by = 15 * v0_ + 8 * dv0_ + 1.5 * ddv0_ - ddv1_ + 7 * dv1_ - 15 * v1_;</li>
+        <li>cy = -10 * v0_ - 6 * dv0_ - 1.5 * ddv0_ + 0.5 * ddv1_ - 4 * dv1_ + 10 * v1_;</li>
+        <li>dy = 0.5 * ddv0_;</li>
+        <li>ey = dv0_;</li>
+        <li>fy = v0_;</li>
+    </ul>
+
+    <br><br>
+    <a href="./started.html">Getting Started</a>
+</body>
+</html>

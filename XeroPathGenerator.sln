@@ -54,6 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HelpFiles", "HelpFiles", "{
 		html\preference.html = html\preference.html
 		html\robotsmenu.html = html\robotsmenu.html
 		html\savepath.html = html\savepath.html
+		html\splines.html = html\splines.html
 		html\started.html = html\started.html
 		html\trajectory.html = html\trajectory.html
 		html\viewmenu.html = html\viewmenu.html

@@ -88,16 +88,16 @@
 copy $(ProjectDir)images\*.png $(OutDir)\images
 mkdir $(OutDir)\docs
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
+$(QTDIR)\bin\windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
 echo Building help file
-qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
 echo Building collection
-qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
 echo Copying help file
 copy $(SolutionDir)html\xeropath.qch $(OutDir)
 echo Copying help collection
@@ -156,16 +156,16 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
 mkdir $(OutDir)\docs
 copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
+$(QTDIR)\bin\windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
 mkdir $(OutDir)\generators
 copy $(ProjectDir)..\generators\* $(OutDir)\generators
 echo Building help file
-qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
 echo Building collection
-qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
 echo Copying help file
 copy $(SolutionDir)html\xeropath.qch $(OutDir)
 echo Copying help collection
