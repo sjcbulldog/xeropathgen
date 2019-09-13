@@ -86,9 +86,9 @@
     <PostBuildEvent>
       <Command>mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
-mkdir $(OutDir)\docs
-copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-$(QTDIR)\bin\windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
+echo ======================== DOING DEPLOY ============================
+$(QTDIR)\bin\windeployqt $(OutDir)$(ProjectName).exe
+echo ===============================================================
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
@@ -105,8 +105,6 @@ copy $(SolutionDir)html\xeropath.qhc $(OutDir)
 echo Copying Assistant
 copy $(QTDIR)\bin\assistant.exe $(OutDir)
 copy $(SolutionDir)html\images\*.png $(OutDir)\images
-
-
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
@@ -154,9 +152,9 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <PostBuildEvent>
       <Command>mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
-mkdir $(OutDir)\docs
-copy $(SolutionDir)guide\XeroPathGenerator.pdf $(OutDir)\docs
-$(QTDIR)\bin\windeployqt -xml plugins\sqldrivers\qsqlite.dll $(OutDir)$(ProjectName).exe
+echo ======================== DOING DEPLOY ============================
+$(QTDIR)\bin\windeployqt $(OutDir)$(ProjectName).exe
+echo ===============================================================
 copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
 mkdir $(OutDir)\fields
 copy $(ProjectDir)..\fields\* $(OutDir)\fields
@@ -173,8 +171,6 @@ copy $(SolutionDir)html\xeropath.qhc $(OutDir)
 echo Copying Assistant
 copy $(QTDIR)\bin\assistant.exe $(OutDir)
 copy $(SolutionDir)html\images\*.png $(OutDir)\images
-
-
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
