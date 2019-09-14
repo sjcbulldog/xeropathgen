@@ -101,12 +101,11 @@ QVariant PropertyEditorTreeModel::data(const QModelIndex& index, int role) const
 {
 	QVariant ret;
 
-	if (role == Qt::DisplayRole || role == Qt::EditRole)
+	if (role == Qt::DisplayRole || role == Qt::EditRole || role == Qt::ToolTipRole)
 	{
 		auto prop = props_[index.row()];
 		if (index.column() == 0)
 		{
-
 			ret = prop->getName();
 		}
 		else if (index.column() == 1)

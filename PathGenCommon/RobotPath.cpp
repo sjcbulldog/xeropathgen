@@ -274,7 +274,7 @@ namespace xero
 				{
 					const Pose2dWithTrajectory& pt = (*newtraj)[i];
 					double dist = points_[current].distance(pt.pose());
-					if (dist <= curdist)
+					if (dist <= curdist || std::fabs(dist - curdist) < 0.1)
 					{
 						//
 						// Still approaching

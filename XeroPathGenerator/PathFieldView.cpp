@@ -53,8 +53,6 @@ PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
 	grid_y_label_descend_ = -8.0;
 	grid_x_label_gap_ = -4.0;
 
-
-
 	grid_complete_ = true;
 
 	show_equations_ = true;
