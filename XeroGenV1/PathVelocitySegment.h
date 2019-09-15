@@ -29,6 +29,7 @@ public:
 	bool createProfile(bool scurve, double maxjerk, double maxacc, double startvel, double endvel);
 
 	std::shared_ptr<xero::paths::SpeedProfileGenerator> profile() { return profile_; }
+	std::shared_ptr<const xero::paths::SpeedProfileGenerator> profile() const { return profile_; }
 
 private:
 	static constexpr double kEpsilon = 1e-5;

@@ -1,0 +1,124 @@
+{
+    "_version": "1",
+    "groups": [
+        {
+            "name": "StraightPaths",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "Straight120",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 10,
+                            "y": 50
+                        },
+                        {
+                            "heading": 0,
+                            "x": 130,
+                            "y": 50
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "Straight240",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 10,
+                            "y": 50
+                        },
+                        {
+                            "heading": 0,
+                            "x": 250,
+                            "y": 50
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "CurvedPaths",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "Curve90",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 10,
+                            "y": 280
+                        },
+                        {
+                            "heading": -90,
+                            "x": 190,
+                            "y": 160
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "Curve180",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 10,
+                            "y": 279.9774867282646
+                        },
+                        {
+                            "heading": -90,
+                            "x": 190,
+                            "y": 160
+                        },
+                        {
+                            "heading": -180,
+                            "x": 10,
+                            "y": 40
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}

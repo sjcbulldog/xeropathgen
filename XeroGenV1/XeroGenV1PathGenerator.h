@@ -41,6 +41,8 @@ private:
 
 	void dumpSegments(const std::string &title, std::vector<PathVelocitySegment>& segs);
 
+	std::vector<xero::paths::Pose2dWithTrajectory> generatePoints(const xero::paths::DistanceView& distview, const std::vector<PathVelocitySegment>& segments, double total);
+
 private:
 	double diststep_;
 	double timestep_;

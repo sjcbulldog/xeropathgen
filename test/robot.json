@@ -1,10 +1,13 @@
 {
+    "_version": "1",
     "drivetype": 0,
-    "length": 30,
-    "maxacceleration": 150,
-    "maxjerk": 1500,
-    "maxvelocity": 150,
-    "name": "Phaser",
-    "timestep": 0.02,
-    "width": 32
+    "efflength": 37,
+    "effwidth": 34,
+    "maxacceleration": 120,
+    "maxjerk": 1200,
+    "maxvelocity": 120,
+    "name": "Endurance",
+    "robotlength": 22,
+    "robotwidth": 21,
+    "timestep": 0.02
 }

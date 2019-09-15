@@ -10,6 +10,7 @@
 #include <DistanceVelocityConstraint.h>
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 using namespace xero::paths;
 
@@ -40,6 +41,9 @@ XeroGenV1PathGenerator::generate(const std::vector<Pose2d>& points, const Constr
 	// 
 	std::vector<Pose2dWithTrajectory> trajpts = generateTrajPoints(distview, constraints,  startvel, endvel, maxvel, maxaccel, maxjerk);
 
+	//
+	// Step 5: create the actual trajectory object and return it
+	//
 	return std::make_shared<PathTrajectory>(TrajectoryName::Main, trajpts);
 }
 
@@ -138,7 +142,7 @@ std::vector<Pose2dWithTrajectory>
 XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const ConstraintCollection& constraints, double startvel, double endvel,
 											double maxvel, double maxaccel, double maxjerk)
 {
-	std::vector<Pose2dWithTrajectory> result;
+
 	std::vector<PathVelocitySegment> segments;
 
 	//
@@ -222,17 +226,32 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		std::cout << std::endl;
 	}
 
+	return generatePoints(distview, segments, total);
+}
+
+std::vector<Pose2dWithTrajectory> XeroGenV1PathGenerator::generatePoints(const DistanceView& distview, const std::vector<PathVelocitySegment>& segments, double total)
+{
+	std::vector<Pose2dWithTrajectory> result;
 	size_t sindex = 0;
 	double tstart = 0.0;
 	double dstart = 0.0;
 	double prevacc = 0.0;
-	size_t count = 0;
+	size_t iter = 0;
+	bool looping = true;
 
-	for (double t = 0; t <= total; t += timestep_)
+	while (looping)
 	{
+		double t = iter * timestep_;
 		auto profile = segments[sindex].profile();
+		double reportt = t;
 
-		if (t - tstart > profile->getTotalTime())
+		if (t > total)
+		{
+			looping = false;
+			t = total;
+		}
+
+		if (t - tstart > profile->getTotalTime() && sindex < segments.size() - 1)
 		{
 			//
 			// We are transistioning between profiles
@@ -249,12 +268,11 @@ XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const C
 		double jerk = (acc - prevacc) / timestep_;
 
 		Pose2d pt = distview[dst];
-		Pose2dWithTrajectory trajpt(pt, t, dst, vel, acc, jerk);
+		Pose2dWithTrajectory trajpt(pt, reportt, dst, vel, acc, jerk);
 		result.push_back(trajpt);
 
 		prevacc = acc;
-
-		count++;
+		iter++;
 	}
 
 	return result;

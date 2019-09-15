@@ -55,6 +55,7 @@ namespace xero
 			/// \returns total time for the profile
 			virtual double getTotalTime() const;
 
+			/// \brief get the total distance for the scurve profile
 			virtual double getTotalDistance() const;
 
 			/// \brief return the starting velocity for the profile

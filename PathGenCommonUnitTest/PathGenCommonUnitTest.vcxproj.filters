@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\gtest">
+      <UniqueIdentifier>{aa023223-fe08-4812-945d-8e7c2d9039ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\unittests">
+      <UniqueIdentifier>{439be80c-33f3-4fd9-b203-73c484029aaf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="googletest\googletest\src\gtest-typed-test.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest_main.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest-death-test.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest-filepath.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest-port.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest-printers.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="googletest\googletest\src\gtest-test-part.cc">
+      <Filter>Source Files\gtest</Filter>
+    </ClCompile>
+    <ClCompile Include="Translation2dTest.cpp">
+      <Filter>Source Files\unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="SCurveProfileTest.cpp">
+      <Filter>Source Files\unittests</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="googletest\googletest\src\gtest-internal-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
