@@ -38,7 +38,9 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 
 	fmt.setFont(font);
 	ui.text_->setCurrentCharFormat(fmt);
-	ui.text_->append("XeroPathGenerator");
+	QString title = "XeroPathGenerator ";
+	title += STR(XERO_MAJOR_VERSION) "." STR(XERO_MINOR_VERSION) "." STR(XERO_MICRO_VERSION);
+	ui.text_->append(title);
 
 	QString buildno = QString("\r\nBuild ") + QString(BUILDVERSION) + QString("\r\n\r\n");
 	font.setPointSize(8);
