@@ -180,6 +180,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   <ItemGroup>
     <ClCompile Include="AboutDialog.cpp" />
     <ClCompile Include="Callout.cpp" />
+    <ClCompile Include="ConstraintDeleteUndo.cpp" />
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
     <ClCompile Include="CSVParser.cpp" />
@@ -210,6 +211,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="SwerveDriveBaseModel.cpp" />
     <ClCompile Include="TankDriveBaseModel.cpp" />
     <ClCompile Include="TrajectoryViewWindow.cpp" />
+    <ClCompile Include="UndoItem.cpp" />
+    <ClCompile Include="UndoManager.cpp" />
     <ClCompile Include="WaypointTreeModel.cpp" />
     <ClCompile Include="XeroPathGenerator.cpp" />
   </ItemGroup>
@@ -228,6 +231,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="AboutDialog.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="Callout.h" />
+    <ClInclude Include="ConstraintDeleteUndo.h" />
     <ClInclude Include="CSVParser.h" />
     <ClInclude Include="DriveBaseModel.h" />
     <ClInclude Include="EditableProperty.h" />
@@ -258,6 +262,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="SwerveDriveBaseModel.h" />
     <ClInclude Include="TankDriveBaseModel.h" />
     <QtMoc Include="TrajectoryViewWindow.h" />
+    <ClInclude Include="UndoItem.h" />
+    <ClInclude Include="UndoManager.h" />
     <ClInclude Include="WaypointTreeModel.h" />
     <ClInclude Include="RobotManager.h" />
     <QtMoc Include="PathFieldView.h" />

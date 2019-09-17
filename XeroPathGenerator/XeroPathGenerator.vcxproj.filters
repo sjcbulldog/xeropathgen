@@ -31,6 +31,9 @@
     <Filter Include="Images">
       <UniqueIdentifier>{81541918-95e0-4361-906e-c15917549eed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Undo">
+      <UniqueIdentifier>{a5d05767-44a3-4e26-b621-50ead3e4a569}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="HelpDisplay.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoItem.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintDeleteUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoManager.cpp">
+      <Filter>Undo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +275,15 @@
     </ClInclude>
     <ClInclude Include="Callout.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoItem.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintDeleteUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoManager.h">
+      <Filter>Undo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

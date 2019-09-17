@@ -34,6 +34,7 @@
 #include "TrajectoryViewWindow.h"
 #include "NetworkDownloadManager.h"
 #include "HelpDisplay.h"
+#include "UndoManager.h"
 
 #include <QProgressBar>
 #include <QMainWindow>
@@ -420,4 +421,6 @@ private:
 	std::shared_ptr<HelpDisplay> help_display_;
 
 	std::shared_ptr<QProcess> help_process_;
+
+	UndoManager undo_mgr_;
 };

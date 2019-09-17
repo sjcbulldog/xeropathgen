@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 #include "ConstraintEditor.h"
+#include "UndoManager.h"
 #include <DistanceVelocityConstraint.h>
 
 using namespace xero::paths;
@@ -58,9 +59,21 @@ void ConstraintEditor::addOne()
 	emitConstraintAdded();
 }
 
+void ConstraintEditor::addConstraint(const DistanceVelocityConstraint& c)
+{
+	std::shared_ptr<DistanceVelocityConstraint> nc = std::make_shared<DistanceVelocityConstraint>(c);
+	path_->addTimingConstraint(nc);
+	model_.reset();
+
+	emitConstraintAdded();
+}
+
 void ConstraintEditor::deleteOne()
 {
+	UndoM
 	QModelIndex index = ui.tree_->currentIndex();
+	auto c = path_->getConstraints()[index.row()];
+
 	path_->removeTimingConstraint(index.row());
 	model_.reset();
 	emitConstraintRemoved();

@@ -17,6 +17,7 @@
 #include "SplinePair.h"
 #include "TankDriveBaseModel.h"
 #include "SwerveDriveBaseModel.h"
+#include "UndoManager.h"
 #include <TrajectoryNames.h>
 #include <Pose2d.h>
 #include <QPainter>
@@ -610,7 +611,10 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 void PathFieldView::keyPressEvent(QKeyEvent* ev)
 {
 	if (ev->key() == Qt::Key::Key_Z && ev->modifiers() == Qt::KeyboardModifier::ControlModifier)
-		undo();
+	{
+		UndoManager &mgr = UndoManager::getUndoManager();
+		mgr.undo();
+	}
 	else
 	{
 		bool shift = (ev->modifiers() == Qt::KeyboardModifier::ShiftModifier);

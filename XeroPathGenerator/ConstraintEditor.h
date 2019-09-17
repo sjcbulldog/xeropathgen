@@ -18,6 +18,7 @@
 #include <QWidget>
 #include "ui_ConstraintEditor.h"
 #include "ConstraintTreeModel.h"
+#include <DistanceVelocityConstraint.h>
 
 class ConstraintEditor : public QWidget
 {
@@ -38,6 +39,8 @@ public:
 		generator_ = gen;
 		enableDisable();
 	}
+
+	void addConstraint(const xero::paths::DistanceVelocityConstraint& c);
 
 signals:
 	void constraintAdded();
