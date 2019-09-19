@@ -17,7 +17,7 @@ public:
 
 private:
 	PathFieldView& fields_;
-	std::shared_ptr<xero::paths::RobotPath>path_;
+	std::shared_ptr<xero::paths::RobotPath> path_;
 	size_t index_;
 	xero::paths::Pose2d waypoint_;
 };

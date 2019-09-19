@@ -97,6 +97,7 @@ public:
 	std::vector<QPointF> windowToWorld(const std::vector<QPointF>& points);
 
 	void deleteWaypoint();
+	void deleteWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index);
 	void insertWaypoint();
 	void addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt);
 

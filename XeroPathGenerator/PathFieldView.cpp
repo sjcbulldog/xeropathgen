@@ -19,6 +19,7 @@
 #include "SwerveDriveBaseModel.h"
 #include "UndoManager.h"
 #include "WaypointDeleteUndo.h"
+#include "WaypointAddUndo.h"
 #include <TrajectoryNames.h>
 #include <Pose2d.h>
 #include <QPainter>
@@ -562,7 +563,17 @@ void PathFieldView::deleteWaypoint()
 
 	path_->removePoint(selected_);
 	emitWaypointDeleted();
-	repaint(geometry());
+	repaint();
+}
+
+void PathFieldView::deleteWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index)
+{
+	path_->removePoint(index);
+	if (path_ == path)
+	{
+		repaint();
+		emitWaypointDeleted();
+	}
 }
 
 void PathFieldView::addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt)
@@ -586,6 +597,10 @@ void PathFieldView::insertWaypoint()
 	Rotation2d r = Rotation2d::fromRadians((p1.getRotation().toRadians() + p2.getRotation().toRadians()) / 2.0);
 	Translation2d t((p1.getTranslation().getX() + p2.getTranslation().getX()) / 2.0, (p1.getTranslation().getY() + p2.getTranslation().getY()) / 2.0);
 	Pose2d newpt(t, r);
+
+	std::shared_ptr<WaypointAddUndo> undo = std::make_shared<WaypointAddUndo>(*this, path_, selected_ + 1);
+	UndoManager::getUndoManager().pushUndoStack(undo);
+
 	path_->insertPoint(selected_, newpt) ;
 
 	// Move selected waypoint to the one we just created

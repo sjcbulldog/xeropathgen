@@ -16,6 +16,8 @@
 #include "PathParamTreeModel.h"
 #include "GeneratorManager.h"
 #include "Generator.h"
+#include "PathParameterChangeUndo.h"
+#include "UndoManager.h"
 
 using namespace xero::paths;
 
@@ -209,6 +211,10 @@ bool PathParamTreeModel::setData(const QModelIndex& index, const QVariant& value
 			return false;
 		double v = value.toDouble();
 
+		std::shared_ptr<PathParameterChangeUndo> undo = std::make_shared<PathParameterChangeUndo>(*this, path_);
+		UndoManager::getUndoManager().pushUndoStack(undo);
+
+
 		switch (index.row())
 		{
 		case 0:
@@ -245,6 +251,13 @@ bool PathParamTreeModel::setData(const QModelIndex& index, const QVariant& value
 		emit dataChanged(index, index);
 	}
 	return true;
+}
+
+void PathParamTreeModel::updated()
+{
+	QModelIndex index;
+	reset();
+	emit dataChanged(index, index);
 }
 
 void PathParamTreeModel::reset()

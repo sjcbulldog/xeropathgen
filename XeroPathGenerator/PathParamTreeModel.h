@@ -57,6 +57,8 @@ public:
 		reset();
 	}
 
+	void updated();
+
 	
 private:
 	static std::vector<std::string> RowLabelsAngles;

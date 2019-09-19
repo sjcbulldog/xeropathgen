@@ -162,6 +162,9 @@
     <ClCompile Include="WaypointDeleteUndo.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
+    <ClCompile Include="PathParameterChangeUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -313,6 +316,9 @@
       <Filter>Undo</Filter>
     </ClInclude>
     <ClInclude Include="WaypointAddUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="PathParameterChangeUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
   </ItemGroup>

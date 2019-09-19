@@ -199,6 +199,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="PathFileTree.cpp" />
     <ClCompile Include="PathFileTreeModel.cpp" />
     <ClCompile Include="PathGenerationEngine.cpp" />
+    <ClCompile Include="PathParameterChangeUndo.cpp" />
     <ClCompile Include="PathParamTreeModel.cpp" />
     <ClCompile Include="PathPlotView.cpp" />
     <ClCompile Include="PlotMainWindow.cpp" />
@@ -256,6 +257,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="PathFileTree.h" />
     <ClInclude Include="PathFileTreeModel.h" />
     <ClInclude Include="PathGenerationEngine.h" />
+    <ClInclude Include="PathParameterChangeUndo.h" />
     <ClInclude Include="PathParamTreeModel.h" />
     <QtMoc Include="PathPlotView.h" />
     <QtMoc Include="PropertyEditor.h" />
