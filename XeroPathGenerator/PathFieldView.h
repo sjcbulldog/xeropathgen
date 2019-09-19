@@ -98,6 +98,7 @@ public:
 
 	void deleteWaypoint();
 	void insertWaypoint();
+	void addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt);
 
 	size_t getSelected() const {
 		return selected_;
@@ -111,8 +112,9 @@ public:
 signals:
 	void mouseMoved(xero::paths::Translation2d pos);
 	void waypointSelected(size_t index);
+	void waypointStartMoving(size_t index);
 	void waypointMoving(size_t index);
-	void waypointMoved(size_t index);
+	void waypointEndMoving(size_t index);
 	void waypointInserted();
 	void waypointDeleted();
 
@@ -154,8 +156,9 @@ private:
 private:
 	void emitMouseMoved(xero::paths::Translation2d pos);
 	void emitWaypointSelected(size_t which);
+	void emitWaypointStartMoving(size_t which);
 	void emitWaypointMoving(size_t which);
-	void emitWaypointMoved(size_t which);
+	void emitWaypointEndMoving(size_t which);
 	void emitWaypointDeleted();
 	void emitWaypointInserted();
 

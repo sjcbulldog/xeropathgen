@@ -67,6 +67,8 @@ public:
 	XeroPathGenerator(GameFieldManager &fields, GeneratorManager &generators, RobotManager &robots, std::ofstream &ostrm, std::stringstream &sstrm, QWidget *parent = Q_NULLPTR);
 	virtual ~XeroPathGenerator();
 
+	void updateWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt);
+
 private:
 	void setFileName(QString name);
 	void setXeroWindowTitle();
@@ -121,6 +123,7 @@ private:
 	void deletePathOrGroup();
 	void editPreferences();
 	void showEditMenu();
+	void editUndo();
 
 	//
 	// View menu
@@ -251,7 +254,8 @@ private:
 	void insertedWaypointProc();
 	void deletedWaypointProc();
 	void movingWaypointProc(size_t index);
-	void movedWaypointProc(size_t index);
+	void endMovingWaypointProc(size_t index);
+	void startMovingWaypointProc(size_t index);
 	void selectedWaypointProc(size_t index);
 
 	void demoRobot();
@@ -327,6 +331,7 @@ private:
 	QAction* delete_path_or_group_action_;
 	QAction* add_path_action_;
 	QAction* add_group_action_;
+	QAction* undo_action_;
 	QMenu* view_;
 	QAction* view_plot_action_;
 	QAction* view_trajectory_data_;
@@ -422,5 +427,6 @@ private:
 
 	std::shared_ptr<QProcess> help_process_;
 
+	xero::paths::Pose2d orig_point_;
 	UndoManager undo_mgr_;
 };

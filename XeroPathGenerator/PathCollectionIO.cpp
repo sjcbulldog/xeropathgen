@@ -323,7 +323,7 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 		QString str;
 
 		QJsonValue v2 = obj[RobotPath::ConstraintsTag];
-		if (v.isArray())
+		if (v2.isArray())
 		{
 			QJsonArray arr = v2.toArray();
 			for (const QJsonValue& v3 : arr)

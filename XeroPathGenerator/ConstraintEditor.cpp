@@ -15,6 +15,8 @@
 //
 #include "ConstraintEditor.h"
 #include "UndoManager.h"
+#include "ConstraintDeleteUndo.h"
+#include "ConstraintAddUndo.h"
 #include <DistanceVelocityConstraint.h>
 
 using namespace xero::paths;
@@ -56,13 +58,18 @@ void ConstraintEditor::addOne()
 	path_->addTimingConstraint(c);
 	model_.reset();
 
+	int row = static_cast<int>(path_->getConstraints().size() - 1);
+	UndoManager& mgr = UndoManager::getUndoManager();
+	std::shared_ptr<ConstraintAddUndo> item = std::make_shared<ConstraintAddUndo>(*this, row);
+	mgr.pushUndoStack(item);
+	
 	emitConstraintAdded();
 }
 
-void ConstraintEditor::addConstraint(const DistanceVelocityConstraint& c)
+void ConstraintEditor::addConstraint(int row, const DistanceVelocityConstraint& c)
 {
 	std::shared_ptr<DistanceVelocityConstraint> nc = std::make_shared<DistanceVelocityConstraint>(c);
-	path_->addTimingConstraint(nc);
+	path_->insertTimingConstraint(row, nc);
 	model_.reset();
 
 	emitConstraintAdded();
@@ -70,11 +77,22 @@ void ConstraintEditor::addConstraint(const DistanceVelocityConstraint& c)
 
 void ConstraintEditor::deleteOne()
 {
-	UndoM
 	QModelIndex index = ui.tree_->currentIndex();
 	auto c = path_->getConstraints()[index.row()];
+	std::shared_ptr<DistanceVelocityConstraint> dc = std::dynamic_pointer_cast<DistanceVelocityConstraint>(c);
+
+	UndoManager& mgr = UndoManager::getUndoManager();
+	std::shared_ptr<ConstraintDeleteUndo> item = std::make_shared<ConstraintDeleteUndo>(*this, index.row(), *dc);
+	mgr.pushUndoStack(item);
 
 	path_->removeTimingConstraint(index.row());
+	model_.reset();
+	emitConstraintRemoved();
+}
+
+void ConstraintEditor::deleteConstraint(int row)
+{
+	path_->removeTimingConstraint(row);
 	model_.reset();
 	emitConstraintRemoved();
 }

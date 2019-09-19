@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 #include "WaypointTreeModel.h"
+#include "UndoManager.h"
+#include "WaypointChangedUndo.h"
 
 using namespace xero::paths;
 
@@ -150,6 +152,8 @@ bool WaypointTreeModel::setData(const QModelIndex& index, const QVariant& value,
 			waypoint_ = Pose2d(waypoint_.getTranslation(), Rotation2d::fromDegrees(v));
 			break;
 		}
+
+
 
 		emit dataChanged(index, index);
 	}

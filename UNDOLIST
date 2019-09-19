@@ -1,0 +1,27 @@
+Constraints		     Complete
+- Insert			x
+- Delete			x
+- Change			x
+
+Waypoint
+- Change			x
+- Insert			X
+- Delete
+
+Path Parameters
+- Change
+
+Paths
+- Rename
+- Delete
+- Insert
+
+Path Groups
+- Rename
+- Delete
+- Insert
+
+Robot Parameters
+- New Robot
+- Delete Robot
+- Change Robot

@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 #include "ConstraintTreeModel.h"
+#include "UndoManager.h"
+#include "ChangeContraintUndo.h"
 #include <DistanceVelocityConstraint.h>
 #include <QModelIndex>
 #include <QDebug>
@@ -153,36 +155,73 @@ QVariant ConstraintTreeModel::data(const QModelIndex& index, int role) const
 bool ConstraintTreeModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
   	(void)role ;
-  
+
+
 	//
 	// This is the constraint
 	//
 	std::shared_ptr<PathConstraint> con;
 	con = path_->getConstraints()[index.row()];
 	std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
+	std::shared_ptr<ChangeContraintUndo> undo;
 
 	if (dist != nullptr)
 	{
 		switch (index.column())
 		{
 		case 0:
+			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::After, dist->getAfter());
 			dist->setAfter(value.toDouble());
 			emitConstraintChanged();
 			break;
 
 		case 1:
+			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::Before, dist->getBefore());
 			dist->setBefore(value.toDouble());
 			emitConstraintChanged();
 			break;
 
 		case 2:
+			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::Velocity, dist->getVelocity());
 			dist->setVelocity(value.toDouble());
 			emitConstraintChanged();
 			break;
 		}
 	}
 
+	UndoManager::getUndoManager().pushUndoStack(undo);
+
 	return true;
+}
+
+void ConstraintTreeModel::changeBefore(int row, double value)
+{
+	std::shared_ptr<PathConstraint> con;
+	con = path_->getConstraints()[row];
+	std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
+	dist->setBefore(value);
+	emitConstraintChanged();
+	reset();
+}
+
+void ConstraintTreeModel::changeAfter(int row, double value)
+{
+	std::shared_ptr<PathConstraint> con;
+	con = path_->getConstraints()[row];
+	std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
+	dist->setAfter(value);
+	emitConstraintChanged();
+	reset();
+}
+
+void ConstraintTreeModel::changeVelocity(int row, double value)
+{
+	std::shared_ptr<PathConstraint> con;
+	con = path_->getConstraints()[row];
+	std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
+	dist->setVelocity(value);
+	emitConstraintChanged();
+	reset();
 }
 
 

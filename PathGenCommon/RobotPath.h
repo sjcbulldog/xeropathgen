@@ -219,6 +219,12 @@ namespace xero
 				constraints_.push_back(cstr);
 			}
 
+			void insertTimingConstraint(int row, std::shared_ptr<PathConstraint> cstr) {
+				ConstraintCollection::iterator it = constraints_.begin();
+				std::advance(it, row);
+				constraints_.insert(it, cstr);
+			}
+
 			void removeTimingConstraint(size_t index) {
 				if (index < constraints_.size())
 				{

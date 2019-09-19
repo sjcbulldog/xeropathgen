@@ -147,6 +147,21 @@
     <ClCompile Include="UndoManager.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
+    <ClCompile Include="ChangeContraintUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintAddUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointChangedUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointAddUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointDeleteUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -196,6 +211,9 @@
     </QtMoc>
     <QtMoc Include="HelpDisplay.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="UndoManager.h">
+      <Filter>Undo</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -282,7 +300,19 @@
     <ClInclude Include="ConstraintDeleteUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
-    <ClInclude Include="UndoManager.h">
+    <ClInclude Include="ChangeContraintUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintAddUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointChangedUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointDeleteUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointAddUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -18,6 +18,7 @@
 #include "TankDriveBaseModel.h"
 #include "SwerveDriveBaseModel.h"
 #include "UndoManager.h"
+#include "WaypointDeleteUndo.h"
 #include <TrajectoryNames.h>
 #include <Pose2d.h>
 #include <QPainter>
@@ -433,14 +434,19 @@ void PathFieldView::emitWaypointInserted()
 	emit waypointInserted();
 }
 
-void PathFieldView::emitWaypointMoved(size_t index)
+void PathFieldView::emitWaypointEndMoving(size_t index)
 {
-	emit waypointMoved(index);
+	emit waypointEndMoving(index);
 }
 
 void PathFieldView::emitWaypointMoving(size_t index)
 {
 	emit waypointMoving(index);
+}
+
+void PathFieldView::emitWaypointStartMoving(size_t index)
+{
+	emit waypointStartMoving(index);
 }
 
 void PathFieldView::mouseMoveEvent(QMouseEvent* ev)
@@ -504,10 +510,12 @@ void PathFieldView::mousePressEvent(QMouseEvent* ev)
 				emitWaypointSelected(selected_);
 			}
 			dragging_ = true;
+			emitWaypointStartMoving(selected_);
 		}
 		else
 		{
 			rotating_ = true;
+			emitWaypointStartMoving(selected_);
 		}
 	}
 	else
@@ -530,7 +538,7 @@ void PathFieldView::mouseReleaseEvent(QMouseEvent* ev)
 		return;
 
 	if (dragging_ || rotating_)
-		emitWaypointMoved(selected_);
+		emitWaypointEndMoving(selected_);
 
 	dragging_ = false;
 	rotating_ = false;
@@ -548,9 +556,23 @@ void PathFieldView::deleteWaypoint()
 	if (path_ == nullptr || selected_ >= path_->size())
 		return;
 
+	const Pose2d& pt = path_->getPoints()[selected_];
+	std::shared_ptr< WaypointDeleteUndo> undo = std::make_shared<WaypointDeleteUndo>(*this, path_, selected_ - 1, pt);
+	UndoManager::getUndoManager().pushUndoStack(undo);
+
 	path_->removePoint(selected_);
 	emitWaypointDeleted();
 	repaint(geometry());
+}
+
+void PathFieldView::addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt)
+{
+	path->insertPoint(index, pt);
+	if (path_ == path)
+	{
+		repaint();
+		emitWaypointInserted();
+	}
 }
 
 void PathFieldView::insertWaypoint()
@@ -582,11 +604,13 @@ void PathFieldView::moveWaypoint(bool shift, int dx, int dy)
 		delta = UnitConverter::convert(delta, "in", units_);
 
 		const Pose2d& pt = path_->getPoints()[selected_];
+
 		Translation2d t(pt.getTranslation().getX() + dx * delta, pt.getTranslation().getY() + dy * delta);
 		Pose2d newpt(t, pt.getRotation());
 		path_->replacePoint(selected_, newpt);
 
-		emitWaypointMoved(selected_);
+		emitWaypointStartMoving(selected_);
+		emitWaypointEndMoving(selected_);
 		repaint(geometry());
 	}
 }
@@ -603,7 +627,8 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 		Pose2d newpt(pt.getTranslation(), r);
 		path_->replacePoint(selected_, newpt);
 
-		emitWaypointMoved(selected_);
+		emitWaypointStartMoving(selected_);
+		emitWaypointEndMoving(selected_);
 		repaint(geometry());
 	}
 }

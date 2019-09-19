@@ -1,11 +1,13 @@
 #pragma once
 
+#include <QObject>
 #include "UndoItem.h"
 #include <memory>
 #include <list>
 
-class UndoManager
+class UndoManager : public QObject
 {
+	Q_OBJECT;
 public:
 	UndoManager();
 	virtual ~UndoManager();
@@ -14,9 +16,14 @@ public:
 	void undo();
 	void dump();
 
+	bool hasUndoInfo() const {
+		return undo_stack_.size() > 0;
+	}
+
 	static UndoManager& getUndoManager() {
 		return *theone_;
 	}
+
 
 private:
 	static UndoManager* theone_;

@@ -180,6 +180,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   <ItemGroup>
     <ClCompile Include="AboutDialog.cpp" />
     <ClCompile Include="Callout.cpp" />
+    <ClCompile Include="ChangeContraintUndo.cpp" />
+    <ClCompile Include="ConstraintAddUndo.cpp" />
     <ClCompile Include="ConstraintDeleteUndo.cpp" />
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
@@ -213,6 +215,9 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="TrajectoryViewWindow.cpp" />
     <ClCompile Include="UndoItem.cpp" />
     <ClCompile Include="UndoManager.cpp" />
+    <ClCompile Include="WaypointAddUndo.cpp" />
+    <ClCompile Include="WaypointChangedUndo.cpp" />
+    <ClCompile Include="WaypointDeleteUndo.cpp" />
     <ClCompile Include="WaypointTreeModel.cpp" />
     <ClCompile Include="XeroPathGenerator.cpp" />
   </ItemGroup>
@@ -231,6 +236,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="AboutDialog.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="Callout.h" />
+    <ClInclude Include="ChangeContraintUndo.h" />
+    <ClInclude Include="ConstraintAddUndo.h" />
     <ClInclude Include="ConstraintDeleteUndo.h" />
     <ClInclude Include="CSVParser.h" />
     <ClInclude Include="DriveBaseModel.h" />
@@ -263,7 +270,13 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="TankDriveBaseModel.h" />
     <QtMoc Include="TrajectoryViewWindow.h" />
     <ClInclude Include="UndoItem.h" />
-    <ClInclude Include="UndoManager.h" />
+    <QtMoc Include="UndoManager.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
+    </QtMoc>
+    <ClInclude Include="WaypointAddUndo.h" />
+    <ClInclude Include="WaypointChangedUndo.h" />
+    <ClInclude Include="WaypointDeleteUndo.h" />
     <ClInclude Include="WaypointTreeModel.h" />
     <ClInclude Include="RobotManager.h" />
     <QtMoc Include="PathFieldView.h" />

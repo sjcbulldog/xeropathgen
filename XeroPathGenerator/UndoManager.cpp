@@ -26,9 +26,12 @@ void UndoManager::pushUndoStack(std::shared_ptr<UndoItem> item)
 
 void UndoManager::undo()
 {
-	auto item = undo_stack_.front();
-	undo_stack_.pop_front();
-	item->undo();
+	if (undo_stack_.size() > 0)
+	{
+		auto item = undo_stack_.front();
+		undo_stack_.pop_front();
+		item->undo();
+	}
 }
 
 void UndoManager::dump()

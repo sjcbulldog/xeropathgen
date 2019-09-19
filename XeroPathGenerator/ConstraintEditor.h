@@ -40,7 +40,8 @@ public:
 		enableDisable();
 	}
 
-	void addConstraint(const xero::paths::DistanceVelocityConstraint& c);
+	void addConstraint(int row, const xero::paths::DistanceVelocityConstraint& c);
+	void deleteConstraint(int row);
 
 signals:
 	void constraintAdded();

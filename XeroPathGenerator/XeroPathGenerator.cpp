@@ -26,6 +26,8 @@
 #include "PlotVariableSelector.h"
 #include "AboutDialog.h"
 #include "HelpDisplay.h"
+#include "WaypointChangedUndo.h"
+
 #include <DriveBaseData.h>
 #include <TrajectoryNames.h>
 #include <JSONWriter.h>
@@ -352,8 +354,9 @@ bool XeroPathGenerator::createLeftSide()
 {
 	path_view_ = new PathFieldView(m_left_top_bottom_);
 	path_view_->setVisible(true);
-	(void)connect(path_view_, &PathFieldView::waypointMoved, this, &XeroPathGenerator::movedWaypointProc);
-	(void)connect(path_view_, &PathFieldView::waypointMoved, this, &XeroPathGenerator::movingWaypointProc);
+	(void)connect(path_view_, &PathFieldView::waypointStartMoving, this, &XeroPathGenerator::startMovingWaypointProc);
+	(void)connect(path_view_, &PathFieldView::waypointEndMoving, this, &XeroPathGenerator::endMovingWaypointProc);
+	(void)connect(path_view_, &PathFieldView::waypointMoving, this, &XeroPathGenerator::movingWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointInserted, this, &XeroPathGenerator::insertedWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointDeleted, this, &XeroPathGenerator::deletedWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointSelected, this, &XeroPathGenerator::selectedWaypointProc);
@@ -386,7 +389,6 @@ bool XeroPathGenerator::createRightSide()
 	paths_->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 	paths_->setEditTriggers(QAbstractItemView::EditTrigger::DoubleClicked);
 	(void)connect(paths_->selectionModel(), &QItemSelectionModel::currentChanged, this, &XeroPathGenerator::pathTreeSelectionChanged);
-	(void)connect(&waypoint_model_, &WaypointTreeModel::dataChanged, this, &XeroPathGenerator::pathTreeDataChanged);
 
 	path_parameters_group_ = new QGroupBox(tr("Path Parameters"), m_right_stack_);
 	layout = new QHBoxLayout();
@@ -394,7 +396,7 @@ bool XeroPathGenerator::createRightSide()
 	path_parameters_->setModel(&path_param_model_);
 	layout->addWidget(path_parameters_);
 	path_parameters_group_->setLayout(layout);
-	(void)connect(&path_param_model_, &WaypointTreeModel::dataChanged, this, &XeroPathGenerator::pathParamTreeDataChanged);
+	(void)connect(&path_param_model_, &PathParamTreeModel::dataChanged, this, &XeroPathGenerator::pathParamTreeDataChanged);
 
 	QGroupBox *gr = new QGroupBox(tr("Path Constraints"), m_right_stack_);
 	layout = new QHBoxLayout();
@@ -476,6 +478,10 @@ bool XeroPathGenerator::createMenus()
 	edit_->addSeparator();
 	action = edit_->addAction(tr("Preferences ..."));
 	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::editPreferences);
+
+	edit_->addSeparator();
+	undo_action_ = edit_->addAction(tr("Undo"));
+	(void)connect(undo_action_, &QAction::triggered, &undo_mgr_, &UndoManager::undo);
 
 	menuBar()->addMenu(edit_);
 
@@ -1048,6 +1054,10 @@ void XeroPathGenerator::waypointTreeDataChanged(const QModelIndex& topLeft, cons
   	(void)topLeft ;
 	(void)bottomRight ;
 	(void)roles ;
+
+	const Pose2d& current = current_path_->getPoints()[path_view_->getSelected()];
+	std::shared_ptr<WaypointChangedUndo> entry = std::make_shared<WaypointChangedUndo>(*this, current_path_, path_view_->getSelected(), current);
+	UndoManager::getUndoManager().pushUndoStack(entry);
 	
 	current_path_->replacePoint(path_view_->getSelected(), waypoint_model_.getWaypoint());
 	currentPathChanged();
@@ -1107,12 +1117,32 @@ void XeroPathGenerator::deletedWaypointProc()
 	setXeroWindowTitle();
 }
 
-void XeroPathGenerator::movedWaypointProc(size_t index)
+void XeroPathGenerator::startMovingWaypointProc(size_t index)
 {
-	paths_model_.setDirty();
-	selectedWaypointProc(index);
-	currentPathChanged();
-	setXeroWindowTitle();
+	orig_point_ = current_path_->getPoints()[path_view_->getSelected()];
+	std::shared_ptr<WaypointChangedUndo> entry = std::make_shared<WaypointChangedUndo>(*this, current_path_, path_view_->getSelected(), orig_point_);
+	UndoManager::getUndoManager().pushUndoStack(entry);
+}
+
+void XeroPathGenerator::endMovingWaypointProc(size_t index)
+{
+	auto &moved = current_path_->getPoints()[path_view_->getSelected()];
+	if (!moved.espilonEquals(orig_point_, 0.1))
+	{
+		paths_model_.setDirty();
+		selectedWaypointProc(index);
+		currentPathChanged();
+		setXeroWindowTitle();
+	}
+	else
+	{
+		//
+		// The point did not really move
+		//
+		// We put an entry on the todo stack that should not be there.
+		//
+		UndoManager::getUndoManager().undo();
+	}
 }
 
 void XeroPathGenerator::movingWaypointProc(size_t index)
@@ -1675,6 +1705,8 @@ void XeroPathGenerator::showEditMenu()
 
 	insert_waypoint_action_->setEnabled(path_view_->isInsertWaypointValid());
 	delete_waypoint_action_->setEnabled(path_view_->isDeleteWaypointValid());
+
+	undo_action_->setEnabled(undo_mgr_.hasUndoInfo());
 }
 
 void XeroPathGenerator::insertWaypoint()
@@ -2507,4 +2539,13 @@ void XeroPathGenerator::currentPathChanged()
 	path_engine_.markPathDirty(current_path_);
 	setXeroWindowTitle();
 	plot_main_->setPath(current_path_);
+}
+
+void XeroPathGenerator::updateWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt)
+{
+	path->replacePoint(index, pt);
+	path_view_->repaint();
+
+	if (current_path_ == path && path_view_->getSelected() == index)
+		waypoint_model_.setWaypoint(current_path_->getPoints()[index], index, current_path_->getDistance(index));
 }
