@@ -20,10 +20,12 @@
 #include <QAbstractItemModel>
 #include <memory>
 
+class PathFileTreeModel;
+
 class PathParamTreeModel : public QAbstractItemModel
 {
 public:
-	PathParamTreeModel();
+	PathParamTreeModel(PathFileTreeModel &model);
 	virtual ~PathParamTreeModel();
 
 	virtual QModelIndex index(int row, int col, const QModelIndex& parent) const;
@@ -65,6 +67,7 @@ private:
 	static std::vector<std::string> RowLabelsNoAngles;
 
 private:
+	PathFileTreeModel& pathfile_model_;
 	int read_write_rows_;
 	std::shared_ptr<xero::paths::RobotPath> path_;
 	std::shared_ptr<Generator> generator_;

@@ -25,6 +25,8 @@
 #include <QTransform>
 #include <memory>
 
+class PathFileTreeModel;
+
 class PathFieldView : public QWidget
 {
 	friend class ShowRobotWindow;
@@ -32,7 +34,7 @@ class PathFieldView : public QWidget
 	Q_OBJECT
 
 public:
-	PathFieldView(QWidget *parent = Q_NULLPTR);
+	PathFieldView(PathFileTreeModel &model, QWidget *parent = Q_NULLPTR);
 	virtual ~PathFieldView();
 	
 	void setCursorTime(double time) {
@@ -97,9 +99,9 @@ public:
 	std::vector<QPointF> windowToWorld(const std::vector<QPointF>& points);
 
 	void deleteWaypoint();
-	void deleteWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index);
+	void deleteWaypoint(const std::string &group, const std::string &path, size_t index);
 	void insertWaypoint();
-	void addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt);
+	void addWaypoint(const std::string& group, const std::string& path, size_t index, const xero::paths::Pose2d& pt);
 
 	size_t getSelected() const {
 		return selected_;
@@ -214,4 +216,6 @@ private:
 
 	bool cursor_;
 	double cursor_time_;
+
+	PathFileTreeModel& filemodel_;
 };

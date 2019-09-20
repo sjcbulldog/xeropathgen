@@ -2,10 +2,11 @@
 #include "PathFieldView.h"
 
 
-WaypointAddUndo::WaypointAddUndo(PathFieldView& field, std::shared_ptr<xero::paths::RobotPath> path, size_t index) : field_(field)
+WaypointAddUndo::WaypointAddUndo(PathFieldView& field, const std::string& group, const std::string& path, size_t index) : field_(field)
 {
 	index_ = index;
 	path_ = path;
+	group_ = group;
 }
 
 WaypointAddUndo::~WaypointAddUndo()
@@ -21,5 +22,5 @@ QString WaypointAddUndo::toString()
 
 void WaypointAddUndo::undo()
 {
-	field_.deleteWaypoint(path_, index_);
+	field_.deleteWaypoint(path_, group_, index_);
 }

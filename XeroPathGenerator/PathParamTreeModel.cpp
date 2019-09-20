@@ -47,7 +47,7 @@ std::vector<std::string> PathParamTreeModel::RowLabelsNoAngles =
 	"Time"
 };
 
-PathParamTreeModel::PathParamTreeModel()
+PathParamTreeModel::PathParamTreeModel(PathFileTreeModel &model) : pathfile_model_(model)
 {
 	setAnglesRequired(false);
 }
@@ -211,9 +211,8 @@ bool PathParamTreeModel::setData(const QModelIndex& index, const QVariant& value
 			return false;
 		double v = value.toDouble();
 
-		std::shared_ptr<PathParameterChangeUndo> undo = std::make_shared<PathParameterChangeUndo>(*this, path_);
+		std::shared_ptr<PathParameterChangeUndo> undo = std::make_shared<PathParameterChangeUndo>(*this, pathfile_model_, path_);
 		UndoManager::getUndoManager().pushUndoStack(undo);
-
 
 		switch (index.row())
 		{

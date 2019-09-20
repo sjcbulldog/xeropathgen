@@ -1,9 +1,12 @@
 #include "PathParameterChangeUndo.h"
 #include "PathParamTreeModel.h"
+#include "PathFileTreeModel.h"
+#include "PathGroup.h"
 
-PathParameterChangeUndo::PathParameterChangeUndo(PathParamTreeModel& model, std::shared_ptr<xero::paths::RobotPath> path) : model_(model)
+PathParameterChangeUndo::PathParameterChangeUndo(PathParamTreeModel& model, PathFileTreeModel& file, std::shared_ptr<xero::paths::RobotPath> path) : model_(model), file_(file)
 {
-	path_ = path;
+	groupname_ = path->getParent()->getName();
+	pathname_ = path->getName();
 	start_vel_ = path->getStartVelocity();
 	end_vel_ = path->getEndVelocity();
 	max_vel_ = path->getMaxVelocity();
@@ -27,15 +30,19 @@ QString PathParameterChangeUndo::toString()
 
 void PathParameterChangeUndo::undo()
 {
-	path_->setStartVelocity(start_vel_);
-	path_->setEndVelocity(end_vel_);
-	path_->setMaxVelocity(max_vel_);
-	path_->setMaxAccel(max_accel_);
-	path_->setMaxJerk(max_jerk_);
-	path_->setStartAngle(start_angle_);
-	path_->setStartAngleDelay(start_angle_delay_);
-	path_->setEndAngle(end_angle_);
-	path_->setEndAngleDelay(end_angle_delay_);
+	auto path = file_.findPathByName(groupname_, pathname_);
+	if (path != nullptr)
+	{
+		path->setStartVelocity(start_vel_);
+		path->setEndVelocity(end_vel_);
+		path->setMaxVelocity(max_vel_);
+		path->setMaxAccel(max_accel_);
+		path->setMaxJerk(max_jerk_);
+		path->setStartAngle(start_angle_);
+		path->setStartAngleDelay(start_angle_delay_);
+		path->setEndAngle(end_angle_);
+		path->setEndAngleDelay(end_angle_delay_);
 
-	model_.updated();
+		model_.updated();
+	}
 }

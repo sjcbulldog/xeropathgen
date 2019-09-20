@@ -1,10 +1,11 @@
 #include "WaypointChangedUndo.h"
 #include "XeroPathGenerator.h"
 
-WaypointChangedUndo::WaypointChangedUndo(XeroPathGenerator &gen, std::shared_ptr<xero::paths::RobotPath> p, 
+WaypointChangedUndo::WaypointChangedUndo(XeroPathGenerator &gen, const std::string& group, const std::string& path,
 	size_t index, const xero::paths::Pose2d& pt) : gen_(gen)
 {
-	path_ = p;
+	path_ = path;
+	group_ = group;
 	index_ = index;
 	waypoint_ = pt;
 }
@@ -20,5 +21,5 @@ QString WaypointChangedUndo::toString()
 
 void WaypointChangedUndo::undo()
 {
-	gen_.updateWaypoint(path_, index_, waypoint_);
+	gen_.updateWaypoint(group_, path_, index_, waypoint_);
 }

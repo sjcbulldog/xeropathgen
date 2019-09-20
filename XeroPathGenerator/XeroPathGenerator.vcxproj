@@ -186,10 +186,12 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
     <ClCompile Include="CSVParser.cpp" />
+    <ClCompile Include="DeletePathUndo.cpp" />
     <ClCompile Include="DriveBaseModel.cpp" />
     <ClCompile Include="GameFieldManager.cpp" />
     <ClCompile Include="GeneratorManager.cpp" />
     <ClCompile Include="GeneratorParameterStore.cpp" />
+    <ClCompile Include="GroupNameChangeUndo.cpp" />
     <ClCompile Include="HelpDisplay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
@@ -199,6 +201,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="PathFileTree.cpp" />
     <ClCompile Include="PathFileTreeModel.cpp" />
     <ClCompile Include="PathGenerationEngine.cpp" />
+    <ClCompile Include="PathNameChangeUndo.cpp" />
     <ClCompile Include="PathParameterChangeUndo.cpp" />
     <ClCompile Include="PathParamTreeModel.cpp" />
     <ClCompile Include="PathPlotView.cpp" />
@@ -241,6 +244,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="ConstraintAddUndo.h" />
     <ClInclude Include="ConstraintDeleteUndo.h" />
     <ClInclude Include="CSVParser.h" />
+    <ClInclude Include="DeletePathUndo.h" />
     <ClInclude Include="DriveBaseModel.h" />
     <ClInclude Include="EditableProperty.h" />
     <ClInclude Include="GameField.h" />
@@ -250,6 +254,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="GeneratorParameter.h" />
     <ClInclude Include="GeneratorParameterStore.h" />
     <QtMoc Include="HelpDisplay.h" />
+    <ClInclude Include="GroupNameChangeUndo.h" />
     <ClInclude Include="JSONWriter.h" />
     <ClInclude Include="ManagerBase.h" />
     <QtMoc Include="NetworkDownloadManager.h" />
@@ -257,6 +262,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="PathFileTree.h" />
     <ClInclude Include="PathFileTreeModel.h" />
     <ClInclude Include="PathGenerationEngine.h" />
+    <ClInclude Include="PathNameChangeUndo.h" />
     <ClInclude Include="PathParameterChangeUndo.h" />
     <ClInclude Include="PathParamTreeModel.h" />
     <QtMoc Include="PathPlotView.h" />

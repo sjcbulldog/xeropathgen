@@ -9,7 +9,7 @@ class PathFieldView;
 class WaypointAddUndo : public UndoItem
 {
 public:
-	WaypointAddUndo(PathFieldView& field, std::shared_ptr<xero::paths::RobotPath> path, size_t index);
+	WaypointAddUndo(PathFieldView& field, const std::string &group, const std::string &path, size_t index);
 	virtual ~WaypointAddUndo();
 
 	virtual QString toString();
@@ -17,7 +17,8 @@ public:
 
 private:
 	PathFieldView& field_;
-	std::shared_ptr<xero::paths::RobotPath> path_;
+	std::string group_;
+	std::string path_;
 	size_t index_;
 };
 

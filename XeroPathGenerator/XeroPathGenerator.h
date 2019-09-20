@@ -67,7 +67,7 @@ public:
 	XeroPathGenerator(GameFieldManager &fields, GeneratorManager &generators, RobotManager &robots, std::ofstream &ostrm, std::stringstream &sstrm, QWidget *parent = Q_NULLPTR);
 	virtual ~XeroPathGenerator();
 
-	void updateWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt);
+	void updateWaypoint(const std::string &path, const std::string &group, size_t index, const xero::paths::Pose2d& pt);
 
 private:
 	void setFileName(QString name);

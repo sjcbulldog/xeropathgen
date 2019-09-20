@@ -20,6 +20,9 @@
 #include "UndoManager.h"
 #include "WaypointDeleteUndo.h"
 #include "WaypointAddUndo.h"
+#include "PathFileTreeModel.h"
+#include <RobotPath.h>
+#include <PathGroup.h>
 #include <TrajectoryNames.h>
 #include <Pose2d.h>
 #include <QPainter>
@@ -37,7 +40,7 @@ std::vector<QPointF> PathFieldView::triangle_ =
 	{ -TriangleSize / 2.0, -TriangleSize / 2.0 }
 };
 
-PathFieldView::PathFieldView(QWidget *parent) : QWidget(parent)
+PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidget(parent), filemodel_(model)
 {
 	units_ = "in";
 	setMouseTracking(true);
@@ -558,7 +561,7 @@ void PathFieldView::deleteWaypoint()
 		return;
 
 	const Pose2d& pt = path_->getPoints()[selected_];
-	std::shared_ptr< WaypointDeleteUndo> undo = std::make_shared<WaypointDeleteUndo>(*this, path_, selected_ - 1, pt);
+	std::shared_ptr< WaypointDeleteUndo> undo = std::make_shared<WaypointDeleteUndo>(*this, path_->getParent()->getName(), path_->getName(), selected_ - 1, pt);
 	UndoManager::getUndoManager().pushUndoStack(undo);
 
 	path_->removePoint(selected_);
@@ -566,23 +569,31 @@ void PathFieldView::deleteWaypoint()
 	repaint();
 }
 
-void PathFieldView::deleteWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index)
+void PathFieldView::deleteWaypoint(const std::string& group, const std::string& path, size_t index)
 {
-	path_->removePoint(index);
-	if (path_ == path)
+	auto p = filemodel_.findPathByName(group, path);
+	if (p != nullptr)
 	{
-		repaint();
-		emitWaypointDeleted();
+		p->removePoint(index);
+		if (path_ == p)
+		{
+			repaint();
+			emitWaypointDeleted();
+		}
 	}
 }
 
-void PathFieldView::addWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt)
+void PathFieldView::addWaypoint(const std::string& group, const std::string& path, size_t index, const xero::paths::Pose2d& pt)
 {
-	path->insertPoint(index, pt);
-	if (path_ == path)
+	auto p = filemodel_.findPathByName(group, path);
+	if (p != nullptr)
 	{
-		repaint();
-		emitWaypointInserted();
+		p->insertPoint(index, pt);
+		if (path_ == p)
+		{
+			repaint();
+			emitWaypointInserted();
+		}
 	}
 }
 
@@ -598,7 +609,7 @@ void PathFieldView::insertWaypoint()
 	Translation2d t((p1.getTranslation().getX() + p2.getTranslation().getX()) / 2.0, (p1.getTranslation().getY() + p2.getTranslation().getY()) / 2.0);
 	Pose2d newpt(t, r);
 
-	std::shared_ptr<WaypointAddUndo> undo = std::make_shared<WaypointAddUndo>(*this, path_, selected_ + 1);
+	std::shared_ptr<WaypointAddUndo> undo = std::make_shared<WaypointAddUndo>(*this, path_->getParent()->getName(), path_->getName(), selected_ + 1);
 	UndoManager::getUndoManager().pushUndoStack(undo);
 
 	path_->insertPoint(selected_, newpt) ;

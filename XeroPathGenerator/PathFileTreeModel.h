@@ -25,7 +25,6 @@ public:
 	PathFileTreeModel();
 	virtual ~PathFileTreeModel();
 
-
 	xero::paths::PathCollection& getPathCollection() {
 		return paths_;
 	}
@@ -62,7 +61,9 @@ public:
 	void deletePath(const std::string& group, const std::string& name);
 	std::shared_ptr<xero::paths::RobotPath> findPathByName(const std::string& group, const std::string& path);
 	void clear();
-	void reset();
+	void reset(bool clear);
+	void renamePath(const std::string& group, const std::string& current, const std::string& newname);
+	void renameGroup(const std::string& current, const std::string& newname);
 
 	void getAllPaths(std::list<std::shared_ptr<xero::paths::RobotPath>>& results) {
 		paths_.getAllPaths(results);

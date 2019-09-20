@@ -14,6 +14,9 @@
 // limitations under the License.
 //
 #include "PathFileTreeModel.h"
+#include "PathNameChangeUndo.h"
+#include "GroupNameChangeUndo.h"
+#include "UndoManager.h"
 #include <QMessageBox>
 
 using namespace xero::paths;
@@ -191,6 +194,21 @@ bool PathFileTreeModel::setData(const QModelIndex& index, const QVariant& value,
 		}
 
 		PathBase* base = static_cast<PathBase*>(index.internalPointer());
+		RobotPath* path = dynamic_cast<RobotPath*>(base);
+		if (path != nullptr)
+		{
+			auto undo = std::make_shared<PathNameChangeUndo>(*this, path->getParent()->getName(), name.toStdString(), path->getName());
+			UndoManager::getUndoManager().pushUndoStack(undo);
+		}
+		else
+		{
+			PathGroup* group = dynamic_cast<PathGroup*>(base);
+			assert(group != nullptr);
+
+			auto undo = std::make_shared<GroupNameChangeUndo>(*this, name.toStdString(), group->getName());
+			UndoManager::getUndoManager().pushUndoStack(undo);
+		}
+
 		base->setName(value.toString().toStdString());
 		emit dataChanged(index, index);
 		dirty_ = true;
@@ -244,14 +262,14 @@ void PathFileTreeModel::deleteGroup(const std::string& group)
 {
 	paths_.delGroup(group);
 	dirty_ = true;
-	reset();
+	reset(false);
 }
 
 void PathFileTreeModel::deletePath(const std::string &group, const std::string &path)
 {
 	paths_.delPath(group, path);
 	dirty_ = true;
-	reset();
+	reset(false);
 }
 
 std::shared_ptr<RobotPath> PathFileTreeModel::findPathByName(const std::string& group, const std::string& path)
@@ -267,11 +285,26 @@ void PathFileTreeModel::clear()
 	dirty_ = true;
 }
 
-void PathFileTreeModel::reset()
+void PathFileTreeModel::reset(bool clear)
 {
 	beginResetModel();
 	endResetModel();
-	dirty_ = false;
+	if (clear)
+		dirty_ = false;
+}
+
+void PathFileTreeModel::renamePath(const std::string& group, const std::string& current, const std::string& newname)
+{
+	auto path = findPathByName(group, current);
+	path->setName(newname);
+	reset(false);
+}
+
+void PathFileTreeModel::renameGroup(const std::string& current, const std::string& newname)
+{
+	auto group = paths_.getGroupByName(current);
+	group->setName(newname);
+	reset(false);
 }
 
 void PathFileTreeModel::convert(const std::string& old, const std::string& newunits)

@@ -8,7 +8,7 @@ class XeroPathGenerator;
 class WaypointChangedUndo :	public UndoItem
 {
 public:
-	WaypointChangedUndo(XeroPathGenerator& gen, std::shared_ptr<xero::paths::RobotPath>path , size_t index, const xero::paths::Pose2d& pt);
+	WaypointChangedUndo(XeroPathGenerator& gen, const std::string &group, const std::string &path, size_t index, const xero::paths::Pose2d& pt);
 	virtual ~WaypointChangedUndo();
 
 	virtual QString toString();
@@ -16,7 +16,8 @@ public:
 
 private:
 	XeroPathGenerator& gen_;
-	std::shared_ptr<xero::paths::RobotPath> path_;
+	std::string group_;
+	std::string path_;
 	size_t index_;
 	xero::paths::Pose2d waypoint_;
 };

@@ -98,7 +98,7 @@ XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
 										std::ofstream& ostrm, std::stringstream& sstrm, QWidget* parent)
 	: QMainWindow(parent), fields_mgr_(fields), generators_mgr_(generators), robot_mgr_(robots), 
-		logstream_(ostrm), strstream_(sstrm), download_mgr_(fields, generators)
+		logstream_(ostrm), strstream_(sstrm), download_mgr_(fields, generators), path_param_model_(paths_model_)
 {
 	assert(theOne == nullptr);
 	theOne = this;
@@ -352,7 +352,7 @@ bool XeroPathGenerator::createWindows()
 
 bool XeroPathGenerator::createLeftSide()
 {
-	path_view_ = new PathFieldView(m_left_top_bottom_);
+	path_view_ = new PathFieldView(paths_model_, m_left_top_bottom_);
 	path_view_->setVisible(true);
 	(void)connect(path_view_, &PathFieldView::waypointStartMoving, this, &XeroPathGenerator::startMovingWaypointProc);
 	(void)connect(path_view_, &PathFieldView::waypointEndMoving, this, &XeroPathGenerator::endMovingWaypointProc);
@@ -1056,7 +1056,9 @@ void XeroPathGenerator::waypointTreeDataChanged(const QModelIndex& topLeft, cons
 	(void)roles ;
 
 	const Pose2d& current = current_path_->getPoints()[path_view_->getSelected()];
-	std::shared_ptr<WaypointChangedUndo> entry = std::make_shared<WaypointChangedUndo>(*this, current_path_, path_view_->getSelected(), current);
+	std::shared_ptr<WaypointChangedUndo> entry =
+		std::make_shared<WaypointChangedUndo>(*this, current_path_->getParent()->getName(), 
+			current_path_->getName(), path_view_->getSelected(), current);
 	UndoManager::getUndoManager().pushUndoStack(entry);
 	
 	current_path_->replacePoint(path_view_->getSelected(), waypoint_model_.getWaypoint());
@@ -1120,7 +1122,9 @@ void XeroPathGenerator::deletedWaypointProc()
 void XeroPathGenerator::startMovingWaypointProc(size_t index)
 {
 	orig_point_ = current_path_->getPoints()[path_view_->getSelected()];
-	std::shared_ptr<WaypointChangedUndo> entry = std::make_shared<WaypointChangedUndo>(*this, current_path_, path_view_->getSelected(), orig_point_);
+	std::shared_ptr<WaypointChangedUndo> entry = 
+		std::make_shared<WaypointChangedUndo>(*this, current_path_->getParent()->getName(), 
+			current_path_->getName(), path_view_->getSelected(), orig_point_);
 	UndoManager::getUndoManager().pushUndoStack(entry);
 }
 
@@ -1394,7 +1398,7 @@ void XeroPathGenerator::fileOpenWithName(QString filename)
 	}
 
 	recents_->addRecentFile(this, filename);
-	paths_model_.reset();
+	paths_model_.reset(true);
 	setFileName(filename);
 	setPath(nullptr);
 	allPathsDirty();
@@ -2541,11 +2545,15 @@ void XeroPathGenerator::currentPathChanged()
 	plot_main_->setPath(current_path_);
 }
 
-void XeroPathGenerator::updateWaypoint(std::shared_ptr<xero::paths::RobotPath> path, size_t index, const xero::paths::Pose2d& pt)
+void XeroPathGenerator::updateWaypoint(const std::string &path, const std::string &group, size_t index, const xero::paths::Pose2d& pt)
 {
-	path->replacePoint(index, pt);
-	path_view_->repaint();
+	auto p = paths_model_.findPathByName(path, group);
+	if (p != nullptr)
+	{
+		p->replacePoint(index, pt);
+		path_view_->repaint();
 
-	if (current_path_ == path && path_view_->getSelected() == index)
-		waypoint_model_.setWaypoint(current_path_->getPoints()[index], index, current_path_->getDistance(index));
+		if (current_path_ == p && path_view_->getSelected() == index)
+			waypoint_model_.setWaypoint(current_path_->getPoints()[index], index, current_path_->getDistance(index));
+	}
 }

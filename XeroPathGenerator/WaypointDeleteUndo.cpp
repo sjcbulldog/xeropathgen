@@ -3,9 +3,10 @@
 
 using namespace xero::paths;
 
-WaypointDeleteUndo::WaypointDeleteUndo(PathFieldView& field, std::shared_ptr<RobotPath>path, size_t index, const Pose2d& pt) : fields_(field)
+WaypointDeleteUndo::WaypointDeleteUndo(PathFieldView& field, const std::string& group, const std::string& path, size_t index, const Pose2d& pt) : fields_(field)
 {
 	path_ = path;
+	group_ = group;
 	index_ = index;
 	waypoint_ = pt;
 }
@@ -24,5 +25,5 @@ QString WaypointDeleteUndo::toString()
 
 void WaypointDeleteUndo::undo()
 {
-	fields_.addWaypoint(path_, index_, waypoint_);
+	fields_.addWaypoint(path_, group_, index_, waypoint_);
 }
