@@ -1,0 +1,332 @@
+{
+    "_version": "1",
+    "groups": [
+        {
+            "name": "A",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "A1",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "A2",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "A3",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "B",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "B1",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "B2",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "B3",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "B4",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        },
+        {
+            "name": "C",
+            "paths": [
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "C1",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "C2",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "C3",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "C4",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                },
+                {
+                    "constraints": [
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "C5",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 0,
+                            "y": 0
+                        },
+                        {
+                            "heading": 0,
+                            "x": 100,
+                            "y": 0
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}

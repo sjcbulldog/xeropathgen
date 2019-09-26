@@ -56,14 +56,16 @@ public:
 	bool containsPathGroup(const std::string& name);
 	bool containsPath(const std::string& group, const std::string& name);
 	std::shared_ptr<xero::paths::PathGroup> addPathGroup(const std::string& name);
+	void insertPathGroup(int row, std::shared_ptr<xero::paths::PathGroup> gr);
 	std::shared_ptr<xero::paths::RobotPath> addRobotPath(const std::string& group, const std::string& name);
-	void deleteGroup(const std::string& name);
-	void deletePath(const std::string& group, const std::string& name);
+	void deleteGroup(const std::string& name, bool undo = true);
+	void deletePath(const std::string& group, const std::string& name, bool undo = true);
 	std::shared_ptr<xero::paths::RobotPath> findPathByName(const std::string& group, const std::string& path);
 	void clear();
 	void reset(bool clear);
 	void renamePath(const std::string& group, const std::string& current, const std::string& newname);
 	void renameGroup(const std::string& current, const std::string& newname);
+	void addPath(const std::string& group, int index, std::shared_ptr<xero::paths::RobotPath> path);
 
 	void getAllPaths(std::list<std::shared_ptr<xero::paths::RobotPath>>& results) {
 		paths_.getAllPaths(results);

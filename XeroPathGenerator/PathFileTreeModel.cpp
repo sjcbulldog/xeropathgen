@@ -15,6 +15,10 @@
 //
 #include "PathFileTreeModel.h"
 #include "PathNameChangeUndo.h"
+#include "AddPathUndo.h"
+#include "AddGroupUndo.h"
+#include "DeleteGroupUndo.h"
+#include "DeletePathUndo.h"
 #include "GroupNameChangeUndo.h"
 #include "UndoManager.h"
 #include <QMessageBox>
@@ -232,11 +236,34 @@ std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup(const std::string& na
 	QModelIndex root;
 
 	beginInsertRows(root, static_cast<int>(paths_.size()), static_cast<int>(paths_.size()));
+
+	auto undo = std::make_shared<AddGroupUndo>(*this, name);
+	UndoManager::getUndoManager().pushUndoStack(undo);
+
 	auto group = paths_.addGroup(name);
 	endInsertRows();
 	dirty_ = true;
 
 	return group;
+}
+
+void PathFileTreeModel::insertPathGroup(int row, std::shared_ptr<PathGroup> gr)
+{
+	if (paths_.getGroupByName(gr->getName()) == nullptr)
+	{
+		paths_.addGroup(row, gr);
+		reset(false);
+	}
+}
+
+void PathFileTreeModel::addPath(const std::string& group, int index, std::shared_ptr<RobotPath> path)
+{
+	auto gr = paths_.getGroupByName(group);
+	if (gr != nullptr)
+	{
+		gr->insertPath(index, path);
+		reset(false);
+	}
 }
 
 std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& group, const std::string& name)
@@ -249,6 +276,8 @@ std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& gr
 
 	QModelIndex parent = createIndex(row, 0, grobj.get());
 	beginInsertRows(parent, static_cast<int>(grobj->size()), static_cast<int>(grobj->size()));
+	auto undo = std::make_shared<AddPathUndo>(*this, group, name);
+	UndoManager::getUndoManager().pushUndoStack(undo);
 	auto path = paths_.addPath(group, name);
 	path->addPoint(Pose2d(0.0, 0.0, Rotation2d::fromDegrees(0.0)));
 	path->addPoint(Pose2d(100.0, 0.0, Rotation2d::fromDegrees(0.0)));
@@ -258,15 +287,34 @@ std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& gr
 	return path;
 }
 
-void PathFileTreeModel::deleteGroup(const std::string& group)
+void PathFileTreeModel::deleteGroup(const std::string& group, bool undo)
 {
+	auto gr = paths_.getGroupByName(group);
+	int index = static_cast<int>(paths_.getIndexForGroup(gr));
 	paths_.delGroup(group);
+
+	if (undo && gr != nullptr)
+	{
+		auto undoobj = std::make_shared<DeleteGroupUndo>(*this, index, gr);
+		UndoManager::getUndoManager().pushUndoStack(undoobj);
+	}
+
 	dirty_ = true;
 	reset(false);
 }
 
-void PathFileTreeModel::deletePath(const std::string &group, const std::string &path)
+void PathFileTreeModel::deletePath(const std::string &group, const std::string &path, bool undo)
 {
+	auto gr = paths_.getGroupByName(group);
+	auto p = paths_.findPathByName(group, path);
+	int index = static_cast<int>(gr->getIndexFromPath(p));
+
+	if (undo)
+	{
+		auto undoobj = std::make_shared<DeletePathUndo>(*this, group, index, p);
+		UndoManager::getUndoManager().pushUndoStack(undoobj);
+	}
+
 	paths_.delPath(group, path);
 	dirty_ = true;
 	reset(false);

@@ -35,6 +35,12 @@ namespace xero
 				return paths_.size();
 			}
 
+			void insertPath(int index, std::shared_ptr<RobotPath> path) {
+				auto it = paths_.begin();
+				std::advance(it, index);
+				paths_.insert(it, path);
+			}
+
 			std::shared_ptr<RobotPath> getPathByIndex(size_t index) const {
 				std::shared_ptr<RobotPath> ret;
 

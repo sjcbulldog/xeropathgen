@@ -174,6 +174,15 @@
     <ClCompile Include="DeletePathUndo.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
+    <ClCompile Include="AddPathUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteGroupUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="AddGroupUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -337,6 +346,15 @@
       <Filter>Undo</Filter>
     </ClInclude>
     <ClInclude Include="DeletePathUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPathUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="AddGroupUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteGroupUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
   </ItemGroup>

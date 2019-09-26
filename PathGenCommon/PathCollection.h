@@ -94,6 +94,13 @@ namespace xero
 				return gptr;
 			}
 
+			void addGroup(int row, std::shared_ptr<PathGroup> gr)
+			{
+				auto it = groups_.begin();
+				std::advance(it, row);
+				groups_.insert(it, gr);
+			}
+
 			std::shared_ptr<RobotPath> addPath(const std::string &group, const std::string &name) {
 				auto gptr = addGroup(group);
 				auto path = std::make_shared<RobotPath>(gptr, name);

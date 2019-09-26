@@ -13,15 +13,11 @@ Path Parameters
 
 Paths
 - Rename			x
-- Delete
-- Insert
+- Delete			X
+- Insert			X
 
 Path Groups
 - Rename			x
-- Delete
-- Insert
+- Delete			X
+- Insert			X
 
-Robot Parameters
-- New Robot
-- Delete Robot
-- Change Robot

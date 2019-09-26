@@ -179,6 +179,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AboutDialog.cpp" />
+    <ClCompile Include="AddGroupUndo.cpp" />
+    <ClCompile Include="AddPathUndo.cpp" />
     <ClCompile Include="Callout.cpp" />
     <ClCompile Include="ChangeContraintUndo.cpp" />
     <ClCompile Include="ConstraintAddUndo.cpp" />
@@ -186,6 +188,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
     <ClCompile Include="CSVParser.cpp" />
+    <ClCompile Include="DeleteGroupUndo.cpp" />
     <ClCompile Include="DeletePathUndo.cpp" />
     <ClCompile Include="DriveBaseModel.cpp" />
     <ClCompile Include="GameFieldManager.cpp" />
@@ -238,12 +241,15 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="ConstraintEditor.h" />
     <QtMoc Include="ConstraintTreeModel.h" />
     <QtMoc Include="AboutDialog.h" />
+    <ClInclude Include="AddGroupUndo.h" />
+    <ClInclude Include="AddPathUndo.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="Callout.h" />
     <ClInclude Include="ChangeContraintUndo.h" />
     <ClInclude Include="ConstraintAddUndo.h" />
     <ClInclude Include="ConstraintDeleteUndo.h" />
     <ClInclude Include="CSVParser.h" />
+    <ClInclude Include="DeleteGroupUndo.h" />
     <ClInclude Include="DeletePathUndo.h" />
     <ClInclude Include="DriveBaseModel.h" />
     <ClInclude Include="EditableProperty.h" />
