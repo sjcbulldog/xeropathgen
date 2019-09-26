@@ -25,7 +25,6 @@
 #include "SelectRobotDialog.h"
 #include "PlotVariableSelector.h"
 #include "AboutDialog.h"
-#include "HelpDisplay.h"
 #include "WaypointChangedUndo.h"
 
 #include <DriveBaseData.h>
@@ -47,7 +46,6 @@
 #include <QCheckBox>
 #include <QDesktopServices>
 #include <QUrl>
-#include <QHelpEngineCore>
 #include <QLatin1String>
 #include <QTextBrowser>
 #include <QProcess>
@@ -1012,9 +1010,6 @@ void XeroPathGenerator::showEvent(QShowEvent* ev)
 
 void XeroPathGenerator::closeEvent(QCloseEvent* event)
 {
-	if (help_display_ != nullptr)
-		help_display_->close();
-
 	if (paths_model_.isDirty())
 	{
 		QMessageBox::StandardButton reply;

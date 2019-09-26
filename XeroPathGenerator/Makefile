@@ -84,7 +84,22 @@ SOURCES       = AboutDialog.cpp \
 		TrajectoryViewWindow.cpp \
 		WaypointTreeModel.cpp \
 		XeroPathGenerator.cpp \
-		NetworkDownloadManager.cpp GeneratedFiles/qrc_XeroPathGenerator.cpp \
+		NetworkDownloadManager.cpp \
+		AddGroupUndo.cpp \
+		AddPathUndo.cpp \
+		ChangeContraintUndo.cpp \
+		ConstraintAddUndo.cpp \
+		ConstraintDeleteUndo.cpp \
+		DeleteGroupUndo.cpp \
+		DeletePathUndo.cpp \
+		GroupNameChangeUndo.cpp \
+		PathNameChangeUndo.cpp \
+		PathParameterChangeUndo.cpp \
+		UndoItem.cpp \
+		WaypointAddUndo.cpp \
+		WaypointChangedUndo.cpp \
+		WaypointDeleteUndo.cpp \
+		UndoManager.cpp GeneratedFiles/qrc_XeroPathGenerator.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp \
@@ -133,6 +148,21 @@ OBJECTS       = release/AboutDialog.o \
 		release/WaypointTreeModel.o \
 		release/XeroPathGenerator.o \
 		release/NetworkDownloadManager.o \
+		release/AddGroupUndo.o \
+		release/AddPathUndo.o \
+		release/ChangeContraintUndo.o \
+		release/ConstraintAddUndo.o \
+		release/ConstraintDeleteUndo.o \
+		release/DeleteGroupUndo.o \
+		release/DeletePathUndo.o \
+		release/GroupNameChangeUndo.o \
+		release/PathNameChangeUndo.o \
+		release/PathParameterChangeUndo.o \
+		release/UndoItem.o \
+		release/WaypointAddUndo.o \
+		release/WaypointChangedUndo.o \
+		release/WaypointDeleteUndo.o \
+		release/UndoManager.o \
 		release/qrc_XeroPathGenerator.o \
 		release/moc_XeroPathGenerator.o \
 		release/moc_ConstraintEditor.o \
@@ -412,7 +442,22 @@ DIST          = ../../../Qt/5.13.0/clang_64/mkspecs/features/spec_pre.prf \
 		TrajectoryViewWindow.cpp \
 		WaypointTreeModel.cpp \
 		XeroPathGenerator.cpp \
-		NetworkDownloadManager.cpp
+		NetworkDownloadManager.cpp \
+		AddGroupUndo.cpp \
+		AddPathUndo.cpp \
+		ChangeContraintUndo.cpp \
+		ConstraintAddUndo.cpp \
+		ConstraintDeleteUndo.cpp \
+		DeleteGroupUndo.cpp \
+		DeletePathUndo.cpp \
+		GroupNameChangeUndo.cpp \
+		PathNameChangeUndo.cpp \
+		PathParameterChangeUndo.cpp \
+		UndoItem.cpp \
+		WaypointAddUndo.cpp \
+		WaypointChangedUndo.cpp \
+		WaypointDeleteUndo.cpp \
+		UndoManager.cpp
 QMAKE_TARGET  = XeroPathGenerator
 DESTDIR       = ../x64/release/
 TARGET        = ../x64/release/XeroPathGenerator.app/Contents/MacOS/XeroPathGenerator
@@ -890,7 +935,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents XeroPathGenerator.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.13.0/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents build.h Callout.h CSVParser.h DriveBaseModel.h EditableProperty.h GameField.h GameFieldManager.h Generator.h GeneratorManager.h GeneratorParameter.h GeneratorParameterStore.h JSONWriter.h ManagerBase.h PathCollectionIO.h PathFileTreeModel.h PathGenerationEngine.h PathParamTreeModel.h PropertyEditorItemDelegate.h PropertyEditorTreeModel.h SwerveDriveBaseModel.h TankDriveBaseModel.h WaypointTreeModel.h RobotManager.h XeroPathGenerator.h ConstraintEditor.h ConstraintTreeModel.h AboutDialog.h PathFileTree.h PathPlotView.h PropertyEditor.h PlotVariableSelector.h PlotMainWindow.h SelectRobotDialog.h RecentFiles.h ShowRobotWindow.h TrajectoryViewWindow.h PathFieldView.h NetworkDownloadManager.h $(DISTDIR)/
-	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp ConstraintTreeModel.cpp CSVParser.cpp DriveBaseModel.cpp GameFieldManager.cpp GeneratorManager.cpp GeneratorParameterStore.cpp main.cpp ManagerBase.cpp PathCollectionIO.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathGenerationEngine.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp RobotManager.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp NetworkDownloadManager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp ConstraintTreeModel.cpp CSVParser.cpp DriveBaseModel.cpp GameFieldManager.cpp GeneratorManager.cpp GeneratorParameterStore.cpp main.cpp ManagerBase.cpp PathCollectionIO.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathGenerationEngine.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp RobotManager.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp NetworkDownloadManager.cpp AddGroupUndo.cpp AddPathUndo.cpp ChangeContraintUndo.cpp ConstraintAddUndo.cpp ConstraintDeleteUndo.cpp DeleteGroupUndo.cpp DeletePathUndo.cpp GroupNameChangeUndo.cpp PathNameChangeUndo.cpp PathParameterChangeUndo.cpp UndoItem.cpp WaypointAddUndo.cpp WaypointChangedUndo.cpp WaypointDeleteUndo.cpp UndoManager.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents AboutDialog.ui ConstraintEditor.ui PlotVariableSelector.ui PropertyEditor.ui SelectRobotDialog.ui ShowRobotWindow.ui $(DISTDIR)/
 
 
@@ -1015,6 +1060,7 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
 		ShowRobotWindow.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		PlotMainWindow.h \
@@ -1041,6 +1087,10 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1063,6 +1113,8 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QRadioButton \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QProcess \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qprocess.h \
 		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
 		../../../Qt/5.13.0/clang_64/bin/moc
 	/Users/jackgriffin/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include '/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/Users/jackgriffin/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)PathGenCommon' -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/Users/jackgriffin/rtools/xeropathgen/external/wpi/include -I/Users/jackgriffin/rtools/xeropathgen/PathGenCommon -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib XeroPathGenerator.h -o GeneratedFiles/moc_XeroPathGenerator.cpp
@@ -1095,6 +1147,7 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp: ConstraintEditor.h
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
 		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
 		../../../Qt/5.13.0/clang_64/bin/moc
 	/Users/jackgriffin/Qt/5.13.0/clang_64/bin/moc $(DEFINES) --include '/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/Users/jackgriffin/Qt/5.13.0/clang_64/mkspecs/macx-clang -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)PathGenCommon' -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator -I'/Users/jackgriffin/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/Users/jackgriffin/rtools/xeropathgen/external/wpi/include -I/Users/jackgriffin/rtools/xeropathgen/PathGenCommon -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtGui.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers -I/Users/jackgriffin/Qt/5.13.0/clang_64/lib/QtCore.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/10.0.1/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include -F/Users/jackgriffin/Qt/5.13.0/clang_64/lib ConstraintEditor.h -o GeneratedFiles/moc_ConstraintEditor.cpp
@@ -1479,7 +1532,15 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
-		../PathGenCommon/DistanceVelocityConstraint.h
+		../PathGenCommon/DistanceVelocityConstraint.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		ConstraintDeleteUndo.h \
+		ConstraintAddUndo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintEditor.o ConstraintEditor.cpp
 
 release/ConstraintTreeModel.o: ConstraintTreeModel.cpp ConstraintTreeModel.h \
@@ -1506,6 +1567,13 @@ release/ConstraintTreeModel.o: ConstraintTreeModel.cpp ConstraintTreeModel.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		ChangeContraintUndo.h \
 		../PathGenCommon/DistanceVelocityConstraint.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QModelIndex \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
@@ -1677,6 +1745,7 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
 		ShowRobotWindow.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		PlotMainWindow.h \
@@ -1703,6 +1772,10 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1725,6 +1798,8 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QRadioButton \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QProcess \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qprocess.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStandardPaths \
@@ -1820,6 +1895,21 @@ release/PathFieldView.o: PathFieldView.cpp PathFieldView.h \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qtransform.h \
 		TankDriveBaseModel.h \
 		SwerveDriveBaseModel.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		WaypointDeleteUndo.h \
+		WaypointAddUndo.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
 		../PathGenCommon/TrajectoryNames.h \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QPainter \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qpainter.h \
@@ -1882,6 +1972,18 @@ release/PathFileTreeModel.o: PathFileTreeModel.cpp PathFileTreeModel.h \
 		../PathGenCommon/SplinePair.h \
 		../PathGenCommon/QuinticHermiteSpline.h \
 		../PathGenCommon/RobotParams.h \
+		PathNameChangeUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		AddPathUndo.h \
+		AddGroupUndo.h \
+		DeleteGroupUndo.h \
+		DeletePathUndo.h \
+		GroupNameChangeUndo.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathFileTreeModel.o PathFileTreeModel.cpp
@@ -1979,7 +2081,14 @@ release/PathParamTreeModel.o: PathParamTreeModel.cpp PathParamTreeModel.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
-		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		PathParameterChangeUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathParamTreeModel.o PathParamTreeModel.cpp
 
 release/PathPlotView.o: PathPlotView.cpp PathPlotView.h \
@@ -2220,6 +2329,7 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
 		ShowRobotWindow.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		PlotMainWindow.h \
@@ -2246,6 +2356,10 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -2267,7 +2381,9 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QRadioButton \
-		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QProcess \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qprocess.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/RecentFiles.o RecentFiles.cpp
 
 release/RobotManager.o: RobotManager.cpp RobotManager.h \
@@ -2440,7 +2556,23 @@ release/WaypointTreeModel.o: WaypointTreeModel.cpp WaypointTreeModel.h \
 		../PathGenCommon/MathUtils.h \
 		../PathGenCommon/Rotation2d.h \
 		../PathGenCommon/Twist2d.h \
-		../PathGenCommon/ICsv.h
+		../PathGenCommon/ICsv.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		WaypointChangedUndo.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/WaypointTreeModel.o WaypointTreeModel.cpp
 
 release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
@@ -2524,6 +2656,7 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
 		ShowRobotWindow.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		PlotMainWindow.h \
@@ -2550,6 +2683,10 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -2572,6 +2709,8 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QRadioButton \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QProcess \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qprocess.h \
 		PathCollectionIO.h \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonobject.h \
@@ -2592,6 +2731,7 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		GeneratedFiles/ui_PlotVariableSelector.h \
 		AboutDialog.h \
 		GeneratedFiles/ui_AboutDialog.h \
+		WaypointChangedUndo.h \
 		../PathGenCommon/DriveBaseData.h \
 		../PathGenCommon/TrajectoryNames.h \
 		JSONWriter.h \
@@ -2611,6 +2751,9 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QDesktopServices \
 		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qdesktopservices.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QLatin1String \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QTextBrowser \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
 		../external/wpi/include/networktables/NetworkTableInstance.h \
 		../external/wpi/include/wpi/ArrayRef.h \
 		../external/wpi/include/wpi/Hashing.h \
@@ -2682,6 +2825,542 @@ release/NetworkDownloadManager.o: NetworkDownloadManager.cpp NetworkDownloadMana
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonObject \
 		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/NetworkDownloadManager.o NetworkDownloadManager.cpp
+
+release/AddGroupUndo.o: AddGroupUndo.cpp AddGroupUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/AddGroupUndo.o AddGroupUndo.cpp
+
+release/AddPathUndo.o: AddPathUndo.cpp AddPathUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/AddPathUndo.o AddPathUndo.cpp
+
+release/ChangeContraintUndo.o: ChangeContraintUndo.cpp ChangeContraintUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		ConstraintTreeModel.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ChangeContraintUndo.o ChangeContraintUndo.cpp
+
+release/ConstraintAddUndo.o: ConstraintAddUndo.cpp ConstraintAddUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		ConstraintEditor.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		GeneratedFiles/ui_ConstraintEditor.h \
+		ConstraintTreeModel.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/DistanceVelocityConstraint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintAddUndo.o ConstraintAddUndo.cpp
+
+release/ConstraintDeleteUndo.o: ConstraintDeleteUndo.cpp ConstraintDeleteUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		ConstraintEditor.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		GeneratedFiles/ui_ConstraintEditor.h \
+		ConstraintTreeModel.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/DistanceVelocityConstraint.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintDeleteUndo.o ConstraintDeleteUndo.cpp
+
+release/DeleteGroupUndo.o: DeleteGroupUndo.cpp DeleteGroupUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/DeleteGroupUndo.o DeleteGroupUndo.cpp
+
+release/DeletePathUndo.o: DeletePathUndo.cpp DeletePathUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/DeletePathUndo.o DeletePathUndo.cpp
+
+release/GroupNameChangeUndo.o: GroupNameChangeUndo.cpp GroupNameChangeUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/GroupNameChangeUndo.o GroupNameChangeUndo.cpp
+
+release/PathNameChangeUndo.o: PathNameChangeUndo.cpp PathNameChangeUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathNameChangeUndo.o PathNameChangeUndo.cpp
+
+release/PathParameterChangeUndo.o: PathParameterChangeUndo.cpp PathParameterChangeUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathParamTreeModel.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		../PathGenCommon/RobotParams.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathParameterChangeUndo.o PathParameterChangeUndo.cpp
+
+release/UndoItem.o: UndoItem.cpp UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/UndoItem.o UndoItem.cpp
+
+release/WaypointAddUndo.o: WaypointAddUndo.cpp WaypointAddUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathFieldView.h \
+		DriveBaseModel.h \
+		../PathGenCommon/RobotParams.h \
+		GameField.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QTransform \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qtransform.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/WaypointAddUndo.o WaypointAddUndo.cpp
+
+release/WaypointChangedUndo.o: WaypointChangedUndo.cpp WaypointChangedUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		XeroPathGenerator.h \
+		GameFieldManager.h \
+		ManagerBase.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonDocument \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsondocument.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QJsonArray \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qjsonarray.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h \
+		GeneratorManager.h \
+		Generator.h \
+		GeneratorParameter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QVariant \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qvariant.h \
+		RobotManager.h \
+		../PathGenCommon/RobotParams.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		PathFieldView.h \
+		DriveBaseModel.h \
+		GameField.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QTransform \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qtransform.h \
+		PathFileTreeModel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/Qt \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qnamespace.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QAbstractItemModel \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qabstractitemmodel.h \
+		../PathGenCommon/PathCollection.h \
+		../PathGenCommon/PathGroup.h \
+		WaypointTreeModel.h \
+		PathParamTreeModel.h \
+		PathGenerationEngine.h \
+		GeneratorParameterStore.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QHash \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qhash.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QTemporaryFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qtemporaryfile.h \
+		PathPlotView.h \
+		Callout.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/QChartView \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/qchartview.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/QValueAxis \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/qvalueaxis.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/QLineSeries \
+		../../../Qt/5.13.0/clang_64/lib/QtCharts.framework/Headers/qlineseries.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGraphicsLineItem \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		RecentFiles.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QSettings \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qsettings.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMenu \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		ConstraintTreeModel.h \
+		ConstraintEditor.h \
+		GeneratedFiles/ui_ConstraintEditor.h \
+		../PathGenCommon/DistanceVelocityConstraint.h \
+		ShowRobotWindow.h \
+		GeneratedFiles/ui_ShowRobotWindow.h \
+		PlotMainWindow.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QVBoxLayout \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QScrollBar \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		PathFileTree.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QTreeView \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		TrajectoryViewWindow.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QDialog \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QTableWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QComboBox \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		NetworkDownloadManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QStringList \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstringlist.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkReply \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkreply.h \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		../../../Qt/5.13.0/clang_64/lib/QtNetwork.framework/Headers/qnetworkaccessmanager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QUrl \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qurl.h \
+		UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QProgressBar \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QSplitter \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QMenuBar \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QGroupBox \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QListView \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QLabel \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QTabWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QTextEdit \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QRadioButton \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QProcess \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qprocess.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/WaypointChangedUndo.o WaypointChangedUndo.cpp
+
+release/WaypointDeleteUndo.o: WaypointDeleteUndo.cpp WaypointDeleteUndo.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		PathFieldView.h \
+		DriveBaseModel.h \
+		../PathGenCommon/RobotParams.h \
+		GameField.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDir \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdir.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFile \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfile.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QFileInfo \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qfileinfo.h \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/QWidget \
+		../../../Qt/5.13.0/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/QTransform \
+		../../../Qt/5.13.0/clang_64/lib/QtGui.framework/Headers/qtransform.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/WaypointDeleteUndo.o WaypointDeleteUndo.cpp
+
+release/UndoManager.o: UndoManager.cpp UndoManager.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QObject \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		UndoItem.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QString \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt/5.13.0/clang_64/lib/QtCore.framework/Headers/qdebug.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/UndoManager.o UndoManager.cpp
 
 release/qrc_XeroPathGenerator.o: GeneratedFiles/qrc_XeroPathGenerator.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/qrc_XeroPathGenerator.o GeneratedFiles/qrc_XeroPathGenerator.cpp

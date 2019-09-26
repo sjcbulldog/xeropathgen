@@ -33,7 +33,6 @@
 #include "PathFileTree.h"
 #include "TrajectoryViewWindow.h"
 #include "NetworkDownloadManager.h"
-#include "HelpDisplay.h"
 #include "UndoManager.h"
 
 #include <QProgressBar>
@@ -51,7 +50,6 @@
 #include <QSettings>
 #include <QCheckBox>
 #include <QRadioButton>
-#include <QHelpEngineCore>
 #include <QProcess>
 
 #include <fstream>
@@ -423,10 +421,7 @@ private:
 	std::string nttable_name_;
 
 	NetworkDownloadManager download_mgr_;
-	std::shared_ptr<HelpDisplay> help_display_;
-
 	std::shared_ptr<QProcess> help_process_;
-
 	xero::paths::Pose2d orig_point_;
 	UndoManager undo_mgr_;
 };
