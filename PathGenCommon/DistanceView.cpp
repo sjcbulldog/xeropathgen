@@ -52,5 +52,9 @@ namespace xero
 
 			return result;
 		}
+
+		Pose2d DistanceView::operator[](size_t index) const {
+			return points_[index];
+		}
 	}
 }

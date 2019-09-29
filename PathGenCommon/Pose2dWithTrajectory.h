@@ -33,6 +33,10 @@ namespace xero
 				return pose_;
 			}
 
+			void setPose(const Pose2d& p) {
+				pose_ = p;
+			}
+
 			const Translation2d& translation() const {
 				return pose_.getTranslation();
 			}
@@ -57,12 +61,24 @@ namespace xero
 				return position_;
 			}
 
+			void setPosition(double p) {
+				position_ = p;
+			}
+
 			double velocity() const {
 				return velocity_;
 			}
 
+			void setVelocity(double d) {
+				velocity_ = d;
+			}
+
 			double acceleration() const {
 				return acceleration_;
+			}
+
+			void setAcceleration(double a) {
+				acceleration_ = a;
 			}
 
 			double jerk() const {

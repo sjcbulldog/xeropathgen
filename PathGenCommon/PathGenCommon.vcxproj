@@ -63,6 +63,7 @@
     <ClInclude Include="PathGroup.h" />
     <ClInclude Include="PathTrajectory.h" />
     <ClInclude Include="Pose2d.h" />
+    <ClInclude Include="Pose2dConstrained.h" />
     <ClInclude Include="Pose2dWithTrajectory.h" />
     <ClInclude Include="QuadraticSolver.h" />
     <ClInclude Include="RobotParams.h" />

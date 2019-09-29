@@ -351,7 +351,7 @@ void generateForPath(PathGroup& group, const std::string& path)
 	//
 	std::shared_ptr<PathTrajectory> trajectory;
 
-	CheesyGenerator gen(diststep, maxdx, maxdy, maxtheta);
+	CheesyGenerator gen(diststep, timestep, maxdx, maxdy, maxtheta);
 	try {
 		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
 			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());

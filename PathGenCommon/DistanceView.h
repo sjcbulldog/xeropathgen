@@ -16,6 +16,10 @@ namespace xero
 			}
 
 			Pose2d operator[](double dist) const;
+			Pose2d operator[](size_t index) const;
+			size_t size() const {
+				return points_.size();
+			}
 
 		private:
 			std::vector<double> distances_;
