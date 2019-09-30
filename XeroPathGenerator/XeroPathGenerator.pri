@@ -77,7 +77,23 @@ SOURCES += ./AboutDialog.cpp \
     ./TrajectoryViewWindow.cpp \
     ./WaypointTreeModel.cpp \
     ./XeroPathGenerator.cpp\
-    ./NetworkDownloadManager.cpp
+    ./NetworkDownloadManager.cpp\
+    ./AddGroupUndo.cpp\
+    ./AddPathUndo.cpp\
+    ./ChangeContraintUndo.cpp\
+    ./ConstraintAddUndo.cpp\
+    ./ConstraintDeleteUndo.cpp\
+    ./DeleteGroupUndo.cpp\
+    ./DeletePathUndo.cpp\
+    ./GroupNameChangeUndo.cpp\
+    ./PathNameChangeUndo.cpp\
+    ./PathParameterChangeUndo.cpp\
+    ./UndoItem.cpp\
+    ./WaypointAddUndo.cpp\
+    ./WaypointChangedUndo.cpp\
+    ./WaypointDeleteUndo.cpp\
+    ./UndoManager.cpp
+
 FORMS += ./AboutDialog.ui \
     ./ConstraintEditor.ui \
     ./PlotVariableSelector.ui \
