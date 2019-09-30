@@ -248,13 +248,6 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	onearg = str.split(' ');
 	args.append(onearg);
 
-#ifdef NOTYET
-	str = generator_->getUnitsArg().c_str();
-	str.replace("$$", units_.c_str());
-	onearg = str.split(' ');
-	args.append(onearg);
-#endif
-
 	if (generator_->hasOtherArgs())
 	{
 		str = generator_->getOtherArgs().c_str();
@@ -301,9 +294,16 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	}
 	store_lock_.unlock();
 
-#ifdef XERO_COPY_FILES
-	QFile::copy(robotfile.fileName(), "C:/cygwin64/home/ButchGriffin/temp/robot.json");
-	QFile::copy(pathfile.fileName(), "C:/cygwin64/home/ButchGriffin/temp/path.json");
+#ifdef _DEBUG
+	QString robottempfilename("C:/cygwin64/home/ButchGriffin/temp/robot.json");
+	if (QFile::exists(robottempfilename))
+		QFile::remove(robottempfilename);
+	QFile::copy(robotfile.fileName(), robottempfilename);
+
+	QString pathtempfilename("C:/cygwin64/home/ButchGriffin/temp/path.json");
+	if (QFile::exists(pathtempfilename))
+		QFile::remove(pathtempfilename);
+	QFile::copy(pathfile.fileName(), pathtempfilename);
 #endif
 
 	qDebug() << "==================================================";

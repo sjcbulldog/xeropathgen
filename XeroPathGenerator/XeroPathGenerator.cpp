@@ -701,7 +701,6 @@ void XeroPathGenerator::setUnits(const std::string& units)
 		paths_model_.convert(oldunits, units_);
 
 	allPathsDirty();
-
 }
 
 void XeroPathGenerator::setDefaultField()
@@ -876,6 +875,9 @@ void XeroPathGenerator::timerProc()
 	if (path == current_path_ && path != nullptr)
 	{
 		plot_main_->update();
+		path_param_model_.reset();
+		if (traj_window_ != nullptr && traj_window_->isShowingPath(path))
+			traj_window_->update();
 	}
 
 	if (demo_mode_ != DemoMode::ModeNone)
@@ -1418,22 +1420,30 @@ void XeroPathGenerator::setXeroWindowTitle()
 	setWindowTitle(str);
 }
 
+void XeroPathGenerator::setPathDirty(std::shared_ptr<xero::paths::RobotPath> path)
+{
+	path->clearTrajectories();
+
+	if (path == current_path_)
+		plot_main_->update();
+	if (traj_window_ != nullptr && traj_window_->isShowingPath(path))
+		traj_window_->update();
+
+	path_engine_.markPathDirty(path);
+}
+
 void XeroPathGenerator::allPathsDirty()
 {
 	std::list<std::shared_ptr<RobotPath>> allpaths;
 	paths_model_.getAllPaths(allpaths);
 	for (auto path : allpaths)
-	{
-		path->clearTrajectories();
-		if (path == current_path_)
-			plot_main_->update();
-
-		path_engine_.markPathDirty(path);
-	}
+		setPathDirty(path);
 }
 
 bool XeroPathGenerator::save()
 {
+	bool finished_message = true;
+
 	if (path_file_name_.length() == 0)
 	{
 		QFileDialog dialog;
@@ -1443,6 +1453,7 @@ bool XeroPathGenerator::save()
 			return false;
 
 		setFileName(filename);
+		finished_message = false;
 	}
 
 	QFile file(path_file_name_.c_str());
@@ -1462,6 +1473,12 @@ bool XeroPathGenerator::save()
 	setXeroWindowTitle();
 
 	recents_->addRecentFile(this, file.fileName());
+
+	QString str;
+	str = "Saved ";
+	str += file.fileName();
+	QMessageBox box(QMessageBox::Icon::Information, "Success", str, QMessageBox::StandardButton::Ok);
+	box.exec();
 	return true;
 }
 
@@ -1842,31 +1859,12 @@ void XeroPathGenerator::toggleWarningLogging()
 
 void XeroPathGenerator::showAbout()
 {
-	AboutDialog about;
+	AboutDialog about(generators_mgr_, fields_mgr_);
 	about.exec();
 }
 
 void XeroPathGenerator::showDocumentation()
 {
-#ifdef USE_PDF_FILE
-	QString exedir = QCoreApplication::applicationDirPath();
-	QString doc = exedir + "/docs/XeroPathGenerator.pdf";
-	if (!QFile::exists(doc))
-	{
-		QString msg = "Documentation file '";
-		msg += doc;
-		msg += "' does not exists - installation is not valid, try reinstalling application";
-		QMessageBox box(QMessageBox::Icon::Critical, "Error", msg, QMessageBox::StandardButton::Ok);
-		box.exec();
-	}
-	QDesktopServices::openUrl(QUrl(doc));
-#else
-#ifdef NOTYET
-	if (help_display_ == nullptr)
-		help_display_ = std::make_shared<HelpDisplay>();
-
-	help_display_->show();
-#else
 	QString exedir = QCoreApplication::applicationDirPath();
 
 	if (help_process_ == nullptr)
@@ -1892,9 +1890,6 @@ void XeroPathGenerator::showDocumentation()
 	a.clear();
 	a.append("expandToc -1;");
 	help_process_->write(a);
-
-#endif
-#endif
 }
 
 void XeroPathGenerator::checkForUpdates()
@@ -2309,7 +2304,7 @@ void XeroPathGenerator::addRobotPathAction()
 			path->setMaxVelocity(current_robot_->getMaxVelocity());
 			path->setMaxAccel(current_robot_->getMaxAccel());
 			path->setMaxJerk(current_robot_->getMaxJerk());
-			path_engine_.markPathDirty(path);
+			setPathDirty(path);
 		}
 	}
 }
@@ -2540,7 +2535,7 @@ void XeroPathGenerator::scrollBarChanged()
 
 void XeroPathGenerator::currentPathChanged()
 {
-	path_engine_.markPathDirty(current_path_);
+	setPathDirty(current_path_);
 	setXeroWindowTitle();
 	plot_main_->setPath(current_path_);
 }

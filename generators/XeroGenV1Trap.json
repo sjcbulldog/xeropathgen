@@ -1,6 +1,11 @@
 {
   "_version": "1",
-  "name": "Xero Gen V1 - Trapezoidal",
+  "name": "Xero Gen V1 - Trapezoidal (Experimental)",
+  "generator_version": {
+    "major": 1,
+    "minor": 1,
+    "micro": 0
+  },
   "properties": [
     "distance_constraint",
     "nonzero_start_end_velocity"

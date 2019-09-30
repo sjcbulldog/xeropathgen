@@ -22,8 +22,6 @@ bool scurve = true;
 double maxdx = kMaxDX;
 double maxdy = kMaxDY;
 double maxtheta = kMaxDTheta;
-double velmin = 10.0;
-double deltav = 5.0;
 
 extern void generateForGroup(const std::string& group);
 extern void generateForPath(PathGroup& group, const std::string& path);
@@ -169,85 +167,6 @@ int main(int ac, char** av)
 			ac--;
 			av++;
 		}
-		else if (arg == "--minvel")
-		{
-			if (ac == 0) {
-				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
-				return 1;
-			}
-
-			arg = *av;
-			try {
-				velmin = std::stod(arg, &index);
-			}
-			catch (...)
-			{
-				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
-				return 1;
-			}
-
-			if (index != arg.length())
-			{
-				std::cerr << "XeroGenV1: expected floating point number following --minvel argument" << std::endl;
-				return 1;
-			}
-			ac--;
-			av++;
-		}
-		else if (arg == "--delvel")
-		{
-			if (ac == 0) {
-				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
-				return 1;
-			}
-
-			arg = *av;
-			try {
-				deltav = std::stod(arg, &index);
-			}
-			catch (...)
-			{
-				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
-				return 1;
-			}
-
-			if (index != arg.length())
-			{
-				std::cerr << "XeroGenV1: expected floating point number following --delvel argument" << std::endl;
-				return 1;
-			}
-			ac--;
-			av++;
-		}
-		else if (arg == "--scurve")
-		{
-			if (ac == 0) {
-				std::cerr << "XeroGenV1: expected integer number following --scurve argument" << std::endl;
-				return 1;
-			}
-
-			arg = *av;
-			if (arg == "true")
-				scurve = true;
-			else if (arg == "false")
-				scurve = false;
-			else
-			{
-				std::cerr << "XeroGenV1: expected 'true' or 'false' following --scurve argument" << std::endl;
-				return 1;
-			}
-			ac--;
-			av++;
-		}
-		else if (arg == "--units")
-		{
-			if (ac == 0) {
-				std::cerr << "XeroGenV1: expected units type following --units argument" << std::endl;
-				return 1;
-			}
-			units = *av++;
-			ac--;
-		}
 		else if (arg == "--pathfile")
 		{
 			if (ac == 0) {
@@ -301,7 +220,6 @@ int main(int ac, char** av)
 		std::cerr << "XeroGenV1: error reading robot file '" << robotfile << "'" << std::endl;
 		return 1;
 	}
-	// robot.convert(units);
 
 	if (!JSONPathReader::readJSONPathFile(pathfile, robot, collection)) {
 		std::cerr << "XeroGenV1: error reading path file '" << pathfile << "'" << std::endl;
@@ -313,9 +231,16 @@ int main(int ac, char** av)
 		return 1;
 	}
 
-	std::vector<std::string> groups = collection.getGroupNames();
-	for (const std::string& group : groups)
-		generateForGroup(group);
+	try {
+		std::vector<std::string> groups = collection.getGroupNames();
+		for (const std::string& group : groups)
+			generateForGroup(group);
+	}
+	catch (const std::runtime_error&ex)
+	{
+		std::cerr << "ERROR: " << ex.what() << std::endl;
+		exit(99);
+	}
 }
 
 void generateForGroup(const std::string& group)
@@ -352,15 +277,8 @@ void generateForPath(PathGroup& group, const std::string& path)
 	std::shared_ptr<PathTrajectory> trajectory;
 
 	CheesyGenerator gen(diststep, timestep, maxdx, maxdy, maxtheta);
-	try {
-		trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
-			pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
-	}
-	catch (const std::runtime_error& ex)
-	{
-		std::cerr << "ERROR: " << ex.what() << std::endl;
-		exit(99);
-	}
+	trajectory = gen.generate(pptr->getPoints(), pptr->getConstraints(), pptr->getStartVelocity(),
+		pptr->getEndVelocity(), pptr->getMaxVelocity(), pptr->getMaxAccel(), pptr->getMaxJerk());
 
 	std::vector<std::string> headers =
 	{

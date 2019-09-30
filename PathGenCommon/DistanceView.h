@@ -15,6 +15,10 @@ namespace xero
 				return distances_.back();
 			}
 
+			double getPosition(size_t index) const {
+				return distances_[index];
+			}
+
 			Pose2d operator[](double dist) const;
 			Pose2d operator[](size_t index) const;
 			size_t size() const {

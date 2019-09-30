@@ -276,6 +276,7 @@ private:
 	void timerProc();
 
 	void allPathsDirty();
+	void setPathDirty(std::shared_ptr<xero::paths::RobotPath> path);
 	void initRecentFiles();
 	void initPlotVars();
 	void savePlotVars();

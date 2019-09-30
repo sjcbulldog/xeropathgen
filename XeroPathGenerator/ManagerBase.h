@@ -19,6 +19,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QFile>
+#include <QVersionNumber>
 
 class ManagerBase
 {
@@ -30,7 +31,7 @@ public:
 		return default_dir_;
 	}
 
-	void copyDefaults(const std::string& subdir);
+	virtual void copyDefaults(const std::string& subdir);
 
 	virtual bool initialize();
 
@@ -61,6 +62,7 @@ protected:
 		return dirs_.front();
 	}
 
+	bool getJsonVersionValue(QFile& file, QJsonDocument& doc, const char* name, QVersionNumber& ver);
 	bool getJSONStringValue(QFile &file, QJsonDocument& doc, const char* name, std::string& value);
 	bool getJSONStringValue(QFile& file, QJsonObject& obj, const char* name, std::string& value);
 	bool getJSONDoubleValue(QFile& file, QJsonDocument& doc, const char* name, double& value);

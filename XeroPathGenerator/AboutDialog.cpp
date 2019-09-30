@@ -15,6 +15,9 @@
 //
 
 #include "AboutDialog.h"
+#include "GeneratorManager.h"
+#include "GameFieldManager.h"
+#include "GameField.h"
 #include "build.h"
 
 #define STR_HELPER(x) #x
@@ -22,7 +25,7 @@
 
 #define BUILDVERSION STR(XERO_MAJOR_VERSION) "." STR(XERO_MINOR_VERSION) "." STR(XERO_MICRO_VERSION) "." STR(XERO_BUILD_VERSION)
 
-AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
+AboutDialog::AboutDialog(GeneratorManager& gens, GameFieldManager& fields, QWidget *parent) : QDialog(parent), gens_(gens), fields_(fields)
 {
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/images/ErrorCodeXero.png";
@@ -57,7 +60,30 @@ AboutDialog::AboutDialog(QWidget *parent) : QDialog(parent)
 	ui.text_->append("https://github.com/JacisNonsense/Pathfinder\r\n\r\n");
 	ui.text_->append("Ideas, algorithms, concepts, taken from Team 254, Cheesy Poofs with much appreciation.\r\n\r\n");
 
-	connect(ui.buttons_, &QDialogButtonBox::accepted, this, &AboutDialog::accept);
+	ui.text_->append("Generators ");
+	font.setPointSize(10);
+	fmt.setFont(font);
+	ui.text_->setCurrentCharFormat(fmt);
+	for (auto gen : gens_.getGenerators())
+	{
+		ui.text_->append(QString(gen->getName().c_str()) + ", version " + gen->getVersion().toString());
+	}
+
+	font.setPointSize(12);
+	fmt.setFont(font);
+	ui.text_->setCurrentCharFormat(fmt);
+	ui.text_->append("\r\nFields");
+	font.setPointSize(10);
+	fmt.setFont(font);
+	ui.text_->setCurrentCharFormat(fmt);
+
+	for (auto field : fields_.getFields())
+	{
+		ui.text_->append(QString(field->getName().c_str()));
+	}
+
+
+	(void)connect(ui.buttons_, &QDialogButtonBox::accepted, this, &AboutDialog::accept);
 }
 
 AboutDialog::~AboutDialog()

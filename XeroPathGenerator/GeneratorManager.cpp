@@ -18,6 +18,8 @@
 #include <QDirIterator>
 #include <QJsonObject>
 #include <QDebug>
+#include <QCoreApplication>
+#include <QVersionNumber>
 #include <algorithm>
 
 
@@ -44,12 +46,61 @@ std::shared_ptr<Generator> GeneratorManager::getGeneratorByName(const std::strin
 	return *it;
 }
 
+void GeneratorManager::readGenerators(QDir& dir, std::list<std::shared_ptr<Generator>>& generators)
+{
+	generators_.clear();
+
+	QStringList filter;
+	filter << "*.json";
+	QStringList list = dir.entryList(filter, QDir::Filter::Files);
+	for (QString item : list)
+	{
+		QFile file = dir.absoluteFilePath(item);
+		processJSONFile(file);
+	}
+
+	generators.insert(generators.end(), generators_.begin(), generators_.end());
+	generators_.clear();
+}
+
+void GeneratorManager::copyDefaults(const std::string& subdir)
+{
+	QString defdir = getDefaultDir().c_str();
+	if (defdir.length() == 0)
+		return;
+
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString src = exedir + "/" + QString(subdir.c_str());
+
+	QDir srcdir(src);
+	QDir destdir(defdir);
+
+	if (!destdir.exists())
+	{
+		if (!destdir.mkpath(defdir))
+			return;
+	}
+
+	QStringList list = srcdir.entryList(QDir::Filter::Files);
+	for (QString item : list)
+	{
+		QString srcfile = srcdir.absoluteFilePath(item);
+		QString destfile = destdir.absoluteFilePath(item);
+
+		if (QFile::exists(destfile))
+			QFile::remove(destfile);
+
+		QFile::copy(srcfile, destfile);
+	}
+}
+
 bool GeneratorManager::processJSONFile(QFile& file)
 {
 	QString text;
 	std::string name, version;
 	int vnum;
 	size_t len;
+	QVersionNumber genver;
 
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
@@ -83,6 +134,12 @@ bool GeneratorManager::processJSONFile(QFile& file)
 	catch (...)
 	{
 		qWarning() << "JSON file '" << file.fileName() << "' has a '_version' string field, that is not a valid integer";
+		return false;
+	}
+
+	if (!getJsonVersionValue(file, doc, genVersionTag, genver))
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' has a 'generator_version' string field, that is not a valid version structure";
 		return false;
 	}
 
@@ -125,7 +182,7 @@ bool GeneratorManager::processJSONFile(QFile& file)
 
 	QJsonObject obj = v.toObject();
 
-	if (!processProgram(file, obj, name))
+	if (!processProgram(file, obj, name, genver))
 		return false;
 
 	v = doc[propertiesTag];
@@ -147,7 +204,7 @@ bool GeneratorManager::processJSONFile(QFile& file)
 	return true;
 }
 
-bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::string &name)
+bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::string &name, const QVersionNumber &genver)
 {
 	std::string exec, out, robot, path, timestep, units, otherargs;
 
@@ -178,7 +235,7 @@ bool GeneratorManager::processProgram(QFile &file, QJsonObject& obj, const std::
 			return false;
 	}
 
-	std::shared_ptr<Generator> gen = std::make_shared<Generator>(name, dir.path().toStdString(), exec, units, out, robot, path, timestep, otherargs);
+	std::shared_ptr<Generator> gen = std::make_shared<Generator>(name, genver, dir.path().toStdString(), exec, units, out, robot, path, timestep, otherargs);
 
 	//
 	// Now process parameters

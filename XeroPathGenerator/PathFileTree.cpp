@@ -14,6 +14,9 @@
 // limitations under the License.
 //
 #include "PathFileTree.h"
+#include "PathFileTreeModel.h"
+#include <QKeyEvent>
+#include <cassert>
 
 using namespace xero::paths;
 
@@ -23,6 +26,25 @@ PathFileTree::PathFileTree(QWidget *parent) : QTreeView(parent)
 
 PathFileTree::~PathFileTree()
 {
+}
+
+void PathFileTree::keyPressEvent(QKeyEvent* ev)
+{
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	if (ev->key() == Qt::Key::Key_Delete)
+	{
+		if (isGroupSelected())
+		{
+			tmodel->deleteGroup(getSelectedGroup()->getName());
+		}
+		else if (isPathSelected())
+		{
+			auto path = getSelectedPath();
+			tmodel->deletePath(path->getParent()->getName(), path->getName());
+		}
+	}
 }
 
 bool PathFileTree::isGroupSelected()

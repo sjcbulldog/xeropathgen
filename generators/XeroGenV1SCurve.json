@@ -1,6 +1,11 @@
 {
-  "_version" :  "1",
-  "name": "Xero Gen V1 - SCurve",
+  "_version": "1",
+  "name": "Xero Gen V1 - SCurve (Experimental)",
+  "generator_version": {
+    "major": 1,
+    "minor": 1,
+    "micro": 0
+  },
   "properties": [
     "distance_constraint",
     "nonzero_start_end_velocity"
@@ -14,6 +19,27 @@
         "default": 2.0,
         "description": "The maximum distance between points internally when generating the path",
         "name": "diststep",
+        "type": "double"
+      },
+      {
+        "arg": "--maxdx $$",
+        "default": 2.0,
+        "description": "The maximum twist DX value allowed when generating points along the spline",
+        "name": "kMaxDX",
+        "type": "double"
+      },
+      {
+        "arg": "--maxdy $$",
+        "default": 0.05,
+        "description": "The maximum twist DY value allowed when generating points along the spline",
+        "name": "kMaxDY",
+        "type": "double"
+      },
+      {
+        "arg": "--maxtheta $$",
+        "default": 0.1,
+        "description": "The maximum twist DTheta value allowed when generating points along the spline",
+        "name": "kMaxDTheta",
         "type": "double"
       }
     ],

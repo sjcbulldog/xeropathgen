@@ -42,59 +42,67 @@ void TrajectoryViewWindow::updateTrajectory(const QString& text)
 	auto traj = path_->getTrajectory(which_);
 
 	table_->clearContents();
-
 	table_->setColumnCount(8);
-	table_->setRowCount(static_cast<int>(traj->size()));
+	table_->setRowCount(0);
 
 	QStringList hdlist;
 	hdlist << "Time" << "X" << "Y" << "Heading" << "Position" << "Velocity" << "Accel" << "Jerk";
 	table_->setHorizontalHeaderLabels(hdlist);
 
-	QTableWidgetItem* item;
-	int row = 0;
-	for (const auto& pt : (*traj))
+	if (traj != nullptr)
 	{
-		item = new QTableWidgetItem(QString::number(pt.time(), 'f', 2));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 0, item);
+		table_->setRowCount(static_cast<int>(traj->size()));
 
-		item = new QTableWidgetItem(QString::number(pt.x(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 1, item);
+		QTableWidgetItem* item;
+		int row = 0;
+		for (const auto& pt : (*traj))
+		{
+			item = new QTableWidgetItem(QString::number(pt.time(), 'f', 2));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 0, item);
 
-		item = new QTableWidgetItem(QString::number(pt.y(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 2, item);
+			item = new QTableWidgetItem(QString::number(pt.x(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 1, item);
 
-		item = new QTableWidgetItem(QString::number(pt.rotation().toDegrees(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 3, item);
+			item = new QTableWidgetItem(QString::number(pt.y(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 2, item);
 
-		item = new QTableWidgetItem(QString::number(pt.position(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 4, item);
+			item = new QTableWidgetItem(QString::number(pt.rotation().toDegrees(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 3, item);
 
-		item = new QTableWidgetItem(QString::number(pt.velocity(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 5, item);
+			item = new QTableWidgetItem(QString::number(pt.position(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 4, item);
 
-		item = new QTableWidgetItem(QString::number(pt.acceleration(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 6, item);
+			item = new QTableWidgetItem(QString::number(pt.velocity(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 5, item);
 
-		item = new QTableWidgetItem(QString::number(pt.jerk(), 'f', 1));
-		item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-		table_->setItem(row, 7, item);
+			item = new QTableWidgetItem(QString::number(pt.acceleration(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 6, item);
 
-		row++;
+			item = new QTableWidgetItem(QString::number(pt.jerk(), 'f', 1));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 7, item);
+
+			row++;
+		}
 	}
 
 	table_->resizeColumnsToContents();
 }
 
+void TrajectoryViewWindow::update()
+{
+	updateTrajectory(box_->currentText());
+}
+
 void TrajectoryViewWindow::setPath(std::shared_ptr<RobotPath> path)
 {
-
 	path_ = path;
 
 	box_->clear();

@@ -247,7 +247,7 @@ void PathPlotView::updateEmpty()
 	else if (path_->hasErrors())
 		ch->setTitle("Errors in the path - no trajectory data available");
 	else
-		ch->setTitle("Unknown issues - no trajectory data available");
+		ch->setTitle("Waiting for trajectory data");
 
 	ch->removeAllSeries();
 	QLegend* legend = ch->legend();

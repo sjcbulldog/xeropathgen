@@ -39,6 +39,7 @@ public:
 	
 	void setCursorTime(double time) {
 		cursor_time_ = time;
+		selected_ = std::numeric_limits<size_t>::max();
 		repaint();
 	}
 

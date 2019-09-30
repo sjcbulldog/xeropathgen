@@ -17,6 +17,7 @@
 #include "ManagerBase.h"
 #include "Generator.h"
 #include <QDebug>
+#include <QDir>
 #include <string>
 #include <list>
 #include <memory>
@@ -50,9 +51,12 @@ public:
 
 	std::shared_ptr<Generator> getGeneratorByName(const std::string& name);
 
+	virtual void copyDefaults(const std::string& subdir);
+
 
 private:
-	static constexpr const char* versionTag = "_version";
+	static constexpr const char* versionTag = "_version";					// JSON file format version
+	static constexpr const char* genVersionTag = "generator_version";		// Actual generator version
 	static constexpr const char* nameTag = "name";
 	static constexpr const char* programTag = "program";
 	static constexpr const char* propertiesTag = "properties";
@@ -79,8 +83,10 @@ private:
 		return generators_.size() > 0;
 	}
 	virtual bool processJSONFile(QFile& file);
-	bool processProgram(QFile& file, QJsonObject& obj, const std::string& name);
+	bool processProgram(QFile& file, QJsonObject& obj, const std::string& name, const QVersionNumber &genver);
 	bool processParameter(QFile& file, QJsonObject& obj, std::shared_ptr<Generator> gen);
+
+	void readGenerators(QDir& dir, std::list<std::shared_ptr<Generator>>& generators);
 
 private:
 	std::list<std::shared_ptr<Generator>> generators_;

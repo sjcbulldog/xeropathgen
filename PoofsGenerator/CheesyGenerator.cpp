@@ -41,6 +41,7 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 	static double kEpsilon = 1e-6;
 
 	predecessor.setPosition(0.0);
+	predecessor.setPose(view[static_cast<size_t>(0)]);
 	predecessor.setVelocity(startvel);
 	predecessor.setAccelMin(-maxaccel);
 	predecessor.setAccelMax(maxaccel);
@@ -52,13 +53,14 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 	{
 		Pose2dConstrained state;
 		state.setPose(view[i]);
+		state.setPosition(view.getPosition(i));
 
 		double dist = predecessor.pose().distance(state.pose());
 		state.setPosition(predecessor.position() + dist);
 
 		while (true)
 		{
-			double calcvel = std::sqrt(predecessor.velocity() * predecessor.velocity() + 2.0 * predecessor.acceleration() * dist);
+			double calcvel = std::sqrt(predecessor.velocity() * predecessor.velocity() + 2.0 * predecessor.accelMax() * dist);
 			state.setVelocity(std::min(maxvel, calcvel));
 
 			if (std::isnan(state.velocity()))
@@ -91,7 +93,8 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 				if (actaccel > predecessor.accelMin() + kEpsilon)
 				{
 					predecessor.setAccelMax(actaccel);
-					points[i - 1] = predecessor;
+					if (i != 0)
+						points[i - 1] = predecessor;
 				}
 				break;
 			}

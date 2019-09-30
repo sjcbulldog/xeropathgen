@@ -36,6 +36,9 @@ public:
 	std::shared_ptr<xero::paths::PathGroup> getSelectedGroup();
 	std::shared_ptr<xero::paths::RobotPath> getSelectedPath();
 
+protected:
+	virtual void keyPressEvent(QKeyEvent* event) override;
+
 private:
 	PathFileTreeModel* model_;
 };

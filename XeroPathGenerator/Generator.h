@@ -15,6 +15,7 @@
 //
 #pragma once
 #include "GeneratorParameter.h"
+#include <QVersionNumber>
 #include <string>
 #include <list>
 
@@ -22,9 +23,10 @@
 class Generator
 {
 public:
-	Generator(const std::string& name, const std::string &dir, std::string &exec, const std::string &units, std::string &out, 
+	Generator(const std::string& name, const QVersionNumber &genver, const std::string &dir, std::string &exec, const std::string &units, std::string &out, 
 					const std::string &robot, const std::string &path, const std::string &timestep, const std::string &otherargs) {
 		name_ = name;
+		genver_ = genver;
 		exec_ = exec;
 		dir_ = dir;
 		units_arg_ = units;
@@ -46,6 +48,10 @@ public:
 
 	const std::string &getName() const {
 		return name_;
+	}
+
+	const QVersionNumber& getVersion() const {
+		return genver_;
 	}
 
 	const std::string& getExec() const {
@@ -102,6 +108,7 @@ public:
 
 private:
 	std::string name_;
+	QVersionNumber genver_;
 	std::string exec_;
 	std::string dir_;
 	std::string units_arg_;

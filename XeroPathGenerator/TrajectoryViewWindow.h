@@ -30,7 +30,12 @@ public:
 	~TrajectoryViewWindow();
 
 	void setPath(std::shared_ptr<xero::paths::RobotPath> path);
+	bool isShowingPath(std::shared_ptr<xero::paths::RobotPath> path) {
+		return path == path_;
+	}
 	void setCurrentTime(double t);
+
+	void update();
 
 private:
 	void updateTrajectory(const QString &text);

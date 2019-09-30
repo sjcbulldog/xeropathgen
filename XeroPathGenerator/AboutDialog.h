@@ -18,14 +18,19 @@
 #include <QDialog>
 #include "ui_AboutDialog.h"
 
+class GeneratorManager;
+class GameFieldManager;
+
 class AboutDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
-	AboutDialog(QWidget *parent = Q_NULLPTR);
+	AboutDialog(GeneratorManager &gens, GameFieldManager&fields, QWidget *parent = Q_NULLPTR);
 	~AboutDialog();
 
 private:
+	GeneratorManager& gens_;
+	GameFieldManager& fields_;
 	Ui::AboutDialog ui;
 };

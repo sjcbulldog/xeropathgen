@@ -98,6 +98,52 @@ bool ManagerBase::getJSONStringValue(QFile &file, QJsonDocument& doc, const char
 	return true;
 }
 
+bool ManagerBase::getJsonVersionValue(QFile& file, QJsonDocument& doc, const char* name, QVersionNumber& value)
+{
+	const QJsonValue versionstruct = doc[name];
+	if (versionstruct.isUndefined())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' does not contain a field named '" << name
+			<< "' at the top level";
+		return false;
+	}
+
+	if (!versionstruct.isObject())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' contains a field named '" << name
+			<< "' at the top level, but it is not an object";
+		return false;
+	}
+
+	QJsonObject obj = versionstruct.toObject();
+	if (!obj.contains("major") || !obj["major"].isDouble())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' contains a field named '" << name
+			<< "' at the top level, but it does not contain a valid 'major' field, should be number";
+		return false;
+	}
+	int major = static_cast<int>(obj["major"].toDouble() + 0.5);
+
+	if (!obj.contains("minor") || !obj["minor"].isDouble())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' contains a field named '" << name
+			<< "' at the top level, but it does not contain a valid 'minor' field, should be number";
+		return false;
+	}
+	int minor = static_cast<int>(obj["minor"].toDouble() + 0.5);
+
+	if (!obj.contains("micro") || !obj["micro"].isDouble())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "' contains a field named '" << name
+			<< "' at the top level, but it does not contain a valid 'micro' field, should be number";
+		return false;
+	}
+	int micro = static_cast<int>(obj["micro"].toDouble() + 0.5);
+
+	value = QVersionNumber(major, minor, micro);
+	return true;
+}
+
 bool ManagerBase::getJSONStringValue(QFile& file, QJsonObject& obj, const char* name, std::string& value)
 {
 	const QJsonValue v = obj[name];

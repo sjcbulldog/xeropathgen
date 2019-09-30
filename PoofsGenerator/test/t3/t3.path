@@ -1,0 +1,42 @@
+{
+    "_version": "1",
+    "groups": [
+        {
+            "name": "NewGroup",
+            "paths": [
+                {
+                    "constraints": [
+                        {
+                            "after": 200,
+                            "before": 260,
+                            "type": "distance_velocity",
+                            "velocity": 60
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 180,
+                    "maxjerk": 1800,
+                    "maxvelocity": 180,
+                    "name": "NewPath",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 24.800778853395528,
+                            "y": 55.10481823692567
+                        },
+                        {
+                            "heading": 0,
+                            "x": 537.0809309502379,
+                            "y": 54.47315343779269
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}
