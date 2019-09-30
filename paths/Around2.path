@@ -1,0 +1,67 @@
+{
+    "_version": "1",
+    "groups": [
+        {
+            "name": "NewGroup",
+            "paths": [
+                {
+                    "constraints": [
+                        {
+                            "after": 400,
+                            "before": 750,
+                            "type": "distance_velocity",
+                            "velocity": 40
+                        }
+                    ],
+                    "endangle": 0,
+                    "endangledelay": 0,
+                    "endvelocity": 0,
+                    "maxacceleration": 75,
+                    "maxjerk": 1500,
+                    "maxvelocity": 150,
+                    "name": "NewPath",
+                    "points": [
+                        {
+                            "heading": 0,
+                            "x": 14.919372855124152,
+                            "y": 25.942480317609864
+                        },
+                        {
+                            "heading": 0,
+                            "x": 208.15708229594242,
+                            "y": 57.08934795774172
+                        },
+                        {
+                            "heading": 0,
+                            "x": 400.75914137675795,
+                            "y": 57.08934795774172
+                        },
+                        {
+                            "heading": 90,
+                            "x": 511.3623040172263,
+                            "y": 160.06470627817777
+                        },
+                        {
+                            "heading": 180,
+                            "x": 364.5270708566045,
+                            "y": 263.6757149586165
+                        },
+                        {
+                            "heading": 180,
+                            "x": 211.33533409595583,
+                            "y": 260.49746315860307
+                        },
+                        {
+                            "heading": 180,
+                            "x": 14.283722495121452,
+                            "y": 296.0938833187538
+                        }
+                    ],
+                    "startangle": 0,
+                    "startangledelay": 0,
+                    "startvelocity": 0
+                }
+            ]
+        }
+    ]
+}

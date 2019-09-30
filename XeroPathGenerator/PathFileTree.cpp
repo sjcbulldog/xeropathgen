@@ -45,6 +45,13 @@ void PathFileTree::keyPressEvent(QKeyEvent* ev)
 			tmodel->deletePath(path->getParent()->getName(), path->getName());
 		}
 	}
+	else if (ev->key() == Qt::Key::Key_Insert)
+	{
+		if (isGroupSelected())
+		{
+			tmodel->addNewPath(getSelectedGroup());
+		}
+	}
 }
 
 bool PathFileTree::isGroupSelected()

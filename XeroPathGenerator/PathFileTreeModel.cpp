@@ -34,6 +34,26 @@ PathFileTreeModel::~PathFileTreeModel()
 {
 }
 
+void PathFileTreeModel::emitPathAdded(std::shared_ptr<RobotPath> path)
+{
+	emit pathAdded(path);
+}
+
+void PathFileTreeModel::emitPathDeleted()
+{
+	emit pathDeleted();
+}
+
+void PathFileTreeModel::emitGroupAdded(std::shared_ptr<PathGroup> group)
+{
+	emit groupAdded(group);
+}
+
+void PathFileTreeModel::emitGroupDeleted()
+{
+	emit groupDeleted();
+}
+
 bool PathFileTreeModel::isNameValid(const QString &name)
 {
 	//
@@ -235,14 +255,15 @@ std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup(const std::string& na
 {
 	QModelIndex root;
 
-	beginInsertRows(root, static_cast<int>(paths_.size()), static_cast<int>(paths_.size()));
 
 	auto undo = std::make_shared<AddGroupUndo>(*this, name);
 	UndoManager::getUndoManager().pushUndoStack(undo);
 
 	auto group = paths_.addGroup(name);
-	endInsertRows();
 	dirty_ = true;
+	reset(false);
+
+	emitGroupAdded(group);
 
 	return group;
 }
@@ -254,6 +275,8 @@ void PathFileTreeModel::insertPathGroup(int row, std::shared_ptr<PathGroup> gr)
 		paths_.addGroup(row, gr);
 		reset(false);
 	}
+
+	emitGroupAdded(gr);
 }
 
 void PathFileTreeModel::addPath(const std::string& group, int index, std::shared_ptr<RobotPath> path)
@@ -263,6 +286,7 @@ void PathFileTreeModel::addPath(const std::string& group, int index, std::shared
 	{
 		gr->insertPath(index, path);
 		reset(false);
+		emitPathAdded(path);
 	}
 }
 
@@ -284,6 +308,26 @@ std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& gr
 	path->generateSplines();
 	endInsertRows();
 	dirty_ = true;
+
+	emitPathAdded(path);
+	return path;
+}
+
+std::shared_ptr<xero::paths::RobotPath> PathFileTreeModel::addNewPath(std::shared_ptr<xero::paths::PathGroup> group)
+{
+	size_t index = 1;
+	std::string name = "NewPath";
+
+	while (containsPath(group->getName(), name))
+		name = "NewPath_" + std::to_string(++index);
+
+	auto path = addRobotPath(group->getName(), name);
+
+	path->setMaxVelocity(robot_->getMaxVelocity());
+	path->setMaxAccel(robot_->getMaxAccel());
+	path->setMaxJerk(robot_->getMaxJerk());
+
+	emitPathAdded(path);
 	return path;
 }
 
@@ -301,6 +345,8 @@ void PathFileTreeModel::deleteGroup(const std::string& group, bool undo)
 
 	dirty_ = true;
 	reset(false);
+
+	emitGroupDeleted();
 }
 
 void PathFileTreeModel::deletePath(const std::string &group, const std::string &path, bool undo)
@@ -318,6 +364,8 @@ void PathFileTreeModel::deletePath(const std::string &group, const std::string &
 	paths_.delPath(group, path);
 	dirty_ = true;
 	reset(false);
+
+	emitPathDeleted();
 }
 
 std::shared_ptr<RobotPath> PathFileTreeModel::findPathByName(const std::string& group, const std::string& path)

@@ -135,9 +135,6 @@
     <ClCompile Include="NetworkDownloadManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HelpDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UndoItem.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
@@ -230,11 +227,11 @@
     <QtMoc Include="NetworkDownloadManager.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="HelpDisplay.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="UndoManager.h">
       <Filter>Undo</Filter>
+    </QtMoc>
+    <QtMoc Include="PathFileTreeModel.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -259,9 +256,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Generator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathFileTreeModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RobotManager.h">

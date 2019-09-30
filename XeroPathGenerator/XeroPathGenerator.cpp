@@ -302,6 +302,11 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	demo_mode_ = DemoMode::ModeNone;
 	robot_window_ = nullptr;
 	traj_window_ = nullptr;
+
+	(void)connect(&paths_model_, &PathFileTreeModel::pathAdded, this, &XeroPathGenerator::pathAdded);
+	(void)connect(&paths_model_, &PathFileTreeModel::pathDeleted, this, &XeroPathGenerator::pathDeleted);
+	(void)connect(&paths_model_, &PathFileTreeModel::groupAdded, this, &XeroPathGenerator::groupAdded);
+	(void)connect(&paths_model_, &PathFileTreeModel::groupDeleted, this, &XeroPathGenerator::groupDeleted);
 }
 
 XeroPathGenerator::~XeroPathGenerator()
@@ -807,6 +812,7 @@ void XeroPathGenerator::setGenerator(const std::string& name)
 void XeroPathGenerator::setRobot(const std::string& name)
 {
 	current_robot_ = robot_mgr_.getRobotByName(name);
+	paths_model_.setRobot(current_robot_);
 	path_view_->setRobot(current_robot_);
 	path_engine_.setRobot(current_robot_);
 	if (current_robot_ != nullptr && current_robot_->getDriveType() == RobotParams::DriveType::SwerveDrive)
@@ -2287,21 +2293,31 @@ void XeroPathGenerator::addRobotPathAction()
 		auto group = paths_->getSelectedGroup();
 		if (group != nullptr)
 		{
-			size_t index = 1;
-			std::string name = "NewPath";
-
-			while (paths_model_.containsPath(group->getName(), name))
-			{
-				name = "NewPath_" + std::to_string(index++);
-			}
-			auto path = paths_model_.addRobotPath(group->getName(), name);
-			paths_->expandAll();
-			path->setMaxVelocity(current_robot_->getMaxVelocity());
-			path->setMaxAccel(current_robot_->getMaxAccel());
-			path->setMaxJerk(current_robot_->getMaxJerk());
-			setPathDirty(path);
+			paths_model_.addNewPath(group);
 		}
 	}
+}
+
+void XeroPathGenerator::pathAdded(std::shared_ptr<RobotPath> path)
+{
+	paths_->expandAll();
+	setPathDirty(path);
+	setPath(path);
+}
+
+void XeroPathGenerator::groupAdded(std::shared_ptr<PathGroup> group)
+{
+	paths_->expandAll();
+}
+
+void XeroPathGenerator::pathDeleted()
+{
+	paths_->expandAll();
+}
+
+void XeroPathGenerator::groupDeleted()
+{
+	paths_->expandAll();
 }
 
 void XeroPathGenerator::editPreferences()

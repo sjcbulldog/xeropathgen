@@ -15,15 +15,22 @@
 //
 #pragma once
 
+#include <PathCollection.h>
+#include <RobotParams.h>
 #include <Qt>
 #include <QAbstractItemModel>
-#include <PathCollection.h>
 
 class PathFileTreeModel : public QAbstractItemModel
 {
+	Q_OBJECT;
+
 public:
 	PathFileTreeModel();
 	virtual ~PathFileTreeModel();
+
+	void setRobot(std::shared_ptr<xero::paths::RobotParams> robot) {
+		robot_ = robot;
+	}
 
 	xero::paths::PathCollection& getPathCollection() {
 		return paths_;
@@ -66,6 +73,7 @@ public:
 	void renamePath(const std::string& group, const std::string& current, const std::string& newname);
 	void renameGroup(const std::string& current, const std::string& newname);
 	void addPath(const std::string& group, int index, std::shared_ptr<xero::paths::RobotPath> path);
+	std::shared_ptr<xero::paths::RobotPath> addNewPath(std::shared_ptr<xero::paths::PathGroup> group);
 
 	void getAllPaths(std::list<std::shared_ptr<xero::paths::RobotPath>>& results) {
 		paths_.getAllPaths(results);
@@ -73,10 +81,21 @@ public:
 
 	void convert(const std::string& from, const std::string& to);
 
-private:
-	bool isNameValid(const QString& name);
+signals:
+	void pathAdded(std::shared_ptr<xero::paths::RobotPath> path);
+	void pathDeleted();
+	void groupAdded(std::shared_ptr<xero::paths::PathGroup> group);
+	void groupDeleted();
 
 private:
+	bool isNameValid(const QString& name);
+	void emitPathAdded(std::shared_ptr<xero::paths::RobotPath> path);
+	void emitPathDeleted();
+	void emitGroupAdded(std::shared_ptr<xero::paths::PathGroup> group);
+	void emitGroupDeleted();
+
+private:
+	std::shared_ptr<xero::paths::RobotParams> robot_;
 	xero::paths::PathCollection paths_;
 	bool dirty_;
 };

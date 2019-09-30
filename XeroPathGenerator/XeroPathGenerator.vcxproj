@@ -195,7 +195,6 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="GeneratorManager.cpp" />
     <ClCompile Include="GeneratorParameterStore.cpp" />
     <ClCompile Include="GroupNameChangeUndo.cpp" />
-    <ClCompile Include="HelpDisplay.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="NetworkDownloadManager.cpp" />
@@ -259,14 +258,16 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="GeneratorManager.h" />
     <ClInclude Include="GeneratorParameter.h" />
     <ClInclude Include="GeneratorParameterStore.h" />
-    <QtMoc Include="HelpDisplay.h" />
     <ClInclude Include="GroupNameChangeUndo.h" />
     <ClInclude Include="JSONWriter.h" />
     <ClInclude Include="ManagerBase.h" />
     <QtMoc Include="NetworkDownloadManager.h" />
     <ClInclude Include="PathCollectionIO.h" />
     <QtMoc Include="PathFileTree.h" />
-    <ClInclude Include="PathFileTreeModel.h" />
+    <QtMoc Include="PathFileTreeModel.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
+    </QtMoc>
     <ClInclude Include="PathGenerationEngine.h" />
     <ClInclude Include="PathNameChangeUndo.h" />
     <ClInclude Include="PathParameterChangeUndo.h" />

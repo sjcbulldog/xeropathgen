@@ -282,6 +282,11 @@ private:
 	void constraintAddedRemoved();
 	void currentPathChanged();
 
+	void pathAdded(std::shared_ptr<xero::paths::RobotPath> path);
+	void pathDeleted();
+	void groupAdded(std::shared_ptr<xero::paths::PathGroup> group);
+	void groupDeleted();
+
 private:
 	QSettings settings_;
 
