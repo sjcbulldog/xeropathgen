@@ -113,6 +113,8 @@ public:
 	bool isInsertWaypointValid();
 	bool isDeleteWaypointValid();
 
+	void doPaint(QPainter& paint, bool printing = false);
+
 signals:
 	void mouseMoved(xero::paths::Translation2d pos);
 	void waypointSelected(size_t index);

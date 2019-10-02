@@ -49,6 +49,8 @@
 #include <QLatin1String>
 #include <QTextBrowser>
 #include <QProcess>
+#include <QPrinter>
+#include <QPrintDialog>
 #include <cstdio>
 
 #ifdef _MSC_VER
@@ -452,6 +454,9 @@ bool XeroPathGenerator::createMenus()
 	file_->addSeparator();
 	file_publish_ = file_->addAction(tr("Publish path"));
 	(void)connect(file_publish_, &QAction::triggered, this, &XeroPathGenerator::filePublish);
+	file_->addSeparator();
+	action = file_->addAction(tr("Print"));
+	(void)connect(action, &QAction::triggered, this, &XeroPathGenerator::filePrint);
 	file_->addSeparator();
 	recent_menu_ = file_->addMenu("Recent Files");
 
@@ -1626,6 +1631,50 @@ void XeroPathGenerator::generate()
 	prog_bar_->setVisible(false);
 	status_text_->setText("Complete");
 	setCursor(Qt::ArrowCursor);
+}
+
+void XeroPathGenerator::filePrint()
+{
+	if (!paths_->isPathSelected())
+	{
+		std::string msg("Select a path to print.");
+		QMessageBox box(QMessageBox::Icon::Warning,
+			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		return;
+	}
+
+	QPrinter printer(QPrinter::HighResolution);
+	QPrintDialog dialog(&printer, this);
+	dialog.setWindowTitle(tr("Print Document"));
+	if (dialog.exec() != QDialog::Accepted)
+		return;
+
+	if (paths_->isPathSelected())
+	{
+		auto path = paths_->getSelectedPath();
+		QPainter paint;
+		paint.begin(&printer);
+		double xscale = printer.paperRect().height() / double(path_view_->width());
+		double yscale = printer.paperRect().width() / double(path_view_->height());
+		double scale = qMin(xscale, yscale) * 1.2;
+		paint.translate(printer.paperRect().x() + printer.pageRect().width() / 2, printer.paperRect().y() + printer.pageRect().height() / 2);
+		paint.scale(scale, scale);
+		paint.rotate(90);
+		paint.translate(-path_view_->width() / 2, -path_view_->height() / 2);
+
+		QBrush b(QColor(0, 0, 0, 255));
+		QPen p(QColor(0, 0, 0, 255));
+		paint.save();
+		paint.setBrush(b);
+		QTextOption opt;
+		opt.setAlignment(Qt::AlignHCenter | Qt::AlignTop);
+		QRectF r(0, 0, 1000, 200);
+		paint.drawText(r, QString(path->getParent()->getName().c_str()) + "/" + QString(path->getName().c_str()), opt);
+		paint.restore();
+
+		path_view_->doPaint(paint, true);
+		paint.end();
+	}
 }
 
 void XeroPathGenerator::filePublish()

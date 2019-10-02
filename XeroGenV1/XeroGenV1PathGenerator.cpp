@@ -142,7 +142,6 @@ std::vector<Pose2dWithTrajectory>
 XeroGenV1PathGenerator::generateTrajPoints(const DistanceView &distview, const ConstraintCollection& constraints, double startvel, double endvel,
 											double maxvel, double maxaccel, double maxjerk)
 {
-
 	std::vector<PathVelocitySegment> segments;
 
 	//
@@ -295,6 +294,7 @@ void XeroGenV1PathGenerator::insertSegment(std::vector<PathVelocitySegment>& seg
 					auto it = segs.begin();
 					std::advance(it, i);
 					cur.setStart(newseg.end());
+					cur.setLength(cur.length() - newseg.length());
 					segs.insert(it, newseg);
 					return;
 				}

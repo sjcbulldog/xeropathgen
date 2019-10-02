@@ -176,12 +176,17 @@ QSize PathFieldView::sizeHint() const
 
 void PathFieldView::paintEvent(QPaintEvent* event)
 {
-  	(void)event ;
+	(void)event;
 
 	//
 	// Draw the field
 	//
 	QPainter paint(this);
+	doPaint(paint);
+}
+
+void PathFieldView::doPaint(QPainter &paint, bool printing)
+{
 	QRectF rect(0.0f, 0.0f, field_image_.width() * image_scale_, field_image_.height() * image_scale_);
 	paint.drawImage(rect, field_image_);
 
@@ -200,7 +205,7 @@ void PathFieldView::paintEvent(QPaintEvent* event)
 	if (model_ != nullptr)
 		drawRobot(paint);
 
-	if (show_equations_)
+	if (show_equations_ && !printing)
 		drawEquations(paint);
 
 	if (cursor_ && model_ == nullptr && selected_ == std::numeric_limits<size_t>::max())

@@ -109,6 +109,7 @@ private:
 	void fileGenerate();
 	void fileGenerateAs();
 	void filePublish();
+	void filePrint();
 	void generate();
 	void generateOnePath(std::shared_ptr<xero::paths::RobotPath> path, const std::string& trajname, std::ostream& outfile);
 	void showFileMenu();
