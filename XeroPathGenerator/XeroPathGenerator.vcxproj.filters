@@ -180,6 +180,9 @@
     <ClCompile Include="AddGroupUndo.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
+    <ClCompile Include="PrintController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroPathGenerator.h">
@@ -350,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="DeleteGroupUndo.h">
       <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

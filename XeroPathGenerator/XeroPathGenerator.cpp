@@ -26,6 +26,7 @@
 #include "PlotVariableSelector.h"
 #include "AboutDialog.h"
 #include "WaypointChangedUndo.h"
+#include "PrintController.h"
 
 #include <DriveBaseData.h>
 #include <TrajectoryNames.h>
@@ -51,6 +52,7 @@
 #include <QProcess>
 #include <QPrinter>
 #include <QPrintDialog>
+
 #include <cstdio>
 
 #ifdef _MSC_VER
@@ -1635,11 +1637,12 @@ void XeroPathGenerator::generate()
 
 void XeroPathGenerator::filePrint()
 {
-	if (!paths_->isPathSelected())
+	if (!paths_->isPathSelected() && !paths_->isGroupSelected())
 	{
-		std::string msg("Select a path to print.");
+		std::string msg("Please select a path or path group to print.");
 		QMessageBox box(QMessageBox::Icon::Warning,
 			"Error", msg.c_str(), QMessageBox::StandardButton::Ok);
+		box.exec();
 		return;
 	}
 
@@ -1649,32 +1652,11 @@ void XeroPathGenerator::filePrint()
 	if (dialog.exec() != QDialog::Accepted)
 		return;
 
+	PrintController ctrl(*path_view_, *plots_);
 	if (paths_->isPathSelected())
-	{
-		auto path = paths_->getSelectedPath();
-		QPainter paint;
-		paint.begin(&printer);
-		double xscale = printer.paperRect().height() / double(path_view_->width());
-		double yscale = printer.paperRect().width() / double(path_view_->height());
-		double scale = qMin(xscale, yscale) * 1.2;
-		paint.translate(printer.paperRect().x() + printer.pageRect().width() / 2, printer.paperRect().y() + printer.pageRect().height() / 2);
-		paint.scale(scale, scale);
-		paint.rotate(90);
-		paint.translate(-path_view_->width() / 2, -path_view_->height() / 2);
-
-		QBrush b(QColor(0, 0, 0, 255));
-		QPen p(QColor(0, 0, 0, 255));
-		paint.save();
-		paint.setBrush(b);
-		QTextOption opt;
-		opt.setAlignment(Qt::AlignHCenter | Qt::AlignTop);
-		QRectF r(0, 0, 1000, 200);
-		paint.drawText(r, QString(path->getParent()->getName().c_str()) + "/" + QString(path->getName().c_str()), opt);
-		paint.restore();
-
-		path_view_->doPaint(paint, true);
-		paint.end();
-	}
+		ctrl.printField(printer, paths_->getSelectedPath());
+	else if (paths_->isGroupSelected())
+		ctrl.printGroup(printer, paths_->getSelectedGroup());
 }
 
 void XeroPathGenerator::filePublish()

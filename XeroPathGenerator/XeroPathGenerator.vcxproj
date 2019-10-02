@@ -209,6 +209,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="PathPlotView.cpp" />
     <ClCompile Include="PlotMainWindow.cpp" />
     <ClCompile Include="PlotVariableSelector.cpp" />
+    <ClCompile Include="PrintController.cpp" />
     <ClCompile Include="PropertyEditor.cpp" />
     <ClCompile Include="PropertyEditorItemDelegate.cpp" />
     <ClCompile Include="PropertyEditorTreeModel.cpp" />
@@ -276,6 +277,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="PropertyEditor.h" />
     <QtMoc Include="PlotVariableSelector.h" />
     <QtMoc Include="PlotMainWindow.h" />
+    <ClInclude Include="PrintController.h" />
     <ClInclude Include="PropertyEditorItemDelegate.h" />
     <ClInclude Include="PropertyEditorTreeModel.h" />
     <QtMoc Include="SelectRobotDialog.h" />
