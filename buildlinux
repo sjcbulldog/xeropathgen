@@ -1,7 +1,24 @@
 #!/bin/bash
 
 pushd PathGenCommon
-make
+make CONFIG=Release clean
+make CONFIG=Release
+popd
+
+pushd XeroGenV1
+make CONFIG=Release clean
+make CONFIG=Release
+popd
+
+pushd PathFinderV1Gen
+make CONFIG=Release clean
+make CONFIG=Release
+popd
+
+
+pushd PoofsGenerator
+make CONFIG=Release clean
+make CONFIG=Release
 popd
 
 pushd XeroPathGenerator
@@ -9,13 +26,7 @@ qmake -makefile
 make
 popd
 
-pushd XeroGenV1
-make
-popd
-
-pushd PathFinderV1Gen
-make
-popd
+exit 0
 
 mkdir -p xeropathgen
 mkdir -p xeropathgen/bin

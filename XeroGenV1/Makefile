@@ -1,21 +1,26 @@
-CXXFLAGS = -std=c++17 -mmacosx-version-min=10.12 -I../PathGenCommon
+UNAME_S := $(shell uname -s)
+
+CXXFLAGS = -std=c++17 -I../PathGenCommon
+
+ifeq ($(UNAME_S),"Darwin")
+CXXFLAGS += -mmacosx-version-min=10.12
+endif
 
 ifeq ($(CONFIG),)
 $(error CONFIG not set, must be Debug or Release)
 endif
 
-
-SOURCES = \
-	PathVelocitySegment.cpp\
-	XeroGenV1.cpp\
-	XeroGenV1PathGenerator.cpp
-
+SOURCES = $(wildcard *.cpp)
 OBJECTS = $(addprefix $(CONFIG)/,$(SOURCES:.cpp=.o))
+APPNAME = XeroGenV1
 
-$(CONFIG)/XeroGenV1: $(OBJECTS)
-	g++ $(CXXFLAGS) -o $@ $(OBJECTS) ../PathGenCommon/PathGenCommon.a
+$(CONFIG)/$(APPNAME): $(OBJECTS)
+	g++ $(CXXFLAGS) -o $@ $(OBJECTS) ../PathGenCommon/$(CONFIG)/PathGenCommon.a
 
 $(CONFIG)/%.o: %.cpp
 	@echo "    "Compiling $<
 	@mkdir -p $(dir $@)
 	@$(CXX) -c -o $@ $(CXXFLAGS) $<
+
+clean:
+	rm -rf $(OBJECTS)

@@ -1,4 +1,11 @@
-CXXFLAGS = -std=c++17 -mmacosx-version-min=10.12
+UNAME_S := $(shell uname -s)
+
+CXXFLAGS = -std=c++17
+
+ifeq ($(UNAME_S),"Darwin")
+CXXFLAGS += -mmacosx-version-min=10.12
+endif
+
 
 ifeq ($(CONFIG),)
 $(error CONFIG not set, must be Debug or Release)
@@ -23,6 +30,7 @@ SOURCES = \
 	SCurveProfile.cpp\
 	SplinePair.cpp\
 	SwerveDriveModifier.cpp\
+	SCurveProfile.cpp\
 	TankDriveModifier.cpp\
 	TrajectoryUtils.cpp\
 	Translation2d.cpp\
@@ -41,3 +49,6 @@ $(CONFIG)/%.o: %.cpp
 	@echo "    "Compiling $<
 	@mkdir -p $(dir $@)
 	@$(CXX) -c -o $@ $(CXXFLAGS) $<
+
+clean:
+	rm -rf $(OBJECTS)

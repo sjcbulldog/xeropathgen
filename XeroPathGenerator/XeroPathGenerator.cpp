@@ -100,7 +100,7 @@ XeroPathGenerator* XeroPathGenerator::theOne = nullptr;
 XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager& generators, RobotManager &robots, 
 										std::ofstream& ostrm, std::stringstream& sstrm, QWidget* parent)
 	: QMainWindow(parent), fields_mgr_(fields), generators_mgr_(generators), robot_mgr_(robots), 
-		logstream_(ostrm), strstream_(sstrm), download_mgr_(fields, generators), path_param_model_(paths_model_)
+	  path_param_model_(paths_model_), logstream_(ostrm), strstream_(sstrm), download_mgr_(fields, generators)
 {
 	assert(theOne == nullptr);
 	theOne = this;
@@ -1131,6 +1131,7 @@ void XeroPathGenerator::deletedWaypointProc()
 
 void XeroPathGenerator::startMovingWaypointProc(size_t index)
 {
+  	(void)index ;
 	orig_point_ = current_path_->getPoints()[path_view_->getSelected()];
 	std::shared_ptr<WaypointChangedUndo> entry = 
 		std::make_shared<WaypointChangedUndo>(*this, current_path_->getParent()->getName(), 
@@ -1450,8 +1451,6 @@ void XeroPathGenerator::allPathsDirty()
 
 bool XeroPathGenerator::save()
 {
-	bool finished_message = true;
-
 	if (path_file_name_.length() == 0)
 	{
 		QFileDialog dialog;
@@ -1461,7 +1460,6 @@ bool XeroPathGenerator::save()
 			return false;
 
 		setFileName(filename);
-		finished_message = false;
 	}
 
 	QFile file(path_file_name_.c_str());
@@ -2328,6 +2326,7 @@ void XeroPathGenerator::pathAdded(std::shared_ptr<RobotPath> path)
 
 void XeroPathGenerator::groupAdded(std::shared_ptr<PathGroup> group)
 {
+  	(void)group ;
 	paths_->expandAll();
 }
 
