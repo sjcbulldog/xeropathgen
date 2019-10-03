@@ -16,16 +16,113 @@
 #include "PathFileTree.h"
 #include "PathFileTreeModel.h"
 #include <QKeyEvent>
+#include <QMenu>
 #include <cassert>
 
 using namespace xero::paths;
 
 PathFileTree::PathFileTree(QWidget *parent) : QTreeView(parent)
 {
+	none_selected_menu_ = nullptr;
+	path_selected_menu_ = nullptr;
+	group_selected_menu_ = nullptr;
+
+	setContextMenuPolicy(Qt::DefaultContextMenu);
 }
 
 PathFileTree::~PathFileTree()
 {
+}
+
+void PathFileTree::addPathGroup()
+{
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	(void)tmodel->addPathGroup();
+}
+
+void PathFileTree::addPath()
+{
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	(void)tmodel->addNewPath(menu_group_);
+}
+
+void PathFileTree::deletePath()
+{
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	tmodel->deletePath(menu_path_->getParent()->getName(), menu_path_->getName());
+}
+
+void PathFileTree::deleteGroup()
+{
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	tmodel->deleteGroup(menu_group_->getName());
+}
+
+void PathFileTree::contextMenuEvent(QContextMenuEvent* ev)
+{
+	QAction *action;
+	PathFileTreeModel* tmodel = dynamic_cast<PathFileTreeModel*>(model());
+	assert(tmodel != nullptr);
+
+	menu_path_ = nullptr;
+	menu_group_ = nullptr;
+
+	QModelIndex index = indexAt(ev->pos());
+	if (!index.isValid())
+	{
+		//
+		// Not on any item
+		//
+		if (none_selected_menu_ == nullptr)
+		{
+			none_selected_menu_ = new QMenu();
+			action = none_selected_menu_->addAction(tr("Add Path Group"));
+			(void)connect(action, &QAction::triggered, this, &PathFileTree::addPathGroup);
+		}
+		none_selected_menu_->exec(mapToGlobal(ev->pos()));
+	}
+	else if (!index.parent().isValid())
+	{
+		//
+		// On a group item
+		//
+		if (group_selected_menu_ == nullptr)
+		{
+			group_selected_menu_ = new QMenu();
+			action = group_selected_menu_->addAction(tr("Add Path"));
+			(void)connect(action, &QAction::triggered, this, &PathFileTree::addPath);
+
+			action = group_selected_menu_->addAction(tr("Delete Group"));
+			(void)connect(action, &QAction::triggered, this, &PathFileTree::deleteGroup);
+		}
+
+		menu_group_ = tmodel->getPathCollection().getGroupByIndex(index.row());
+		group_selected_menu_->exec(mapToGlobal(ev->pos()));
+	}
+	else
+	{
+		//
+		// On a path item
+		//
+		if (path_selected_menu_ == nullptr)
+		{
+			path_selected_menu_ = new QMenu();
+			action = path_selected_menu_->addAction(tr("Delete Path"));
+			(void)connect(action, &QAction::triggered, this, &PathFileTree::deletePath);
+		}
+
+		auto gr = tmodel->getPathCollection().getGroupByIndex(index.parent().row());
+		menu_path_ = gr->getPathByIndex(index.row());
+		path_selected_menu_->exec(mapToGlobal(ev->pos()));
+	}
 }
 
 void PathFileTree::keyPressEvent(QKeyEvent* ev)

@@ -63,6 +63,7 @@ public:
 	bool containsPathGroup(const std::string& name);
 	bool containsPath(const std::string& group, const std::string& name);
 	std::shared_ptr<xero::paths::PathGroup> addPathGroup(const std::string& name);
+	std::shared_ptr<xero::paths::PathGroup> addPathGroup();
 	void insertPathGroup(int row, std::shared_ptr<xero::paths::PathGroup> gr);
 	std::shared_ptr<xero::paths::RobotPath> addRobotPath(const std::string& group, const std::string& name);
 	void deleteGroup(const std::string& name, bool undo = true);

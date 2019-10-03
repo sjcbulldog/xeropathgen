@@ -114,18 +114,21 @@ void TrajectoryViewWindow::setPath(std::shared_ptr<RobotPath> path)
 void TrajectoryViewWindow::setCurrentTime(double t)
 {
 	auto traj = path_->getTrajectory(which_);
-	int row = static_cast<int>(traj->getIndex(t));
-
-	if (row < table_->rowCount())
+	if (traj != nullptr)
 	{
-		auto model = table_->model();
-		auto index = model->index(row, 0);
-		table_->scrollTo(index);
+		int row = static_cast<int>(traj->getIndex(t));
 
-		QTableWidgetSelectionRange deselect(0, 0, table_->rowCount() - 1, table_->columnCount() - 1);
-		table_->setRangeSelected(deselect, false);
+		if (row < table_->rowCount())
+		{
+			auto model = table_->model();
+			auto index = model->index(row, 0);
+			table_->scrollTo(index);
 
-		QTableWidgetSelectionRange range(row, 0, row, table_->columnCount() - 1);
-		table_->setRangeSelected(range, true);
+			QTableWidgetSelectionRange deselect(0, 0, table_->rowCount() - 1, table_->columnCount() - 1);
+			table_->setRangeSelected(deselect, false);
+
+			QTableWidgetSelectionRange range(row, 0, row, table_->columnCount() - 1);
+			table_->setRangeSelected(range, true);
+		}
 	}
 }

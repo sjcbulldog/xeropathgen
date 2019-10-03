@@ -2304,17 +2304,7 @@ void XeroPathGenerator::deletePathOrGroup()
 
 void XeroPathGenerator::addPathGroupAction()
 {
-	std::string name = "NewGroup";
-	size_t index = 1;
-	int row = static_cast<int>(paths_model_.getGroupCount());
-
-	while (paths_model_.containsPathGroup(name))
-	{
-		name = "NewGroup_" + std::to_string(index++);
-	}
-	(void)paths_model_.addPathGroup(name);
-	QModelIndex idx = paths_model_.index(row, 0, QModelIndex());
-	paths_->setCurrentIndex(idx);
+	paths_model_.addPathGroup();
 }
 
 void XeroPathGenerator::addRobotPathAction()

@@ -251,6 +251,18 @@ bool PathFileTreeModel::containsPath(const std::string& group, const std::string
 	return paths_.findPathByName(group, name) != nullptr;
 }
 
+std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup()
+{
+	std::string name = "NewGroup";
+	size_t index = 1;
+	while (containsPathGroup(name))
+	{
+		name = "NewGroup_" + std::to_string(index++);
+	}
+	return addPathGroup(name);
+}
+
+
 std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup(const std::string& name)
 {
 	QModelIndex root;

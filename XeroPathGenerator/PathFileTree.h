@@ -38,7 +38,19 @@ public:
 
 protected:
 	virtual void keyPressEvent(QKeyEvent* event) override;
+	virtual void contextMenuEvent(QContextMenuEvent* ev) override;
+
+private:
+	void addPathGroup();
+	void addPath();
+	void deleteGroup();
+	void deletePath();
 
 private:
 	PathFileTreeModel* model_;
+	QMenu* path_selected_menu_;
+	QMenu* group_selected_menu_;
+	QMenu* none_selected_menu_;
+	std::shared_ptr<xero::paths::PathGroup> menu_group_;
+	std::shared_ptr<xero::paths::RobotPath> menu_path_;
 };

@@ -54,14 +54,19 @@ AboutDialog::AboutDialog(GeneratorManager& gens, GameFieldManager& fields, QWidg
 	font.setPointSize(12);
 	fmt.setFont(font);
 	ui.text_->setCurrentCharFormat(fmt);
-	ui.text_->append("Brought to you by FRC Team 1425, Error Code Xero\r\n\r\n");
+	ui.text_->append("Brought to you by FRC Team 1425\r\nError Code Xero\r\n\r\n");
 	ui.text_->append("Icons made by Dave Gandy from www.flaticon.com\r\n\r\n");
-	ui.text_->append("PathFinder V1 taken from Jaci with much appreciation\r\n");
+	ui.text_->append("PathFinder V1 borrowed from Jaci with much appreciation");
 	ui.text_->append("https://github.com/JacisNonsense/Pathfinder\r\n\r\n");
 	ui.text_->append("Ideas, algorithms, concepts, taken from Team 254, Cheesy Poofs with much appreciation.\r\n\r\n");
 
-	ui.text_->append("Generators ");
+	font = fmt.font();
+	font.setUnderline(true);
+	font.setPointSize(12);
+	fmt.setFont(font);
+	ui.text_->append("Generators");
 	font.setPointSize(10);
+	font.setUnderline(false);
 	fmt.setFont(font);
 	ui.text_->setCurrentCharFormat(fmt);
 	for (auto gen : gens_.getGenerators())
@@ -70,10 +75,12 @@ AboutDialog::AboutDialog(GeneratorManager& gens, GameFieldManager& fields, QWidg
 	}
 
 	font.setPointSize(12);
+	font.setUnderline(true);
 	fmt.setFont(font);
 	ui.text_->setCurrentCharFormat(fmt);
 	ui.text_->append("\r\nFields");
 	font.setPointSize(10);
+	font.setUnderline(false);
 	fmt.setFont(font);
 	ui.text_->setCurrentCharFormat(fmt);
 
