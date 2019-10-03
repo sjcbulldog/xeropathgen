@@ -51,6 +51,9 @@
     <ClCompile Include="SCurveProfileTest.cpp">
       <Filter>Source Files\unittests</Filter>
     </ClCompile>
+    <ClCompile Include="TrapezoidalProfileTest.cpp">
+      <Filter>Source Files\unittests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="googletest\googletest\src\gtest-internal-inl.h">

@@ -631,6 +631,8 @@ void PathFieldView::moveWaypoint(bool shift, int dx, int dy)
 {
 	if (selected_ <= path_->size())
 	{
+		emitWaypointStartMoving(selected_);
+
 		double delta = shift ? SmallWaypointMove : BigWaypointMove;
 		delta = UnitConverter::convert(delta, "in", units_);
 
@@ -640,7 +642,6 @@ void PathFieldView::moveWaypoint(bool shift, int dx, int dy)
 		Pose2d newpt(t, pt.getRotation());
 		path_->replacePoint(selected_, newpt);
 
-		emitWaypointStartMoving(selected_);
 		emitWaypointEndMoving(selected_);
 		repaint(geometry());
 	}
@@ -650,6 +651,8 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 {
 	if (selected_ <= path_->size())
 	{
+		emitWaypointStartMoving(selected_);
+
 		double delta = shift ? SmallWaypointRotate : BigWaypointRotate;
 		delta *= dir;
 
@@ -658,7 +661,6 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 		Pose2d newpt(pt.getTranslation(), r);
 		path_->replacePoint(selected_, newpt);
 
-		emitWaypointStartMoving(selected_);
 		emitWaypointEndMoving(selected_);
 		repaint(geometry());
 	}

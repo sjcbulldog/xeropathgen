@@ -165,6 +165,7 @@
     <ClCompile Include="googletest\googletest\src\gtest_main.cc" />
     <ClCompile Include="SCurveProfileTest.cpp" />
     <ClCompile Include="Translation2dTest.cpp" />
+    <ClCompile Include="TrapezoidalProfileTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="googletest\googletest\src\gtest-internal-inl.h" />

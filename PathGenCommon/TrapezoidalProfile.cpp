@@ -148,6 +148,8 @@ namespace xero {
 
 
                 if (decel_only || actual_max_velocity_ < start_velocity_) {
+					double realdist;
+
                     // 
                     // Just decelerate down to the end
                     //
@@ -155,6 +157,9 @@ namespace xero {
                     tc_ = 0 ;
                     td_ = (end_velocity - start_velocity_) / max_decel_ ;
                     actual_max_velocity_ = start_velocity_ ;
+					realdist = 0.5 * max_decel_ * td_ * td_ + start_velocity * td_;
+					if (realdist > dist)
+						throw std::runtime_error("there is no solution to the trapezoidal profile parameters given");
                     type_ = "line" ;
                 }
                 else {
