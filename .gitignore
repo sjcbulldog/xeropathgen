@@ -5,6 +5,8 @@
 **/.qmake.stash
 **/Debug
 **/Release
+**/debug
+**/release
 generators/*.exe
 generators/PathFinderV1Gen
 generators/XeroGenV1
@@ -17,3 +19,7 @@ xeropathgen
 **/*.o
 PathGenCommon/PathGenCommon.a
 .DS_Store
+xeropath.tar
+Qt
+XeroPathGenerator/XeroPathGenerator.pro.user
+XeroPathGenerator/xeropathgenerator_plugin_import.cpp

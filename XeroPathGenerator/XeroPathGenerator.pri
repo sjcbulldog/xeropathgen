@@ -39,7 +39,9 @@ HEADERS += ./build.h \
     ./ShowRobotWindow.h \
     ./TrajectoryViewWindow.h \
     ./PathFieldView.h\
-    ./NetworkDownloadManager.h
+    ./NetworkDownloadManager.h\
+    ./PrintController.h\
+    ./UndoManager.h
 SOURCES += ./AboutDialog.cpp \
     ./Callout.cpp \
     ./ConstraintEditor.cpp \
@@ -87,7 +89,8 @@ SOURCES += ./AboutDialog.cpp \
     ./WaypointAddUndo.cpp\
     ./WaypointChangedUndo.cpp\
     ./WaypointDeleteUndo.cpp\
-    ./UndoManager.cpp
+    ./UndoManager.cpp\
+    ./PrintController.cpp\
 
 FORMS += ./AboutDialog.ui \
     ./ConstraintEditor.ui \

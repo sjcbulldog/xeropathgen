@@ -1,86 +1,77 @@
 #!/bin/bash
 
-pushd PathGenCommon
-make CONFIG=Release clean
-make CONFIG=Release
-popd
+function dobuild {
+    pushd PathGenCommon
+    make CONFIG=release clean
+    make CONFIG=release
+    popd
 
-pushd XeroGenV1
-make CONFIG=Release clean
-make CONFIG=Release
-popd
+    pushd XeroGenV1
+    make CONFIG=release clean
+    make CONFIG=release
+    popd
 
-pushd PathFinderV1Gen
-make CONFIG=Release clean
-make CONFIG=Release
-popd
+    pushd PathFinderV1Gen
+    make CONFIG=release clean
+    make CONFIG=release
+    popd
 
+    pushd PoofsGenerator
+    make CONFIG=release clean
+    make CONFIG=release
+    popd
 
-pushd PoofsGenerator
-make CONFIG=Release clean
-make CONFIG=Release
-popd
+    pushd XeroPathGenerator
+    qmake -makefile
+    make clean
+    make
+    popd
 
-pushd XeroPathGenerator
-qmake -makefile
-make
-popd
+    qhelpgenerator html/xeropath.qhp -o html/xeropath.qch
+    qhelpgenerator html/xeropath.qhcp -o html/xeropath.qhc
+}
 
-exit 0
+function docopy
+{
+    rm -rf xeropathgen
 
-mkdir -p xeropathgen
-mkdir -p xeropathgen/bin
-mkdir -p xeropathgen/fields
-mkdir -p xeropathgen/generators
-cp XeroPathGenerator/debug/XeroPathGenerator xeropathgen/bin
-cp XeroPathGenerator/*.png xeropathgen/bin
-cp guide/XeroPathGenerator.pdf xeropathgen/bin
-cp fields/* xeropathgen/fields
-cp generators/*.json xeropathgen/generators
-cp PathFinderV1Gen/PathFinderV1Gen xeropathgen/generators
-cp XeroGenV1/XeroGenV1 xeropathgen/generators
+    mkdir -p xeropathgen
+    mkdir -p xeropathgen/
+    mkdir -p xeropathgen/generators
+    mkdir -p xeropathgen/images
+    mkdir -p xeropathgen/fields
+    
+    cp x64/release/XeroPathGenerator xeropathgen
+    cp XeroPathGenerator/images/*.png xeropathgen/images
+    cp fields/* xeropathgen/fields
+    cp generators/*.json xeropathgen/generators
+    cp PathFinderV1Gen/release/PathFinderV1Gen xeropathgen/generators
+    cp XeroGenV1/release/XeroGenV1 xeropathgen/generators
+    cp PoofsGenerator/release/PoofsGenerator xeropathgen/generators
+    
+    cp html/xeropath.qch xeropathgen
+    cp html/xeropath.qhc xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/bin/assistant xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Charts.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5PrintSupport.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Widgets.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Gui.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Network.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Core.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Core.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Help.so.5 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libicui18n.so.56 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libicuuc.so.56 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libicudata.so.56 xeropathgen
+    cp ~/Qt/5.13.0/gcc_64/lib/libQt5Sql.so.5 xeropathgen
+    
+    cp xeropath xeropathgen
+    cp README.linux xeropathgen/README
+}
 
-cp ~/Qt/5.13.0/gcc_64/lib/libQt5Widgets.so.5.13.0 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libQt5Core.so.5.13.0 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libQt5Charts.so.5.13.0 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libQt5Gui.so.5.13.0 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libQt5Svg.so.5.13.0 xeropathgen/bin
+#dobuild
+docopy
 
-cp ~/Qt/5.13.0/gcc_64/lib/libicui18n.so.56.1 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libicuuc.so.56.1 xeropathgen/bin
-cp ~/Qt/5.13.0/gcc_64/lib/libicudata.so.56.1 xeropathgen/bin
-
-pushd xeropathgen/bin
-ln -s libQt5Widgets.so.5.13.0 libQt5Widgets.so.5.13
-ln -s libQt5Widgets.so.5.13.0 libQt5Widgets.so.5
-ln -s libQt5Widgets.so.5.13.0 libQt5Widgets.so
-
-ln -s libQt5Core.so.5.13.0 libQt5Core.so.5.13
-ln -s libQt5Core.so.5.13.0 libQt5Core.so.5
-ln -s libQt5Core.so.5.13.0 libQt5Core.so
-
-ln -s libQt5Charts.so.5.13.0 libQt5Charts.so.5.13
-ln -s libQt5Charts.so.5.13.0 libQt5Charts.so.5
-ln -s libQt5Charts.so.5.13.0 libQt5Charts.so
-
-ln -s libQt5Gui.so.5.13.0 libQt5Gui.so.5.13
-ln -s libQt5Gui.so.5.13.0 libQt5Gui.so.5
-ln -s libQt5Gui.so.5.13.0 libQt5Gui.so
-
-ln -s libQt5Svg.so.5.13.0 libQt5Svg.so.5.13
-ln -s libQt5Svg.so.5.13.0 libQt5Svg.so.5
-ln -s libQt5Svg.so.5.13.0 libQt5Svg.so
-
-ln -s libicui18n.so.56.1 libicui18n.so.56
-ln -s libicui18n.so.56.1 libicui18n.so
-
-ln -s libicuuc.so.56.1 libicuuc.so.56
-ln -s libicuuc.so.56.1 libicuuc.so
-
-ln -s libicudata.so.56.1 libicudata.so.56
-ln -s libicudata.so.56.1 libicudata.so
-
-popd
 
 tar cvf xeropath.tar xeropathgen
 rm xeropath.tar.bz2

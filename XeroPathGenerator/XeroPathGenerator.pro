@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 BUILDTYPE=release
-
+OSTYPE=linux
 TEMPLATE = app
 TARGET = XeroPathGenerator
 DESTDIR = ../x64/$${BUILDTYPE}
@@ -22,8 +22,8 @@ INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
     ../PathGenCommon
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
     ../PathGenCommon/$${BUILDTYPE}/PathGenCommon.a\
-    ../external/wpi/macos/$${BUILDTYPE}/lib/ntsim.a\
-    ../external/wpi/macos/$${BUILDTYPE}/lib/wpiutilsim.a
+    ../external/wpi/$${OSTYPE}/$${BUILDTYPE}/lib/ntsim.a\
+    ../external/wpi/$${OSTYPE}/$${BUILDTYPE}/lib/wpiutilsim.a
 
 images.files=$$PWD/images
 images.path=Contents/MacOS
