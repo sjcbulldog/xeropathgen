@@ -1,5 +1,7 @@
 #!/bin/bash
 
+QTVERSION=5.13.1
+
 function dobuild {
     cd PathGenCommon
     make CONFIG=release clean
@@ -21,24 +23,26 @@ function dobuild {
     make CONFIG=release
     popd
 
+    qhelpgenerator html/xeropath.qhp -o html/xeropath.qch
+    qhelpgenerator html/xeropath.qhcp -o html/xeropath.qhc
+
     pushd XeroPathGenerator
     qmake -makefile
     make clean
     make
     popd
 
-    qhelpgenerator html/xeropath.qhp -o html/xeropath.qch
-    qhelpgenerator html/xeropath.qhcp -o html/xeropath.qhc
 }
 
 function docopy {
-    echo "Copy done"
+    cp ~/Qt/$QTVERSION/clang_64/bin/Assistant.app/Contents/MacOS/Assistant x64/release/XeroPathGenerator.app/Contents/MacOS/Assistant
 }
 
+rm -rf x64/release
 dobuild
 docopy
+ASSLOC=`pwd`/x64/release/XeroPathGenerators.app/Contents/MacOS/Assistant
+macdeployqt x64/release/XeroPathGenerator.app -verbose=3 -always-overwrite -appstore-compliant -dmg -executable=$ASSLOC
+cp x64/release/XeroPathGenerator.dmg .
 
-cd x64/release
-zip ../../xeropathmacos.zip XeroPathGenerator.app
-cd ../..
 

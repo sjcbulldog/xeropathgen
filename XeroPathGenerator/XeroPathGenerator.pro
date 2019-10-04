@@ -30,6 +30,10 @@ images.files=$$PWD/images
 images.path=Contents/MacOS
 QMAKE_BUNDLE_DATA += images
 
+htmldoc.files=$$PWD/../html/xeropath.qch $$PWD/../html/xeropath.qhc
+htmldoc.path=Contents/MacOS
+QMAKE_BUNDLE_DATA += htmldoc
+
 fields.files=$$PWD/../fields
 fields.path=Contents/MacOS
 QMAKE_BUNDLE_DATA += fields

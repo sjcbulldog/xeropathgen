@@ -1908,7 +1908,7 @@ void XeroPathGenerator::showDocumentation()
 	args.push_back(exedir + "/xeropath.qhc");
 	args.push_back("-enableRemoteControl");
 	help_process_->setWorkingDirectory(exedir);
-	help_process_->start(exedir + "/assistant", args);
+	help_process_->start(exedir + "/Assistant", args);
 	help_process_->waitForStarted();
 
 	QByteArray a;
