@@ -298,7 +298,9 @@ private:
 	QLabel* xpos_text_;
 	QLabel* ypos_text_;
 	QLabel* status_text_;
-	QLabel* time_dist_;
+	QLabel* path_time_;
+	QLabel* path_dist_;
+	QLabel* path_heading_;
 	QProgressBar* prog_bar_;
 
 	//

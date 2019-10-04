@@ -23,6 +23,9 @@ namespace xero
 					return splines_[i - 1];
 			}
 
+			if (time > times_[times_.size() - 1])
+				return splines_[splines_.size() - 1];
+
 			return nullptr;
 		}
 
@@ -33,6 +36,17 @@ namespace xero
 				return 0.0;
 
 			return (*traj)[traj->size() - 1].time();
+		}
+
+		bool RobotPath::getHeading(double time, double& heading)
+		{
+			Pose2dWithTrajectory pt;
+
+			if (!getPoseAtTime(time, pt))
+				return false;
+
+			heading = pt.pose().getRotation().toDegrees();
+			return true;
 		}
 
 		bool RobotPath::getDistance(double time, double &dist)

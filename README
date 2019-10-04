@@ -7,19 +7,14 @@ the guide directory.
 The program can be installed on a windows machine by executing
 the xeropath.exe located here at the top most directory.
 
-The program works under linux and i will have a version available
-after i work through deployment issues.
+The program can be installed on a Mac OS machine by grabbing the
+XeroPathGenerators.dmg, opening, and dragging the application bundle
+to /Applications, your desktop, or whereever you want to have the
+application.
 
-The program woks under mac os and i will have a version available 
-after i work through deloyment issues.
-
-To build this program under windows, you need the cygwin tools and
-they must be stored at c:\cygwin64.  In addition the environment variable
-VCINSTALLDIR must point at the directory above the redist directory to
-find the microsoft redistributable components.  For instance, on my
-build machine this is
-
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC
-
-Note it bulds with visual studio 2019.
+The program can be installed on a Ubuntu 18.04 machine by grabbing
+the xeropath.tar.bz2 and untarring to a desired install location.
+Set your shell path to include the directory created by the untar
+and then run xeropath.  This is a small shell script that sets up
+the paths to the libraries before launching the executable.
 

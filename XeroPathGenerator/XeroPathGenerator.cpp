@@ -145,24 +145,33 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	}
 
 	xpos_text_ = new QLabel("");
-	xpos_text_->setFixedWidth(100);
+	xpos_text_->setFixedWidth(80);
 	statusBar()->insertWidget(0, xpos_text_);
 
 	ypos_text_ = new QLabel("");
-	ypos_text_->setFixedWidth(100);
+	ypos_text_->setFixedWidth(80);
 	statusBar()->insertWidget(1, ypos_text_);
+
+	path_time_ = new QLabel("");
+	path_time_->setFixedWidth(80);
+	statusBar()->insertWidget(2, path_time_);
+
+	path_dist_ = new QLabel("");
+	path_dist_->setFixedWidth(100);
+	statusBar()->insertWidget(3, path_dist_);
+
+	path_heading_ = new QLabel("");
+	path_heading_->setFixedWidth(100);
+	statusBar()->insertWidget(4, path_heading_);
 
 	status_text_ = new QLabel("");
 	status_text_->setFixedWidth(200);
-	statusBar()->insertWidget(2, status_text_);
-
-	time_dist_ = new QLabel("");
-	time_dist_->setFixedWidth(200);
-	statusBar()->insertWidget(3, time_dist_);
+	statusBar()->insertWidget(5, status_text_);
 
 	prog_bar_ = new QProgressBar();
-	statusBar()->insertWidget(4, prog_bar_);
+	statusBar()->insertWidget(6, prog_bar_);
 	prog_bar_->setVisible(false);
+
 
 	populateFieldsMenu();
 	populateGeneratorsMenu();
@@ -2551,18 +2560,35 @@ void XeroPathGenerator::scrollBarChanged()
 
 	if (current_path_ != nullptr)
 	{
-		double dist;
-		QString timedist = "time " + QString::number(stime, 'f', 2);
+		double dist, heading;
+		QString text = "Time: " + QString::number(stime, 'f', 2);
+		path_time_->setText(text);
 		
 		if (current_path_->getDistance(stime, dist))
 		{
-			timedist += ", dist " + QString::number(dist, 'f', 2);
-			time_dist_->setText(timedist);
+			text = "Distance: " + QString::number(dist, 'f', 2) + QString(" ") + units_.c_str();
+			path_dist_->setText(text);
+		}
+		else
+		{
+			path_dist_->setText("Distance: Unknown");
+		}
+
+		if (current_path_->getHeading(stime, heading))
+		{
+			text = "Heading: " + QString::number(heading, 'f', 1) + QString(" deg");
+			path_heading_->setText(text);
+		}
+		else
+		{
+			path_heading_->setText("Heading: Unknown");
 		}
 	}
 	else
 	{
-		time_dist_->setText("");
+		path_time_->setText("Time: ");
+		path_dist_->setText("Distance: ");
+		path_heading_->setText("Heading: ");
 	}
 }
 
