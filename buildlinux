@@ -69,6 +69,18 @@ function docopy
     cp ~/Qt/$QTVERSION/gcc_64/lib/libQt5XcbQpa.so.5 xeropathgen
     cp ~/Qt/$QTVERSION/gcc_64/lib/libQt5DBus.so.5 xeropathgen
 
+    mkdir xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqgif.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqicns.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqico.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqjpeg.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqsvg.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqtga.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqtiff.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqwbmp.so xeropathgen/plugins
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqwebp.so xeropathgen/plugins
+
+
     mkdir xeropathgen/platforms
     cp ~/Qt/$QTVERSION/gcc_64/plugins/platforms/libqxcb.so xeropathgen/platforms
 

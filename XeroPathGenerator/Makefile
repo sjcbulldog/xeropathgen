@@ -1176,7 +1176,6 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1184,8 +1183,6 @@ GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp: XeroPathGenerator
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -1394,10 +1391,6 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp: ConstraintEditor.h
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1405,8 +1398,6 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp: ConstraintEditor.h
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -1424,6 +1415,7 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp: ConstraintEditor.h
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -1662,10 +1654,6 @@ GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp: AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1673,8 +1661,6 @@ GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp: AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
@@ -1682,28 +1668,12 @@ GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp: AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QTextEdit \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextdocument.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextcursor.h \
@@ -2138,10 +2108,6 @@ GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp: PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_PropertyEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -2149,8 +2115,6 @@ GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp: PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
@@ -2169,6 +2133,7 @@ GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp: PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -2292,10 +2257,6 @@ GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp: PlotVariableSe
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_PlotVariableSelector.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -2303,8 +2264,6 @@ GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp: PlotVariableSe
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
@@ -2319,6 +2278,7 @@ GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp: PlotVariableSe
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -2639,9 +2599,6 @@ GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp: SelectRobotDialog
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		GeneratedFiles/ui_SelectRobotDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -2649,12 +2606,10 @@ GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp: SelectRobotDialog
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QListView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
@@ -2670,8 +2625,6 @@ GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp: SelectRobotDialog
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QListView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -2901,10 +2854,6 @@ GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp: ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -2912,26 +2861,6 @@ GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp: ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
 		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
 		../../../Qt/5.13.1/gcc_64/bin/moc
 	/home/bwg/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include '/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/home/bwg/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)PathGenCommon' -I/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/home/bwg/rtools/xeropathgen/external/wpi/include -I/home/bwg/rtools/xeropathgen/PathGenCommon -I/home/bwg/Qt/5.13.1/gcc_64/include -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCharts -I/home/bwg/Qt/5.13.1/gcc_64/include/QtPrintSupport -I/home/bwg/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/bwg/Qt/5.13.1/gcc_64/include/QtGui -I/home/bwg/Qt/5.13.1/gcc_64/include/QtNetwork -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ShowRobotWindow.h -o GeneratedFiles/moc_ShowRobotWindow.cpp
@@ -3549,10 +3478,6 @@ release/AboutDialog.o: AboutDialog.cpp AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -3560,8 +3485,6 @@ release/AboutDialog.o: AboutDialog.cpp AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
@@ -3569,28 +3492,12 @@ release/AboutDialog.o: AboutDialog.cpp AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QTextEdit \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextdocument.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextoption.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtextcursor.h \
@@ -3862,10 +3769,6 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -3873,8 +3776,6 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -3892,6 +3793,7 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -4528,7 +4430,6 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -4536,8 +4437,6 @@ release/main.o: main.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -5944,10 +5843,6 @@ release/PlotVariableSelector.o: PlotVariableSelector.cpp PlotVariableSelector.h 
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_PlotVariableSelector.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -5955,8 +5850,6 @@ release/PlotVariableSelector.o: PlotVariableSelector.cpp PlotVariableSelector.h 
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
@@ -5971,6 +5864,7 @@ release/PlotVariableSelector.o: PlotVariableSelector.cpp PlotVariableSelector.h 
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -6039,7 +5933,10 @@ release/PlotVariableSelector.o: PlotVariableSelector.cpp PlotVariableSelector.h 
 		../../../Qt/5.13.1/gcc_64/include/QtCharts/QXYSeries \
 		../../../Qt/5.13.1/gcc_64/include/QtCharts/qxyseries.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QGraphicsLineItem \
-		../PathGenCommon/DriveBaseData.h
+		../PathGenCommon/DriveBaseData.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PlotVariableSelector.o PlotVariableSelector.cpp
 
 release/PropertyEditor.o: PropertyEditor.cpp PropertyEditor.h \
@@ -6156,10 +6053,6 @@ release/PropertyEditor.o: PropertyEditor.cpp PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_PropertyEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -6167,8 +6060,6 @@ release/PropertyEditor.o: PropertyEditor.cpp PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
@@ -6187,6 +6078,7 @@ release/PropertyEditor.o: PropertyEditor.cpp PropertyEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -6621,7 +6513,6 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -6629,8 +6520,6 @@ release/RecentFiles.o: RecentFiles.cpp RecentFiles.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -6949,9 +6838,6 @@ release/SelectRobotDialog.o: SelectRobotDialog.cpp SelectRobotDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		GeneratedFiles/ui_SelectRobotDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -6959,12 +6845,10 @@ release/SelectRobotDialog.o: SelectRobotDialog.cpp SelectRobotDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialogButtonBox \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QListView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
@@ -6980,13 +6864,14 @@ release/SelectRobotDialog.o: SelectRobotDialog.cpp SelectRobotDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QListView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlistview.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QVBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/SelectRobotDialog.o SelectRobotDialog.cpp
 
 release/ShowRobotWindow.o: ShowRobotWindow.cpp ShowRobotWindow.h \
@@ -7095,10 +6980,6 @@ release/ShowRobotWindow.o: ShowRobotWindow.cpp ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -7106,26 +6987,6 @@ release/ShowRobotWindow.o: ShowRobotWindow.cpp ShowRobotWindow.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
 		PathFieldView.h \
 		DriveBaseModel.h \
 		../PathGenCommon/RobotPath.h \
@@ -7716,7 +7577,6 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -7724,8 +7584,6 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -8464,10 +8322,6 @@ release/ConstraintAddUndo.o: ConstraintAddUndo.cpp ConstraintAddUndo.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -8475,8 +8329,6 @@ release/ConstraintAddUndo.o: ConstraintAddUndo.cpp ConstraintAddUndo.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -8494,6 +8346,7 @@ release/ConstraintAddUndo.o: ConstraintAddUndo.cpp ConstraintAddUndo.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -8641,10 +8494,6 @@ release/ConstraintDeleteUndo.o: ConstraintDeleteUndo.cpp ConstraintDeleteUndo.h 
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
-		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -8652,8 +8501,6 @@ release/ConstraintDeleteUndo.o: ConstraintDeleteUndo.cpp ConstraintDeleteUndo.h 
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
@@ -8671,6 +8518,7 @@ release/ConstraintDeleteUndo.o: ConstraintDeleteUndo.cpp ConstraintDeleteUndo.h 
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
@@ -9547,7 +9395,6 @@ release/WaypointChangedUndo.o: WaypointChangedUndo.cpp WaypointChangedUndo.h \
 		ConstraintTreeModel.h \
 		ConstraintEditor.h \
 		GeneratedFiles/ui_ConstraintEditor.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QAction \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
@@ -9555,8 +9402,6 @@ release/WaypointChangedUndo.o: WaypointChangedUndo.cpp WaypointChangedUndo.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QButtonGroup \
-		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qbuttongroup.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
