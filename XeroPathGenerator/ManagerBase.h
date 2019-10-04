@@ -20,6 +20,7 @@
 #include <QJsonArray>
 #include <QFile>
 #include <QVersionNumber>
+#include <cassert>
 
 class ManagerBase
 {
