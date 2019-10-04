@@ -380,5 +380,26 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="ErroCodeXero.png" />
+    <Image Include="images\ErrorCodeXero.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\forward1.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\forward10.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\gear.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\icon.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\play.png">
+      <Filter>Images</Filter>
+    </Image>
+    <Image Include="images\stop.png">
+      <Filter>Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

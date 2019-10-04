@@ -310,6 +310,13 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <Image Include="ErroCodeXero.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
+    <Image Include="images\ErrorCodeXero.png" />
+    <Image Include="images\forward1.png" />
+    <Image Include="images\forward10.png" />
+    <Image Include="images\gear.png" />
+    <Image Include="images\icon.png" />
+    <Image Include="images\play.png" />
+    <Image Include="images\stop.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -22,6 +22,7 @@
 #include <QStandardPaths>
 #include <QDateTime>
 #include <QDebug>
+#include <QSplashScreen>
 #include <fstream>
 #include <sstream>
 
@@ -111,7 +112,21 @@ int main(int argc, char *argv[])
 
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);
+
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString imagepath = exedir + "/images/Splash.png";
+	QPixmap image(imagepath);
+
+
 	std::string error;
+
+	QSplashScreen splash(image);
+	QFont font = splash.font();
+	font.setPointSizeF(16.0);
+	splash.setFont(font);
+	splash.show();
+	splash.showMessage("Initializing ...");
+	a.processEvents();
 
 	if (createLogFile())
 	{
@@ -178,7 +193,6 @@ int main(int argc, char *argv[])
 	generators.addDefaultDirectory((appdir + "/generators").toStdString());
 	robots.addDefaultDirectory((appdir + "/robots").toStdString());
 
-	QString exedir = QCoreApplication::applicationDirPath();
 	QString field = exedir + "/../fields";
 	QDir dir(field);
 	fields.addDirectory(dir.absolutePath().toStdString());
@@ -186,10 +200,13 @@ int main(int argc, char *argv[])
 	QString gen = exedir + "/../generators";
 	dir = QDir(gen);
 	generators.addDirectory(dir.absolutePath().toStdString());
+	std::chrono::seconds delay(1);
 
 	fields.copyDefaults("fields");
 	generators.copyDefaults("generators");
 
+	splash.showMessage("Initializing fields ...");
+	a.processEvents();
 	if (!fields.initialize())
 	{
 		QMessageBox box(QMessageBox::Icon::Critical, "Error", 
@@ -197,7 +214,10 @@ int main(int argc, char *argv[])
 		box.exec();
 		return -1;
 	}
+	std::this_thread::sleep_for(delay);
 
+	splash.showMessage("Initializing generators ...");
+	a.processEvents();
 	if (!generators.initialize())
 	{
 		QMessageBox box(QMessageBox::Icon::Critical, "Error", 
@@ -205,7 +225,10 @@ int main(int argc, char *argv[])
 		box.exec();
 		return -1;
 	}
+	std::this_thread::sleep_for(delay);
 
+	splash.showMessage("Initializing robots ...");
+	a.processEvents();
 	if (!robots.initialize())
 	{
 		QMessageBox box(QMessageBox::Icon::Critical, "Error",
@@ -213,6 +236,7 @@ int main(int argc, char *argv[])
 		box.exec();
 		return -1;
 	}
+	std::this_thread::sleep_for(delay);
 
 	fields.dumpSearchPath("Fields");
 	generators.dumpSearchPath("Generators");
@@ -221,6 +245,7 @@ int main(int argc, char *argv[])
 	try {
 		XeroPathGenerator w(fields, generators, robots, logfilestream, log2stream);
 		w.show();
+		splash.finish(&w);
 		return a.exec();
 	}
 	catch(...)
