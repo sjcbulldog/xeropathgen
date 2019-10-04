@@ -1,20 +1,42 @@
 #!/bin/bash
 
-cd PathGenCommon
-make CONFIG=Release
-cd ..
+function dobuild {
+    cd PathGenCommon
+    make CONFIG=release clean
+    make CONFIG=release
+    cd ..
 
-cd XeroGenV1
-make CONFIG=Release
-cd ..
+    cd XeroGenV1
+    make CONFIG=release clean
+    make CONFIG=release
+    cd ..
 
-cd PathFinderV1Gen
-make CONFIG=Release
-cd ..
+    cd PathFinderV1Gen
+    make CONFIG=release clean
+    make CONFIG=release
+    cd ..
 
-cd XeroPathGenerator
-make
-cd ..
+    pushd PoofsGenerator
+    make CONFIG=release clean
+    make CONFIG=release
+    popd
+
+    pushd XeroPathGenerator
+    qmake -makefile
+    make clean
+    make
+    popd
+
+    qhelpgenerator html/xeropath.qhp -o html/xeropath.qch
+    qhelpgenerator html/xeropath.qhcp -o html/xeropath.qhc
+}
+
+function docopy {
+    echo "Copy done"
+}
+
+dobuild
+docopy
 
 cd x64/release
 zip ../../xeropathmacos.zip XeroPathGenerator.app

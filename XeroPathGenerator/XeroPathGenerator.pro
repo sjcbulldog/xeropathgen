@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 BUILDTYPE=release
-OSTYPE=linux
+OSTYPE=macos
 TEMPLATE = app
 TARGET = XeroPathGenerator
 DESTDIR = ../x64/$${BUILDTYPE}
@@ -11,6 +11,7 @@ QT += core network gui widgets charts printsupport
 CONFIG += $${BUILDTYPE}
 CONFIG += c++17
 CONFIG += app_bundle
+CONFIG += sdk_no_version_check
 ICON=icon.icns
 DEFINES += _UNICODE _ENABLE_EXTENDED_ALIGNED_STORAGE QT_DLL QT_CHARTS_LIB QT_NETWORK_LIB QT_WIDGETS_LIB
 INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \

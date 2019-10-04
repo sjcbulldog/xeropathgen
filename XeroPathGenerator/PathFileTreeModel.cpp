@@ -265,8 +265,6 @@ std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup()
 
 std::shared_ptr<PathGroup> PathFileTreeModel::addPathGroup(const std::string& name)
 {
-	QModelIndex root;
-
 
 	auto undo = std::make_shared<AddGroupUndo>(*this, name);
 	UndoManager::getUndoManager().pushUndoStack(undo);
