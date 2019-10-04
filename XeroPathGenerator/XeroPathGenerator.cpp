@@ -315,8 +315,10 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 
 XeroPathGenerator::~XeroPathGenerator()
 {
+	qInstallMessageHandler(0);
 	assert(theOne == this);
 	theOne = nullptr;
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
