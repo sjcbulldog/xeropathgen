@@ -154,4 +154,5 @@ private:
 	QLineSeries* first_;
 	std::list<Callout*> callouts_;
 	Callout* errors_;
+	bool has_title_;
 };

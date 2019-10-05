@@ -37,7 +37,8 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	total_scroll_y_ = 0;
 	lineitem_ = nullptr;
 	callout_ = nullptr;
-	errors_ = nullptr;
+	errors_ = nullptr; 
+	has_title_ = false;
 
 	(void)connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
 }
@@ -238,17 +239,19 @@ void PathPlotView::updateEmpty()
 {
 	QChart* ch = chart();
 
-	QFont font = ch->titleFont();
-	font.setPointSize(20);
-	font.setBold(true);
-	ch->setTitleFont(font);
-	if (path_ == nullptr)
-		ch->setTitle("No path selected");
-	else if (path_->hasErrors())
-		ch->setTitle("Errors in the path - no trajectory data available");
-	else
-		ch->setTitle("Waiting for trajectory data");
-
+	if (has_title_)
+	{
+		QFont font = ch->titleFont();
+		font.setPointSize(20);
+		font.setBold(true);
+		ch->setTitleFont(font);
+		if (path_ == nullptr)
+			ch->setTitle("No path selected");
+		else if (path_->hasErrors())
+			ch->setTitle("Errors in the path - no trajectory data available");
+		else
+			ch->setTitle("Waiting for trajectory data");
+	}
 	ch->removeAllSeries();
 	QLegend* legend = ch->legend();
 	legend->setVisible(false);
@@ -442,16 +445,21 @@ void PathPlotView::updateWithPath()
 	QChart* ch = chart();
 	QPen pen;
 
-	QFont font = ch->titleFont();
-	font.setPointSize(16);
-	font.setBold(true);
-	ch->setTitleFont(font);
+
+	if (has_title_)
+	{
+		QFont font = ch->titleFont();
+		font.setPointSize(16);
+		font.setBold(true);
+		ch->setTitleFont(font);
+
+		if (path_->hasErrors())
+			ch->setTitle("Trajectory Profile (errors)");
+		else
+			ch->setTitle("Trajectory Profile");
+	}
 
 	ch->removeAllSeries();
-	if (path_->hasErrors())
-		ch->setTitle("Trajectory Profile (errors)");
-	else
-		ch->setTitle("Trajectory Profile");
 	ch->setDropShadowEnabled(true);
 	first_ = nullptr;
 
