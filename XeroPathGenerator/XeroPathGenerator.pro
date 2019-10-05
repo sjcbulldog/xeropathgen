@@ -23,16 +23,16 @@ INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
 ../PathGenCommon/$${BUILDTYPE}/PathGenCommon.a
 
-linux-g++-64 {
-LIBS += \
-    ../external/wpi/linux/$${BUILDTYPE}/lib/ntsim.a\
-    ../external/wpi/linux/$${BUILDTYPE}/lib/wpiutilsim.a
+linux: {
+    LIBS += \
+        ../external/wpi/linux/$${BUILDTYPE}/lib/ntsim.a\
+        ../external/wpi/linux/$${BUILDTYPE}/lib/wpiutilsim.a
 }
 
-macx {
-LIBS += \
-    ../external/wpi/macos/$${BUILDTYPE}/lib/ntsim.a\
-    ../external/wpi/macos/$${BUILDTYPE}/lib/wpiutilsim.a
+macx: {
+    LIBS += \
+        ../external/wpi/macos/$${BUILDTYPE}/lib/ntsim.a\
+        ../external/wpi/macos/$${BUILDTYPE}/lib/wpiutilsim.a
 }
     
 images.files=$$PWD/images

@@ -7746,6 +7746,8 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtPrintSupport/QPrintDialog \
 		../../../Qt/5.13.1/gcc_64/include/QtPrintSupport/qprintdialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtPrintSupport/qabstractprintdialog.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDockWidget \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdockwidget.h \
 		../external/wpi/include/networktables/NetworkTableInstance.h \
 		../external/wpi/include/wpi/ArrayRef.h \
 		../external/wpi/include/wpi/Hashing.h \
