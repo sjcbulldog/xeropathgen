@@ -129,6 +129,11 @@ private:
 	//
 	void viewPlotEdit();
 	void viewTrajectoryData();
+	void viewPathWindow();
+	void viewPathParamsWindow();
+	void viewConstraintWindow();
+	void viewWaypointParamsWindow();
+	void showViewMenu();
 
 	//
 	// Generator menu related
@@ -291,9 +296,7 @@ private:
 private:
 	QSettings settings_;
 
-	QSplitter* m_left_right_;
 	QSplitter* m_left_top_bottom_;
-	QSplitter* m_right_stack_;
 
 	QLabel* xpos_text_;
 	QLabel* ypos_text_;
@@ -311,18 +314,21 @@ private:
 	PathPlotView* plots_;
 	PlotMainWindow* plot_main_;
 	QTextEdit* log_;
-	ConstraintEditor* constraints_;
+
 
 	//
 	// Right side
 	//
-	QGroupBox* paths_group_;
+	QDockWidget* paths_dock_;
 	PathFileTree* paths_;
 
-	QGroupBox* path_parameters_group_;
+	QDockWidget* path_parameters_dock_;
 	QTreeView* path_parameters_;
 
-	QGroupBox* waypoint_parameters_group_;
+	QDockWidget* constraints_dock_;
+	ConstraintEditor* constraints_;
+
+	QDockWidget* waypoint_parameters_dock_;
 	QTreeView* waypoint_parameters_;
 
 	//
@@ -342,6 +348,10 @@ private:
 	QMenu* view_;
 	QAction* view_plot_action_;
 	QAction* view_trajectory_data_;
+	QAction* view_show_paths_;
+	QAction* view_show_path_parameters_;
+	QAction* view_show_constraints_;
+	QAction* view_show_waypoint_parameters_;
 
 	QMenu* games_;
 	QActionGroup* games_group_;

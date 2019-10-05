@@ -200,7 +200,7 @@ int main(int argc, char *argv[])
 	QString gen = exedir + "/../generators";
 	dir = QDir(gen);
 	generators.addDirectory(dir.absolutePath().toStdString());
-	std::chrono::seconds delay(1);
+	std::chrono::milliseconds delay(250);
 
 	fields.copyDefaults("fields");
 	generators.copyDefaults("generators");

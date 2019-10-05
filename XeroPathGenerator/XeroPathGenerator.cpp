@@ -52,6 +52,7 @@
 #include <QProcess>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QDockWidget>
 
 #include <cstdio>
 
@@ -188,15 +189,6 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	if (settings_.contains(WindowStateSetting))
 		restoreState(settings_.value(WindowStateSetting).toByteArray());
 
-	if (settings_.contains(LeftRightSplitterSetting))
-	{
-		QList<QVariant> stored = settings_.value(LeftRightSplitterSetting).toList();
-		QList<int> sizes;
-		for (const QVariant& v : stored)
-			sizes.push_back(v.toInt());
-		m_left_right_->setSizes(sizes);
-	}
-
 	if (settings_.contains(LeftSplitterSetting))
 	{
 		QList<QVariant> stored = settings_.value(LeftSplitterSetting).toList();
@@ -212,15 +204,6 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		sizes << m_left_top_bottom_->height() / 2;
 		sizes << m_left_top_bottom_->height() / 2;
 		m_left_top_bottom_->setSizes(sizes);
-	}
-
-	if (settings_.contains(RightSplitterSetting))
-	{
-		QList<QVariant> stored = settings_.value(RightSplitterSetting).toList();
-		QList<int> sizes;
-		for (const QVariant& v : stored)
-			sizes.push_back(v.toInt());
-		m_right_stack_->setSizes(sizes);
 	}
 
 	if (settings_.contains(UnitsSetting))
@@ -345,23 +328,18 @@ bool XeroPathGenerator::createWindows()
 	// Top most splitter window, divides the client window area left to 
 	// right between the graph/plot windows and the data stacks on the right
 	//
-	m_left_right_ = new QSplitter();
-	setCentralWidget(m_left_right_);
+
 
 	//
 	// Left side of the screen splitter that splits between the top that contains
 	// path drawing, and the bottom that contains graphs and logs
 	//
-	m_left_top_bottom_ = new QSplitter(m_left_right_);
+	m_left_top_bottom_ = new QSplitter();
+	setCentralWidget(m_left_top_bottom_);
 	m_left_top_bottom_->setOrientation(Qt::Orientation::Vertical);
 	if (!createLeftSide())
 		return false;
 
-	//
-	// Right side of the screen that contains stacks of list views for editing data
-	//
-	m_right_stack_ = new QSplitter(m_left_right_);
-	m_right_stack_->setOrientation(Qt::Orientation::Vertical);
 	if (!createRightSide())
 		return false;
 
@@ -395,45 +373,41 @@ bool XeroPathGenerator::createLeftSide()
 
 bool XeroPathGenerator::createRightSide()
 {
-	QHBoxLayout* layout;
-
-	paths_group_ = new QGroupBox(tr("Paths"), m_right_stack_);
-	layout = new QHBoxLayout();
 	paths_ = new PathFileTree();
-	layout->addWidget(paths_);
-	paths_group_->setLayout(layout);
+	paths_dock_ = new QDockWidget(tr("Paths"), this);
+	paths_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	paths_dock_->setWidget(paths_);
+	addDockWidget(Qt::RightDockWidgetArea, paths_dock_);
 	paths_->setHeaderHidden(true);
 	paths_->setModel(&paths_model_);
 	paths_->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
 	paths_->setEditTriggers(QAbstractItemView::EditTrigger::DoubleClicked);
 	(void)connect(paths_->selectionModel(), &QItemSelectionModel::currentChanged, this, &XeroPathGenerator::pathTreeSelectionChanged);
 
-	path_parameters_group_ = new QGroupBox(tr("Path Parameters"), m_right_stack_);
-	layout = new QHBoxLayout();
 	path_parameters_ = new QTreeView();
+	path_parameters_dock_ = new QDockWidget(tr("Path Parameters"), this);
+	path_parameters_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	path_parameters_dock_->setWidget(path_parameters_);
+	addDockWidget(Qt::RightDockWidgetArea, path_parameters_dock_);
 	path_parameters_->setModel(&path_param_model_);
-	layout->addWidget(path_parameters_);
-	path_parameters_group_->setLayout(layout);
 	(void)connect(&path_param_model_, &PathParamTreeModel::dataChanged, this, &XeroPathGenerator::pathParamTreeDataChanged);
 
-	QGroupBox *gr = new QGroupBox(tr("Path Constraints"), m_right_stack_);
-	layout = new QHBoxLayout();
 	constraints_ = new ConstraintEditor(this);
+	constraints_dock_ = new QDockWidget(tr("Constraints"), this);
+	constraints_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	constraints_dock_->setWidget(constraints_);
+	addDockWidget(Qt::RightDockWidgetArea, constraints_dock_);
 	(void)connect(constraints_, &ConstraintEditor::constraintAdded, this, &XeroPathGenerator::constraintAddedRemoved);
 	(void)connect(constraints_, &ConstraintEditor::constraintRemoved, this, &XeroPathGenerator::constraintAddedRemoved);
 	(void)connect(constraints_, &ConstraintEditor::constraintChanged, this, &XeroPathGenerator::constraintAddedRemoved);
-	layout->addWidget(constraints_);
-	gr->setLayout(layout);
 
-	waypoint_parameters_group_ = new QGroupBox(tr("Waypoint Parameters"), m_right_stack_);
-	layout = new QHBoxLayout();
 	waypoint_parameters_ = new QTreeView();
+	waypoint_parameters_dock_ = new QDockWidget(tr("Waypoint Parameters"), this);
+	waypoint_parameters_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	waypoint_parameters_dock_->setWidget(waypoint_parameters_);
+	addDockWidget(Qt::RightDockWidgetArea, waypoint_parameters_dock_);
 	waypoint_parameters_->setModel(&waypoint_model_);
 	(void)connect(&waypoint_model_, &WaypointTreeModel::dataChanged, this, &XeroPathGenerator::waypointTreeDataChanged);
-
-	layout->addWidget(waypoint_parameters_);
-	waypoint_parameters_group_->setLayout(layout);
-
 	return true;
 }
 
@@ -511,12 +485,32 @@ bool XeroPathGenerator::createMenus()
 	//
 	view_ = new QMenu(tr("&View"));
 	menuBar()->addMenu(view_);
+	(void)connect(view_, &QMenu::aboutToShow, this, &XeroPathGenerator::showViewMenu);
+
+	view_show_paths_ = view_->addAction(tr("Paths"));
+	view_show_paths_->setCheckable(true);
+	(void)connect(view_show_paths_, &QAction::triggered, this, &XeroPathGenerator::viewPathWindow);
+
+	view_show_path_parameters_ = view_->addAction(tr("Path Parameters"));
+	view_show_path_parameters_->setCheckable(true);
+	(void)connect(view_show_path_parameters_, &QAction::triggered, this, &XeroPathGenerator::viewPathParamsWindow);
+
+	view_show_constraints_ = view_->addAction(tr("Constraints"));
+	view_show_constraints_->setCheckable(true);
+	(void)connect(view_show_constraints_, &QAction::triggered, this, &XeroPathGenerator::viewConstraintWindow);
+
+	view_show_waypoint_parameters_ = view_->addAction(tr("Waypoint Parameters"));
+	view_show_waypoint_parameters_->setCheckable(true);
+	(void)connect(view_show_waypoint_parameters_, &QAction::triggered, this, &XeroPathGenerator::viewWaypointParamsWindow);
+
+	view_->addSeparator();
 
 	view_plot_action_ = view_->addAction(tr("Plot Variables ..."));
 	(void)connect(view_plot_action_, &QAction::triggered, this, &XeroPathGenerator::viewPlotEdit);
 
 	view_trajectory_data_ = view_->addAction(tr("Trajectory Data ..."));
 	(void)connect(view_trajectory_data_, &QAction::triggered, this, &XeroPathGenerator::viewTrajectoryData);
+
 
 	//
 	// Robot menu - gets filled in the populateRobotsMenu() method
@@ -1055,16 +1049,6 @@ void XeroPathGenerator::closeEvent(QCloseEvent* event)
 	for (int size : m_left_top_bottom_->sizes())
 		stored.push_back(QVariant(size));
 	settings_.setValue(LeftSplitterSetting, stored);
-
-	stored.clear();
-	for (int size : m_right_stack_->sizes())
-		stored.push_back(QVariant(size));
-	settings_.setValue(RightSplitterSetting, stored);
-
-	stored.clear();
-	for (int size : m_left_right_->sizes())
-		stored.push_back(QVariant(size));
-	settings_.setValue(LeftRightSplitterSetting, stored);
 
 	path_engine_.stopAll();
 	QMainWindow::closeEvent(event);
@@ -1717,6 +1701,61 @@ void XeroPathGenerator::filePublish()
 			pubtable->PutString(name, sstrm.str());
 		}
 	}
+}
+
+void XeroPathGenerator::showViewMenu()
+{
+	if (paths_dock_->isVisible())
+		view_show_paths_->setChecked(true);
+	else
+		view_show_paths_->setChecked(false);
+
+	if (path_parameters_dock_->isVisible())
+		view_show_path_parameters_->setChecked(true);
+	else
+		view_show_path_parameters_->setChecked(false);
+
+	if (constraints_dock_->isVisible())
+		view_show_constraints_->setChecked(true);
+	else
+		view_show_constraints_->setChecked(false);
+
+	if (waypoint_parameters_dock_->isVisible())
+		view_show_waypoint_parameters_->setChecked(true);
+	else
+		view_show_waypoint_parameters_->setChecked(false);
+}
+
+void XeroPathGenerator::viewPathWindow()
+{
+	if (paths_dock_->isVisible())
+		paths_dock_->hide();
+	else
+		paths_dock_->show();
+}
+
+void XeroPathGenerator::viewPathParamsWindow()
+{
+	if (path_parameters_dock_->isVisible())
+		path_parameters_dock_->hide();
+	else
+		path_parameters_dock_->show();
+}
+
+void XeroPathGenerator::viewConstraintWindow()
+{
+	if (constraints_dock_->isVisible())
+		constraints_dock_->hide();
+	else
+		constraints_dock_->show();
+}
+
+void XeroPathGenerator::viewWaypointParamsWindow()
+{
+	if (waypoint_parameters_dock_->isVisible())
+		waypoint_parameters_dock_->hide();
+	else
+		waypoint_parameters_dock_->show();
 }
 
 void XeroPathGenerator::viewPlotEdit()
