@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 BUILDTYPE=release
-OSTYPE=macos
 TEMPLATE = app
 TARGET = XeroPathGenerator
 DESTDIR = ../x64/$${BUILDTYPE}
@@ -22,10 +21,20 @@ INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
     ../external/wpi/include\
     ../PathGenCommon
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
-    ../PathGenCommon/$${BUILDTYPE}/PathGenCommon.a\
-    ../external/wpi/$${OSTYPE}/$${BUILDTYPE}/lib/ntsim.a\
-    ../external/wpi/$${OSTYPE}/$${BUILDTYPE}/lib/wpiutilsim.a
+../PathGenCommon/$${BUILDTYPE}/PathGenCommon.a
 
+linux-g++-64 {
+LIBS += \
+    ../external/wpi/linux/$${BUILDTYPE}/lib/ntsim.a\
+    ../external/wpi/linux/$${BUILDTYPE}/lib/wpiutilsim.a
+}
+
+macx {
+LIBS += \
+    ../external/wpi/macos/$${BUILDTYPE}/lib/ntsim.a\
+    ../external/wpi/macos/$${BUILDTYPE}/lib/wpiutilsim.a
+}
+    
 images.files=$$PWD/images
 images.path=Contents/MacOS
 QMAKE_BUNDLE_DATA += images
