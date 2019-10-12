@@ -15,7 +15,6 @@
 //
 #pragma once
 
-#include "PathFileTreeModel.h"
 #include "GeneratorParameterStore.h"
 #include "Generator.h"
 #include <RobotParams.h>

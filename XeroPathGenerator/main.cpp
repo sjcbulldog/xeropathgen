@@ -192,7 +192,9 @@ int main(int argc, char *argv[])
 	fields.addDefaultDirectory((appdir + "/fields").toStdString());
 	generators.addDefaultDirectory((appdir + "/generators").toStdString());
 	robots.addDefaultDirectory((appdir + "/robots").toStdString());
+	std::chrono::milliseconds delay(250);
 
+#ifdef NOTYET
 	QString field = exedir + "/../fields";
 	QDir dir(field);
 	fields.addDirectory(dir.absolutePath().toStdString());
@@ -200,7 +202,8 @@ int main(int argc, char *argv[])
 	QString gen = exedir + "/../generators";
 	dir = QDir(gen);
 	generators.addDirectory(dir.absolutePath().toStdString());
-	std::chrono::milliseconds delay(250);
+
+#endif
 
 	fields.copyDefaults("fields");
 	generators.copyDefaults("generators");

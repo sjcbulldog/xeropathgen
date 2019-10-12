@@ -53,7 +53,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;QT_NETWORK_LIB;QT_PRINTSUPPORT_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -67,12 +67,12 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>PathGenCommon.lib;ntcored.lib;wpiutild.lib;qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Helpd.lib;Qt5Networkd.lib;Qt5PrintSupportd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcored.lib;wpiutild.lib;qtmaind.lib;Qt5Chartsd.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Helpd.lib;Qt5Networkd.lib;Qt5PrintSupportd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;QT_NETWORK_LIB;QT_PRINTSUPPORT_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -119,7 +119,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;QT_NETWORK_LIB;QT_PRINTSUPPORT_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -133,12 +133,12 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>PathGenCommon.lib;ntcore.lib;wpiutil.lib;qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Help.lib;Qt5Network.lib;Qt5PrintSupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcore.lib;wpiutil.lib;qtmain.lib;Qt5Charts.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Help.lib;Qt5Network.lib;Qt5PrintSupport.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;NDEBUG;QT_CHARTS_LIB;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;QT_HELP_LIB;QT_NETWORK_LIB;QT_PRINTSUPPORT_LIB;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -187,22 +187,16 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="ConstraintDeleteUndo.cpp" />
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
-    <ClCompile Include="CSVParser.cpp" />
     <ClCompile Include="DeleteGroupUndo.cpp" />
     <ClCompile Include="DeletePathUndo.cpp" />
     <ClCompile Include="DriveBaseModel.cpp" />
     <ClCompile Include="GameFieldManager.cpp" />
-    <ClCompile Include="GeneratorManager.cpp" />
-    <ClCompile Include="GeneratorParameterStore.cpp" />
     <ClCompile Include="GroupNameChangeUndo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="NetworkDownloadManager.cpp" />
-    <ClCompile Include="PathCollectionIO.cpp" />
     <ClCompile Include="PathFieldView.cpp" />
     <ClCompile Include="PathFileTree.cpp" />
     <ClCompile Include="PathFileTreeModel.cpp" />
-    <ClCompile Include="PathGenerationEngine.cpp" />
     <ClCompile Include="PathNameChangeUndo.cpp" />
     <ClCompile Include="PathParameterChangeUndo.cpp" />
     <ClCompile Include="PathParamTreeModel.cpp" />
@@ -214,7 +208,6 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile Include="PropertyEditorItemDelegate.cpp" />
     <ClCompile Include="PropertyEditorTreeModel.cpp" />
     <ClCompile Include="RecentFiles.cpp" />
-    <ClCompile Include="RobotManager.cpp" />
     <ClCompile Include="SelectRobotDialog.cpp" />
     <ClCompile Include="ShowRobotWindow.cpp" />
     <ClCompile Include="SwerveDriveBaseModel.cpp" />
@@ -248,28 +241,19 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="ChangeContraintUndo.h" />
     <ClInclude Include="ConstraintAddUndo.h" />
     <ClInclude Include="ConstraintDeleteUndo.h" />
-    <ClInclude Include="CSVParser.h" />
     <ClInclude Include="DeleteGroupUndo.h" />
     <ClInclude Include="DeletePathUndo.h" />
     <ClInclude Include="DriveBaseModel.h" />
     <ClInclude Include="EditableProperty.h" />
     <ClInclude Include="GameField.h" />
     <ClInclude Include="GameFieldManager.h" />
-    <ClInclude Include="Generator.h" />
-    <ClInclude Include="GeneratorManager.h" />
-    <ClInclude Include="GeneratorParameter.h" />
-    <ClInclude Include="GeneratorParameterStore.h" />
     <ClInclude Include="GroupNameChangeUndo.h" />
-    <ClInclude Include="JSONWriter.h" />
-    <ClInclude Include="ManagerBase.h" />
     <QtMoc Include="NetworkDownloadManager.h" />
-    <ClInclude Include="PathCollectionIO.h" />
     <QtMoc Include="PathFileTree.h" />
     <QtMoc Include="PathFileTreeModel.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork</IncludePath>
     </QtMoc>
-    <ClInclude Include="PathGenerationEngine.h" />
     <ClInclude Include="PathNameChangeUndo.h" />
     <ClInclude Include="PathParameterChangeUndo.h" />
     <ClInclude Include="PathParamTreeModel.h" />
@@ -295,7 +279,6 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClInclude Include="WaypointChangedUndo.h" />
     <ClInclude Include="WaypointDeleteUndo.h" />
     <ClInclude Include="WaypointTreeModel.h" />
-    <ClInclude Include="RobotManager.h" />
     <QtMoc Include="PathFieldView.h" />
   </ItemGroup>
   <ItemGroup>

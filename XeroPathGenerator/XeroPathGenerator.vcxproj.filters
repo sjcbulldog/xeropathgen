@@ -45,22 +45,10 @@
     <ClCompile Include="GameFieldManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratorManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ManagerBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PathFieldView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PathFileTreeModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RobotManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PathCollectionIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WaypointTreeModel.cpp">
@@ -69,16 +57,7 @@
     <ClCompile Include="PathParamTreeModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PathGenerationEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CSVParser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PathPlotView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratorParameterStore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PropertyEditor.cpp">
@@ -249,40 +228,13 @@
     <ClInclude Include="GameFieldManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratorManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ManagerBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Generator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RobotManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathCollectionIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WaypointTreeModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PathParamTreeModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratorParameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathGenerationEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratorParameterStore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PropertyEditorTreeModel.h">
@@ -292,9 +244,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PropertyEditorItemDelegate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="JSONWriter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DriveBaseModel.h">
