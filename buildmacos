@@ -42,7 +42,7 @@ rm -rf x64/release
 dobuild
 docopy
 ASSLOC=`pwd`/x64/release/XeroPathGenerator.app/Contents/MacOS/Assistant
-macdeployqt x64/release/XeroPathGenerator.app -verbose=3 -always-overwrite -appstore-compliant -dmg -executable=$ASSLOC
+macdeployqt x64/release/XeroPathGenerator.app -always-overwrite -appstore-compliant -dmg -executable=$ASSLOC
 cp x64/release/XeroPathGenerator.dmg .
 
 
