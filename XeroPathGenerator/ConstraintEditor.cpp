@@ -18,6 +18,7 @@
 #include "ConstraintDeleteUndo.h"
 #include "ConstraintAddUndo.h"
 #include <DistanceVelocityConstraint.h>
+#include <QMenu>
 
 using namespace xero::paths;
 
@@ -25,30 +26,70 @@ ConstraintEditor::ConstraintEditor(QWidget *parent) : QWidget(parent)
 {
 	ui.setupUi(this);
 
+	ui.tree_->setContextMenuPolicy(Qt::CustomContextMenu);
 	ui.tree_->setModel(&model_);
+	ui.tree_->setToolTip(tr("No path selected"));
 
-	connect(ui.add_, &QAbstractButton::clicked, this, &ConstraintEditor::addOne);
-	connect(ui.delete_, &QAbstractButton::clicked, this, &ConstraintEditor::deleteOne);
-	connect(&model_, &ConstraintTreeModel::constraintChanged, this, &ConstraintEditor::emitConstraintChanged);
+	(void)connect(&model_, &ConstraintTreeModel::constraintChanged, this, &ConstraintEditor::emitConstraintChanged);
+	(void)connect(ui.tree_, &QTreeView::customContextMenuRequested, this, &ConstraintEditor::contextMenu);
+
+	constraint_selected_menu_ = nullptr;
+	none_selected_menu_ = nullptr;
 }
 
 ConstraintEditor::~ConstraintEditor()
 {
 }
 
-void ConstraintEditor::enableDisable()
+void ConstraintEditor::contextMenu(const QPoint& pt)
 {
-	if (path_ == nullptr || generator_ == nullptr || !generator_->hasProperty(Generator::DistanceContraintPropertyName))
+	QAction* action;
+
+	QModelIndex index = ui.tree_->indexAt(pt);
+	if (!index.isValid())
 	{
-		ui.tree_->setDisabled(true);
-		ui.add_->setDisabled(true);
-		ui.delete_->setDisabled(true);
+		if (none_selected_menu_ == nullptr)
+		{
+			none_selected_menu_ = new QMenu();
+			action = none_selected_menu_->addAction(tr("Add Constraint"));
+			(void)connect(action, &QAction::triggered, this, &ConstraintEditor::addOne);
+		}
+		none_selected_menu_->exec(mapToGlobal(pt));
 	}
 	else
 	{
+		row_ = index.row();
+		if (constraint_selected_menu_ == nullptr)
+		{
+			constraint_selected_menu_ = new QMenu();
+			action = constraint_selected_menu_->addAction(tr("Delete Constraint"));
+			(void)connect(action, &QAction::triggered, this, &ConstraintEditor::deleteIDConstraint);
+		}
+		constraint_selected_menu_->exec(mapToGlobal(pt));
+	}
+}
+
+void ConstraintEditor::deleteIDConstraint()
+{
+	assert(row_ != -1);
+	deleteConstraint(row_);
+}
+
+
+void ConstraintEditor::enableDisable()
+{
+	if (path_ == nullptr || generator_ == nullptr)	{
+		ui.tree_->setDisabled(true);
+		ui.tree_->setToolTip(tr("No path selected - cannot edit constraints"));
+	}
+	else if (!generator_->hasProperty(Generator::DistanceContraintPropertyName))
+	{
+		ui.tree_->setToolTip(tr("The current generator does not support constraints"));
+	}
+	else
+	{
+		ui.tree_->setToolTip(tr("Use the right mouse button to add/delete constraints"));
 		ui.tree_->setDisabled(false);
-		ui.add_->setDisabled(false);
-		ui.delete_->setDisabled(false);
 	}
 }
 

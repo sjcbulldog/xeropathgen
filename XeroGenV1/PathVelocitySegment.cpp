@@ -58,10 +58,10 @@ bool PathVelocitySegment::contains(const PathVelocitySegment& seg)
 
 bool PathVelocitySegment::overlaps(const PathVelocitySegment& seg)
 {
-	if (seg.start() > start() && seg.start() < end())
+	if (seg.start() >= start() && seg.start() <= end())
 		return true;
 
-	if (seg.end() > start() && seg.end() < end())
+	if (seg.end() >= start() && seg.end() <= end())
 		return true;
 
 	return false;

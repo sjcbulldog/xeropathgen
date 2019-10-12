@@ -1,0 +1,13 @@
+{
+    "_version": "1",
+    "drivetype": 0,
+    "efflength": 30,
+    "effwidth": 24,
+    "maxacceleration": 180,
+    "maxjerk": 1800,
+    "maxvelocity": 180,
+    "name": "Default",
+    "robotlength": 30,
+    "robotwidth": 24,
+    "timestep": 0.02
+}

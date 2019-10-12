@@ -31,6 +31,9 @@ ConstraintTreeModel::~ConstraintTreeModel()
 {
 }
 
+void deleteConstraintAt(QModelIndex index);
+void insertConstraint();
+
 QModelIndex ConstraintTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
 	(void)parent ;

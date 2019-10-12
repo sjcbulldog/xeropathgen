@@ -412,6 +412,8 @@ private:
 
 	QTimer* path_timer_;
 
+	bool show_documentation_;
+
 	//
 	// The units we are using
 	//

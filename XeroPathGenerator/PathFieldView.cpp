@@ -29,6 +29,7 @@
 #include <QPointF>
 #include <QMouseEvent>
 #include <QFontMetrics>
+#include <QDebug>
 #include <cmath>
 
 using namespace xero::paths;
@@ -660,7 +661,6 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 		Rotation2d r = Rotation2d::fromDegrees(MathUtils::boundDegrees(pt.getRotation().toDegrees() + delta));
 		Pose2d newpt(pt.getTranslation(), r);
 		path_->replacePoint(selected_, newpt);
-
 		emitWaypointEndMoving(selected_);
 		repaint(geometry());
 	}

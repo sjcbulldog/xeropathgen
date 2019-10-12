@@ -57,10 +57,15 @@ private:
 	void addOne();
 	void deleteOne();
 	void enableDisable();
+	void contextMenu(const QPoint& pt);
+	void deleteIDConstraint();
 
 private:
 	Ui::ConstraintEditor ui;
 	ConstraintTreeModel model_;
 	std::shared_ptr<Generator> generator_;
 	std::shared_ptr<xero::paths::RobotPath> path_;
+	QMenu* constraint_selected_menu_;
+	QMenu* none_selected_menu_;
+	int row_;
 };

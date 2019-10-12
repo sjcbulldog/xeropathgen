@@ -53,6 +53,7 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QDockWidget>
+#include <QPushButton>
 
 #include <cstdio>
 
@@ -118,6 +119,8 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	resize(1024, 768);
 	gui_thread_ = std::this_thread::get_id();
 
+	show_documentation_ = false;
+
 	if (!createWindows())
 	{
 		QMessageBox box(QMessageBox::Icon::Critical,
@@ -172,7 +175,6 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 	prog_bar_ = new QProgressBar();
 	statusBar()->insertWidget(6, prog_bar_);
 	prog_bar_->setVisible(false);
-
 
 	populateFieldsMenu();
 	populateGeneratorsMenu();
@@ -949,6 +951,29 @@ void XeroPathGenerator::timerProc()
 			"Information", "New game fields have been downloaded, restart program to make these available", QMessageBox::StandardButton::Ok);
 		box.exec();
 	}
+
+	if (show_documentation_)
+	{
+		static const char* details =
+			"Path generation programs are not the easiest in the world to understand.  A quick"\
+			" look at the documentation may help in getting started.  If you don't want this prompt"\
+			" to ever return, press the 'Never Again' button.";
+		QMessageBox box;
+		box.setText("Show the program documenation?");
+		box.setDetailedText(details);
+		QPushButton *yes = box.addButton(QMessageBox::StandardButton::Yes);
+		box.addButton(QMessageBox::StandardButton::No);
+		QPushButton* never = box.addButton("Never Again", QMessageBox::ButtonRole::ActionRole);
+
+		box.exec();
+
+		if (box.clickedButton() == yes)
+			showDocumentation();
+		else if (box.clickedButton() == never)
+			settings_.setValue("supress_documentation_prompt", QVariant(true));
+
+		show_documentation_ = false;
+	}
 }
 
 void XeroPathGenerator::nextOneInDemo()
@@ -1019,11 +1044,29 @@ void XeroPathGenerator::showEvent(QShowEvent* ev)
 
 	if (robot_mgr_.getRobots().size() == 0)
 	{
-		QMessageBox box(QMessageBox::Icon::Information,
-			"Information", "There are no robots defined.  Please define a robot now", QMessageBox::StandardButton::Ok);
-		box.exec();
-		newRobotAction();
+		std::shared_ptr<RobotParams> robot = std::make_shared<RobotParams>("DefaultRobot");
+		robot->setEffectiveWidth(28.0);
+		robot->setEffectiveLength(28.0);
+		robot->setRobotWidth(28.0);
+		robot->setRobotLength(28.0);
+		robot->setMaxVelocity(120);
+		robot->setMaxAcceleration(120);
+		robot->setMaxJerk(1200);
+		robot->setTimestep(0.02);
+		robot->setDriveType(RobotParams::DriveType::TankDrive);
+		robot_mgr_.add(robot);
+
+		QAction* newRobotAction = new QAction(robot->getName().c_str());
+		robots_group_->addAction(newRobotAction);
+		robots_->insertAction(robot_seperator_, newRobotAction);
+		newRobotAction->setCheckable(true);
+		newRobotAction->setChecked(true);
+		(void)connect(newRobotAction, &QAction::triggered, this, [this, robot] { newRobotSelected(robot); });
+		setRobot(robot->getName());
 	}
+
+	if (!settings_.contains("supress_documentation_prompt"))
+		show_documentation_ = true;
 
 	initPlotVars();
 }
@@ -1137,7 +1180,7 @@ void XeroPathGenerator::startMovingWaypointProc(size_t index)
 void XeroPathGenerator::endMovingWaypointProc(size_t index)
 {
 	auto &moved = current_path_->getPoints()[path_view_->getSelected()];
-	if (!moved.espilonEquals(orig_point_, 0.1))
+	if (!moved.espilonEquals(orig_point_, 0.1, 0.001))
 	{
 		paths_model_.setDirty();
 		selectedWaypointProc(index);

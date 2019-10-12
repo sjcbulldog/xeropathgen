@@ -53,7 +53,6 @@ public:
 	void changeAfter(int row, double value);
 	void changeVelocity(int row, double value);
 
-
 signals:
 	void constraintChanged();
 

@@ -289,7 +289,16 @@ void XeroGenV1PathGenerator::insertSegment(std::vector<PathVelocitySegment>& seg
 				if (newseg.velocity() > cur.velocity())
 					return;
 
-				if (cur.startsSame(newseg))
+				if (cur.startsSame(newseg) && cur.endsSame(newseg))
+				{
+					//
+					// This segment is identical to the one in the list already, but with
+					// a lower velocity, just set the lower velocity
+					//
+					cur.setVelocity(newseg.velocity());
+					return;
+				}
+				else if (cur.startsSame(newseg))
 				{
 					auto it = segs.begin();
 					std::advance(it, i);

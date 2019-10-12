@@ -28,6 +28,8 @@ PathFileTree::PathFileTree(QWidget *parent) : QTreeView(parent)
 	group_selected_menu_ = nullptr;
 
 	setContextMenuPolicy(Qt::DefaultContextMenu);
+
+	setToolTip(tr("Use the right mouse button to add/delete path groups and paths"));
 }
 
 PathFileTree::~PathFileTree()

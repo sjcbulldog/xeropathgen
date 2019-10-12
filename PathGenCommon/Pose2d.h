@@ -37,6 +37,7 @@ namespace xero
 			Translation2d intersection(const Pose2d& other) const;
 			bool isColinear(const Pose2d& other);
 			bool espilonEquals(const Pose2d& other, double eps = MathUtils::kEpsilon) const;
+			bool espilonEquals(const Pose2d& other, double poseps = MathUtils::kEpsilon, double roteps = MathUtils::kEpsilon) const;
 			Pose2d interpolate(const Pose2d& other, double percent) const;
 			double distance(const Pose2d &other) const;
 			Pose2d mirror() const;

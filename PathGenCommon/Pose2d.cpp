@@ -85,6 +85,11 @@ namespace xero
 			return pos_.epsilonEqual(other.getTranslation(), eps) && rotation_.epsilonEquals(other.getRotation(), eps);
 		}
 
+		bool Pose2d::espilonEquals(const Pose2d& other, double poseps, double roteps) const
+		{
+			return pos_.epsilonEqual(other.getTranslation(), poseps) && rotation_.epsilonEquals(other.getRotation(), roteps);
+		}
+
 		Pose2d Pose2d::expfn(const Twist2d& delta)
 		{
 			double sin_theta = std::sin(delta.getTheta());
