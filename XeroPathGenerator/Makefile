@@ -1578,7 +1578,9 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QString \
 		../../../Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		ConstraintDeleteUndo.h \
-		ConstraintAddUndo.h
+		ConstraintAddUndo.h \
+		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QMenu \
+		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintEditor.o ConstraintEditor.cpp
 
 release/ConstraintTreeModel.o: ConstraintTreeModel.cpp ConstraintTreeModel.h \
@@ -1972,7 +1974,9 @@ release/PathFieldView.o: PathFieldView.cpp PathFieldView.h \
 		../../../Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QMouseEvent \
 		../../../Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qevent.h \
 		../../../Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QFontMetrics \
-		../../../Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h
+		../../../Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qfontmetrics.h \
+		../../../Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QDebug \
+		../../../Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qdebug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathFieldView.o PathFieldView.cpp
 
 release/PathFileTree.o: PathFileTree.cpp PathFileTree.h \
@@ -2835,6 +2839,8 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.1/clang_64/lib/QtPrintSupport.framework/Headers/qprintdialog.h \
 		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QDockWidget \
 		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QPushButton \
+		../../../Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
 		../external/wpi/include/networktables/NetworkTableInstance.h \
 		../external/wpi/include/wpi/ArrayRef.h \
 		../external/wpi/include/wpi/Hashing.h \
