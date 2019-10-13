@@ -76,6 +76,9 @@
       <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>c:\cygwin64\bin\bash incver.sh</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -92,9 +95,15 @@
       <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>c:\cygwin64\bin\bash incver.sh</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="build.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

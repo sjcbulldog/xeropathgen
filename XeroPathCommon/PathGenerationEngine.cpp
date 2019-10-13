@@ -58,7 +58,9 @@ void PathGenerationEngine::markPathDirty(std::shared_ptr<RobotPath> path)
 	//
 	waiting_.push_back(path);
 
+#ifdef _DEBUG
 	qDebug() << "'" << path->getName().c_str() << "' added to path generation dirty list";
+#endif
 	waiting_paths_lock_.unlock();
 	cleanup();
 }
@@ -306,6 +308,7 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	QFile::copy(pathfile.fileName(), pathtempfilename);
 #endif
 
+#ifdef _DEBUG
 	qDebug() << "==================================================";
 	qDebug() << "Running path'" << path->getName().c_str() << "'";
 	qDebug() << "Args: ";
@@ -313,6 +316,7 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	{
 		qDebug() << "     " << arg;
 	}
+#endif
 	QProcess* p = new QProcess();
 	std::string genpath = generator_->fullPath();
 	p->start(genpath.c_str(), args);
@@ -327,12 +331,16 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	std::string error, output;
 	int count = 120;			// Two minutes
 
+#ifdef _DEBUG
 	qDebug() << "Waiting for generator to finish";
+#endif
 	while (!p->waitForFinished(1000) && count > 0)
 	{
 		count--;
+#ifdef _DEBUG
 		if ((count % 10) == 0)
 			qDebug() << "    still waiting, count = " << count;
+#endif
 	}
 
 
@@ -346,35 +354,45 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 
 	if (!data->running_ || count == 0)
 	{
+#ifdef _DEBUG
 		qDebug() << "killed generator, path '" << path->getName().c_str() << "'";
 		qDebug() << "#########################################################";
+#endif
 		p->kill();
+
+#ifdef _DEBUG
 		qDebug() << "stdout: " << output.c_str();
 		qDebug() << "stderr: " << error.c_str();
+#endif
 		return false;
 	}
 
 	if (p->exitCode() != 0)
 	{
+#ifdef _DEBUG
 		qDebug() << "Generated exited with error, path '" << path->getName().c_str() << "'";
 		qDebug() << "------------------------------------------------------";
+#endif
 
 		//
 		// Send the stdout and stderror to the log
 		//
+#ifdef _DEBUG
 		qDebug() << "pathgen program failed";
 		qDebug() << "exit code " << p->exitCode();
 		qDebug() << "stdout: " << output.c_str();
 		qDebug() << "stderr: " << error.c_str();
-
+#endif
 		if (p->exitCode() == 99)
 			path->addError(true, "cannot generate trajectory for this path");
 
 		return false;
 	}
 
+#ifdef _DEBUG
 	qDebug() << "Generator finished sucessfully, path '" << path->getName().c_str() << "'";
 	qDebug() << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$";
+#endif
 
 	return true;
 }
@@ -441,7 +459,9 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 		outfile->open();
 		outfile->close();
 
+#ifdef _DEBUG
 		qDebug() << "processing path '" << path->getName().c_str() << "', pass " << pass;
+#endif
 
 		double vel = path->getMaxVelocity();
 		double acc = path->getMaxAccel();
