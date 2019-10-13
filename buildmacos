@@ -23,6 +23,12 @@ function dobuild {
     make CONFIG=release
     popd
 
+    pushd XeroPathCommon
+    qmake -makefile
+    make clean
+    make
+    popd
+
     qhelpgenerator html/xeropath.qhp -o html/xeropath.qch
     qhelpgenerator html/xeropath.qhcp -o html/xeropath.qhc
 
@@ -41,8 +47,6 @@ function docopy {
 rm -rf x64/release
 dobuild
 docopy
-ASSLOC=`pwd`/x64/release/XeroPathGenerator.app/Contents/MacOS/Assistant
-macdeployqt x64/release/XeroPathGenerator.app -always-overwrite -appstore-compliant -dmg -executable=$ASSLOC
+ASSISTANTLOC=`pwd`/x64/release/XeroPathGenerator.app/Contents/MacOS/Assistant
+macdeployqt x64/release/XeroPathGenerator.app -always-overwrite -dmg -executable=$ASSISTANTLOC
 cp x64/release/XeroPathGenerator.dmg .
-
-

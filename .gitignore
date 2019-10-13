@@ -25,3 +25,4 @@ XeroPathGenerator/XeroPathGenerator.pro.user
 XeroPathGenerator/xeropathgenerator_plugin_import.cpp
 XeroPathGenerator/GeneratedFiles
 output
+PathGenerate/PathGenerate.app

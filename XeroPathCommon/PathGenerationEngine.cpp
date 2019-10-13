@@ -433,10 +433,13 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 {
 	QTemporaryFile* outfile = nullptr;
 	double percent = 0.0;
-	int pass = 1;
 	std::vector<Pose2dWithTrajectory> pts;
 	DriveModifier* mod = nullptr;
 	bool swerve = false;
+
+#ifdef _DEBUG
+	int pass = 1;
+#endif
 
 	if (robot_->getDriveType() == RobotParams::DriveType::TankDrive)
 	{

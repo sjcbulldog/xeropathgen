@@ -4,27 +4,18 @@
 
 HEADERS += ./build.h \
     ./Callout.h \
-    ./CSVParser.h \
     ./DriveBaseModel.h \
     ./EditableProperty.h \
     ./GameField.h \
     ./GameFieldManager.h \
     ./Generator.h \
-    ./GeneratorManager.h \
-    ./GeneratorParameter.h \
-    ./GeneratorParameterStore.h \
-    ./JSONWriter.h \
-    ./ManagerBase.h \
-    ./PathCollectionIO.h \
     ./PathFileTreeModel.h \
-    ./PathGenerationEngine.h \
     ./PathParamTreeModel.h \
     ./PropertyEditorItemDelegate.h \
     ./PropertyEditorTreeModel.h \
     ./SwerveDriveBaseModel.h \
     ./TankDriveBaseModel.h \
     ./WaypointTreeModel.h \
-    ./RobotManager.h \
     ./XeroPathGenerator.h \
     ./ConstraintEditor.h \
     ./ConstraintTreeModel.h \
@@ -46,18 +37,12 @@ SOURCES += ./AboutDialog.cpp \
     ./Callout.cpp \
     ./ConstraintEditor.cpp \
     ./ConstraintTreeModel.cpp \
-    ./CSVParser.cpp \
     ./DriveBaseModel.cpp \
     ./GameFieldManager.cpp \
-    ./GeneratorManager.cpp \
-    ./GeneratorParameterStore.cpp \
     ./main.cpp \
-    ./ManagerBase.cpp \
-    ./PathCollectionIO.cpp \
     ./PathFieldView.cpp \
     ./PathFileTree.cpp \
     ./PathFileTreeModel.cpp \
-    ./PathGenerationEngine.cpp \
     ./PathParamTreeModel.cpp \
     ./PathPlotView.cpp \
     ./PlotMainWindow.cpp \
@@ -66,7 +51,6 @@ SOURCES += ./AboutDialog.cpp \
     ./PropertyEditorItemDelegate.cpp \
     ./PropertyEditorTreeModel.cpp \
     ./RecentFiles.cpp \
-    ./RobotManager.cpp \
     ./SelectRobotDialog.cpp \
     ./ShowRobotWindow.cpp \
     ./SwerveDriveBaseModel.cpp \

@@ -55,7 +55,7 @@ void GeneratorManager::readGenerators(QDir& dir, std::list<std::shared_ptr<Gener
 	QStringList list = dir.entryList(filter, QDir::Filter::Files);
 	for (QString item : list)
 	{
-		QFile file = dir.absoluteFilePath(item);
+	  	QFile file(dir.absoluteFilePath(item)) ;
 		processJSONFile(file);
 	}
 
