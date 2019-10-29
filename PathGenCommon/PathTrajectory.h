@@ -48,6 +48,8 @@ namespace xero
 
 			size_t getIndex(double time);
 
+			bool getTimeForDistance(double dist, double &time);
+
 		private:
 			std::string name_;
 			std::vector<Pose2dWithTrajectory> points_;

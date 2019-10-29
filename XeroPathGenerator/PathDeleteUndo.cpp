@@ -14,26 +14,27 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
+#include "PathDeleteUndo.h"
 #include "PathFileTreeModel.h"
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
+PathDeleteUndo::PathDeleteUndo(PathFileTreeModel& model, const std::string& group, int index, std::shared_ptr<xero::paths::RobotPath> path) : model_(model)
 {
-	newname_ = newname;
-	oldname_ = oldname;
+	path_ = path;
+	index_ = index;
+	group_ = group;
 }
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
+PathDeleteUndo::~PathDeleteUndo()
 {
 }
 
-QString GroupNameChangeUndo::toString()
+QString PathDeleteUndo::toString()
 {
-	QString ret("GroupNameChangeUndo");
+	QString ret("PathDeleteUndo");
 	return ret;
 }
 
-void GroupNameChangeUndo::undo()
+void PathDeleteUndo::undo()
 {
-	model_.renameGroup(newname_, oldname_);
+	model_.addPath(group_, index_, path_);
 }

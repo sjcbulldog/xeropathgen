@@ -94,6 +94,7 @@ const char* XeroPathGenerator::RobotDialogTimeStep = "Time Step";
 
 const char* XeroPathGenerator::PrefDialogUnits = "Units";
 const char* XeroPathGenerator::PrefDialogOutputFormat = "Output Format";
+const char* XeroPathGenerator::PrefDialogOutputFlags = "Output Path Flags";
 const char* XeroPathGenerator::PrefDialogNTServer = "NT Server Addr";
 const char* XeroPathGenerator::PrefDialogNTTableName = "NT Table Name";
 
@@ -229,6 +230,19 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 			output_type_ = OutputType::OutputJSON;
 		else
 			output_type_ = OutputType::OutputCSV;
+	}
+	else
+	{
+		output_type_ = OutputType::OutputCSV;
+	}
+
+	if (settings_.contains(OutputFlagsSetting))
+	{
+		output_flags_ = settings_.value(OutputFlagsSetting).toBool();
+	}
+	else
+	{
+		output_flags_ = true;
 	}
 
 	if (settings_.contains(NTServerIPAddress))
@@ -403,6 +417,15 @@ bool XeroPathGenerator::createRightSide()
 	(void)connect(constraints_, &ConstraintEditor::constraintRemoved, this, &XeroPathGenerator::constraintAddedRemoved);
 	(void)connect(constraints_, &ConstraintEditor::constraintChanged, this, &XeroPathGenerator::constraintAddedRemoved);
 
+	flags_ = new FlagsEditor(this);
+	flags_dock_ = new QDockWidget(tr("Flags"), this);
+	flags_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+	flags_dock_->setWidget(flags_);
+	addDockWidget(Qt::RightDockWidgetArea, flags_dock_);
+	(void)connect(flags_, &FlagsEditor::flagAdded, this, &XeroPathGenerator::flagAddedRemoved);
+	(void)connect(flags_, &FlagsEditor::flagRemoved, this, &XeroPathGenerator::flagAddedRemoved);
+	(void)connect(flags_, &FlagsEditor::flagChanged, this, &XeroPathGenerator::flagAddedRemoved);
+
 	waypoint_parameters_ = new QTreeView();
 	waypoint_parameters_dock_ = new QDockWidget(tr("Waypoint Parameters"), this);
 	waypoint_parameters_dock_->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
@@ -500,6 +523,10 @@ bool XeroPathGenerator::createMenus()
 	view_show_constraints_ = view_->addAction(tr("Constraints"));
 	view_show_constraints_->setCheckable(true);
 	(void)connect(view_show_constraints_, &QAction::triggered, this, &XeroPathGenerator::viewConstraintWindow);
+
+	view_show_flags_ = view_->addAction(tr("Flags"));
+	view_show_flags_->setCheckable(true);
+	(void)connect(view_show_flags_, &QAction::triggered, this, &XeroPathGenerator::viewFlagsWindow);
 
 	view_show_waypoint_parameters_ = view_->addAction(tr("Waypoint Parameters"));
 	view_show_waypoint_parameters_->setCheckable(true);
@@ -861,6 +888,7 @@ void XeroPathGenerator::setPath(std::shared_ptr<RobotPath> path)
 	waypoint_model_.enable(false);
 	path_parameters_->resizeColumnToContents(0);
 	constraints_->setPath(current_path_);
+	flags_->setPath(current_path_);
 	plot_main_->setPath(current_path_);
 
 	if (current_path_ != nullptr && !current_path_->hasTrajectory(TrajectoryName::Main))
@@ -1587,6 +1615,82 @@ void XeroPathGenerator::fileGenerateAs()
 	generate();
 }
 
+bool XeroPathGenerator::generateFlagsCSV(std::shared_ptr<RobotPath> path, std::string& outfile)
+{
+	std::ofstream outstrm(outfile);
+
+	if (!outstrm.is_open())
+		return false;
+
+	for (auto flag : path->getFlags())
+	{
+		double btime, atime;
+
+		if (flag->before() < flag->after())
+			continue;
+
+		if (flag->before() < 0.0 || flag->after() < 0.0)
+			continue;
+
+		auto traj = path->getTrajectory(TrajectoryName::Main);
+		if (traj == nullptr)
+			continue;
+
+		if (!traj->getTimeForDistance(flag->before(), btime))
+			continue;
+
+		if (!traj->getTimeForDistance(flag->after(), atime))
+			continue;
+
+		outstrm << '"' << flag->name() << '"' << ",";
+		outstrm << atime << "," << btime << std::endl;
+	}
+
+	return true;
+}
+
+bool XeroPathGenerator::generateFlagsJSON(std::shared_ptr<RobotPath> path, std::string& outfile)
+{
+	QJsonArray a;
+
+	for (auto flag : path->getFlags())
+	{
+		double btime, atime;
+
+		if (flag->before() < flag->after())
+			continue;
+
+		if (flag->before() < 0.0 || flag->after() < 0.0)
+			continue;
+
+		auto traj = path->getTrajectory(TrajectoryName::Main);
+		if (traj == nullptr)
+			continue;
+
+		if (!traj->getTimeForDistance(flag->before(), btime))
+			continue;
+
+		if (!traj->getTimeForDistance(flag->after(), atime))
+			continue;
+
+		QJsonObject flagobj;
+		flagobj[RobotPath::NameTag] = flag->name().c_str();
+		flagobj[RobotPath::BeforeTag] = btime;
+		flagobj[RobotPath::AfterTag] = atime;
+		a.push_back(flagobj);
+	}
+
+	QJsonDocument doc(a);
+	QFile file(outfile.c_str());
+	if (!file.open(QIODevice::OpenModeFlag::Truncate | QIODevice::OpenModeFlag::WriteOnly))
+		return false;
+
+	file.write(doc.toJson());
+	file.close();
+
+	return true;
+}
+
 void XeroPathGenerator::generateOnePath(std::shared_ptr<RobotPath> path, const std::string &trajname, std::ostream& outfile)
 {
 	std::vector<std::string> headers =
@@ -1601,6 +1705,9 @@ void XeroPathGenerator::generateOnePath(std::shared_ptr<RobotPath> path, const s
 		RobotPath::HeadingTag
 	};
 
+	//
+	// Write the trajectory
+	//
 	auto t = path->getTrajectory(trajname);
 	if (output_type_ == OutputType::OutputCSV)
 	{
@@ -1633,7 +1740,6 @@ void XeroPathGenerator::generate()
 		std::this_thread::sleep_for(delay);
 	} while (pending > 0);
 
-
 	status_text_->setText("Writing Paths");
 	count = 0;
 	std::list<std::shared_ptr<RobotPath>> pathlist;
@@ -1662,6 +1768,20 @@ void XeroPathGenerator::generate()
 
 			std::ofstream outstrm(outfile);
 			generateOnePath(path, trajname, outstrm);
+		}
+
+		if (path->getFlags().size() > 0)
+		{
+			if (output_type_ == OutputType::OutputCSV)
+			{
+				outfile = last_path_dir_ + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.csv";
+				generateFlagsCSV(path, outfile);
+			}
+			else
+			{
+				outfile = last_path_dir_ + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.json";
+				generateFlagsJSON(path, outfile);
+			}
 		}
 		count++;
 	}
@@ -1763,6 +1883,11 @@ void XeroPathGenerator::showViewMenu()
 	else
 		view_show_constraints_->setChecked(false);
 
+	if (flags_dock_->isVisible())
+		view_show_flags_->setChecked(true);
+	else
+		view_show_flags_->setChecked(false);
+
 	if (waypoint_parameters_dock_->isVisible())
 		view_show_waypoint_parameters_->setChecked(true);
 	else
@@ -1791,6 +1916,14 @@ void XeroPathGenerator::viewConstraintWindow()
 		constraints_dock_->hide();
 	else
 		constraints_dock_->show();
+}
+
+void XeroPathGenerator::viewFlagsWindow()
+{
+	if (flags_dock_->isVisible())
+		flags_dock_->hide();
+	else
+		flags_dock_->show();
 }
 
 void XeroPathGenerator::viewWaypointParamsWindow()
@@ -2061,14 +2194,14 @@ void XeroPathGenerator::editGeneratorParameters()
 			value = p.getDefault();
 
 		if (p.getType() == GeneratorParameter::DoublePropType)
-			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTDouble, value, p.getDescription().c_str());
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PropertyType::PTDouble, value, p.getDescription().c_str());
 		else if (p.getType() == GeneratorParameter::IntegerPropType)
-			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTInteger, value, p.getDescription().c_str());
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PropertyType::PTInteger, value, p.getDescription().c_str());
 		else if (p.getType() == GeneratorParameter::StringPropType)
-			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTString, value, p.getDescription().c_str());
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PropertyType::PTString, value, p.getDescription().c_str());
 		else if (p.getType() == GeneratorParameter::StringListPropType)
 		{
-			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PTStringList, value, p.getDescription().c_str());
+			prop = std::make_shared<EditableProperty>(p.getName().c_str(), EditableProperty::PropertyType::PTStringList, value, p.getDescription().c_str());
 			for (const std::string& choice : p.getChoices())
 				prop->addChoice(choice.c_str());
 		}
@@ -2245,46 +2378,46 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 		PropertyEditorTreeModel& model = editor->getModel();
 		std::shared_ptr<EditableProperty> prop;
 
-		prop = std::make_shared<EditableProperty>(RobotDialogName, EditableProperty::PTString,
+		prop = std::make_shared<EditableProperty>(RobotDialogName, EditableProperty::PropertyType::PTString,
 			name.c_str(), "The name of the robot", !create);
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogUnits, EditableProperty::PTStringList,
+		prop = std::make_shared<EditableProperty>(RobotDialogUnits, EditableProperty::PropertyType::PTStringList,
 			QVariant(units.c_str()), "The units of measurement for the robot, can differ from the paths");
 		auto list = UnitConverter::getAllUnits();
 		for (auto& unit : list)
 			prop->addChoice(unit.c_str());
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogELength, EditableProperty::PTDouble, 
+		prop = std::make_shared<EditableProperty>(RobotDialogELength, EditableProperty::PropertyType::PTDouble,
 			std::to_string(elength).c_str(), "The effective length of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogEWidth, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogEWidth, EditableProperty::PropertyType::PTDouble,
 			std::to_string(ewidth).c_str(), "The effective width of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogRLength, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogRLength, EditableProperty::PropertyType::PTDouble,
 			std::to_string(rlength).c_str(), "The physical length of the robot (outside bumper to outside bumper)");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogRWidth, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogRWidth, EditableProperty::PropertyType::PTDouble,
 			std::to_string(rwidth).c_str(), "The physical width of the robot (outside bumper to outside bumpter)");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogMaxVelocity, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogMaxVelocity, EditableProperty::PropertyType::PTDouble,
 			std::to_string(velocity).c_str(), "The maximum velocity of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogMaxAcceleration, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogMaxAcceleration, EditableProperty::PropertyType::PTDouble,
 			std::to_string(accel).c_str(), "The maximum acceleration of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogMaxJerk, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogMaxJerk, EditableProperty::PropertyType::PTDouble,
 			std::to_string(jerk).c_str(), "The maximum jerk of the robot");
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogDriveType, EditableProperty::PTStringList,
+		prop = std::make_shared<EditableProperty>(RobotDialogDriveType, EditableProperty::PropertyType::PTStringList,
 			QVariant(DriveBaseData::typeToName(drivetype).c_str()), "The drive type for the robot");
 		auto drivetypes = RobotParams::getDriveTypes();
 		QList<QVariant> dtypes;
@@ -2292,7 +2425,7 @@ void XeroPathGenerator::createEditRobot(std::shared_ptr<RobotParams> robot)
 			prop->addChoice(DriveBaseData::typeToName(type).c_str());
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogTimeStep, EditableProperty::PTDouble,
+		prop = std::make_shared<EditableProperty>(RobotDialogTimeStep, EditableProperty::PropertyType::PTDouble,
 			std::to_string(timestep).c_str(), "The time interval for the drive base control loop");
 		model.addProperty(prop);
 
@@ -2438,7 +2571,7 @@ void XeroPathGenerator::editPreferences()
 	PropertyEditor dialog("Edit Preferences");
 	std::shared_ptr<EditableProperty> prop;
 
-	prop = std::make_shared<EditableProperty>(PrefDialogUnits, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(PrefDialogUnits, EditableProperty::PropertyType::PTStringList,
 		QVariant(units_.c_str()), "The units of measurement for the robot, can differ from the paths");
 	auto list = UnitConverter::getAllUnits();
 	for (auto& unit : list)
@@ -2449,39 +2582,45 @@ void XeroPathGenerator::editPreferences()
 	if (output_type_ == OutputType::OutputCSV)
 		value = CSVOutputType;
 
-	prop = std::make_shared<EditableProperty>(PrefDialogOutputFormat, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(PrefDialogOutputFormat, EditableProperty::PropertyType::PTStringList,
 		QVariant(value), "The format for trajectory output");
 	prop->addChoice(JsonOutputType);
 	prop->addChoice(CSVOutputType);
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(PrefDialogNTServer, EditableProperty::PTString,
+	prop = std::make_shared<EditableProperty>(PrefDialogOutputFlags, EditableProperty::PropertyType::PTStringList,
+		QVariant(output_flags_ ? "true" : "false"), "If true, the path flags are output with the path when generated");
+	prop->addChoice("true");
+	prop->addChoice("false");
+	dialog.getModel().addProperty(prop);
+
+	prop = std::make_shared<EditableProperty>(PrefDialogNTServer, EditableProperty::PropertyType::PTString,
 		QVariant(ntserver_.c_str()), "The IP address of the Network Table server");
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(PrefDialogNTTableName, EditableProperty::PTString,
+	prop = std::make_shared<EditableProperty>(PrefDialogNTTableName, EditableProperty::PropertyType::PTString,
 		QVariant(nttable_name_.c_str()), "The name of the network table for path publishing");
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(GridEnabled, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(GridEnabled, EditableProperty::PropertyType::PTStringList,
 		QVariant(path_view_->isGridEnabled() ? "true" : "false"), "If true, the grid is drawn on the field");
 	prop->addChoice("true");
 	prop->addChoice("false");
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(GridComplete, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(GridComplete, EditableProperty::PropertyType::PTStringList,
 		QVariant(path_view_->isCompleteGrid() ? "true" : "false"), "If the grid is drawn, and this is true, a mesh grid is drawn");
 	prop->addChoice("true");
 	prop->addChoice("false");
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(ShowEquation, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(ShowEquation, EditableProperty::PropertyType::PTStringList,
 		QVariant(path_view_->isShowEquation() ? "true" : "false"), "If true, the Spline equations are displayed");
 	prop->addChoice("true");
 	prop->addChoice("false");
 	dialog.getModel().addProperty(prop);
 
-	prop = std::make_shared<EditableProperty>(EquationsStacked, EditableProperty::PTStringList,
+	prop = std::make_shared<EditableProperty>(EquationsStacked, EditableProperty::PropertyType::PTStringList,
 		QVariant(path_view_->areEquationsStacked() ? "true" : "false"), "If true and equations are shown, they are stacked x then y");
 	prop->addChoice("true");
 	prop->addChoice("false");
@@ -2516,6 +2655,18 @@ void XeroPathGenerator::editPreferences()
 	else
 	{
 		settings_.remove(OutputTypeSetting);
+	}
+
+	value = dialog.getModel().getProperty(PrefDialogOutputFlags)->getValue().toString();
+	if (value == "true")
+	{
+		settings_.setValue(OutputFlagsSetting, true);
+		output_flags_ = true;
+	}
+	else if (value == "false")
+	{
+		settings_.setValue(OutputFlagsSetting, false);
+		output_flags_ = false;
 	}
 
 	value = dialog.getModel().getProperty(GridEnabled)->getValue().toString();
@@ -2626,6 +2777,13 @@ void XeroPathGenerator::savePlotVars()
 }
 
 void XeroPathGenerator::constraintAddedRemoved()
+{
+	paths_model_.setDirty();
+	currentPathChanged();
+	setXeroWindowTitle();
+}
+
+void XeroPathGenerator::flagAddedRemoved()
 {
 	paths_model_.setDirty();
 	currentPathChanged();

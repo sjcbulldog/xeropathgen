@@ -60,6 +60,7 @@
     <ClInclude Include="MinMaxAcceleration.h" />
     <ClInclude Include="PathBase.h" />
     <ClInclude Include="PathCollection.h" />
+    <ClInclude Include="PathFlag.h" />
     <ClInclude Include="PathGroup.h" />
     <ClInclude Include="PathTrajectory.h" />
     <ClInclude Include="Pose2d.h" />

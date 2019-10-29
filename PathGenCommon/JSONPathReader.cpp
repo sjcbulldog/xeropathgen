@@ -330,6 +330,181 @@ namespace xero
 			return ret;
 		}
 
+		bool JSONPathReader::parseConstraints(const std::string& filename, JSONObject &path, std::shared_ptr<RobotPath> onepath)
+		{
+			if (!path[RobotPath::ConstraintsTagW]->IsArray())
+			{
+				std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+				std::cerr << "         path object 'constraints' field is not an array" << std::endl;
+				return false;
+			}
+
+			JSONArray conarr = path[RobotPath::ConstraintsTagW]->AsArray();
+			for (size_t i = 0; i < conarr.size(); i++)
+			{
+				JSONValue* conobj = conarr[i];
+				if (!conobj->IsObject())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path object 'constraints' array element is not an object" << std::endl;
+					return false;
+				}
+
+				JSONObject constr = conobj->AsObject();
+
+				if (constr.find(RobotPath::TypeTagW) == constr.end())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path object constraint does not contain 'type' field" << std::endl;
+					return false;
+				}
+
+				if (!constr[RobotPath::TypeTagW]->IsString())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path object constraint has 'type' field but it is not a string" << std::endl;
+					return false;
+				}
+
+				std::string type = toNarrow(constr[RobotPath::TypeTagW]->AsString());
+
+				if (type == RobotPath::DistanceVelocityTag)
+				{
+					double before, after;
+					double velocity;
+
+					if (constr.find(RobotPath::BeforeTagW) == constr.end())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' missing 'before' field" << std::endl;
+						return false;
+					}
+
+					if (!constr[RobotPath::BeforeTagW]->IsNumber())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' has 'before' field that is not a number" << std::endl;
+						return false;
+					}
+					before = constr[RobotPath::BeforeTagW]->AsNumber();
+
+					if (constr.find(RobotPath::AfterTagW) == constr.end())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' missing 'after' field" << std::endl;
+						return false;
+					}
+
+					if (!constr[RobotPath::AfterTagW]->IsNumber())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' has 'after' field that is not a number" << std::endl;
+						return false;
+					}
+					after = constr[RobotPath::AfterTagW]->AsNumber();
+
+					if (constr.find(RobotPath::VelocityTagW) == constr.end())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' missing 'velocity' field" << std::endl;
+						return false;
+					}
+
+					if (!constr[RobotPath::VelocityTagW]->IsNumber())
+					{
+						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+						std::cerr << "         constraint 'distance_velocity' has 'velocity' field that is not a number" << std::endl;
+						return false;
+					}
+					velocity = constr[RobotPath::VelocityTagW]->AsNumber();
+					onepath->addTimingConstraint(std::make_shared<DistanceVelocityConstraint>(after, before, velocity));
+				}
+				else
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path object constraint with unknown type '" << type << "'" << std::endl;
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		bool JSONPathReader::parseFlags(const std::string& filename, JSONObject& path, std::shared_ptr<RobotPath> onepath)
+		{
+			if (!path[RobotPath::FlagsTagW]->IsArray())
+			{
+				std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+				std::cerr << "         path object 'flags' field is not an array" << std::endl;
+				return false;
+			}
+
+			JSONArray flagarr = path[RobotPath::FlagsTagW]->AsArray();
+			for (size_t i = 0; i < flagarr.size(); i++)
+			{
+				JSONValue* flagobj = flagarr[i];
+				if (!flagobj->IsObject())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path object 'flags' array element is not an object" << std::endl;
+					return false;
+				}
+
+				JSONObject flagstr = flagobj->AsObject();
+
+				double before, after;
+				std::string name;
+
+				if (flagstr.find(RobotPath::BeforeTagW) == flagstr.end())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag missing 'before' field" << std::endl;
+					return false;
+				}
+
+				if (!flagstr[RobotPath::BeforeTagW]->IsNumber())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag has 'before' field that is not a number" << std::endl;
+					return false;
+				}
+				before = flagstr[RobotPath::BeforeTagW]->AsNumber();
+
+				if (flagstr.find(RobotPath::AfterTagW) == flagstr.end())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag missing 'after' field" << std::endl;
+					return false;
+				}
+
+				if (!flagstr[RobotPath::AfterTagW]->IsNumber())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag has 'after' field that is not a number" << std::endl;
+					return false;
+				}
+				after = flagstr[RobotPath::AfterTagW]->AsNumber();
+
+				if (flagstr.find(RobotPath::NameTagW) == flagstr.end())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag missing 'name' field" << std::endl;
+					return false;
+				}
+
+				if (!flagstr[RobotPath::NameTagW]->IsString())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         flag has 'name' field that is not a string" << std::endl;
+					return false;
+				}
+				name = toNarrow(flagstr[RobotPath::NameTagW]->AsString());
+				onepath->addFlag(std::make_shared<PathFlag>(name, after, before));
+			}
+
+			return true;
+		}
+
 		bool JSONPathReader::parsePath(const std::string& filename, const RobotParams& robot, PathCollection& paths, const std::string& group, JSONValue* obj)
 		{
 			std::string name;
@@ -462,100 +637,14 @@ namespace xero
 
 			if (path.find(RobotPath::ConstraintsTagW) != path.end() && !path[RobotPath::ConstraintsTagW]->IsNull())
 			{
-				if (!path[RobotPath::ConstraintsTagW]->IsArray())
-				{
-					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-					std::cerr << "         path object 'constraints' field is not an array" << std::endl;
+				if (!parseConstraints(filename, path, onepath))
 					return false;
-				}
+			}
 
-				JSONArray conarr = path[RobotPath::ConstraintsTagW]->AsArray();
-				for (size_t i = 0; i < conarr.size(); i++)
-				{
-					JSONValue* conobj = conarr[i];
-					if (!conobj->IsObject())
-					{
-						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-						std::cerr << "         path object 'constraints' array element is not an object" << std::endl;
-						return false;
-					}
-
-					JSONObject constr = conobj->AsObject();
-
-					if (constr.find(RobotPath::TypeTagW) == constr.end())
-					{
-						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-						std::cerr << "         path object constraint does not contain 'type' field" << std::endl;
-						return false;
-					}
-
-					if (!constr[RobotPath::TypeTagW]->IsString())
-					{
-						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-						std::cerr << "         path object constraint has 'type' field but it is not a string" << std::endl;
-						return false;
-					}
-
-					std::string type = toNarrow(constr[RobotPath::TypeTagW]->AsString());
-
-					if (type == RobotPath::DistanceVelocityTag)
-					{
-						double before, after;
-						double velocity;
-
-						if (constr.find(RobotPath::BeforeTagW) == constr.end())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' missing 'before' field" << std::endl;
-							return false;
-						}
-
-						if (!constr[RobotPath::BeforeTagW]->IsNumber())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' has 'before' field that is not a number" << std::endl;
-							return false;
-						}
-						before = constr[RobotPath::BeforeTagW]->AsNumber();
-
-						if (constr.find(RobotPath::AfterTagW) == constr.end())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' missing 'after' field" << std::endl;
-							return false;
-						}
-
-						if (!constr[RobotPath::AfterTagW]->IsNumber())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' has 'after' field that is not a number" << std::endl;
-							return false;
-						}
-						after = constr[RobotPath::AfterTagW]->AsNumber();
-
-						if (constr.find(RobotPath::VelocityTagW) == constr.end())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' missing 'velocity' field" << std::endl;
-							return false;
-						}
-
-						if (!constr[RobotPath::VelocityTagW]->IsNumber())
-						{
-							std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-							std::cerr << "         constraint 'distance_velocity' has 'velocity' field that is not a number" << std::endl;
-							return false;
-						}
-						velocity = constr[RobotPath::VelocityTagW]->AsNumber();
-						onepath->addTimingConstraint(std::make_shared<DistanceVelocityConstraint>(after, before, velocity));
-					}
-					else 
-					{
-						std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
-						std::cerr << "         path object constraint with unknown type '" << type << "'" << std::endl;
-						return false;
-					}
-				}
+			if (path.find(RobotPath::FlagsTagW) != path.end() && !path[RobotPath::FlagsTagW]->IsNull())
+			{
+				if (!parseFlags(filename, path, onepath))
+					return false;
 			}
 
 			if (path.find(RobotPath::PointsTagW) == path.end())

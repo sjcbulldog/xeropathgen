@@ -1,9 +1,8 @@
 #pragma once
 
 #include "PathCollection.h"
+#include "JSON.h"
 #include <string>
-
-class JSONValue;
 
 namespace xero {
 	namespace paths
@@ -24,6 +23,9 @@ namespace xero {
 			static bool parseGroups(const std::string& filename, const RobotParams& robot, PathCollection& paths, JSONValue* groups);
 			static bool parseGroup(const std::string& filename, const RobotParams& robot, PathCollection& paths, JSONValue *group);
 			static bool parsePath(const std::string& filename, const RobotParams& robot, PathCollection& paths, const std::string &path, JSONValue* group);
+
+			static bool parseConstraints(const std::string& filename, JSONObject& path, std::shared_ptr<RobotPath> onepath);
+			static bool parseFlags(const std::string& filename, JSONObject& path, std::shared_ptr<RobotPath> onepath);
 		};
 	}
 }

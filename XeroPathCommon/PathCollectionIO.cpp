@@ -16,7 +16,6 @@
 #include "PathCollectionIO.h"
 #include "DistanceVelocityConstraint.h"
 #include <QJsonDocument>
-//#include <QJSonObject>
 #include <QFile>
 #include <QDebug>
 
@@ -106,6 +105,18 @@ bool PathCollectionIO::createPath(QJsonObject& obj, const std::shared_ptr<RobotP
 		}
 	}
 	obj[RobotPath::ConstraintsTag] = constraints;
+
+	QJsonArray flags;
+	for (auto flag : path->getFlags())
+	{
+		QJsonObject flagobj;
+
+		flagobj[RobotPath::BeforeTag] = flag->before();
+		flagobj[RobotPath::AfterTag] = flag->after();
+		flagobj[RobotPath::NameTag] = QString(flag->name().c_str());
+		flags.append(flagobj);
+	}
+	obj[RobotPath::FlagsTag] = flags;
 
 	QJsonArray points;
 	auto parray = path->getPoints();
@@ -352,6 +363,39 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 
 				std::shared_ptr<DistanceVelocityConstraint> dist = std::make_shared<DistanceVelocityConstraint>(after, before, velocity);
 				path->addTimingConstraint(dist);
+			}
+		}
+	}
+
+	if (obj.contains(RobotPath::FlagsTag))
+	{
+		QString str;
+
+		QJsonValue v2 = obj[RobotPath::FlagsTag];
+		if (v2.isArray())
+		{
+			QJsonArray arr = v2.toArray();
+			for (const QJsonValue& v3 : arr)
+			{
+				if (!v3.isObject())
+					continue;
+
+				QJsonObject vo = v3.toObject();
+
+				double before, after;
+				QString name;
+
+				if (!readDouble(file, vo, "flag", RobotPath::BeforeTag, before))
+					continue;
+
+				if (!readDouble(file, vo, "flag", RobotPath::AfterTag, after))
+					continue;
+
+				if (!readString(file, vo, "flag", RobotPath::NameTag, name))
+					continue;
+
+				std::shared_ptr<PathFlag> flag = std::make_shared<PathFlag>(name.toStdString(), after, before);
+				path->addFlag(flag);
 			}
 		}
 	}

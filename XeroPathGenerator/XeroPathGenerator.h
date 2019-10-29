@@ -28,6 +28,7 @@
 #include "RecentFiles.h"
 #include "ConstraintTreeModel.h"
 #include "ConstraintEditor.h"
+#include "FlagsEditor.h"
 #include "ShowRobotWindow.h"
 #include "PlotMainWindow.h"
 #include "PathFileTree.h"
@@ -112,6 +113,8 @@ private:
 	void filePrint();
 	void generate();
 	void generateOnePath(std::shared_ptr<xero::paths::RobotPath> path, const std::string& trajname, std::ostream& outfile);
+	bool generateFlagsCSV(std::shared_ptr<xero::paths::RobotPath> path, std::string& outfile);
+	bool generateFlagsJSON(std::shared_ptr<xero::paths::RobotPath> path, std::string& outfile);
 	void showFileMenu();
 
 	//
@@ -132,6 +135,7 @@ private:
 	void viewPathWindow();
 	void viewPathParamsWindow();
 	void viewConstraintWindow();
+	void viewFlagsWindow();
 	void viewWaypointParamsWindow();
 	void showViewMenu();
 
@@ -199,6 +203,7 @@ private:
 	static constexpr const char* UnitsSetting = "units";
 	static constexpr const char* LastPathDirSetting = "lastpathdir";
 	static constexpr const char* OutputTypeSetting = "outputtype";
+	static constexpr const char* OutputFlagsSetting = "outputflags";
 	static constexpr const char* NTServerIPAddress = "ntserver";
 	static constexpr const char* NTServerTableName = "tablename";
 	static constexpr const char* GridEnabled = "Grid Enabled";
@@ -226,17 +231,18 @@ private:
 
 	static const char* PrefDialogUnits;
 	static const char* PrefDialogOutputFormat;
+	static const char* PrefDialogOutputFlags;
 	static const char* PrefDialogNTServer;
 	static const char* PrefDialogNTTableName;
 
 private:
-	enum OutputType
+	enum class OutputType
 	{
 		OutputCSV,
 		OutputJSON,
 	};
 
-	enum DemoMode
+	enum class DemoMode
 	{
 		ModeNone,
 		ModeFile,
@@ -286,6 +292,7 @@ private:
 	void savePlotVars();
 
 	void constraintAddedRemoved();
+	void flagAddedRemoved();
 	void currentPathChanged();
 
 	void pathAdded(std::shared_ptr<xero::paths::RobotPath> path);
@@ -328,6 +335,9 @@ private:
 	QDockWidget* constraints_dock_;
 	ConstraintEditor* constraints_;
 
+	QDockWidget* flags_dock_;
+	FlagsEditor* flags_;
+
 	QDockWidget* waypoint_parameters_dock_;
 	QTreeView* waypoint_parameters_;
 
@@ -351,6 +361,7 @@ private:
 	QAction* view_show_paths_;
 	QAction* view_show_path_parameters_;
 	QAction* view_show_constraints_;
+	QAction* view_show_flags_;
 	QAction* view_show_waypoint_parameters_;
 
 	QMenu* games_;
@@ -428,6 +439,7 @@ private:
 
 	RecentFiles* recents_;
 	OutputType output_type_;
+	bool output_flags_;
 
 	DemoMode demo_mode_;
 	size_t group_index_;

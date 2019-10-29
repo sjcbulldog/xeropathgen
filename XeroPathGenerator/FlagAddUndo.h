@@ -14,26 +14,21 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
-#include "PathFileTreeModel.h"
+#pragma once
+#include "UndoItem.h"
+#include "FlagsEditor.h"
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
+class FlagAddUndo : public UndoItem
 {
-	newname_ = newname;
-	oldname_ = oldname;
-}
+public:
+	FlagAddUndo(FlagsEditor& editor, int row);
+	virtual ~FlagAddUndo();
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
-{
-}
+	virtual QString toString();
+	virtual void undo();
 
-QString GroupNameChangeUndo::toString()
-{
-	QString ret("GroupNameChangeUndo");
-	return ret;
-}
+private:
+	FlagsEditor& editor_;
+	int row_;
+};
 
-void GroupNameChangeUndo::undo()
-{
-	model_.renameGroup(newname_, oldname_);
-}

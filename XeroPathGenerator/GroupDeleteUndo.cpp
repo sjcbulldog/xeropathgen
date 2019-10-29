@@ -14,26 +14,29 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
+#include "GroupDeleteUndo.h"
 #include "PathFileTreeModel.h"
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
+using namespace xero::paths;
+
+GroupDeleteUndo::GroupDeleteUndo(PathFileTreeModel& model, int row, std::shared_ptr<PathGroup> group) : model_(model)
 {
-	newname_ = newname;
-	oldname_ = oldname;
+	row_ = row;
+	group_ = group;
 }
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
+GroupDeleteUndo::~GroupDeleteUndo()
 {
 }
 
-QString GroupNameChangeUndo::toString()
+QString GroupDeleteUndo::toString()
 {
-	QString ret("GroupNameChangeUndo");
+	QString ret("GroupDeleteUndo ");
+	ret += group_->getName().c_str();
 	return ret;
 }
 
-void GroupNameChangeUndo::undo()
+void GroupDeleteUndo::undo()
 {
-	model_.renameGroup(newname_, oldname_);
+	model_.insertPathGroup(row_, group_);
 }

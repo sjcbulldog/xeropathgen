@@ -316,5 +316,10 @@ namespace xero
 
 			trajectory_lock_.unlock();
 		}
+
+		bool RobotPath::hasFlag(const std::string& name) const {
+			auto it = std::find_if(flags_.begin(), flags_.end(), [&name](std::shared_ptr<PathFlag> f) { return f->name() == name;  });
+			return it != flags_.end();
+		}
 	}
 }

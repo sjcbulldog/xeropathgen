@@ -14,26 +14,31 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
-#include "PathFileTreeModel.h"
+#pragma once
+#include "UndoItem.h"
+#include "ConstraintTreeModel.h"
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
+class ConstraintChangeUndo :	public UndoItem
 {
-	newname_ = newname;
-	oldname_ = oldname;
-}
+public:
+	enum class WhichValue
+	{
+		Before,
+		After,
+		Velocity
+	};
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
-{
-}
+public:
+	ConstraintChangeUndo(ConstraintTreeModel &model, int row, WhichValue which, double orig);
+	virtual ~ConstraintChangeUndo();
 
-QString GroupNameChangeUndo::toString()
-{
-	QString ret("GroupNameChangeUndo");
-	return ret;
-}
+	virtual QString toString();
+	virtual void undo();
 
-void GroupNameChangeUndo::undo()
-{
-	model_.renameGroup(newname_, oldname_);
-}
+private:
+	int row_;
+	ConstraintTreeModel& model_;
+	WhichValue which_;
+	double value_;
+};
+

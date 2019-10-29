@@ -14,26 +14,28 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
-#include "PathFileTreeModel.h"
+#pragma once
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
-{
-	newname_ = newname;
-	oldname_ = oldname;
-}
+#include "UndoItem.h"
+#include "FlagsEditor.h"
+#include <PathFlag.h>
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
+class FlagDeleteUndo : public UndoItem
 {
-}
+public:
+	FlagDeleteUndo(FlagsEditor& editor, int row, const xero::paths::PathFlag& flag);
+	virtual ~FlagDeleteUndo();
+	virtual QString toString();
+	virtual void undo();
 
-QString GroupNameChangeUndo::toString()
-{
-	QString ret("GroupNameChangeUndo");
-	return ret;
-}
+private:
+	FlagsEditor& editor_;
 
-void GroupNameChangeUndo::undo()
-{
-	model_.renameGroup(newname_, oldname_);
-}
+	int row_;
+
+	//
+	// The Flags that was deleted
+	//
+	xero::paths::PathFlag deleted_;
+};
+

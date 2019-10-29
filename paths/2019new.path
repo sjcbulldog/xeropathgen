@@ -16,6 +16,13 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                        {
+                            "after": 20,
+                            "before": 142.1,
+                            "name": "LiftArm"
+                        }
+                    ],
                     "maxacceleration": 100,
                     "maxjerk": 1600,
                     "maxvelocity": 100,
@@ -28,8 +35,8 @@
                         },
                         {
                             "heading": 0,
-                            "x": 204.98735333631885,
-                            "y": 172.24840125391853
+                            "x": 204.87233273056057,
+                            "y": 172.3084004602992
                         }
                     ],
                     "startangle": 0,
@@ -48,6 +55,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 100,
                     "maxjerk": 1600,
                     "maxvelocity": 100,
@@ -79,6 +88,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1600,
                     "maxvelocity": 150,
@@ -115,6 +126,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -147,6 +160,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -173,6 +188,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -204,6 +221,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -230,6 +249,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -256,6 +277,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -287,6 +310,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -313,6 +338,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -339,6 +366,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -370,6 +399,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -396,6 +427,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -422,6 +455,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -453,6 +488,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -479,6 +516,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,
@@ -505,6 +544,8 @@
                     "endangle": 0,
                     "endangledelay": 0,
                     "endvelocity": 0,
+                    "flags": [
+                    ],
                     "maxacceleration": 150,
                     "maxjerk": 1500,
                     "maxvelocity": 150,

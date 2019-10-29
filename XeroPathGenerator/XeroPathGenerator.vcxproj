@@ -179,17 +179,22 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AboutDialog.cpp" />
-    <ClCompile Include="AddGroupUndo.cpp" />
-    <ClCompile Include="AddPathUndo.cpp" />
+    <ClCompile Include="FlagAddUndo.cpp" />
+    <ClCompile Include="GroupAddUndo.cpp" />
+    <ClCompile Include="PathAddUndo.cpp" />
     <ClCompile Include="Callout.cpp" />
-    <ClCompile Include="ChangeContraintUndo.cpp" />
+    <ClCompile Include="ConstraintChangeUndo.cpp" />
+    <ClCompile Include="FlagChangedUndo.cpp" />
     <ClCompile Include="ConstraintAddUndo.cpp" />
     <ClCompile Include="ConstraintDeleteUndo.cpp" />
     <ClCompile Include="ConstraintEditor.cpp" />
     <ClCompile Include="ConstraintTreeModel.cpp" />
-    <ClCompile Include="DeleteGroupUndo.cpp" />
-    <ClCompile Include="DeletePathUndo.cpp" />
+    <ClCompile Include="FlagDeleteUndo.cpp" />
+    <ClCompile Include="GroupDeleteUndo.cpp" />
+    <ClCompile Include="PathDeleteUndo.cpp" />
     <ClCompile Include="DriveBaseModel.cpp" />
+    <ClCompile Include="FlagsEditor.cpp" />
+    <ClCompile Include="FlagsTreeModel.cpp" />
     <ClCompile Include="GameFieldManager.cpp" />
     <ClCompile Include="GroupNameChangeUndo.cpp" />
     <ClCompile Include="main.cpp" />
@@ -234,17 +239,28 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <QtMoc Include="ConstraintEditor.h" />
     <QtMoc Include="ConstraintTreeModel.h" />
     <QtMoc Include="AboutDialog.h" />
-    <ClInclude Include="AddGroupUndo.h" />
-    <ClInclude Include="AddPathUndo.h" />
+    <ClInclude Include="FlagAddUndo.h" />
+    <ClInclude Include="GroupAddUndo.h" />
+    <ClInclude Include="PathAddUndo.h" />
     <ClInclude Include="build.h" />
     <ClInclude Include="Callout.h" />
-    <ClInclude Include="ChangeContraintUndo.h" />
+    <ClInclude Include="ConstraintChangeUndo.h" />
+    <ClInclude Include="FlagChangedUndo.h" />
     <ClInclude Include="ConstraintAddUndo.h" />
     <ClInclude Include="ConstraintDeleteUndo.h" />
-    <ClInclude Include="DeleteGroupUndo.h" />
-    <ClInclude Include="DeletePathUndo.h" />
+    <ClInclude Include="FlagDeleteUndo.h" />
+    <ClInclude Include="GroupDeleteUndo.h" />
+    <ClInclude Include="PathDeleteUndo.h" />
     <ClInclude Include="DriveBaseModel.h" />
     <ClInclude Include="EditableProperty.h" />
+    <QtMoc Include="FlagsEditor.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport</IncludePath>
+    </QtMoc>
+    <QtMoc Include="FlagsTreeModel.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtHelp;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport</IncludePath>
+    </QtMoc>
     <ClInclude Include="GameField.h" />
     <ClInclude Include="GameFieldManager.h" />
     <ClInclude Include="GroupNameChangeUndo.h" />
@@ -284,6 +300,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   <ItemGroup>
     <QtUic Include="AboutDialog.ui" />
     <QtUic Include="ConstraintEditor.ui" />
+    <QtUic Include="FlagsEditor.ui" />
     <QtUic Include="PlotVariableSelector.ui" />
     <QtUic Include="PropertyEditor.ui" />
     <QtUic Include="SelectRobotDialog.ui" />

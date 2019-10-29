@@ -14,26 +14,25 @@
 // limitations under the License.
 //
 
-#include "GroupNameChangeUndo.h"
-#include "PathFileTreeModel.h"
+#pragma once
 
-GroupNameChangeUndo::GroupNameChangeUndo(PathFileTreeModel& model, const std::string& newname, const std::string& oldname) : model_(model)
-{
-	newname_ = newname;
-	oldname_ = oldname;
-}
+#include "UndoItem.h"
 
-GroupNameChangeUndo::~GroupNameChangeUndo()
-{
-}
 
-QString GroupNameChangeUndo::toString()
-{
-	QString ret("GroupNameChangeUndo");
-	return ret;
-}
+class PathFileTreeModel;
 
-void GroupNameChangeUndo::undo()
+class PathAddUndo : public UndoItem
 {
-	model_.renameGroup(newname_, oldname_);
-}
+public:
+	PathAddUndo(PathFileTreeModel& model, const std::string& group, const std::string& path);
+	virtual ~PathAddUndo();
+
+	virtual QString toString();
+	virtual void undo();
+
+private:
+	PathFileTreeModel& model_;
+	std::string group_;
+	std::string path_;
+};
+

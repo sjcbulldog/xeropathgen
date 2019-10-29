@@ -2,6 +2,7 @@
 
 #include "Pose2d.h"
 #include "PathConstraint.h"
+#include "PathFlag.h"
 #include "PathBase.h"
 #include "UnitConverter.h"
 #include "PathTrajectory.h"
@@ -49,6 +50,8 @@ namespace xero
 			static constexpr const wchar_t* MaxJerkTagW = L"maxjerk";
 			static constexpr const char* ConstraintsTag = "constraints";
 			static constexpr const wchar_t* ConstraintsTagW = L"constraints";
+			static constexpr const char* FlagsTag = "flags";
+			static constexpr const wchar_t* FlagsTagW = L"flags";
 			static constexpr const char* TypeTag = "type";
 			static constexpr const wchar_t* TypeTagW = L"type";
 			static constexpr const char* DistanceVelocityTag = "distance_velocity";
@@ -96,6 +99,8 @@ namespace xero
 			bool hasData() const {
 				return !nodata_;
 			}
+
+			bool hasFlag(const std::string& name) const;
 
 			void addError(bool nodata, const std::string& err) {
 				if (nodata)
@@ -236,6 +241,30 @@ namespace xero
 
 			const ConstraintCollection& getConstraints() const {
 				return constraints_;
+			}
+
+
+			void addFlag(std::shared_ptr<PathFlag> flag) {
+				flags_.push_back(flag);
+			}
+
+			void insertFlag(int row, std::shared_ptr<PathFlag> flag) {
+				auto it = flags_.begin();
+				std::advance(it, row);
+				flags_.insert(it, flag);
+			}
+
+			void removeFlag(size_t index) {
+				if (index < flags_.size())
+				{
+					auto it = flags_.begin();
+					std::advance(it, index);
+					flags_.erase(it);
+				}
+			}
+
+			const std::vector<std::shared_ptr<PathFlag>>& getFlags() const {
+				return flags_;
 			}
 
 			double getStartVelocity() const {
@@ -412,6 +441,11 @@ namespace xero
 			// tell the user.
 			//
 			ConstraintCollection constraints_;
+
+			//
+			// Flags for the path
+			//
+			std::vector<std::shared_ptr<PathFlag>> flags_;
 
 			//
 			// Characteristics of the path.

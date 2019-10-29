@@ -203,5 +203,8 @@
     <ClInclude Include="Pose2dConstrained.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PathFlag.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

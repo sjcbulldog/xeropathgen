@@ -15,7 +15,7 @@
 //
 #include "ConstraintTreeModel.h"
 #include "UndoManager.h"
-#include "ChangeContraintUndo.h"
+#include "ConstraintChangeUndo.h"
 #include <DistanceVelocityConstraint.h>
 #include <QModelIndex>
 #include <QDebug>
@@ -30,9 +30,6 @@ ConstraintTreeModel::ConstraintTreeModel()
 ConstraintTreeModel::~ConstraintTreeModel()
 {
 }
-
-void deleteConstraintAt(QModelIndex index);
-void insertConstraint();
 
 QModelIndex ConstraintTreeModel::index(int row, int col, const QModelIndex& parent) const
 {
@@ -166,26 +163,26 @@ bool ConstraintTreeModel::setData(const QModelIndex& index, const QVariant& valu
 	std::shared_ptr<PathConstraint> con;
 	con = path_->getConstraints()[index.row()];
 	std::shared_ptr<DistanceVelocityConstraint> dist = std::dynamic_pointer_cast<DistanceVelocityConstraint>(con);
-	std::shared_ptr<ChangeContraintUndo> undo;
+	std::shared_ptr<ConstraintChangeUndo> undo;
 
 	if (dist != nullptr)
 	{
 		switch (index.column())
 		{
 		case 0:
-			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::After, dist->getAfter());
+			undo = std::make_shared<ConstraintChangeUndo>(*this, index.row(), ConstraintChangeUndo::WhichValue::After, dist->getAfter());
 			dist->setAfter(value.toDouble());
 			emitConstraintChanged();
 			break;
 
 		case 1:
-			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::Before, dist->getBefore());
+			undo = std::make_shared<ConstraintChangeUndo>(*this, index.row(), ConstraintChangeUndo::WhichValue::Before, dist->getBefore());
 			dist->setBefore(value.toDouble());
 			emitConstraintChanged();
 			break;
 
 		case 2:
-			undo = std::make_shared<ChangeContraintUndo>(*this, index.row(), ChangeContraintUndo::WhichValue::Velocity, dist->getVelocity());
+			undo = std::make_shared<ConstraintChangeUndo>(*this, index.row(), ConstraintChangeUndo::WhichValue::Velocity, dist->getVelocity());
 			dist->setVelocity(value.toDouble());
 			emitConstraintChanged();
 			break;

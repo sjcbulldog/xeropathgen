@@ -123,9 +123,6 @@
     <ClCompile Include="UndoManager.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
-    <ClCompile Include="ChangeContraintUndo.cpp">
-      <Filter>Undo</Filter>
-    </ClCompile>
     <ClCompile Include="ConstraintAddUndo.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
@@ -147,20 +144,38 @@
     <ClCompile Include="GroupNameChangeUndo.cpp">
       <Filter>Undo</Filter>
     </ClCompile>
-    <ClCompile Include="DeletePathUndo.cpp">
-      <Filter>Undo</Filter>
-    </ClCompile>
-    <ClCompile Include="AddPathUndo.cpp">
-      <Filter>Undo</Filter>
-    </ClCompile>
-    <ClCompile Include="DeleteGroupUndo.cpp">
-      <Filter>Undo</Filter>
-    </ClCompile>
-    <ClCompile Include="AddGroupUndo.cpp">
-      <Filter>Undo</Filter>
-    </ClCompile>
     <ClCompile Include="PrintController.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagsEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagsTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupAddUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="PathAddUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintChangeUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupDeleteUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="PathDeleteUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagDeleteUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagChangedUndo.cpp">
+      <Filter>Undo</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagAddUndo.cpp">
+      <Filter>Undo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +230,12 @@
     <QtMoc Include="PathFileTreeModel.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="FlagsEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FlagsTreeModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="XeroPathGenerator.qrc">
@@ -267,9 +288,6 @@
     <ClInclude Include="ConstraintDeleteUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
-    <ClInclude Include="ChangeContraintUndo.h">
-      <Filter>Undo</Filter>
-    </ClInclude>
     <ClInclude Include="ConstraintAddUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
@@ -291,20 +309,32 @@
     <ClInclude Include="GroupNameChangeUndo.h">
       <Filter>Undo</Filter>
     </ClInclude>
-    <ClInclude Include="DeletePathUndo.h">
-      <Filter>Undo</Filter>
-    </ClInclude>
-    <ClInclude Include="AddPathUndo.h">
-      <Filter>Undo</Filter>
-    </ClInclude>
-    <ClInclude Include="AddGroupUndo.h">
-      <Filter>Undo</Filter>
-    </ClInclude>
-    <ClInclude Include="DeleteGroupUndo.h">
-      <Filter>Undo</Filter>
-    </ClInclude>
     <ClInclude Include="PrintController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupAddUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="PathAddUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintChangeUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupDeleteUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="PathDeleteUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagDeleteUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagChangedUndo.h">
+      <Filter>Undo</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagAddUndo.h">
+      <Filter>Undo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +354,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="AboutDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="FlagsEditor.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -20,7 +20,7 @@
 class EditableProperty
 {
 public:
-	enum PropertyType
+	enum class PropertyType
 	{
 		PTDouble,
 		PTString,
