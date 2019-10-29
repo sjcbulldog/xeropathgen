@@ -8,7 +8,6 @@ HEADERS += ./build.h \
     ./EditableProperty.h \
     ./GameField.h \
     ./GameFieldManager.h \
-    ./Generator.h \
     ./PathFileTreeModel.h \
     ./PathParamTreeModel.h \
     ./PropertyEditorItemDelegate.h \
@@ -59,27 +58,32 @@ SOURCES += ./AboutDialog.cpp \
     ./WaypointTreeModel.cpp \
     ./XeroPathGenerator.cpp\
     ./NetworkDownloadManager.cpp\
-    ./AddGroupUndo.cpp\
-    ./AddPathUndo.cpp\
-    ./ChangeContraintUndo.cpp\
+    ./GroupAddUndo.cpp\
+    ./PathAddUndo.cpp\
+    ./FlagAddUndo.cpp\
+    ./ConstraintChangeUndo.cpp\
     ./ConstraintAddUndo.cpp\
     ./ConstraintDeleteUndo.cpp\
-    ./DeleteGroupUndo.cpp\
-    ./DeletePathUndo.cpp\
+    ./GroupDeleteUndo.cpp\
+    ./PathDeleteUndo.cpp\
+    ./FlagDeleteUndo.cpp\
     ./GroupNameChangeUndo.cpp\
     ./PathNameChangeUndo.cpp\
     ./PathParameterChangeUndo.cpp\
+    ./FlagChangedUndo.cpp\
     ./UndoItem.cpp\
     ./WaypointAddUndo.cpp\
     ./WaypointChangedUndo.cpp\
     ./WaypointDeleteUndo.cpp\
     ./UndoManager.cpp\
-    ./PrintController.cpp\
+    ./PrintController.cpp
 
 FORMS += ./AboutDialog.ui \
     ./ConstraintEditor.ui \
     ./PlotVariableSelector.ui \
     ./PropertyEditor.ui \
     ./SelectRobotDialog.ui \
-    ./ShowRobotWindow.ui
+    ./ShowRobotWindow.ui\
+    ./FlagsEditor.ui
+
 RESOURCES += XeroPathGenerator.qrc

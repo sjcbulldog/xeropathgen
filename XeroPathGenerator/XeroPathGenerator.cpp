@@ -114,8 +114,8 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 
 	traj_window_ = nullptr;
 
-	QString exedir = QCoreApplication::applicationDirPath();
-	QString imagepath = exedir + "/images/icon.png";
+	exedir_ = QCoreApplication::applicationDirPath();
+	QString imagepath = exedir_ + "/images/icon.png";
 	QPixmap image(imagepath);
 	QIcon icon(image);
 	setWindowIcon(icon);
@@ -605,9 +605,7 @@ bool XeroPathGenerator::createToolbar()
 
 	toolbar_ = addToolBar("Demo");
 
-	QString exedir = QCoreApplication::applicationDirPath();
-
-	imagepath = exedir + "/images/" + PlayButtonImage;
+	imagepath = exedir_ + "/images/" + PlayButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -616,7 +614,7 @@ bool XeroPathGenerator::createToolbar()
 	play_action_->setDisabled(true);
 	(void)connect(button, &QPushButton::pressed, this, &XeroPathGenerator::demoPlay);
 
-	imagepath = exedir + "/images/" + StopButtonImage;
+	imagepath = exedir_ + "/images/" + StopButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -627,7 +625,7 @@ bool XeroPathGenerator::createToolbar()
 
 	toolbar_->addSeparator();
 
-	imagepath = exedir + "/images/" + ForwardOneButtonImage;
+	imagepath = exedir_ + "/images/" + ForwardOneButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -636,7 +634,7 @@ bool XeroPathGenerator::createToolbar()
 	forward_one_action_->setDisabled(true);
 	(void)connect(button, &QPushButton::pressed, this, &XeroPathGenerator::demoForwardOne);
 
-	imagepath = exedir + "/images/" + ForwardTenButtonImage;
+	imagepath = exedir_ + "/images/" + ForwardTenButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -647,7 +645,7 @@ bool XeroPathGenerator::createToolbar()
 
 	toolbar_->addSeparator();
 
-	imagepath = exedir + "/images/" + RobotButtonImage;
+	imagepath = exedir_ + "/images/" + RobotButtonImage;
 	image = QPixmap(imagepath);
 	icon = QIcon(image);
 	button = new QPushButton(icon, "", toolbar_);
@@ -2048,22 +2046,27 @@ void XeroPathGenerator::showAbout()
 
 void XeroPathGenerator::showDocumentation()
 {
-	QString exedir = QCoreApplication::applicationDirPath();
-
 	if (help_process_ == nullptr)
 		help_process_ = std::make_shared<QProcess>();
-
-
+	
 	QStringList args;
 	args.push_back("-collectionFile");
-	args.push_back(exedir + "/xeropath.qhc");
+	args.push_back(exedir_ + "/xeropath.qhc");
 	args.push_back("-enableRemoteControl");
-	help_process_->setWorkingDirectory(exedir);
-	help_process_->start(exedir + "/Assistant", args);
-	help_process_->waitForStarted();
+	help_process_->setWorkingDirectory(exedir_);
+#ifdef __linux__
+	QProcessEnvironment env = help_process_->processEnvironment() ;
+	if (!env.contains("LD_LIBRARY_PATH"))
+	  env.insert("LD_LIBRARY_PATH", exedir_) ;
+	help_process_->setProcessEnvironment(env) ;
+	qDebug() << env ;
+#endif
+	help_process_->start(exedir_ + "/Assistant", args);
+	if (!help_process_->waitForStarted()) {
+	}
 
 	QByteArray a;
-	a.append("register " + exedir + "/xeropath.qhc;\r\n");
+	a.append("register " + exedir_ + "/xeropath.qhc;\r\n");
 	help_process_->write(a);
 
 	a.clear();

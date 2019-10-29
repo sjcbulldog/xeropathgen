@@ -455,4 +455,6 @@ private:
 	std::shared_ptr<QProcess> help_process_;
 	xero::paths::Pose2d orig_point_;
 	UndoManager undo_mgr_;
+
+	QString exedir_ ;
 };
