@@ -57,6 +57,7 @@
 #include <QPrintDialog>
 #include <QDockWidget>
 #include <QPushButton>
+#include <QTextCodec>
 
 #include <cstdio>
 
@@ -2054,16 +2055,26 @@ void XeroPathGenerator::showDocumentation()
 	args.push_back(exedir_ + "/xeropath.qhc");
 	args.push_back("-enableRemoteControl");
 	help_process_->setWorkingDirectory(exedir_);
+	QProcessEnvironment env = help_process_->processEnvironment();
+
 #ifdef __linux__
-	QProcessEnvironment env = help_process_->processEnvironment() ;
 	if (!env.contains("LD_LIBRARY_PATH"))
 	  env.insert("LD_LIBRARY_PATH", exedir_) ;
 	help_process_->setProcessEnvironment(env) ;
-	qDebug() << env ;
 #endif
+
+	qDebug() << env.toStringList();
+
 	help_process_->start(exedir_ + "/Assistant", args);
-	if (!help_process_->waitForStarted()) {
-	}
+	help_process_->waitForStarted();
+
+	QByteArray ar = help_process_->readAllStandardError();
+	QString str = QTextCodec::codecForMib(106)->toUnicode(ar);
+	qDebug() << "Errors: " << str;
+
+	ar = help_process_->readAllStandardOutput();
+	str = QTextCodec::codecForMib(106)->toUnicode(ar);
+	qDebug() << "Output: " << str;
 
 	QByteArray a;
 	a.append("register " + exedir_ + "/xeropath.qhc;\r\n");
