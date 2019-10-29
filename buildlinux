@@ -80,6 +80,9 @@ function docopy
     cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqwbmp.so xeropathgen/imageformats
     cp ~/Qt/$QTVERSION/gcc_64/plugins/imageformats/libqwebp.so xeropathgen/imageformats
 
+    mkdir xeropathgen/sqldrivers
+    cp ~/Qt/$QTVERSION/gcc_64/plugins/sqldrivers/*.so xeropathgen/sqldrivers
+
 
     mkdir xeropathgen/platforms
     cp ~/Qt/$QTVERSION/gcc_64/plugins/platforms/libqxcb.so xeropathgen/platforms

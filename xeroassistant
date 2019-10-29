@@ -1,0 +1,8 @@
+#!/bin/bash
+
+baseapp=$(readlink -f "$0")
+basedir=$(dirname $baseapp)
+export LD_LIBRARY_PATH=$basedir
+echo Application directory is $basedir
+$basedir/assistant $$
+
