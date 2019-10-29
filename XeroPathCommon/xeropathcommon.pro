@@ -21,6 +21,7 @@ SOURCES += ManagerBase.cpp
 SOURCES += PathCollectionIO.cpp
 SOURCES += PathGenerationEngine.cpp
 SOURCES += RobotManager.cpp
-SOURCES += XeroPathCommon.cpp
+SOURCES += CSVFlagsWriter.cpp
+SOURCES += JSONFlagsWriter.cpp
 
 INCLUDEPATH += ../PathGenCommon

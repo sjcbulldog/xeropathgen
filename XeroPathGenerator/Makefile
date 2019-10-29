@@ -40,7 +40,7 @@ DISTNAME      = XeroPathGenerator1.0.0
 DISTDIR = /home/bwg/rtools/xeropathgen/XeroPathGenerator/release/XeroPathGenerator1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/bwg/Qt/5.13.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -L$(SolutionDir)$(Platform)/$(Configuration) ../XeroPathCommon/release/libXeroPathCommon.a ../PathGenCommon/release/PathGenCommon.a ../external/wpi/linux/release/lib/ntsim.a ../external/wpi/linux/release/lib/wpiutilsim.a /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Charts.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5PrintSupport.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Widgets.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Gui.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Network.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L$(SolutionDir)$(Platform)/$(Configuration) ../XeroPathCommon/release/libxeropathcommon.a ../PathGenCommon/release/PathGenCommon.a ../external/wpi/linux/release/lib/ntsim.a ../external/wpi/linux/release/lib/wpiutilsim.a /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Charts.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5PrintSupport.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Widgets.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Gui.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Network.so /home/bwg/Qt/5.13.1/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -55,7 +55,9 @@ OBJECTS_DIR   = release/
 SOURCES       = AboutDialog.cpp \
 		Callout.cpp \
 		ConstraintEditor.cpp \
+		FlagsEditor.cpp \
 		ConstraintTreeModel.cpp \
+		FlagsTreeModel.cpp \
 		DriveBaseModel.cpp \
 		GameFieldManager.cpp \
 		main.cpp \
@@ -100,7 +102,9 @@ SOURCES       = AboutDialog.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp \
+		GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp \
+		GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp \
 		GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp \
@@ -117,7 +121,9 @@ SOURCES       = AboutDialog.cpp \
 OBJECTS       = release/AboutDialog.o \
 		release/Callout.o \
 		release/ConstraintEditor.o \
+		release/FlagsEditor.o \
 		release/ConstraintTreeModel.o \
+		release/FlagsTreeModel.o \
 		release/DriveBaseModel.o \
 		release/GameFieldManager.o \
 		release/main.o \
@@ -163,7 +169,9 @@ OBJECTS       = release/AboutDialog.o \
 		release/moc_PathFileTreeModel.o \
 		release/moc_XeroPathGenerator.o \
 		release/moc_ConstraintEditor.o \
+		release/moc_FlagsEditor.o \
 		release/moc_ConstraintTreeModel.o \
+		release/moc_FlagsTreeModel.o \
 		release/moc_AboutDialog.o \
 		release/moc_PathFileTree.o \
 		release/moc_PathPlotView.o \
@@ -368,7 +376,9 @@ DIST          = ../../../Qt/5.13.1/gcc_64/mkspecs/features/spec_pre.prf \
 		WaypointTreeModel.h \
 		XeroPathGenerator.h \
 		ConstraintEditor.h \
+		FlagsEditor.h \
 		ConstraintTreeModel.h \
+		FlagsTreeModel.h \
 		AboutDialog.h \
 		PathFileTree.h \
 		PathPlotView.h \
@@ -385,7 +395,9 @@ DIST          = ../../../Qt/5.13.1/gcc_64/mkspecs/features/spec_pre.prf \
 		UndoManager.h AboutDialog.cpp \
 		Callout.cpp \
 		ConstraintEditor.cpp \
+		FlagsEditor.cpp \
 		ConstraintTreeModel.cpp \
+		FlagsTreeModel.cpp \
 		DriveBaseModel.cpp \
 		GameFieldManager.cpp \
 		main.cpp \
@@ -812,8 +824,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents XeroPathGenerator.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents build.h Callout.h DriveBaseModel.h EditableProperty.h GameField.h GameFieldManager.h PathFileTreeModel.h PathParamTreeModel.h PropertyEditorItemDelegate.h PropertyEditorTreeModel.h SwerveDriveBaseModel.h TankDriveBaseModel.h WaypointTreeModel.h XeroPathGenerator.h ConstraintEditor.h ConstraintTreeModel.h AboutDialog.h PathFileTree.h PathPlotView.h PropertyEditor.h PlotVariableSelector.h PlotMainWindow.h SelectRobotDialog.h RecentFiles.h ShowRobotWindow.h TrajectoryViewWindow.h PathFieldView.h NetworkDownloadManager.h PrintController.h UndoManager.h $(DISTDIR)/
-	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp ConstraintTreeModel.cpp DriveBaseModel.cpp GameFieldManager.cpp main.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp NetworkDownloadManager.cpp GroupAddUndo.cpp PathAddUndo.cpp FlagAddUndo.cpp ConstraintChangeUndo.cpp ConstraintAddUndo.cpp ConstraintDeleteUndo.cpp GroupDeleteUndo.cpp PathDeleteUndo.cpp FlagDeleteUndo.cpp GroupNameChangeUndo.cpp PathNameChangeUndo.cpp PathParameterChangeUndo.cpp FlagChangedUndo.cpp UndoItem.cpp WaypointAddUndo.cpp WaypointChangedUndo.cpp WaypointDeleteUndo.cpp UndoManager.cpp PrintController.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents build.h Callout.h DriveBaseModel.h EditableProperty.h GameField.h GameFieldManager.h PathFileTreeModel.h PathParamTreeModel.h PropertyEditorItemDelegate.h PropertyEditorTreeModel.h SwerveDriveBaseModel.h TankDriveBaseModel.h WaypointTreeModel.h XeroPathGenerator.h ConstraintEditor.h FlagsEditor.h ConstraintTreeModel.h FlagsTreeModel.h AboutDialog.h PathFileTree.h PathPlotView.h PropertyEditor.h PlotVariableSelector.h PlotMainWindow.h SelectRobotDialog.h RecentFiles.h ShowRobotWindow.h TrajectoryViewWindow.h PathFieldView.h NetworkDownloadManager.h PrintController.h UndoManager.h $(DISTDIR)/
+	$(COPY_FILE) --parents AboutDialog.cpp Callout.cpp ConstraintEditor.cpp FlagsEditor.cpp ConstraintTreeModel.cpp FlagsTreeModel.cpp DriveBaseModel.cpp GameFieldManager.cpp main.cpp PathFieldView.cpp PathFileTree.cpp PathFileTreeModel.cpp PathParamTreeModel.cpp PathPlotView.cpp PlotMainWindow.cpp PlotVariableSelector.cpp PropertyEditor.cpp PropertyEditorItemDelegate.cpp PropertyEditorTreeModel.cpp RecentFiles.cpp SelectRobotDialog.cpp ShowRobotWindow.cpp SwerveDriveBaseModel.cpp TankDriveBaseModel.cpp TrajectoryViewWindow.cpp WaypointTreeModel.cpp XeroPathGenerator.cpp NetworkDownloadManager.cpp GroupAddUndo.cpp PathAddUndo.cpp FlagAddUndo.cpp ConstraintChangeUndo.cpp ConstraintAddUndo.cpp ConstraintDeleteUndo.cpp GroupDeleteUndo.cpp PathDeleteUndo.cpp FlagDeleteUndo.cpp GroupNameChangeUndo.cpp PathNameChangeUndo.cpp PathParameterChangeUndo.cpp FlagChangedUndo.cpp UndoItem.cpp WaypointAddUndo.cpp WaypointChangedUndo.cpp WaypointDeleteUndo.cpp UndoManager.cpp PrintController.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents AboutDialog.ui ConstraintEditor.ui PlotVariableSelector.ui PropertyEditor.ui SelectRobotDialog.ui ShowRobotWindow.ui FlagsEditor.ui $(DISTDIR)/
 
 
@@ -851,9 +863,9 @@ compiler_moc_predefs_clean:
 GeneratedFiles/$(ConfigurationName)/moc_predefs.h: ../../../Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -std=c++17 -O2 -std=gnu++1z -Wall -W -dM -E -o GeneratedFiles/moc_predefs.h ../../../Qt/5.13.1/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp GeneratedFiles/$(ConfigurationName)/moc_UndoManager.cpp
+compiler_moc_header_make_all: GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp GeneratedFiles/$(ConfigurationName)/moc_UndoManager.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp GeneratedFiles/$(ConfigurationName)/moc_UndoManager.cpp
+	-$(DEL_FILE) GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_XeroPathGenerator.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFileTree.cpp GeneratedFiles/$(ConfigurationName)/moc_PathPlotView.cpp GeneratedFiles/$(ConfigurationName)/moc_PropertyEditor.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotVariableSelector.cpp GeneratedFiles/$(ConfigurationName)/moc_PlotMainWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_SelectRobotDialog.cpp GeneratedFiles/$(ConfigurationName)/moc_RecentFiles.cpp GeneratedFiles/$(ConfigurationName)/moc_ShowRobotWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_TrajectoryViewWindow.cpp GeneratedFiles/$(ConfigurationName)/moc_PathFieldView.cpp GeneratedFiles/$(ConfigurationName)/moc_NetworkDownloadManager.cpp GeneratedFiles/$(ConfigurationName)/moc_UndoManager.cpp
 GeneratedFiles/$(ConfigurationName)/moc_PathFileTreeModel.cpp: PathFileTreeModel.h \
 		../PathGenCommon/PathCollection.h \
 		../PathGenCommon/PathGroup.h \
@@ -1432,6 +1444,176 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp: ConstraintEditor.h
 		../../../Qt/5.13.1/gcc_64/bin/moc
 	/home/bwg/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include '/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/home/bwg/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I/home/bwg/rtools/xeropathgen/XeroPathCommon -I/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/home/bwg/rtools/xeropathgen/external/wpi/include -I/home/bwg/rtools/xeropathgen/PathGenCommon -I/home/bwg/Qt/5.13.1/gcc_64/include -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCharts -I/home/bwg/Qt/5.13.1/gcc_64/include/QtPrintSupport -I/home/bwg/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/bwg/Qt/5.13.1/gcc_64/include/QtGui -I/home/bwg/Qt/5.13.1/gcc_64/include/QtNetwork -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ConstraintEditor.h -o GeneratedFiles/moc_ConstraintEditor.cpp
 
+GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp: FlagsEditor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qfile.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
+		GeneratedFiles/ui_FlagsEditor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QTreeView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtreeview.h \
+		FlagsTreeModel.h \
+		../XeroPathCommon/Generator.h \
+		../XeroPathCommon/GeneratorParameter.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVersionNumber \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathFlag.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/Qt \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QAbstractItemModel \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QMenu \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
+		../../../Qt/5.13.1/gcc_64/bin/moc
+	/home/bwg/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include '/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/home/bwg/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I/home/bwg/rtools/xeropathgen/XeroPathCommon -I/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/home/bwg/rtools/xeropathgen/external/wpi/include -I/home/bwg/rtools/xeropathgen/PathGenCommon -I/home/bwg/Qt/5.13.1/gcc_64/include -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCharts -I/home/bwg/Qt/5.13.1/gcc_64/include/QtPrintSupport -I/home/bwg/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/bwg/Qt/5.13.1/gcc_64/include/QtGui -I/home/bwg/Qt/5.13.1/gcc_64/include/QtNetwork -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include FlagsEditor.h -o GeneratedFiles/moc_FlagsEditor.cpp
+
 GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp: ConstraintTreeModel.h \
 		../XeroPathCommon/Generator.h \
 		../XeroPathCommon/GeneratorParameter.h \
@@ -1523,6 +1705,98 @@ GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp: ConstraintTreeM
 		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
 		../../../Qt/5.13.1/gcc_64/bin/moc
 	/home/bwg/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include '/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/home/bwg/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I/home/bwg/rtools/xeropathgen/XeroPathCommon -I/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/home/bwg/rtools/xeropathgen/external/wpi/include -I/home/bwg/rtools/xeropathgen/PathGenCommon -I/home/bwg/Qt/5.13.1/gcc_64/include -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCharts -I/home/bwg/Qt/5.13.1/gcc_64/include/QtPrintSupport -I/home/bwg/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/bwg/Qt/5.13.1/gcc_64/include/QtGui -I/home/bwg/Qt/5.13.1/gcc_64/include/QtNetwork -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ConstraintTreeModel.h -o GeneratedFiles/moc_ConstraintTreeModel.cpp
+
+GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp: FlagsTreeModel.h \
+		../XeroPathCommon/Generator.h \
+		../XeroPathCommon/GeneratorParameter.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVersionNumber \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathFlag.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/Qt \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QAbstractItemModel \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		GeneratedFiles/$(ConfigurationName)/moc_predefs.h \
+		../../../Qt/5.13.1/gcc_64/bin/moc
+	/home/bwg/Qt/5.13.1/gcc_64/bin/moc $(DEFINES) --include '/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)/moc_predefs.h' -I/home/bwg/Qt/5.13.1/gcc_64/mkspecs/linux-g++ -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/$(SolutionDir)external/wpi/windows/include' -I/home/bwg/rtools/xeropathgen/XeroPathCommon -I/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles -I/home/bwg/rtools/xeropathgen/XeroPathGenerator -I'/home/bwg/rtools/xeropathgen/XeroPathGenerator/GeneratedFiles/$(ConfigurationName)' -I/home/bwg/rtools/xeropathgen/external/wpi/include -I/home/bwg/rtools/xeropathgen/PathGenCommon -I/home/bwg/Qt/5.13.1/gcc_64/include -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCharts -I/home/bwg/Qt/5.13.1/gcc_64/include/QtPrintSupport -I/home/bwg/Qt/5.13.1/gcc_64/include/QtWidgets -I/home/bwg/Qt/5.13.1/gcc_64/include/QtGui -I/home/bwg/Qt/5.13.1/gcc_64/include/QtNetwork -I/home/bwg/Qt/5.13.1/gcc_64/include/QtCore -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include FlagsTreeModel.h -o GeneratedFiles/moc_FlagsTreeModel.cpp
 
 GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp: AboutDialog.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QDialog \
@@ -3824,6 +4098,181 @@ release/ConstraintEditor.o: ConstraintEditor.cpp ConstraintEditor.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintEditor.o ConstraintEditor.cpp
 
+release/FlagsEditor.o: FlagsEditor.cpp FlagsEditor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QWidget \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qwindowdefs_win.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmargins.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpaintdevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrect.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsize.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpalette.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qbrush.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qmatrix.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpolygon.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qregion.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtransform.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpainterpath.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qimage.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpixelformat.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qpixmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfont.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfontmetrics.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qfontinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qsizepolicy.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qcursor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qkeysequence.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qurl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qurlquery.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qfile.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qvector2d.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtouchdevice.h \
+		GeneratedFiles/ui_FlagsEditor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHBoxLayout \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QHeaderView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qicon.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QTreeView \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qtreeview.h \
+		FlagsTreeModel.h \
+		../XeroPathCommon/Generator.h \
+		../XeroPathCommon/GeneratorParameter.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVersionNumber \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathFlag.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/Qt \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QAbstractItemModel \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QMenu \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qmenu.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qaction.h \
+		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qactiongroup.h \
+		UndoManager.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QObject \
+		UndoItem.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QString \
+		FlagDeleteUndo.h \
+		FlagAddUndo.h \
+		FlagChangedUndo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/FlagsEditor.o FlagsEditor.cpp
+
 release/ConstraintTreeModel.o: ConstraintTreeModel.cpp ConstraintTreeModel.h \
 		../XeroPathCommon/Generator.h \
 		../XeroPathCommon/GeneratorParameter.h \
@@ -3927,6 +4376,109 @@ release/ConstraintTreeModel.o: ConstraintTreeModel.cpp ConstraintTreeModel.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/ConstraintTreeModel.o ConstraintTreeModel.cpp
+
+release/FlagsTreeModel.o: FlagsTreeModel.cpp FlagsTreeModel.h \
+		../XeroPathCommon/Generator.h \
+		../XeroPathCommon/GeneratorParameter.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVariant \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvariant.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qconfig.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlogging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qflags.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiterator.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstring.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qchar.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringview.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpair.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvector.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qpoint.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qregexp.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qmap.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qdebug.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qhash.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qiodevice.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qset.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QVersionNumber \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qversionnumber.h \
+		../PathGenCommon/RobotPath.h \
+		../PathGenCommon/Pose2d.h \
+		../PathGenCommon/Translation2d.h \
+		../PathGenCommon/MathUtils.h \
+		../PathGenCommon/Rotation2d.h \
+		../PathGenCommon/Twist2d.h \
+		../PathGenCommon/ICsv.h \
+		../PathGenCommon/PathConstraint.h \
+		../PathGenCommon/MinMaxAcceleration.h \
+		../PathGenCommon/Pose2dWithTrajectory.h \
+		../PathGenCommon/PathFlag.h \
+		../PathGenCommon/PathBase.h \
+		../PathGenCommon/UnitConverter.h \
+		../PathGenCommon/PathTrajectory.h \
+		../PathGenCommon/SplinePair.h \
+		../PathGenCommon/QuinticHermiteSpline.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/Qt \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QAbstractItemModel \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		UndoManager.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QObject \
+		UndoItem.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QString \
+		FlagChangedUndo.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QModelIndex \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/QColor \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qcolor.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtguiglobal.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qtgui-config.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgb.h \
+		../../../Qt/5.13.1/gcc_64/include/QtGui/qrgba64.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/FlagsTreeModel.o FlagsTreeModel.cpp
 
 release/DriveBaseModel.o: DriveBaseModel.cpp DriveBaseModel.h \
 		../PathGenCommon/RobotPath.h \
@@ -7189,6 +7741,8 @@ release/XeroPathGenerator.o: XeroPathGenerator.cpp XeroPathGenerator.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qdockwidget.h \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/QPushButton \
 		../../../Qt/5.13.1/gcc_64/include/QtWidgets/qpushbutton.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QTextCodec \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qtextcodec.h \
 		../external/wpi/include/networktables/NetworkTableInstance.h \
 		../external/wpi/include/wpi/ArrayRef.h \
 		../external/wpi/include/wpi/Hashing.h \
@@ -9797,8 +10351,14 @@ release/moc_XeroPathGenerator.o: GeneratedFiles/$(ConfigurationName)/moc_XeroPat
 release/moc_ConstraintEditor.o: GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_ConstraintEditor.o GeneratedFiles/$(ConfigurationName)/moc_ConstraintEditor.cpp
 
+release/moc_FlagsEditor.o: GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_FlagsEditor.o GeneratedFiles/$(ConfigurationName)/moc_FlagsEditor.cpp
+
 release/moc_ConstraintTreeModel.o: GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_ConstraintTreeModel.o GeneratedFiles/$(ConfigurationName)/moc_ConstraintTreeModel.cpp
+
+release/moc_FlagsTreeModel.o: GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_FlagsTreeModel.o GeneratedFiles/$(ConfigurationName)/moc_FlagsTreeModel.cpp
 
 release/moc_AboutDialog.o: GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/moc_AboutDialog.o GeneratedFiles/$(ConfigurationName)/moc_AboutDialog.cpp

@@ -25,6 +25,7 @@
 #include <QSplashScreen>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 std::ofstream logfilestream;
 std::stringstream log2stream;
@@ -109,6 +110,8 @@ int main(int argc, char *argv[])
 	QCoreApplication::setOrganizationDomain("www.wilsonvillerobotics.com");
 	QCoreApplication::setApplicationName("XeroPathGenerator");
 	QCoreApplication::setApplicationVersion("1.0.0");
+
+	std::cout << "HEllo World" << std::endl ;
 
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);

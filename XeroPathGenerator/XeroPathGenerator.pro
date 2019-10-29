@@ -21,7 +21,7 @@ INCLUDEPATH += $(SolutionDir)external/wpi/windows/include \
     ../external/wpi/include\
     ../PathGenCommon
 LIBS += -L"$(SolutionDir)$(Platform)/$(Configuration)" \
-	../XeroPathCommon/release/libXeroPathCommon.a\
+	../XeroPathCommon/release/libxeropathcommon.a\
 	../PathGenCommon/$${BUILDTYPE}/PathGenCommon.a
 
 linux: {

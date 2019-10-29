@@ -17,7 +17,9 @@ HEADERS += ./build.h \
     ./WaypointTreeModel.h \
     ./XeroPathGenerator.h \
     ./ConstraintEditor.h \
+    ./FlagsEditor.h\
     ./ConstraintTreeModel.h \
+    ./FlagsTreeModel.h\
     ./AboutDialog.h \
     ./PathFileTree.h \
     ./PathPlotView.h \
@@ -35,7 +37,9 @@ HEADERS += ./build.h \
 SOURCES += ./AboutDialog.cpp \
     ./Callout.cpp \
     ./ConstraintEditor.cpp \
+    ./FlagsEditor.cpp\
     ./ConstraintTreeModel.cpp \
+    ./FlagsTreeModel.cpp\
     ./DriveBaseModel.cpp \
     ./GameFieldManager.cpp \
     ./main.cpp \

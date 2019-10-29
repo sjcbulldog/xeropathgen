@@ -60,6 +60,7 @@
 #include <QTextCodec>
 
 #include <cstdio>
+#include <iostream>
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -997,8 +998,9 @@ void XeroPathGenerator::timerProc()
 
 		box.exec();
 
-		if (box.clickedButton() == yes)
+		if (box.clickedButton() == yes) {
 			showDocumentation();
+		}
 		else if (box.clickedButton() == never)
 			settings_.setValue("supress_documentation_prompt", QVariant(true));
 
@@ -2047,6 +2049,8 @@ void XeroPathGenerator::showAbout()
 
 void XeroPathGenerator::showDocumentation()
 {
+	QString name("/Assistant") ;
+	
 	if (help_process_ == nullptr)
 		help_process_ = std::make_shared<QProcess>();
 	
@@ -2061,11 +2065,13 @@ void XeroPathGenerator::showDocumentation()
 	if (!env.contains("LD_LIBRARY_PATH"))
 	  env.insert("LD_LIBRARY_PATH", exedir_) ;
 	help_process_->setProcessEnvironment(env) ;
+	name = "/assistant" ;
 #endif
 
-	qDebug() << env.toStringList();
+	qDebug() << "Environment:" << env.toStringList();
 
-	help_process_->start(exedir_ + "/Assistant", args);
+	std::cout << "Exe " << (exedir_ + name).toStdString() << std::endl ;
+	help_process_->start(exedir_ + name, args);
 	help_process_->waitForStarted();
 
 	QByteArray ar = help_process_->readAllStandardError();
