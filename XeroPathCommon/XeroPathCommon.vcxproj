@@ -92,27 +92,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CSVFlagsWriter.cpp" />
     <ClCompile Include="CSVParser.cpp" />
     <ClCompile Include="GeneratorManager.cpp" />
     <ClCompile Include="GeneratorParameterStore.cpp" />
+    <ClCompile Include="JSONFlagsWriter.cpp" />
     <ClCompile Include="ManagerBase.cpp" />
     <ClCompile Include="PathCollectionIO.cpp" />
     <ClCompile Include="PathGenerationEngine.cpp" />
     <ClCompile Include="RobotManager.cpp" />
-    <ClCompile Include="XeroPathCommon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CSVFlagsWriter.h" />
     <ClInclude Include="CSVParser.h" />
     <ClInclude Include="Generator.h" />
     <ClInclude Include="GeneratorManager.h" />
     <ClInclude Include="GeneratorParameter.h" />
     <ClInclude Include="GeneratorParameterStore.h" />
+    <ClInclude Include="JSONFlagsWriter.h" />
     <ClInclude Include="JSONWriter.h" />
     <ClInclude Include="ManagerBase.h" />
     <ClInclude Include="PathCollectionIO.h" />
     <ClInclude Include="PathGenerationEngine.h" />
     <ClInclude Include="RobotManager.h" />
-    <ClInclude Include="XeroPathCommon.h" />
     <ClInclude Include="xeropathcommon_global.h" />
   </ItemGroup>
   <ItemGroup>

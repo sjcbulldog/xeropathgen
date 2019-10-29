@@ -1,0 +1,10 @@
+{
+"game" : "Empty Field",
+"field-image" : "empty-field.jpg",
+"field-corners": {
+	"top-left" : [217, 40],
+	"bottom-right" : [1372, 615]
+},
+"field-size" : [54, 27],
+"field-unit" : "foot"
+}

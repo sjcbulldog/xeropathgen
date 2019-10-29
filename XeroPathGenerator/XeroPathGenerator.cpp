@@ -28,6 +28,9 @@
 #include "WaypointChangedUndo.h"
 #include "PrintController.h"
 
+#include <JSONFlagsWriter.h>
+#include <CSVFlagsWriter.h>
+
 #include <DriveBaseData.h>
 #include <TrajectoryNames.h>
 #include <JSONWriter.h>
@@ -1615,82 +1618,6 @@ void XeroPathGenerator::fileGenerateAs()
 	generate();
 }
 
-bool XeroPathGenerator::generateFlagsCSV(std::shared_ptr<RobotPath> path, std::string& outfile)
-{
-	std::ofstream outstrm(outfile);
-
-	if (!outstrm.is_open())
-		return false;
-
-	for (auto flag : path->getFlags())
-	{
-		double btime, atime;
-
-		if (flag->before() < flag->after())
-			continue;
-
-		if (flag->before() < 0.0 || flag->after() < 0.0)
-			continue;
-
-		auto traj = path->getTrajectory(TrajectoryName::Main);
-		if (traj == nullptr)
-			continue;
-
-		if (!traj->getTimeForDistance(flag->before(), btime))
-			continue;
-
-		if (!traj->getTimeForDistance(flag->after(), atime))
-			continue;
-
-		outstrm << '"' << flag->name() << '"' << ",";
-		outstrm << atime << "," << btime << std::endl;
-	}
-
-	return true;
-}
-
-bool XeroPathGenerator::generateFlagsJSON(std::shared_ptr<RobotPath> path, std::string& outfile)
-{
-	QJsonArray a;
-
-	for (auto flag : path->getFlags())
-	{
-		double btime, atime;
-
-		if (flag->before() < flag->after())
-			continue;
-
-		if (flag->before() < 0.0 || flag->after() < 0.0)
-			continue;
-
-		auto traj = path->getTrajectory(TrajectoryName::Main);
-		if (traj == nullptr)
-			continue;
-
-		if (!traj->getTimeForDistance(flag->before(), btime))
-			continue;
-
-		if (!traj->getTimeForDistance(flag->after(), atime))
-			continue;
-
-		QJsonObject flagobj;
-		flagobj[RobotPath::NameTag] = flag->name().c_str();
-		flagobj[RobotPath::BeforeTag] = btime;
-		flagobj[RobotPath::AfterTag] = atime;
-		a.push_back(flagobj);
-	}
-
-	QJsonDocument doc(a);
-	QFile file(outfile.c_str());
-	if (!file.open(QIODevice::OpenModeFlag::Truncate | QIODevice::OpenModeFlag::WriteOnly))
-		return false;
-
-	file.write(doc.toJson());
-	file.close();
-
-	return true;
-}
-
 void XeroPathGenerator::generateOnePath(std::shared_ptr<RobotPath> path, const std::string &trajname, std::ostream& outfile)
 {
 	std::vector<std::string> headers =
@@ -1775,12 +1702,12 @@ void XeroPathGenerator::generate()
 			if (output_type_ == OutputType::OutputCSV)
 			{
 				outfile = last_path_dir_ + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.csv";
-				generateFlagsCSV(path, outfile);
+				CSVFlagsWriter::writeFlags(path, outfile);
 			}
 			else
 			{
 				outfile = last_path_dir_ + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.json";
-				generateFlagsJSON(path, outfile);
+				JSONFlagsWriter::writeFlags(path, outfile);
 			}
 		}
 		count++;

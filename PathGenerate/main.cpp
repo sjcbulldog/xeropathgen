@@ -8,6 +8,8 @@
 #include "PathCollectionIO.h"
 #include "JSONWriter.h"
 #include "CSVWriter.h"
+#include "JSONFlagsWriter.h"
+#include "CSVFlagsWriter.h"
 #include "build.h"
 #include <QtCore/QCoreApplication>
 #include <QStandardPaths>
@@ -296,6 +298,20 @@ int main(int argc, char *argv[])
 			else
 			{
 				JSONWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outstrm, headers, t->begin(), t->end());
+			}
+		}
+
+		if (path->getFlags().size() > 0)
+		{
+			if (csv)
+			{
+				outfile = outdir + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.csv";
+				CSVFlagsWriter::writeFlags(path, outfile);
+			}
+			else
+			{
+				outfile = outdir + "/" + path->getParent()->getName() + "_" + path->getName() + "_flags.json";
+				JSONFlagsWriter::writeFlags(path, outfile);
 			}
 		}
 		std::cout << ", length " << path->getDistance() << ", time " << path->getTime() << std::endl;

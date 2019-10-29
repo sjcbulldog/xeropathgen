@@ -21,6 +21,7 @@
           <section title="Path File" ref="pathfile.html"/>
           <section title="Path Properties" ref="pathprops.html"/>
           <section title="Constraints" ref="constraints.html"/>
+          <section title="Flags" ref="flags.html"/>
           <section title="Waypoints" ref="waypoint.html"/>
           <section title="Path Editor" ref="pathedit.html"/>
           <section title="Trajectory" ref="trajectory.html"/>
@@ -55,6 +56,7 @@
       <file>pathfile.html</file>
       <file>pathprops.html</file>
       <file>constraints.html</file>
+      <file>flags.html</file>
       <file>waypoint.html</file>
       <file>pathedit.html</file>
       <file>trajectory.html</file>
@@ -94,6 +96,7 @@
       <file>images/plotvars.png</file>
       <file>images/demomode.png</file>
       <file>images/splines.png</file>
+      <file>images/flags.png</file>
     </files>
   </filterSection>
 </QtHelpProject>
