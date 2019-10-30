@@ -311,6 +311,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
       <DeploymentContent>true</DeploymentContent>
     </Image>
     <Image Include="images\ErrorCodeXero.png" />
+    <Image Include="images\flag.png" />
     <Image Include="images\forward1.png" />
     <Image Include="images\forward10.png" />
     <Image Include="images\gear.png" />

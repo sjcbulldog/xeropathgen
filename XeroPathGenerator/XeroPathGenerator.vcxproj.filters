@@ -383,5 +383,8 @@
     <Image Include="images\stop.png">
       <Filter>Images</Filter>
     </Image>
+    <Image Include="images\flag.png">
+      <Filter>Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

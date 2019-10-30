@@ -30,6 +30,7 @@
 #include <QMouseEvent>
 #include <QFontMetrics>
 #include <QDebug>
+#include <QCoreApplication>
 #include <cmath>
 
 using namespace xero::paths;
@@ -52,6 +53,10 @@ PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidge
 	rotating_ = false;
 	model_ = nullptr;
 	cursor_ = true;
+
+	QString exedir = QCoreApplication::applicationDirPath();
+	QString imagepath = exedir + "/images/" + FlagImage;
+	flagimage_ = QImage(imagepath);
 
 	draw_grid_ = true;
 	grid_color_ = QColor(0xC0, 0xC0, 0xC0, 0xFF);
@@ -829,6 +834,42 @@ void PathFieldView::drawPath(QPainter &paint)
 		drawSplines(paint);
 
 	drawPoints(paint);
+
+	for (auto flag : path_->getFlags())
+	{
+		auto traj = path_->getTrajectory(TrajectoryName::Main);
+		if (traj != nullptr)
+		{
+			double ftime;
+			Pose2dWithTrajectory p2d;
+
+			if (traj->getTimeForDistance(flag->after(), ftime))
+			{
+				if (path_->getPoseAtTime(ftime, p2d))
+				{
+					QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
+					QRectF r(pt, QSize(24.0, 24.0));
+					r.adjust(0, -24, 0, -24);
+					paint.drawImage(r, flagimage_);
+					QPointF tpt(r.right(), r.center().y());
+					paint.drawText(tpt, QString(flag->name().c_str()) + QString("(on)"));
+				}
+			}
+
+			if (traj->getTimeForDistance(flag->before(), ftime))
+			{
+				if (path_->getPoseAtTime(ftime, p2d))
+				{
+					QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
+					QRectF r(pt, QSize(24.0, 24.0));
+					r.adjust(0, -24, 0, -24);
+					paint.drawImage(r, flagimage_);
+					QPointF tpt(r.right(), r.center().y());
+					paint.drawText(tpt, QString(flag->name().c_str()) + QString("(off)"));
+				}
+			}
+		}
+	}
 }
 
 void PathFieldView::drawPoints(QPainter& paint)

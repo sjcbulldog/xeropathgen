@@ -150,6 +150,8 @@ private:
 	static constexpr double BigWaypointRotate = 5.0;
 	static constexpr double SmallWaypointRotate = 0.5;
 
+	static constexpr const char* FlagImage = "flag.png";
+
 	static std::vector<QPointF> triangle_;
 
 	enum WaypointRegion
@@ -220,5 +222,6 @@ private:
 	bool cursor_;
 	double cursor_time_;
 
+	QImage flagimage_;
 	PathFileTreeModel& filemodel_;
 };

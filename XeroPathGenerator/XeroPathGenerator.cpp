@@ -2070,7 +2070,6 @@ void XeroPathGenerator::showDocumentation()
 
 	qDebug() << "Environment:" << env.toStringList();
 
-	std::cout << "Exe " << (exedir_ + name).toStdString() << std::endl ;
 	help_process_->start(exedir_ + name, args);
 	help_process_->waitForStarted();
 
