@@ -178,6 +178,7 @@ private:
 	std::vector<QPointF> transformPoints(QTransform& trans, const std::vector<QPointF>& points);
 	void createTransforms();
 	void drawPath(QPainter& paint);
+	void drawFlags(QPainter& paint);
 	void drawPoints(QPainter& paint);
 	void drawOnePoint(QPainter& paint, const xero::paths::Pose2d& pt, bool selected);
 	void drawSplines(QPainter &paint);

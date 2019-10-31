@@ -98,7 +98,7 @@ bool FlagsTreeModel::isRowValid(int row) const
 	if (flag == nullptr)
 		return false;
 
-	if (flag->after() >= flag->before())
+	if (flag->after() > flag->before())
 		return false;
 
 	return true;

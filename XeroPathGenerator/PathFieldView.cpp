@@ -206,7 +206,10 @@ void PathFieldView::doPaint(QPainter &paint, bool printing)
 	// Draw the path
 	//
 	if (path_ != nullptr)
+	{
 		drawPath(paint);
+		drawFlags(paint);
+	}
 
 	if (model_ != nullptr)
 		drawRobot(paint);
@@ -216,7 +219,6 @@ void PathFieldView::doPaint(QPainter &paint, bool printing)
 
 	if (cursor_ && model_ == nullptr && selected_ == std::numeric_limits<size_t>::max())
 		drawCursor(paint);
-
 }
 
 void PathFieldView::drawEquations(QPainter& paint)
@@ -828,48 +830,65 @@ void PathFieldView::drawRobot(QPainter& paint)
 	paint.drawLine(winloc[0], winloc[1]);
 }
 
+void PathFieldView::drawFlags(QPainter& paint)
+{
+	qDebug() << "drawFlags";
+	for (auto flag : path_->getFlags())
+	{
+		auto traj = path_->getTrajectory(TrajectoryName::Main);
+		if (traj != nullptr)
+		{
+			double atime, btime;
+
+			if (traj->getTimeForDistance(flag->after(), atime) && traj->getTimeForDistance(flag->before(), btime))
+			{
+				Pose2dWithTrajectory p2d;
+
+				if (std::fabs(atime - btime) > 1e-6)
+				{
+					double incr = (btime - atime) / 250.0;
+					QPen pen(QColor(0, 0, 255, 255));
+					paint.save();
+					paint.setPen(pen);
+					for (double t = atime; t <= btime; t += incr)
+					{
+						if (path_->getPoseAtTime(t, p2d))
+						{
+							QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
+							paint.drawPoint(pt);
+						}
+					}
+					paint.restore();
+				}
+
+				if (path_->getPoseAtTime(atime, p2d))
+				{
+					QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
+					QRectF r(pt, QSize(24.0, 24.0));
+					r.adjust(0, -24, 0, -24);
+					paint.drawImage(r, flagimage_);
+					QPointF tpt(r.right(), r.center().y());
+					paint.drawText(tpt, QString(flag->name().c_str()));
+				}
+			}
+			else
+			{
+				qDebug() << "No Time For Distance";
+			}
+		}
+		else
+		{
+			qDebug() << "No Trajectory";
+		}
+	}
+}
+
 void PathFieldView::drawPath(QPainter &paint)
 {
 	if (path_->hasSplines())
 		drawSplines(paint);
 
 	drawPoints(paint);
-
-	for (auto flag : path_->getFlags())
-	{
-		auto traj = path_->getTrajectory(TrajectoryName::Main);
-		if (traj != nullptr)
-		{
-			double ftime;
-			Pose2dWithTrajectory p2d;
-
-			if (traj->getTimeForDistance(flag->after(), ftime))
-			{
-				if (path_->getPoseAtTime(ftime, p2d))
-				{
-					QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
-					QRectF r(pt, QSize(24.0, 24.0));
-					r.adjust(0, -24, 0, -24);
-					paint.drawImage(r, flagimage_);
-					QPointF tpt(r.right(), r.center().y());
-					paint.drawText(tpt, QString(flag->name().c_str()) + QString("(on)"));
-				}
-			}
-
-			if (traj->getTimeForDistance(flag->before(), ftime))
-			{
-				if (path_->getPoseAtTime(ftime, p2d))
-				{
-					QPointF pt = worldToWindow(QPointF(p2d.pose().getTranslation().getX(), p2d.pose().getTranslation().getY()));
-					QRectF r(pt, QSize(24.0, 24.0));
-					r.adjust(0, -24, 0, -24);
-					paint.drawImage(r, flagimage_);
-					QPointF tpt(r.right(), r.center().y());
-					paint.drawText(tpt, QString(flag->name().c_str()) + QString("(off)"));
-				}
-			}
-		}
-	}
 }
 
 void PathFieldView::drawPoints(QPainter& paint)

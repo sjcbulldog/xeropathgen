@@ -927,6 +927,9 @@ void XeroPathGenerator::timerProc()
 		path_param_model_.reset();
 		if (traj_window_ != nullptr && traj_window_->isShowingPath(path))
 			traj_window_->update();
+
+		if (path_view_->getPath() == path && path->hasFlags())
+			path_view_->update();
 	}
 
 	if (demo_mode_ != DemoMode::ModeNone)
@@ -2731,6 +2734,7 @@ void XeroPathGenerator::constraintAddedRemoved()
 
 void XeroPathGenerator::flagAddedRemoved()
 {
+	path_view_->update();
 	paths_model_.setDirty();
 	currentPathChanged();
 	setXeroWindowTitle();

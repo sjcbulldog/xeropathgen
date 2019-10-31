@@ -265,6 +265,7 @@ private:
 	void endMovingWaypointProc(size_t index);
 	void startMovingWaypointProc(size_t index);
 	void selectedWaypointProc(size_t index);
+	void flagChanged();
 
 	void demoRobot();
 	void demoPlay();

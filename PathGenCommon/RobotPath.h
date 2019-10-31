@@ -100,6 +100,10 @@ namespace xero
 				return !nodata_;
 			}
 
+			bool hasFlags() const {
+				return flags_.size() > 0;
+			}
+
 			bool hasFlag(const std::string& name) const;
 
 			void addError(bool nodata, const std::string& err) {
