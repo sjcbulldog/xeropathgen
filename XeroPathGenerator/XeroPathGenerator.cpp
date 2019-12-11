@@ -2062,7 +2062,7 @@ void XeroPathGenerator::showDocumentation()
 	args.push_back(exedir_ + "/xeropath.qhc");
 	args.push_back("-enableRemoteControl");
 	help_process_->setWorkingDirectory(exedir_);
-	QProcessEnvironment env = help_process_->processEnvironment();
+	QProcessEnvironment env = QProcessEnvironment::systemEnvironment() ;
 
 #ifdef __linux__
 	if (!env.contains("LD_LIBRARY_PATH"))

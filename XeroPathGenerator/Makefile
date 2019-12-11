@@ -5070,7 +5070,10 @@ release/PathFieldView.o: PathFieldView.cpp PathFieldView.h \
 		../../../Qt/5.13.1/gcc_64/include/QtCore/QPointF \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/QMouseEvent \
 		../../../Qt/5.13.1/gcc_64/include/QtGui/QFontMetrics \
-		../../../Qt/5.13.1/gcc_64/include/QtCore/QDebug
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QDebug \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/QCoreApplication \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/5.13.1/gcc_64/include/QtCore/qeventloop.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/PathFieldView.o PathFieldView.cpp
 
 release/PathFileTree.o: PathFileTree.cpp PathFileTree.h \
