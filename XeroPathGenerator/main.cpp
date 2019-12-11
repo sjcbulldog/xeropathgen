@@ -111,8 +111,6 @@ int main(int argc, char *argv[])
 	QCoreApplication::setApplicationName("XeroPathGenerator");
 	QCoreApplication::setApplicationVersion("1.0.0");
 
-	std::cout << "HEllo World" << std::endl ;
-
 	QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 	QApplication a(argc, argv);
 
