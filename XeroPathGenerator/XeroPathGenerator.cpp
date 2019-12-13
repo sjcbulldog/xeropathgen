@@ -1720,6 +1720,12 @@ void XeroPathGenerator::generate()
 	prog_bar_->setVisible(false);
 	status_text_->setText("Complete");
 	setCursor(Qt::ArrowCursor);
+
+	QString str;
+	str = "Generated paths to directory  ";
+	str += last_path_dir_.c_str();
+	QMessageBox box(QMessageBox::Icon::Information, "Success", str, QMessageBox::StandardButton::Ok);
+	box.exec();
 }
 
 void XeroPathGenerator::filePrint()
