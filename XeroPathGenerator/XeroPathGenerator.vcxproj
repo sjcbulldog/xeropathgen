@@ -175,6 +175,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>c:\cygwin64\bin\bash incver.sh</Command>
+      <Message>Incrementing the build number</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
