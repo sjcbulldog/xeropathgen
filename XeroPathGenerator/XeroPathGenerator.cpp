@@ -1469,7 +1469,8 @@ void XeroPathGenerator::fileOpenWithName(QString filename)
 	// Ok, we are about to read new paths.  Shutdown the path generation engine
 	//
 	paths_model_.clear();
-	if (!PathCollectionIO::readPathCollection(filename.toStdString(), paths_model_.getPathCollection()))
+	QString outdir;
+	if (!PathCollectionIO::readPathCollection(filename.toStdString(), paths_model_.getPathCollection(), outdir))
 	{
 		std::string msg = "Error loading file'";
 		msg += filename.toStdString();
@@ -1481,6 +1482,7 @@ void XeroPathGenerator::fileOpenWithName(QString filename)
 		return;
 	}
 
+	last_path_dir_ = outdir.toStdString();
 	recents_->addRecentFile(this, filename);
 	paths_model_.reset(true);
 	setFileName(filename);
@@ -1536,7 +1538,8 @@ bool XeroPathGenerator::save()
 	}
 
 	QFile file(path_file_name_.c_str());
-	if (!PathCollectionIO::writePathCollection(file, paths_model_.getPathCollection()))
+	QString outdir(last_path_dir_.c_str());
+	if (!PathCollectionIO::writePathCollection(file, paths_model_.getPathCollection(), outdir))
 	{
 		std::string msg = "Save to file '";
 		msg += path_file_name_;

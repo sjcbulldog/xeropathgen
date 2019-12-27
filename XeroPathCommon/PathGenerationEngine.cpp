@@ -207,7 +207,8 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	double saveacc = path->getMaxAccel();
 	path->setMaxVelocity(maxvel);
 	path->setMaxAccel(maxaccel);
-	if (!PathCollectionIO::writePathCollection(pathfile, coll))
+	QString outdir;
+	if (!PathCollectionIO::writePathCollection(pathfile, coll, outdir))
 	{
 		path->setMaxVelocity(savevel);
 		waiting_paths_lock_.lock();

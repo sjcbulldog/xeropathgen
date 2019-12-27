@@ -25,8 +25,8 @@ public:
 	PathCollectionIO() = delete;
 	~PathCollectionIO() = delete;
 
-	static bool writePathCollection(QFile &file, const xero::paths::PathCollection& paths);
-	static bool readPathCollection(const std::string& filename, xero::paths::PathCollection& paths);
+	static bool writePathCollection(QFile& file, const xero::paths::PathCollection& paths, QString& outdir);
+	static bool readPathCollection(const std::string& filename, xero::paths::PathCollection& paths, QString& outdir);
 
 private:
 	static bool createGroupArray(QJsonArray& a, const xero::paths::PathCollection& paths);

@@ -238,7 +238,8 @@ int main(int argc, char *argv[])
 	// TODO - add paths to the generator
 	//
 	PathCollection paths;
-	PathCollectionIO::readPathCollection(pathfile, paths);
+	QString outpath;
+	PathCollectionIO::readPathCollection(pathfile, paths, outpath);
 
 	std::list<std::shared_ptr<RobotPath>> pathlist;
 	paths.getAllPaths(pathlist);

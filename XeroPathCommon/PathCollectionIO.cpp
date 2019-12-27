@@ -21,7 +21,7 @@
 
 using namespace xero::paths;
 
-bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& paths)
+bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& paths, QString &outdir)
 {
 	QJsonObject obj;
 	QJsonArray a;
@@ -30,6 +30,7 @@ bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& pa
 		return false;
 
 	obj[RobotPath::VersionTag] = "1";
+	obj[RobotPath::OutputTag] = outdir;
 	obj[RobotPath::GroupsTag] = a;
 
 	QJsonDocument doc(obj);
@@ -136,7 +137,7 @@ bool PathCollectionIO::createPath(QJsonObject& obj, const std::shared_ptr<RobotP
 	return true;
 }
 
-bool PathCollectionIO::readPathCollection(const std::string& filename, PathCollection& paths)
+bool PathCollectionIO::readPathCollection(const std::string& filename, PathCollection& paths, QString &outdir)
 {
 	QFile file(filename.c_str());
 	QString text;
@@ -201,6 +202,15 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 		//
 		qWarning() << "JSON file '" << file.fileName() << "' has '_version' value that is not a known version";
 		return false;
+	}
+
+	if (obj.contains(RobotPath::OutputTag))
+	{
+		QJsonValue vobj = obj[RobotPath::OutputTag];
+		if (vobj.isString())
+		{
+			outdir = vobj.toString();
+		}
 	}
 
 	if (!obj.contains(RobotPath::GroupsTag))
