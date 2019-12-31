@@ -64,6 +64,7 @@ private:
 	double robot_x_;
 	double robot_y_;
 	double robot_angle_;
+	QString robot_text_;
 
 	QSplitter* top_bottom_spliter_;
 	QSplitter* left_right_splitter_;

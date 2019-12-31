@@ -34,6 +34,10 @@ public:
 	PathFieldView(QWidget* parent = Q_NULLPTR);
 	virtual ~PathFieldView();
 
+	void setRobotText(QString str) {
+		robot_text_ = str;
+	}
+
 	void setField(std::shared_ptr<GameField> field);
 	void setUnits(const std::string& units);
 
@@ -96,4 +100,6 @@ private:
 	double robot_x_;
 	double robot_y_;
 	double robot_angle_;
+
+	QString robot_text_;
 };

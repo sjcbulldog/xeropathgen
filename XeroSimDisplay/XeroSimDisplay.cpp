@@ -187,6 +187,8 @@ void XeroSimDisplay::runSimulation()
 	QStringList args;
 	bool looping = true;
 
+	logger_->clear();
+
 	QString stim = "robots/" + robot_ + "/sims/" + stimulus_;
 	QString sim = "makebuild/SIMULATOR/Debug/" + robot_ + "/" + robot_ + ".exe";
 
@@ -334,6 +336,7 @@ void XeroSimDisplay::timerProc()
 	if (durms.count() > 50)
 	{
 		field_view_->setRobotPosition(robot_x_, robot_y_, robot_angle_);
+		field_view_->setRobotText(robot_text_);
 		last_robot_update_ = std::chrono::high_resolution_clock::now();
 	}
 
@@ -412,6 +415,8 @@ void XeroSimDisplay::processSimulatorLine(const std::string& line)
 				robot_y_ = QString(value.c_str()).toDouble();
 			else if (name == "Angle")
 				robot_angle_ = QString(value.c_str()).toDouble();
+			else if (name == "Display")
+				robot_text_ = value.c_str();
 		}
 	}
 }

@@ -21,6 +21,7 @@
 #include <QFontMetrics>
 #include <QDebug>
 #include <QCoreApplication>
+#include <QFontMetricsF>
 #include <cmath>
 
 using namespace xero::paths;
@@ -35,6 +36,8 @@ PathFieldView::PathFieldView(QWidget* parent) : QWidget(parent)
 	robot_x_ = 30.0;
 	robot_y_ = 110.0;
 	robot_angle_ = 0.0;
+
+	robot_text_ = "????";
 }
 
 PathFieldView::~PathFieldView()
@@ -196,48 +199,6 @@ std::vector<QPointF> PathFieldView::windowToWorld(const std::vector<QPointF>& po
 	return transformPoints(window_to_world_, points);
 }
 
-#ifdef NOTYET
-void PathFieldView::drawRobot(QPainter& paint)
-{
-	double width = 30.0;
-	double length = 22.0;
-
-	paint.save();
-
-	QPen pen(QColor(0, 0, 255, 255));
-	paint.setPen(pen);
-
-	QPointF fl(length / 2.0, -width / 2.0);
-	QPointF fr(length / 2.0, width / 2.0);
-	QPointF bl(-length / 2.0, -width / 2.0);
-	QPointF br(-length / 2.0, +width / 2.0);
-
-	QTransform tr;
-	tr.translate(robot_x_, robot_y_);
-	// tr.rotate(robot_angle_);
-
-	fl = tr.map(fl);
-	fr = tr.map(fr);
-	bl = tr.map(bl);
-	br = tr.map(br);
-
-	fl = worldToWindow(fl);
-	fr = worldToWindow(fr);
-	bl = worldToWindow(bl);
-	br = worldToWindow(br);
-
-	paint.drawLine(fr, br);
-	paint.drawLine(br, bl);
-	paint.drawLine(bl, fl);
-
-	pen = QPen(QColor(0, 255, 0, 255));
-	paint.setPen(pen);
-	paint.drawLine(fl, fr);
-
-	paint.restore();
-}
-#endif
-
 void PathFieldView::drawRobot(QPainter& paint)
 {
 	QTransform mm;
@@ -268,11 +229,12 @@ void PathFieldView::drawRobot(QPainter& paint)
 	pen.setWidthF(2.0f);
 	paint.setPen(pen);
 
-	std::vector<QPointF> drawpts = worldToWindow(transformPoints(mm, robot));
-	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+	std::vector<QPointF> robotpts = worldToWindow(transformPoints(mm, robot));
+	paint.drawPolygon(&robotpts[0], static_cast<int>(robotpts.size()));
 
 	paint.setBrush(QBrush(QColor(0, 0, 0, 0xff)));
 
+	std::vector<QPointF> drawpts;
 	QTransform trans;
 	trans.translate(rl / 4.0, rw / 2.0);
 	drawpts = transformPoints(trans, wheel);
@@ -296,4 +258,15 @@ void PathFieldView::drawRobot(QPainter& paint)
 	drawpts = transformPoints(trans, wheel);
 	drawpts = worldToWindow(transformPoints(mm, drawpts));
 	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+
+	paint.setBrush(Qt::BrushStyle::NoBrush);
+	pen = QPen(QColor(0xFF, 0xFF, 0xFF, 0xff));
+	paint.setPen(pen);
+
+	QPointF pt;
+	pt = mm.map(pt);
+	pt = worldToWindow(pt);
+	QFontMetricsF fm(paint.font());
+	pt.setX(pt.x() - fm.horizontalAdvance(robot_text_) / 2);
+	paint.drawText(pt, robot_text_);
 }
