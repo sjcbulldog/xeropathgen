@@ -33,6 +33,8 @@ private:
 	// Menu delegates
 	void runConfig();
 	void runRun();
+	void runAnalyzeActions();
+	void newFieldSelected(const std::string& fieldname);
 
 private:
 	void createWindows();
@@ -55,11 +57,10 @@ private:
 	void updateAllSubsystems();
 	void createItem(std::shared_ptr<SubsystemData> data, const std::string& item);
 
-	void updateRobot();
-
 private:
 	GameFieldManager& fields_;
 	QSettings settings_;
+	QString current_field_;
 
 	double robot_x_;
 	double robot_y_;
@@ -81,6 +82,8 @@ private:
 	double start_;
 
 	QMenu* run_;
+	QMenu* field_;
+	QActionGroup* field_group_;
 
 	QProcess* sim_proc_;
 

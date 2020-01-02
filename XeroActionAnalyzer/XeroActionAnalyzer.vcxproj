@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AB00AAF9-86C4-456B-851C-41F2148E2D4A}</ProjectGuid>
+    <ProjectGuid>{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}</ProjectGuid>
     <Keyword>QtVS_v301</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -28,10 +28,10 @@
   <PropertyGroup Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">
     <QtMsBuild>$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
@@ -67,20 +67,12 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)PathGenCommon;$(SolutionDir)XerOPathCommon;$(Qt_INCLUDEPATH_);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>mkdir $(OutDir)\fields
-copy $(ProjectDir)..\fields\* $(OutDir)\fields
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -88,45 +80,33 @@ copy $(ProjectDir)..\fields\* $(OutDir)\fields
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <AdditionalIncludeDirectories>$(SolutionDir)PathGenCommon;$(SolutionDir)XerOPathCommon;$(Qt_INCLUDEPATH_);.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;$(Qt_LIBS_);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>mkdir $(OutDir)\fields
-copy $(ProjectDir)..\fields\* $(OutDir)\fields
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigDialog.cpp" />
-    <ClCompile Include="GameFieldManager.cpp" />
+    <ClCompile Include="ActionTextParser.cpp" />
+    <ClCompile Include="ActionView.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PathFieldView.cpp" />
-    <ClCompile Include="XeroSimDisplay.cpp" />
+    <ClCompile Include="XeroActionAnalyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="XeroSimDisplay.h" />
+    <QtMoc Include="XeroActionAnalyzer.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="XeroSimDisplay.qrc" />
+    <QtRcc Include="XeroActionAnalyzer.qrc" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="PathFieldView.h" />
+    <QtMoc Include="ActionView.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SubsystemData.h" />
-    <QtMoc Include="ConfigDialog.h" />
-    <ClInclude Include="GameField.h" />
-    <ClInclude Include="GameFieldManager.h" />
+    <Text Include="actions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ConfigDialog.ui" />
+    <ClInclude Include="ActionTextParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

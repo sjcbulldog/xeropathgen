@@ -92,6 +92,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroSimDisplay", "XeroSimDi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WPI2020Trajectory", "WPI2020Trajectory\WPI2020Trajectory.vcxproj", "{E6E8A474-C681-477B-B2AC-5BC6DA00B52C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroActionAnalyzer", "XeroActionAnalyzer\XeroActionAnalyzer.vcxproj", "{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -172,6 +174,12 @@ Global
 		{E6E8A474-C681-477B-B2AC-5BC6DA00B52C}.Release|x64.Build.0 = Release|x64
 		{E6E8A474-C681-477B-B2AC-5BC6DA00B52C}.Release|x86.ActiveCfg = Release|Win32
 		{E6E8A474-C681-477B-B2AC-5BC6DA00B52C}.Release|x86.Build.0 = Release|Win32
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Debug|x64.ActiveCfg = Debug|x64
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Debug|x64.Build.0 = Debug|x64
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Debug|x86.ActiveCfg = Debug|x64
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x64.ActiveCfg = Release|x64
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x64.Build.0 = Release|x64
+		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

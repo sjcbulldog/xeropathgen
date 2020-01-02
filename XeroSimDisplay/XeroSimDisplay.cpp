@@ -58,6 +58,7 @@ XeroSimDisplay::XeroSimDisplay(GameFieldManager &fields, QWidget *parent) : QMai
 
 	last_robot_update_ = std::chrono::high_resolution_clock::now();
 	last_subsystem_update_ = std::chrono::high_resolution_clock::now();
+
 }
 
 XeroSimDisplay::~XeroSimDisplay()
@@ -76,9 +77,16 @@ void XeroSimDisplay::setField(const std::string& name)
 	//
 	// Set the current field
 	//
-	auto field = fields_.getFieldByName(name);
-	field->convert("in");
-	field_view_->setField(field);
+	if (current_field_ != name.c_str())
+	{
+		auto field = fields_.getFieldByName(name);
+		if (field != nullptr)
+		{
+			field->convert("in");
+			field_view_->setField(field);
+			current_field_ = name.c_str();
+		}
+	}
 }
 
 void XeroSimDisplay::createWindows()
@@ -123,6 +131,27 @@ void XeroSimDisplay::createMenus()
 	(void)connect(action, &QAction::triggered, this, &XeroSimDisplay::runConfig);
 	action = run_->addAction(tr("Run"));
 	(void)connect(action, &QAction::triggered, this, &XeroSimDisplay::runRun);
+	action = run_->addAction(tr("Analyze Actions"));
+	(void)connect(action, &QAction::triggered, this, &XeroSimDisplay::runAnalyzeActions);
+
+	field_ = this->menuBar()->addMenu("Fields");
+	field_group_ = new QActionGroup(this);
+	field_group_->setExclusive(true);
+	for (auto& field : fields_.getNames())
+	{
+		QAction* fieldact = field_->addAction(field.c_str());
+		field_group_->addAction(fieldact);
+		(void)connect(fieldact, &QAction::triggered, this, [this, field] { newFieldSelected(field); });
+	}
+}
+
+void XeroSimDisplay::newFieldSelected(const std::string &fieldname)
+{
+	if (fieldname.c_str() != current_field_)
+	{
+		setField(fieldname);
+		settings_.setValue("field", fieldname.c_str());
+	}
 }
 
 void XeroSimDisplay::runConfig()
@@ -180,6 +209,11 @@ void XeroSimDisplay::runRun()
 
 	stdout_.reserve(20 * 1024 * 1024);
 	runSimulation();
+}
+
+void XeroSimDisplay::runAnalyzeActions()
+{
+
 }
 
 void XeroSimDisplay::runSimulation()
