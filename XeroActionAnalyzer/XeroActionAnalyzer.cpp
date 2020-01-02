@@ -64,5 +64,7 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 	{
 		ActionTextParser parser;
 		parser.parse(list);
+
+		action_view_->setActionList(parser.getActionList());
 	}
 }

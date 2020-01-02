@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
     <ClCompile Include="ActionTextParser.cpp" />
     <ClCompile Include="ActionView.cpp" />
     <ClCompile Include="main.cpp" />
@@ -106,6 +107,7 @@
     <Text Include="actions.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Action.h" />
     <ClInclude Include="ActionTextParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
