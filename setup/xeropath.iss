@@ -2,11 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "XeroPathGenerator"
-#define MyAppVersion "0.8.14"
+#define MyAppVersion "0.8.15"
 #define MyAppPublisher "ErrorCodeXero"
 #define MyAppURL "http://www.wilsonvillerobotics.com/"
 #define MyAppExeName "XeroPathGenerator.exe"
 #define MyUserName "ButchGriffin"
+#define QTDIR "C:\Qt\5.13.2\msvc2017_64\"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -38,15 +39,15 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\cygwin64\home\ButchGriffin\rtools\xeropathgen\x64\Release\*.*"; DestDir: "{app}"; Flags: ignoreversion 64bit recursesubdirs
-Source: "C:\Qt\5.13.1\msvc2017_64\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Help.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Network.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Qt\5.13.1\msvc2017_64\bin\Qt5PrintSupport.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\plugins\platforms\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Gui.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Charts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Help.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Network.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#QTDIR}\bin\Qt5PrintSupport.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
