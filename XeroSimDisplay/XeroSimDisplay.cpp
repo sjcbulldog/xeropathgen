@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QTextCodec>
 #include <QProcessEnvironment>
+#include <QTemporaryFile>
+#include <QMessageBox>
 
 XeroSimDisplay::XeroSimDisplay(GameFieldManager &fields, QWidget *parent) : QMainWindow(parent), fields_(fields)
 {
@@ -181,7 +183,7 @@ void XeroSimDisplay::runRun()
 	if (sim_proc_ != nullptr)
 	{
 		QMessageBox box(QMessageBox::Icon::Critical,
-			"Error", "A simulation is ready running", QMessageBox::StandardButton::Ok);
+			"Error", "A simulation is already running", QMessageBox::StandardButton::Ok);
 		box.exec();
 		return;
 	}
@@ -213,7 +215,30 @@ void XeroSimDisplay::runRun()
 
 void XeroSimDisplay::runAnalyzeActions()
 {
+	QTemporaryFile file(this);
+	file.setAutoRemove(true);
 
+	if (!file.open())
+	{
+		QMessageBox box(QMessageBox::Icon::Critical,
+			"Error", "Could not open temporary file for simulation output", QMessageBox::StandardButton::Ok);
+		box.exec();
+		return;
+	}
+
+	QTextStream strm(&file);
+	strm << logger_->document()->toPlainText();
+	file.close();
+
+	QString path = QCoreApplication::applicationDirPath();
+	path += "/XeroActionAnalyzer.exe";
+
+	QStringList args;
+	args.push_back(file.fileName());
+	QProcess proc;
+	proc.setProgram(path);
+	proc.setArguments(args);
+	proc.startDetached();
 }
 
 void XeroSimDisplay::runSimulation()

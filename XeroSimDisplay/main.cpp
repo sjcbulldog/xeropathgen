@@ -17,8 +17,13 @@ int main(int argc, char *argv[])
 	QStringList dirs = QStandardPaths::standardLocations(QStandardPaths::AppLocalDataLocation);
 	QString appdir = dirs.front();
 
+	//
+	// We want to use the fields from the path generator program
+	//
+	QString pathdir = appdir.replace("XeroSimDisplay", "XeroPathGenerator");
+
 	GameFieldManager fields;
-	fields.addDefaultDirectory((appdir + "/fields").toStdString());
+	fields.addDefaultDirectory((pathdir + "/fields").toStdString());
 	fields.copyDefaults("fields");
 	if (!fields.initialize())
 	{
