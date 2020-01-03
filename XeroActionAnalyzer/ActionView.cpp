@@ -55,6 +55,8 @@ void ActionView::insertChildren(int indent, std::shared_ptr<Action> act, QTreeWi
 		for (int i = 0; i < indent; i++)
 			txt += ' ';
 
+		txt += QString::number(child->getID());
+		txt += ":";
 		txt += child->getText();
 		QTreeWidgetItem* item = new QTreeWidgetItem();
 		item->setText(5, txt);

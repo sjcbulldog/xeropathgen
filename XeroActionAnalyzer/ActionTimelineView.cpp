@@ -1,6 +1,10 @@
 #include "ActionTimelineView.h"
 #include <QPainter>
 #include <QRectF>
+#include <QEvent>
+#include <QDebug>
+#include <QToolTip>
+#include <QHelpEvent>
 
 ActionTimelineView::ActionTimelineView(ActionDB &db, QWidget* parent) : QWidget(parent), db_(db)
 {
@@ -15,6 +19,10 @@ ActionTimelineView::ActionTimelineView(ActionDB &db, QWidget* parent) : QWidget(
 
 	max_time_ = 0;
 	id_ = -1;
+
+	setMouseTracking(true);
+	setToolTip("Hello");
+	setToolTipDuration(-1);
 }
 
 ActionTimelineView::~ActionTimelineView()
@@ -132,11 +140,16 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 		pts[1] = QPointF(xs - 3.0, y + slot_bar_height_);
 		pts[2] = QPointF(xs + 3.0, y + slot_bar_height_);
 		paint.drawPolygon(pts, 3);
+
+		QRectF r(xs = 3.0, y, xs + 3.0, y + slot_bar_height_);
+		addActionRect(r, act);
 	}
 	else
 	{
 		QRectF rf(xs, y, xe - xs, slot_bar_height_);
 		paint.drawRect(rf);
+
+		addActionRect(rf, act);
 	}
 
 	QString txt = QString::number(act->getID());
@@ -145,8 +158,6 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 	paint.drawText(pt, txt);
 
 	txt = act->getText();
-	if (txt.length() > 60)
-		txt = txt.left(60);
 	pt = QPointF(xe + 8.0, y + slot_bar_height_ / 2 + fm.height() / 2);
 	paint.drawText(pt, txt);
 
@@ -167,6 +178,7 @@ void ActionTimelineView::paintEvent(QPaintEvent* ev)
 
 	paintBar(painter);
 	paintTimes(painter);
+	action_rects_.clear();
 	if (id_ != -1)
 	{
 		std::shared_ptr<Action> act = db_.findActionByID(id_);
@@ -176,6 +188,57 @@ void ActionTimelineView::paintEvent(QPaintEvent* ev)
 			paintAction(painter, act);
 		}
 	}
+}
+
+bool ActionTimelineView::event(QEvent* ev)
+{
+	if (ev->type() == QEvent::Type::ToolTip)
+	{
+		QHelpEvent* helpEvent = static_cast<QHelpEvent*>(ev);
+		std::shared_ptr<Action> act = findActionFromPoint(helpEvent->pos());
+
+		if (act != nullptr)
+		{
+			QString txt;
+			
+			txt += "start=" + QString::number(act->getStartTime());
+			if (act->isDone())
+			{
+				txt += ",end=" + QString::number(act->getEndTime());
+				txt += ",duration=" + QString::number(act->getDuration());
+			}
+			else if (act->isCanceled())
+			{
+				txt += ",cancel=" + QString::number(act->getEndTime());
+				txt += ",duration=" + QString::number(act->getDuration());
+			}
+			QToolTip::showText(helpEvent->globalPos(), txt);
+		}
+		else
+		{
+			QToolTip::hideText();
+			helpEvent->ignore();
+		}
+		return true;
+	}
+
+	return QWidget::event(ev);
+}
+
+void ActionTimelineView::addActionRect(const QRectF& rect, std::shared_ptr<Action> act)
+{
+	action_rects_.push_back(std::make_pair(rect, act));
+}
+
+std::shared_ptr<Action> ActionTimelineView::findActionFromPoint(const QPointF& pt)
+{
+	for (const auto& p : action_rects_)
+	{
+		if (p.first.contains(pt))
+			return p.second;
+	}
+
+	return nullptr;
 }
 
 void ActionTimelineView::updateContents(int id)

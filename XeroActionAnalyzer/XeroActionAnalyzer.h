@@ -17,11 +17,14 @@ public:
 
 protected:
 	void showEvent(QShowEvent* ev);
+	void closeEvent(QCloseEvent* ev);
 
 private:
 	void createWindows();
 	void createMenus();
 	void loadFile(const QString& filename);
+
+	void itemSelected(QTreeWidgetItem* current, QTreeWidgetItem* prev);
 
 private:
 	QSplitter* top_bottom_spliter_;

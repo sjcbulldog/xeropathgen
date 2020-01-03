@@ -17,10 +17,12 @@ public:
 protected:
 	void resizeEvent(QResizeEvent* ev) override;
 	void paintEvent(QPaintEvent* ev) override;
+	bool event(QEvent*) override;
 
 	void paintBar(QPainter& paint);
 	void paintTimes(QPainter& paint);
 	void paintAction(QPainter& paint, std::shared_ptr<Action> act);
+
 
 private:
 	double timeToWindow(double t);
@@ -29,6 +31,9 @@ private:
 	double rightOfBar();
 	double leftOfBar();
 	double slotToWindow(int slot);
+
+	void addActionRect(const QRectF& rect, std::shared_ptr<Action> act);
+	std::shared_ptr<Action> findActionFromPoint(const QPointF& pt);
 
 private:
 	ActionDB& db_;
@@ -45,4 +50,6 @@ private:
 	int max_time_;
 	int id_;
 	int slot_;
+
+	std::list<std::pair<QRectF, std::shared_ptr<Action>>> action_rects_;
 };
