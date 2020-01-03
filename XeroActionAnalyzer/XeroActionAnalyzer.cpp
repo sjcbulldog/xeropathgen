@@ -1,8 +1,10 @@
 #include "XeroActionAnalyzer.h"
+#include "XeroActionAnalyzer.h"
 #include "ActionTextParser.h"
 #include <QCoreApplication>
 #include <QFile>
 #include <QTextStream>
+#include <QMessageBox>
 
 XeroActionAnalyzer::XeroActionAnalyzer(QWidget *parent) : QMainWindow(parent)
 {
@@ -52,7 +54,10 @@ void XeroActionAnalyzer::showEvent(QShowEvent* ev)
 {
 	QStringList args = QCoreApplication::arguments();
 	if (args.length() == 2)
+	{
+
 		loadFile(args.back());
+	}
 }
 
 void XeroActionAnalyzer::closeEvent(QCloseEvent* ev)
@@ -74,7 +79,13 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 	db_.clear();
 
 	if (!textFile.open(QIODevice::ReadOnly))
+	{
+		QString txt = "cannot open file '" + filename + "' readonly";
+		QMessageBox box(QMessageBox::Icon::Critical,
+			"Error", txt, QMessageBox::StandardButton::Ok);
+		box.exec();
 		return;
+	}
 
 	QTextStream stream(&textFile);
 

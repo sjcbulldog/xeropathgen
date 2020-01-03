@@ -216,7 +216,7 @@ void XeroSimDisplay::runRun()
 void XeroSimDisplay::runAnalyzeActions()
 {
 	QTemporaryFile file(this);
-	file.setAutoRemove(true);
+	file.setAutoRemove(false);
 
 	if (!file.open())
 	{
@@ -228,7 +228,6 @@ void XeroSimDisplay::runAnalyzeActions()
 
 	QTextStream strm(&file);
 	strm << logger_->document()->toPlainText();
-	file.close();
 
 	QString path = QCoreApplication::applicationDirPath();
 	path += "/XeroActionAnalyzer.exe";
@@ -239,6 +238,7 @@ void XeroSimDisplay::runAnalyzeActions()
 	proc.setProgram(path);
 	proc.setArguments(args);
 	proc.startDetached();
+	file.close();
 }
 
 void XeroSimDisplay::runSimulation()
