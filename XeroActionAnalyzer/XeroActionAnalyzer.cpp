@@ -19,6 +19,8 @@ void XeroActionAnalyzer::createWindows()
 	action_view_ = new ActionView(db_, top_bottom_spliter_);
 	top_bottom_spliter_->addWidget(action_view_);
 
+	(void)connect(action_view_, &QTreeWidget::currentItemChanged, this, &XeroActionAnalyzer::itemSelected);
+
 	scroll_ = new QScrollArea(top_bottom_spliter_);
 	scroll_->setWidgetResizable(true);
 	top_bottom_spliter_->addWidget(scroll_);
@@ -31,6 +33,15 @@ void XeroActionAnalyzer::createWindows()
 
 	if (settings_.contains("STATE"))
 		restoreState(settings_.value("STATE").toByteArray());
+
+	if (settings_.contains("SPLITTER"))
+	{
+		QList<QVariant> stored = settings_.value("SPLITTER").toList();
+		QList<int> sizes;
+		for (const QVariant& v : stored)
+			sizes.push_back(v.toInt());
+		top_bottom_spliter_->setSizes(sizes);
+	}
 }
 
 void XeroActionAnalyzer::createMenus()
@@ -42,6 +53,17 @@ void XeroActionAnalyzer::showEvent(QShowEvent* ev)
 	QStringList args = QCoreApplication::arguments();
 	if (args.length() == 2)
 		loadFile(args.back());
+}
+
+void XeroActionAnalyzer::closeEvent(QCloseEvent* ev)
+{
+	settings_.setValue("GEOMETRY", saveGeometry());
+	settings_.setValue("STATE", saveState());
+
+	QList<QVariant> stored;
+	for (int size : top_bottom_spliter_->sizes())
+		stored.push_back(QVariant(size));
+	settings_.setValue("SPLITTER", stored);
 }
 
 void XeroActionAnalyzer::loadFile(const QString& filename)
@@ -72,5 +94,19 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 
 		action_view_->updateContents();
 		timeline_->updateContents(11);
+	}
+}
+
+void XeroActionAnalyzer::itemSelected(QTreeWidgetItem* current, QTreeWidgetItem* prev)
+{
+	if (current != nullptr)
+	{
+		QString idtxt = current->text(3);
+		int id = idtxt.toInt();
+		timeline_->updateContents(id);
+	}
+	else
+	{
+		timeline_->updateContents(-1);
 	}
 }

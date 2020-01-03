@@ -23,6 +23,12 @@ public:
 	{
 	}
 
+	double getDuration() {
+		assert(isDone() || isCanceled());
+
+		return end_time_ - start_time_;
+	}
+
 	const std::list<std::shared_ptr<Action>>& getChildren() const {
 		return children_;
 	}
