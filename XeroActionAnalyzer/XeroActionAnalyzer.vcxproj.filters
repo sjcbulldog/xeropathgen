@@ -40,12 +40,21 @@
     <ClCompile Include="Action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ActionTimelineView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionDB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="XeroActionAnalyzer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="ActionView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ActionTimelineView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -62,6 +71,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Action.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionDB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -52,6 +52,8 @@
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>msvc2017_64_31_1</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
+    <QtPathBinaries>bin</QtPathBinaries>
+    <QtPathLibraryExecutables>bin</QtPathLibraryExecutables>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QtInstall>msvc2017_64_31_1</QtInstall>
@@ -89,7 +91,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="ActionDB.cpp" />
     <ClCompile Include="ActionTextParser.cpp" />
+    <ClCompile Include="ActionTimelineView.cpp" />
     <ClCompile Include="ActionView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="XeroActionAnalyzer.cpp" />
@@ -108,7 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="ActionDB.h" />
     <ClInclude Include="ActionTextParser.h" />
+    <QtMoc Include="ActionTimelineView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

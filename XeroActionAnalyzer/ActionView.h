@@ -1,30 +1,24 @@
 #pragma once
 
 #include "Action.h"
-#include <QWidget>
+#include "ActionDB.h"
+#include <QTreeWidget>
 #include <list>
 #include <memory>
 
-class ActionView : public QWidget
+class ActionView : public QTreeWidget
 {
 	Q_OBJECT
 
 public:
-	ActionView(QWidget *parent = Q_NULLPTR);
+	ActionView(ActionDB &db, QWidget *parent = Q_NULLPTR);
 	~ActionView();
 
-	void setActionList(std::list<std::shared_ptr<Action>> actions) {
-		actions_ = actions;
-	}
+	void updateContents();
 
 protected:
-	virtual void paintEvent(QPaintEvent* event) override;
-	virtual void resizeEvent(QResizeEvent* event) override;
-	virtual void mouseMoveEvent(QMouseEvent* event) override;
-	virtual void mousePressEvent(QMouseEvent* event) override;
-	virtual void mouseReleaseEvent(QMouseEvent* event) override;
-	virtual void keyPressEvent(QKeyEvent* event) override;
+	void insertChildren(int indent, std::shared_ptr<Action> act, QTreeWidgetItem* parent);
 
 private:
-	std::list<std::shared_ptr<Action>> actions_;
+	ActionDB &db_;
 };

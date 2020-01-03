@@ -1,39 +1,66 @@
 #include "ActionView.h"
+#include <QString>
 
-ActionView::ActionView(QWidget *parent)	: QWidget(parent)
+QStringList labels =
 {
+	"Start",
+	"End",
+	"Cancel",
+	"ID",
+	"Parent",
+	"Text"
+};
+
+ActionView::ActionView(ActionDB &db, QWidget *parent)	: QTreeWidget(parent), db_(db)
+{
+	setColumnCount(4);
+	setHeaderLabels(labels);
 }
 
 ActionView::~ActionView()
 {
 }
 
-void ActionView::paintEvent(QPaintEvent* event)
+void ActionView::updateContents()
 {
+	clear();
 
+	for (auto act : db_.getActions())
+	{
+		QTreeWidgetItem* item = new QTreeWidgetItem(this);
+		item->setText(0, QString::number(act->getStartTime()));
+		if (act->isDone())
+			item->setText(1, QString::number(act->getEndTime()));
+		else if (act->isCanceled())
+			item->setText(2, QString::number(act->getCancelTime()));
+
+		item->setText(3, QString::number(act->getID()));
+		if (act->getParent() != nullptr)
+			item->setText(4, QString::number(act->getParent()->getID()));
+		item->setText(5, act->getText());
+
+		if (act->hasChildren())
+		{
+			insertChildren(4, act, item);
+		}
+	}
 }
 
-void ActionView::resizeEvent(QResizeEvent* event)
+void ActionView::insertChildren(int indent, std::shared_ptr<Action> act, QTreeWidgetItem *parent)
 {
+	for (auto child : act->getChildren())
+	{
+		QString txt;
 
-}
+		for (int i = 0; i < indent; i++)
+			txt += ' ';
 
-void ActionView::mouseMoveEvent(QMouseEvent* event)
-{
+		txt += child->getText();
+		QTreeWidgetItem* item = new QTreeWidgetItem();
+		item->setText(5, txt);
+		parent->addChild(item);
 
-}
-
-void ActionView::mousePressEvent(QMouseEvent* event)
-{
-
-}
-
-void ActionView::mouseReleaseEvent(QMouseEvent* event)
-{
-
-}
-
-void ActionView::keyPressEvent(QKeyEvent* event)
-{
-
+		if (child->hasChildren())
+			insertChildren(indent + 4, child, item);
+	}
 }

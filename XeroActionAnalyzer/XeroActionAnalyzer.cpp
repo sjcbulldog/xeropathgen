@@ -16,12 +16,15 @@ void XeroActionAnalyzer::createWindows()
 	top_bottom_spliter_->setOrientation(Qt::Orientation::Vertical);
 	setCentralWidget(top_bottom_spliter_);
 
-	action_view_ = new ActionView(top_bottom_spliter_);
+	action_view_ = new ActionView(db_, top_bottom_spliter_);
 	top_bottom_spliter_->addWidget(action_view_);
 
-	action_text_ = new QTextEdit(top_bottom_spliter_);
-	action_text_->setReadOnly(true);
-	top_bottom_spliter_->addWidget(action_text_);
+	scroll_ = new QScrollArea(top_bottom_spliter_);
+	scroll_->setWidgetResizable(true);
+	top_bottom_spliter_->addWidget(scroll_);
+
+	timeline_ = new ActionTimelineView(db_, scroll_);
+	scroll_->setWidget(timeline_);
 
 	if (settings_.contains("GEOMETRY"))
 		restoreGeometry(settings_.value("GEOMETRY").toByteArray());
@@ -46,6 +49,8 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 	QStringList list;
 	QFile textFile(filename);
 
+	db_.clear();
+
 	if (!textFile.open(QIODevice::ReadOnly))
 		return;
 
@@ -62,9 +67,10 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 
 	if (list.size() > 0)
 	{
-		ActionTextParser parser;
+		ActionTextParser parser(db_);
 		parser.parse(list);
 
-		action_view_->setActionList(parser.getActionList());
+		action_view_->updateContents();
+		timeline_->updateContents(11);
 	}
 }

@@ -254,7 +254,7 @@ void XeroSimDisplay::runSimulation()
 	sim_start_failed_ = false;
 
 	sim_proc_ = new QProcess();
-	sim_proc_->setWorkingDirectory("C:/cygwin64/home/ButchGriffin/rtools/master");			// TODO - add this to setup some how
+	sim_proc_->setWorkingDirectory(src_dir_);
 	sim_proc_->setProcessEnvironment(env);
 
 	rdstdout = connect(sim_proc_, &QProcess::readyReadStandardOutput, this, &XeroSimDisplay::readStdOut);

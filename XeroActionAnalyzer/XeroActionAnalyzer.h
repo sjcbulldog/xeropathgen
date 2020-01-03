@@ -1,10 +1,12 @@
 #pragma once
 
 #include "ActionView.h"
+#include "ActionTimelineView.h"
 #include <QMainWindow>
 #include <QSplitter>
 #include <QTextEdit>
 #include <QSettings>
+#include <QScrollArea>
 
 class XeroActionAnalyzer : public QMainWindow
 {
@@ -24,7 +26,8 @@ private:
 private:
 	QSplitter* top_bottom_spliter_;
 	ActionView* action_view_;
-	QTextEdit* action_text_;
-
+	ActionTimelineView* timeline_;
+	QScrollArea* scroll_;
 	QSettings settings_;
+	ActionDB db_;
 };

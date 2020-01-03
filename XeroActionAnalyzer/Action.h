@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QString>
+#include <QtCore/QString>
 #include <cstdint>
 #include <list>
 #include <memory>
@@ -16,10 +16,45 @@ public:
 		text_ = text;
 		canceled_ = false;
 		ended_ = false;
+		parent_ = nullptr;
 	}
 
 	virtual ~Action() 
 	{
+	}
+
+	const std::list<std::shared_ptr<Action>>& getChildren() const {
+		return children_;
+	}
+
+	bool hasChildren() const {
+		return children_.size() > 0;
+	}
+
+	Action* getParent() {
+		return parent_;
+	}
+
+	int level() {
+		int level = 0;
+
+		Action* act = parent_;
+		while (act != nullptr)
+		{
+			level++;
+			act = act->parent_;
+		}
+
+		return level;
+	}
+
+	void setParent(Action* parent) {
+		parent_ = parent;
+	}
+
+	void addChild(std::shared_ptr<Action> act) {
+		children_.push_back(act);
+		act->setParent(this);
 	}
 
 	void setEndTime(double etime)
@@ -72,6 +107,7 @@ private:
 	QString text_;
 	bool canceled_;
 	bool ended_;
+	Action* parent_;
 
 	std::list<std::shared_ptr<Action>> children_;
 };
