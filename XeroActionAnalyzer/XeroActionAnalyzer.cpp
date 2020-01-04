@@ -1,10 +1,15 @@
 #include "XeroActionAnalyzer.h"
 #include "XeroActionAnalyzer.h"
 #include "ActionTextParser.h"
+#include "ActionFileView.h"
 #include <QCoreApplication>
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+#include <QAction>
+#include <QMenu>
+#include <QMenuBar>
+#include <QFileDialog>
 
 XeroActionAnalyzer::XeroActionAnalyzer(QWidget *parent) : QMainWindow(parent)
 {
@@ -14,49 +19,56 @@ XeroActionAnalyzer::XeroActionAnalyzer(QWidget *parent) : QMainWindow(parent)
 
 void XeroActionAnalyzer::createWindows()
 {
-	top_bottom_spliter_ = new QSplitter();
-	top_bottom_spliter_->setOrientation(Qt::Orientation::Vertical);
-	setCentralWidget(top_bottom_spliter_);
-
-	action_view_ = new ActionView(db_, top_bottom_spliter_);
-	top_bottom_spliter_->addWidget(action_view_);
-
-	(void)connect(action_view_, &QTreeWidget::currentItemChanged, this, &XeroActionAnalyzer::itemSelected);
-
-	scroll_ = new QScrollArea(top_bottom_spliter_);
-	scroll_->setWidgetResizable(true);
-	top_bottom_spliter_->addWidget(scroll_);
-
-	timeline_ = new ActionTimelineView(db_, scroll_);
-	scroll_->setWidget(timeline_);
+	tabs_ = new QTabWidget(this);
+	tabs_->setTabsClosable(true);
+	tabs_->setTabShape(QTabWidget::Rounded);
+	setCentralWidget(tabs_);
 
 	if (settings_.contains("GEOMETRY"))
 		restoreGeometry(settings_.value("GEOMETRY").toByteArray());
 
 	if (settings_.contains("STATE"))
 		restoreState(settings_.value("STATE").toByteArray());
-
-	if (settings_.contains("SPLITTER"))
-	{
-		QList<QVariant> stored = settings_.value("SPLITTER").toList();
-		QList<int> sizes;
-		for (const QVariant& v : stored)
-			sizes.push_back(v.toInt());
-		top_bottom_spliter_->setSizes(sizes);
-	}
 }
 
 void XeroActionAnalyzer::createMenus()
 {
+	QAction* action;
+
+	file_ = new QMenu(tr("&File"));
+	menuBar()->addMenu(file_);
+	action = file_->addAction(tr("Open ..."));
+	(void)connect(action, &QAction::triggered, this, &XeroActionAnalyzer::fileOpen);
+	file_->addSeparator();
+	action = file_->addAction(tr("Close"));
+	(void)connect(action, &QAction::triggered, this, &XeroActionAnalyzer::fileClose);
+	file_->addSeparator();
+}
+
+void XeroActionAnalyzer::fileOpen()
+{
+	QString filename = QFileDialog::getOpenFileName(this, tr("Load Path File"), "", tr("Path File (*.log);;All Files (*.*)"));
+	if (filename.length() == 0)
+		return;
+
+	loadFile(filename);
+}
+
+void XeroActionAnalyzer::fileClose()
+{
+	int index = tabs_->currentIndex();
+	tabs_->removeTab(index);
 }
 
 void XeroActionAnalyzer::showEvent(QShowEvent* ev)
 {
 	QStringList args = QCoreApplication::arguments();
-	if (args.length() == 2)
-	{
+	auto it = args.begin();
+	it++;
 
-		loadFile(args.back());
+	while (it != args.end())
+	{
+		loadFile(*it++);
 	}
 }
 
@@ -64,11 +76,6 @@ void XeroActionAnalyzer::closeEvent(QCloseEvent* ev)
 {
 	settings_.setValue("GEOMETRY", saveGeometry());
 	settings_.setValue("STATE", saveState());
-
-	QList<QVariant> stored;
-	for (int size : top_bottom_spliter_->sizes())
-		stored.push_back(QVariant(size));
-	settings_.setValue("SPLITTER", stored);
 }
 
 void XeroActionAnalyzer::loadFile(const QString& filename)
@@ -76,7 +83,7 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 	QStringList list;
 	QFile textFile(filename);
 
-	db_.clear();
+	ActionFileView* view = new ActionFileView(tabs_);
 
 	if (!textFile.open(QIODevice::ReadOnly))
 	{
@@ -100,24 +107,11 @@ void XeroActionAnalyzer::loadFile(const QString& filename)
 
 	if (list.size() > 0)
 	{
-		ActionTextParser parser(db_);
+		ActionTextParser parser(view->getDB());
 		parser.parse(list);
+		view->updateContents();
 
-		action_view_->updateContents();
-		timeline_->updateContents(11);
-	}
-}
-
-void XeroActionAnalyzer::itemSelected(QTreeWidgetItem* current, QTreeWidgetItem* prev)
-{
-	if (current != nullptr)
-	{
-		QString idtxt = current->text(3);
-		int id = idtxt.toInt();
-		timeline_->updateContents(id);
-	}
-	else
-	{
-		timeline_->updateContents(-1);
+		QFileInfo info(filename);
+		tabs_->addTab(view, info.fileName());
 	}
 }

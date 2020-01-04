@@ -16,8 +16,15 @@ public:
 
 	void updateContents();
 
+	ActionDB& getDB() {
+		return db_;
+	}
+
 protected:
 	void insertChildren(int indent, std::shared_ptr<Action> act, QTreeWidgetItem* parent);
+
+private:
+	void itemSelected(QTreeWidgetItem* current, QTreeWidgetItem* prev);
 
 private:
 	ActionDB &db_;

@@ -92,6 +92,7 @@
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="ActionDB.cpp" />
+    <ClCompile Include="ActionFileView.cpp" />
     <ClCompile Include="ActionTextParser.cpp" />
     <ClCompile Include="ActionTimelineView.cpp" />
     <ClCompile Include="ActionView.cpp" />
@@ -108,11 +109,12 @@
     <QtMoc Include="ActionView.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="actions.txt" />
+    <Text Include="actions.log" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
     <ClInclude Include="ActionDB.h" />
+    <QtMoc Include="ActionFileView.h" />
     <ClInclude Include="ActionTextParser.h" />
     <QtMoc Include="ActionTimelineView.h" />
   </ItemGroup>

@@ -1,0 +1,244 @@
+Running:  --simgraph --auto 15 --oper 0 --test 0 --start 1.0 --events robots/phoenix/sims/automode0.sti
+0.017000: Initializing robot phoenix
+0.017000: .... reading parameter file
+0.017000: Reading Params File, Defines: COMPETITION
+0.017000: .... loading path files
+0.057000: .... initializing hardware
+0.057000: starting action: id 8, action MotorEncoderHoldAction: implicit 0.000000
+0.057000: starting action: id 9, action MotorEncoderHoldAction: implicit 0.000000
+0.057000: Robot Initialization complete.
+0.058000: Robot Disabled
+0.100000: Simulation Event: oi automode -100
+0.100000: Simulation Event: tankdrive xpos 1610
+0.100000: Simulation Event: tankdrive ypos 4240
+0.100000: Simulation Event: tankdrive angle 0
+0.100000: Simulation Event: cubesensor cube 1
+1.068000: Entering Autonomous mode: 
+1.068000:     Auto Mode Number: 0
+1.068000:     Auto Mode: RightThreeCubeScale
+1.068000:     Alliance: undefined
+1.068000:     Location: 1
+1.068000:     GameData: LLL
+1.068000:     EventName: SimulatorEvent
+1.068000:     MatchType: none
+1.068000:     MatchNumber: -1
+1.068000:     ReplayNumber: -1
+1.068000:     FMS Attached: No
+1.070000: starting action: id 11, action Sequence [[12{{Parallel [[14{{DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)}},15{{Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},26{{DispatchAction(collector,25{{EjectCube(sensor, -0.400000)}}, BLOCK)}},27{{Parallel [[28{{Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]}},37{{Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]}}]]}},42{{Parallel [[43{{Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]}},48{{Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},56{{DispatchAction(collector,55{{EjectCube(sensor, -0.400000)}}, BLOCK)}},57{{Parallel [[58{{Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]}},67{{Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]}}]]}},72{{Parallel [[73{{Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]}},78{{Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},86{{DispatchAction(collector,85{{EjectCube(sensor, -0.400000)}}, BLOCK)}}]]
+1.070000: starting action: id 12, action Parallel [[14{{DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)}},15{{Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+1.071000: starting action: id 14, action DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)
+1.071000: starting action: id 13, action TankDriveFollowPathAction-ThreeScale_P1
+1.071000: starting action: id 15, action Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]
+1.072000: starting action: id 16, action DelayAction 0.000000
+1.072000: completing action: id 16, action DelayAction 0.000000
+1.072000: starting action: id 18, action DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)
+1.072000: starting action: id 17, action LifterShift - HIGH
+1.072000: completing action: id 17, action LifterShift - HIGH
+1.072000: completing action: id 18, action DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)
+1.072000: starting action: id 20, action DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)
+1.072000: starting action: id 19, action LifterBreak - OFF
+1.072000: completing action: id 19, action LifterBreak - OFF
+1.072000: completing action: id 20, action DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)
+1.073000: starting action: id 22, action DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+1.073000: starting action: id 21, action MotorEncoderGoToAction 74.000000
+3.709000: completing action: id 13, action TankDriveFollowPathAction-ThreeScale_P1
+3.727000: completing action: id 14, action DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)
+3.826000: completing action: id 21, action MotorEncoderGoToAction 74.000000
+3.847000: completing action: id 22, action DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+3.847000: starting action: id 24, action DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)
+3.847000: starting action: id 23, action LifterBreak - ON
+3.847000: completing action: id 23, action LifterBreak - ON
+3.848000: completing action: id 24, action DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)
+3.848000: completing action: id 15, action Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]
+3.849000: completing action: id 12, action Parallel [[14{{DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)}},15{{Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+3.849000: starting action: id 26, action DispatchAction(collector,25{{EjectCube(sensor, -0.400000)}}, BLOCK)
+3.849000: starting action: id 25, action EjectCube(sensor, -0.400000)
+3.849000: starting action: id 88, action SingleMotorPowerAction -0.400000
+3.849000: completing action: id 88, action SingleMotorPowerAction -0.400000
+3.850000: starting action: id 89, action MotorEncoderGoToAction 45.000000
+3.850000: starting action: id 87, action MotorEncoderHoldAction: explicit 74.000000
+3.987000: starting action: id 91, action SingleMotorPowerAction 0.000000
+3.988000: completing action: id 91, action SingleMotorPowerAction 0.000000
+3.988000: completing action: id 25, action EjectCube(sensor, -0.400000)
+4.006000: completing action: id 26, action DispatchAction(collector,25{{EjectCube(sensor, -0.400000)}}, BLOCK)
+4.006000: starting action: id 27, action Parallel [[28{{Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]}},37{{Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]}}]]
+4.006000: starting action: id 28, action Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]
+4.006000: starting action: id 37, action Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]
+4.006000: starting action: id 30, action DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)
+4.006000: canceling action: id 87, action MotorEncoderHoldAction: explicit 74.000000
+4.006000: completing action: id 87, action MotorEncoderHoldAction: explicit 74.000000
+4.006000: starting action: id 29, action LifterBreak - OFF
+4.006000: completing action: id 29, action LifterBreak - OFF
+4.006000: completing action: id 30, action DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)
+4.006000: starting action: id 32, action DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)
+4.006000: starting action: id 31, action MotorEncoderGoToAction 11.375000
+4.007000: starting action: id 39, action DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)
+4.007000: starting action: id 38, action TankDriveAngleAction 81.800000
+4.008000: canceling action: id 89, action MotorEncoderGoToAction 45.000000
+4.008000: completing action: id 89, action MotorEncoderGoToAction 45.000000
+4.008000: starting action: id 93, action MotorEncoderHoldAction: implicit 0.000000
+4.489000: completing action: id 38, action TankDriveAngleAction 81.800000
+4.510000: completing action: id 39, action DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)
+4.510000: starting action: id 41, action DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)
+4.510000: starting action: id 40, action TankDriveFollowPathAction-ThreeScale_P6
+5.837000: completing action: id 40, action TankDriveFollowPathAction-ThreeScale_P6
+5.857000: completing action: id 41, action DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)
+5.857000: completing action: id 37, action Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]
+6.000000: Simulation Event: cubesensor cube 1
+6.757000: completing action: id 31, action MotorEncoderGoToAction 11.375000
+6.777000: completing action: id 32, action DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)
+6.777000: starting action: id 34, action DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)
+6.777000: starting action: id 33, action LifterBreak - ON
+6.777000: completing action: id 33, action LifterBreak - ON
+6.777000: completing action: id 34, action DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)
+6.777000: starting action: id 36, action DispatchAction(collector,35{{CollectCube}}, BLOCK)
+6.777000: starting action: id 35, action CollectCube
+6.778000: canceling action: id 93, action MotorEncoderHoldAction: implicit 1.875000
+6.778000: completing action: id 93, action MotorEncoderHoldAction: implicit 1.875000
+6.778000: starting action: id 94, action MotorEncoderGoToAction 45.000000
+6.778000: starting action: id 96, action SingleMotorPowerAction 1.000000
+6.778000: completing action: id 96, action SingleMotorPowerAction 1.000000
+6.779000: starting action: id 92, action MotorEncoderHoldAction: explicit 11.375000
+6.779000: canceling action: id 94, action MotorEncoderGoToAction 45.000000
+6.779000: completing action: id 94, action MotorEncoderGoToAction 45.000000
+6.779000: starting action: id 98, action MotorEncoderHoldAction: implicit 0.000000
+6.780000: starting action: id 97, action SingleMotorPowerAction 0.100000
+6.780000: completing action: id 97, action SingleMotorPowerAction 0.100000
+6.872000: starting action: id 99, action SingleMotorPowerAction 0.100000
+6.872000: completing action: id 99, action SingleMotorPowerAction 0.100000
+6.890000: completing action: id 35, action CollectCube
+6.909000: completing action: id 36, action DispatchAction(collector,35{{CollectCube}}, BLOCK)
+6.909000: completing action: id 28, action Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]
+6.909000: completing action: id 27, action Parallel [[28{{Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]}},37{{Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]}}]]
+6.910000: starting action: id 42, action Parallel [[43{{Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]}},48{{Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+6.910000: starting action: id 43, action Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]
+6.910000: starting action: id 48, action Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]
+6.910000: starting action: id 45, action DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)
+6.910000: starting action: id 44, action TankDriveAngleAction 90.000000
+6.911000: starting action: id 50, action DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)
+6.911000: canceling action: id 92, action MotorEncoderHoldAction: explicit 11.375000
+6.911000: completing action: id 92, action MotorEncoderHoldAction: explicit 11.375000
+6.911000: starting action: id 49, action LifterBreak - OFF
+6.911000: completing action: id 49, action LifterBreak - OFF
+6.911000: completing action: id 50, action DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)
+6.912000: starting action: id 52, action DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+6.912000: starting action: id 51, action MotorEncoderGoToAction 74.000000
+7.409000: completing action: id 44, action TankDriveAngleAction 90.000000
+7.429000: completing action: id 45, action DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)
+7.429000: starting action: id 47, action DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)
+7.429000: starting action: id 46, action TankDriveFollowPathAction-ThreeScale_P7
+9.047000: completing action: id 46, action TankDriveFollowPathAction-ThreeScale_P7
+9.064000: completing action: id 47, action DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)
+9.064000: completing action: id 43, action Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]
+9.657000: completing action: id 51, action MotorEncoderGoToAction 74.000000
+9.678000: completing action: id 52, action DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+9.678000: starting action: id 54, action DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)
+9.678000: starting action: id 53, action LifterBreak - ON
+9.678000: completing action: id 53, action LifterBreak - ON
+9.679000: completing action: id 54, action DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)
+9.679000: completing action: id 48, action Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]
+9.680000: completing action: id 42, action Parallel [[43{{Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]}},48{{Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+9.680000: starting action: id 56, action DispatchAction(collector,55{{EjectCube(sensor, -0.400000)}}, BLOCK)
+9.680000: starting action: id 55, action EjectCube(sensor, -0.400000)
+9.680000: starting action: id 101, action SingleMotorPowerAction -0.400000
+9.680000: completing action: id 101, action SingleMotorPowerAction -0.400000
+9.681000: starting action: id 102, action MotorEncoderGoToAction 45.000000
+9.682000: starting action: id 100, action MotorEncoderHoldAction: explicit 74.000000
+9.837000: starting action: id 104, action SingleMotorPowerAction 0.000000
+9.837000: completing action: id 104, action SingleMotorPowerAction 0.000000
+9.837000: completing action: id 55, action EjectCube(sensor, -0.400000)
+9.852000: completing action: id 56, action DispatchAction(collector,55{{EjectCube(sensor, -0.400000)}}, BLOCK)
+9.852000: starting action: id 57, action Parallel [[58{{Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]}},67{{Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]}}]]
+9.852000: starting action: id 58, action Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]
+9.852000: starting action: id 67, action Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]
+9.853000: starting action: id 60, action DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)
+9.853000: canceling action: id 100, action MotorEncoderHoldAction: explicit 74.000000
+9.853000: completing action: id 100, action MotorEncoderHoldAction: explicit 74.000000
+9.853000: starting action: id 59, action LifterBreak - OFF
+9.853000: completing action: id 59, action LifterBreak - OFF
+9.853000: completing action: id 60, action DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)
+9.853000: starting action: id 62, action DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)
+9.853000: starting action: id 61, action MotorEncoderGoToAction 11.375000
+9.854000: starting action: id 69, action DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)
+9.854000: starting action: id 68, action TankDriveAngleAction 81.800000
+9.854000: canceling action: id 102, action MotorEncoderGoToAction 45.000000
+9.854000: completing action: id 102, action MotorEncoderGoToAction 45.000000
+9.855000: starting action: id 106, action MotorEncoderHoldAction: implicit 0.000000
+10.331000: completing action: id 68, action TankDriveAngleAction 81.800000
+10.347000: completing action: id 69, action DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)
+10.347000: starting action: id 71, action DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)
+10.347000: starting action: id 70, action TankDriveFollowPathAction-ThreeScale_P8
+11.721000: completing action: id 70, action TankDriveFollowPathAction-ThreeScale_P8
+11.741000: completing action: id 71, action DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)
+11.741000: completing action: id 67, action Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]
+11.821000: Simulation Event: cubesensor cube 1
+12.601000: completing action: id 61, action MotorEncoderGoToAction 11.375000
+12.621000: completing action: id 62, action DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)
+12.621000: starting action: id 64, action DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)
+12.621000: starting action: id 63, action LifterBreak - ON
+12.621000: completing action: id 63, action LifterBreak - ON
+12.621000: completing action: id 64, action DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)
+12.621000: starting action: id 66, action DispatchAction(collector,65{{CollectCube}}, BLOCK)
+12.621000: starting action: id 65, action CollectCube
+12.621000: canceling action: id 106, action MotorEncoderHoldAction: implicit 30.625000
+12.621000: completing action: id 106, action MotorEncoderHoldAction: implicit 30.625000
+12.622000: starting action: id 107, action MotorEncoderGoToAction 45.000000
+12.622000: starting action: id 109, action SingleMotorPowerAction 1.000000
+12.622000: completing action: id 109, action SingleMotorPowerAction 1.000000
+12.622000: starting action: id 105, action MotorEncoderHoldAction: explicit 11.375000
+12.622000: canceling action: id 107, action MotorEncoderGoToAction 45.000000
+12.623000: completing action: id 107, action MotorEncoderGoToAction 45.000000
+12.623000: starting action: id 111, action MotorEncoderHoldAction: implicit 0.000000
+12.623000: starting action: id 110, action SingleMotorPowerAction 0.100000
+12.623000: completing action: id 110, action SingleMotorPowerAction 0.100000
+12.718000: starting action: id 112, action SingleMotorPowerAction 0.100000
+12.718000: completing action: id 112, action SingleMotorPowerAction 0.100000
+12.738000: completing action: id 65, action CollectCube
+12.757000: completing action: id 66, action DispatchAction(collector,65{{CollectCube}}, BLOCK)
+12.757000: completing action: id 58, action Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]
+12.758000: completing action: id 57, action Parallel [[58{{Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]}},67{{Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]}}]]
+12.758000: starting action: id 72, action Parallel [[73{{Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]}},78{{Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+12.758000: starting action: id 73, action Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]
+12.758000: starting action: id 78, action Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]
+12.759000: starting action: id 75, action DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)
+12.759000: starting action: id 74, action TankDriveAngleAction 120.100000
+12.760000: starting action: id 80, action DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)
+12.760000: canceling action: id 105, action MotorEncoderHoldAction: explicit 11.375000
+12.760000: completing action: id 105, action MotorEncoderHoldAction: explicit 11.375000
+12.760000: starting action: id 79, action LifterBreak - OFF
+12.760000: completing action: id 79, action LifterBreak - OFF
+12.760000: completing action: id 80, action DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)
+12.761000: starting action: id 82, action DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+12.761000: starting action: id 81, action MotorEncoderGoToAction 74.000000
+13.344000: completing action: id 74, action TankDriveAngleAction 120.100000
+13.362000: completing action: id 75, action DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)
+13.362000: starting action: id 77, action DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)
+13.362000: starting action: id 76, action TankDriveFollowPathAction-ThreeScale_P9
+14.816000: completing action: id 76, action TankDriveFollowPathAction-ThreeScale_P9
+14.834000: completing action: id 77, action DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)
+14.834000: completing action: id 73, action Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]
+15.511000: completing action: id 81, action MotorEncoderGoToAction 74.000000
+15.528000: completing action: id 82, action DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)
+15.528000: starting action: id 84, action DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)
+15.528000: starting action: id 83, action LifterBreak - ON
+15.528000: completing action: id 83, action LifterBreak - ON
+15.528000: completing action: id 84, action DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)
+15.528000: completing action: id 78, action Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]
+15.528000: completing action: id 72, action Parallel [[73{{Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]}},78{{Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]}}]]
+15.528000: starting action: id 86, action DispatchAction(collector,85{{EjectCube(sensor, -0.400000)}}, BLOCK)
+15.528000: starting action: id 85, action EjectCube(sensor, -0.400000)
+15.529000: starting action: id 114, action SingleMotorPowerAction -0.400000
+15.529000: completing action: id 114, action SingleMotorPowerAction -0.400000
+15.529000: starting action: id 115, action MotorEncoderGoToAction 45.000000
+15.529000: starting action: id 113, action MotorEncoderHoldAction: explicit 74.000000
+15.686000: FOUND IT
+15.686000: starting action: id 117, action SingleMotorPowerAction 0.000000
+15.686000: completing action: id 117, action SingleMotorPowerAction 0.000000
+15.686000: completing action: id 85, action EjectCube(sensor, -0.400000)
+15.705000: completing action: id 86, action DispatchAction(collector,85{{EjectCube(sensor, -0.400000)}}, BLOCK)
+15.707000: completing action: id 11, action Sequence [[12{{Parallel [[14{{DispatchAction(tankdrive,13{{TankDriveFollowPathAction-ThreeScale_P1}}, BLOCK)}},15{{Sequence [[16{{DelayAction 0.000000}},18{{DispatchAction(lifter,17{{LifterShift - HIGH}}, BLOCK)}},20{{DispatchAction(lifter,19{{LifterBreak - OFF}}, BLOCK)}},22{{DispatchAction(lifter,21{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},24{{DispatchAction(lifter,23{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},26{{DispatchAction(collector,25{{EjectCube(sensor, -0.400000)}}, BLOCK)}},27{{Parallel [[28{{Sequence [[30{{DispatchAction(lifter,29{{LifterBreak - OFF}}, BLOCK)}},32{{DispatchAction(lifter,31{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},34{{DispatchAction(lifter,33{{LifterBreak - ON}}, BLOCK)}},36{{DispatchAction(collector,35{{CollectCube}}, BLOCK)}}]]}},37{{Sequence [[39{{DispatchAction(tankdrive,38{{TankDriveAngleAction 81.800000}}, BLOCK)}},41{{DispatchAction(tankdrive,40{{TankDriveFollowPathAction-ThreeScale_P6}}, BLOCK)}}]]}}]]}},42{{Parallel [[43{{Sequence [[45{{DispatchAction(tankdrive,44{{TankDriveAngleAction 90.000000}}, BLOCK)}},47{{DispatchAction(tankdrive,46{{TankDriveFollowPathAction-ThreeScale_P7}}, BLOCK)}}]]}},48{{Sequence [[50{{DispatchAction(lifter,49{{LifterBreak - OFF}}, BLOCK)}},52{{DispatchAction(lifter,51{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},54{{DispatchAction(lifter,53{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},56{{DispatchAction(collector,55{{EjectCube(sensor, -0.400000)}}, BLOCK)}},57{{Parallel [[58{{Sequence [[60{{DispatchAction(lifter,59{{LifterBreak - OFF}}, BLOCK)}},62{{DispatchAction(lifter,61{{MotorEncoderGoToAction 11.375000}}, BLOCK)}},64{{DispatchAction(lifter,63{{LifterBreak - ON}}, BLOCK)}},66{{DispatchAction(collector,65{{CollectCube}}, BLOCK)}}]]}},67{{Sequence [[69{{DispatchAction(tankdrive,68{{TankDriveAngleAction 81.800000}}, BLOCK)}},71{{DispatchAction(tankdrive,70{{TankDriveFollowPathAction-ThreeScale_P8}}, BLOCK)}}]]}}]]}},72{{Parallel [[73{{Sequence [[75{{DispatchAction(tankdrive,74{{TankDriveAngleAction 120.100000}}, BLOCK)}},77{{DispatchAction(tankdrive,76{{TankDriveFollowPathAction-ThreeScale_P9}}, BLOCK)}}]]}},78{{Sequence [[80{{DispatchAction(lifter,79{{LifterBreak - OFF}}, BLOCK)}},82{{DispatchAction(lifter,81{{MotorEncoderGoToAction 74.000000}}, BLOCK)}},84{{DispatchAction(lifter,83{{LifterBreak - ON}}, BLOCK)}}]]}}]]}},86{{DispatchAction(collector,85{{EjectCube(sensor, -0.400000)}}, BLOCK)}}]]
+15.708000: canceling action: id 115, action MotorEncoderGoToAction 45.000000
+15.708000: completing action: id 115, action MotorEncoderGoToAction 45.000000
+15.708000: FOUND IT
+15.708000: starting action: id 118, action MotorEncoderHoldAction: implicit 0.000000
+16.067000: Robot Disabled

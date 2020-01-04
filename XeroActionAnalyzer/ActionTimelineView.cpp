@@ -122,6 +122,18 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 	else
 		xe = max_time_;
 
+	if (act == highlight_)
+	{
+		QPen pen(QColor(255, 0, 0, 255));
+		pen.setWidth(2.0);
+		paint.setPen(pen);
+	}
+	else
+	{
+		QPen pen(QColor(0, 0, 0, 255));
+		paint.setPen(pen);
+	}
+
 	if (act->hasChildren())
 	{
 		QBrush b(QColor(0, 0, 255, 255));
@@ -141,7 +153,7 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 		pts[2] = QPointF(xs + 3.0, y + slot_bar_height_);
 		paint.drawPolygon(pts, 3);
 
-		QRectF r(xs = 3.0, y, xs + 3.0, y + slot_bar_height_);
+		QRectF r(xs - 3.0, y, 6.0, slot_bar_height_);
 		addActionRect(r, act);
 	}
 	else
@@ -151,6 +163,9 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 
 		addActionRect(rf, act);
 	}
+
+	QPen pen(QColor(0, 0, 0, 255));
+	paint.setPen(pen);
 
 	QString txt = QString::number(act->getID());
 	QFontMetricsF fm(paint.font());
@@ -169,7 +184,16 @@ void ActionTimelineView::paintAction(QPainter& paint, std::shared_ptr<Action> ac
 
 void ActionTimelineView::resizeEvent(QResizeEvent* ev)
 {
+}
 
+void ActionTimelineView::mouseMoveEvent(QMouseEvent* ev)
+{
+	auto act = findActionFromPoint(ev->pos());
+	if (act != highlight_)
+	{
+		highlight_ = act;
+		update();
+	}
 }
 
 void ActionTimelineView::paintEvent(QPaintEvent* ev)
@@ -204,13 +228,13 @@ bool ActionTimelineView::event(QEvent* ev)
 			txt += "start=" + QString::number(act->getStartTime());
 			if (act->isDone())
 			{
-				txt += ",end=" + QString::number(act->getEndTime());
-				txt += ",duration=" + QString::number(act->getDuration());
+				txt += "\r\nend=" + QString::number(act->getEndTime());
+				txt += "\r\nduration=" + QString::number(act->getDuration());
 			}
 			else if (act->isCanceled())
 			{
-				txt += ",cancel=" + QString::number(act->getEndTime());
-				txt += ",duration=" + QString::number(act->getDuration());
+				txt += "\r\ncancel=" + QString::number(act->getEndTime());
+				txt += "\r\nduration=" + QString::number(act->getDuration());
 			}
 			QToolTip::showText(helpEvent->globalPos(), txt);
 		}

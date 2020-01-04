@@ -17,6 +17,7 @@ public:
 protected:
 	void resizeEvent(QResizeEvent* ev) override;
 	void paintEvent(QPaintEvent* ev) override;
+	void mouseMoveEvent(QMouseEvent* ev) override;
 	bool event(QEvent*) override;
 
 	void paintBar(QPainter& paint);
@@ -50,6 +51,8 @@ private:
 	int max_time_;
 	int id_;
 	int slot_;
+
+	std::shared_ptr<Action> highlight_;
 
 	std::list<std::pair<QRectF, std::shared_ptr<Action>>> action_rects_;
 };

@@ -24,13 +24,12 @@ private:
 	void createMenus();
 	void loadFile(const QString& filename);
 
-	void itemSelected(QTreeWidgetItem* current, QTreeWidgetItem* prev);
+	void fileOpen();
+	void fileClose();
 
 private:
-	QSplitter* top_bottom_spliter_;
-	ActionView* action_view_;
-	ActionTimelineView* timeline_;
-	QScrollArea* scroll_;
 	QSettings settings_;
-	ActionDB db_;
+	QTabWidget* tabs_;
+
+	QMenu* file_;
 };
