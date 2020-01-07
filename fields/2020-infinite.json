@@ -1,0 +1,10 @@
+{
+"game" : "2019 Infinite Recharge",
+"field-image" : "2020-field.jpg",
+"field-corners": {
+	"top-left" : [0, 0],
+	"bottom-right" : [1200, 600]
+},
+"field-size" : [52.4375, 26.9375],
+"field-unit" : "foot"
+}

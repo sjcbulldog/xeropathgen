@@ -92,6 +92,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroSimDisplay", "XeroSimDi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroActionAnalyzer", "XeroActionAnalyzer\XeroActionAnalyzer.vcxproj", "{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XeroShooter", "XeroShooter\XeroShooter.vcxproj", "{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -170,6 +172,12 @@ Global
 		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x64.ActiveCfg = Release|x64
 		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x64.Build.0 = Release|x64
 		{F5D420F7-379C-4ED4-9CAC-4951885BBE4B}.Release|x86.ActiveCfg = Release|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Debug|x64.ActiveCfg = Debug|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Debug|x64.Build.0 = Debug|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Debug|x86.ActiveCfg = Debug|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Release|x64.ActiveCfg = Release|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Release|x64.Build.0 = Release|x64
+		{85B6B8C1-FF8D-4EF4-A14C-DD254CE26281}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

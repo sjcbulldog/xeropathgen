@@ -71,7 +71,7 @@ void NetworkDownloadManager::updateFields()
 
 QUrl NetworkDownloadManager::createURL(QString item)
 {
-	QString urlstr = "http://";
+	QString urlstr = "https://";
 	urlstr += site_;
 	urlstr += "/";
 	urlstr += location_;

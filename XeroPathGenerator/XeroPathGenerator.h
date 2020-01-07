@@ -210,8 +210,8 @@ private:
 	static constexpr const char* EquationsStacked = "Equations Stacked";
 	static constexpr const char* DownloadSite = "downloadsite";
 	static constexpr const char* DownloadLocation = "downloadlocation";
-	static constexpr const char* DefaultDownloadSite = "www.mewserver.net";
-	static constexpr const char* DefaultDownloadLocation = "/fields";
+	static constexpr const char* DefaultDownloadSite = "www.xerosw.org";
+	static constexpr const char* DefaultDownloadLocation = "fields";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
 
