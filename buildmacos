@@ -1,6 +1,6 @@
 #!/bin/bash
 
-QTVERSION=5.13.1
+QTVERSION=5.13.2
 
 function dobuild {
     cd PathGenCommon
@@ -11,16 +11,19 @@ function dobuild {
     cd XeroGenV1
     make CONFIG=release clean
     make CONFIG=release
+    cp release/XeroGenV1 ../generators
     cd ..
 
     cd PathFinderV1Gen
     make CONFIG=release clean
     make CONFIG=release
+    cp release/PathFinderV1Gen ../generators
     cd ..
 
     pushd PoofsGenerator
     make CONFIG=release clean
     make CONFIG=release
+    cp release/PoofsGenerator ../generators
     popd
 
     pushd XeroPathCommon

@@ -65,12 +65,17 @@ bool ManagerBase::processPath(const std::string& path)
 	{
 		QFile f(iter.next());
 		try {
+		    qDebug() << "Processing JSON file '" << f.fileName() << "'" ;
 			if (!processJSONFile(f))
-				return false;
+			{
+			    qDebug() << "   - failed to process file" ;
+			    continue ;
+			}
 		}
 		catch (const std::runtime_error& )
 		{
-			return false;
+		    qDebug() << "   - failed to process file" ;
+		    continue ;
 		}
 	}
 
