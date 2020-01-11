@@ -84,7 +84,8 @@
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\images
+      <Command>echo QTDIR is $(QTDIR)
+mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
 echo ======================== DOING DEPLOY ============================
 $(QTDIR)\bin\windeployqt $(OutDir)$(ProjectName).exe
@@ -104,6 +105,10 @@ echo Copying help collection
 copy $(SolutionDir)html\xeropath.qhc $(OutDir)
 echo Copying Assistant
 copy $(QTDIR)\bin\assistant.exe $(OutDir)
+copy $(QTDIR)\bin\Qt5Help.dll $(OutDir)
+copy $(QTDIR)\bin\Qt5Sql.dll $(OutDir)
+mkdir $(OutDir)\sqldrivers
+copy $(QTDIR)\plugins\sqldrivers\* $(OutDir)\sqldrivers
 copy $(SolutionDir)html\images\*.png $(OutDir)\images
 </Command>
     </PostBuildEvent>
@@ -150,7 +155,8 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
       <OutputFile>.\GeneratedFiles\qrc_%(Filename).cpp</OutputFile>
     </QtRcc>
     <PostBuildEvent>
-      <Command>mkdir $(OutDir)\images
+      <Command>echo QTDIR is $(QTDIR)
+mkdir $(OutDir)\images
 copy $(ProjectDir)images\*.png $(OutDir)\images
 echo ======================== DOING DEPLOY ============================
 $(QTDIR)\bin\windeployqt $(OutDir)$(ProjectName).exe
@@ -170,6 +176,10 @@ echo Copying help collection
 copy $(SolutionDir)html\xeropath.qhc $(OutDir)
 echo Copying Assistant
 copy $(QTDIR)\bin\assistant.exe $(OutDir)
+copy $(QTDIR)\bin\Qt5Help.dll $(OutDir)
+copy $(QTDIR)\bin\Qt5Sql.dll $(OutDir)
+mkdir $(OutDir)\sqldrivers
+copy $(QTDIR)\plugins\sqldrivers\* $(OutDir)\sqldrivers
 copy $(SolutionDir)html\images\*.png $(OutDir)\images
 </Command>
     </PostBuildEvent>
