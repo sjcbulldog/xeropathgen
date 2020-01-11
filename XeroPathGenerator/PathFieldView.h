@@ -162,6 +162,8 @@ private:
 	};
 
 private:
+	void copyCoordinates();
+	void pasteCoordinates(bool rot180);
 	void emitMouseMoved(xero::paths::Translation2d pos);
 	void emitWaypointSelected(size_t which);
 	void emitWaypointStartMoving(size_t which);
@@ -169,8 +171,6 @@ private:
 	void emitWaypointEndMoving(size_t which);
 	void emitWaypointDeleted();
 	void emitWaypointInserted();
-
-	void undo();
 
 	void moveWaypoint(bool shift, int dx, int dy);
 	void rotateWaypoint(bool shift, int dir);

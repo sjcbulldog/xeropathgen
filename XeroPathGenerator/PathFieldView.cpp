@@ -31,6 +31,8 @@
 #include <QFontMetrics>
 #include <QDebug>
 #include <QCoreApplication>
+#include <QClipboard>
+#include <QGuiApplication>
 #include <cmath>
 
 using namespace xero::paths;
@@ -564,10 +566,6 @@ void PathFieldView::mouseReleaseEvent(QMouseEvent* ev)
 
 }
 
-void PathFieldView::undo()
-{
-}
-
 void PathFieldView::deleteWaypoint()
 {
 	if (path_ == nullptr || selected_ >= path_->size())
@@ -675,10 +673,28 @@ void PathFieldView::rotateWaypoint(bool shift, int dir)
 
 void PathFieldView::keyPressEvent(QKeyEvent* ev)
 {
-	if (ev->key() == Qt::Key::Key_Z && ev->modifiers() == Qt::KeyboardModifier::ControlModifier)
+	if (ev->modifiers() == Qt::KeyboardModifier::ControlModifier)
 	{
-		UndoManager &mgr = UndoManager::getUndoManager();
-		mgr.undo();
+		if (ev->key() == Qt::Key::Key_Z)
+		{
+			UndoManager& mgr = UndoManager::getUndoManager();
+			mgr.undo();
+		}
+		else if (ev->key() == Qt::Key::Key_C)
+		{
+			copyCoordinates();
+		}
+		else if (ev->key() == Qt::Key::Key_V)
+		{
+			pasteCoordinates(false);
+		}
+	}
+	else if (ev->modifiers() == (Qt::KeyboardModifier::ControlModifier | Qt::KeyboardModifier::ShiftModifier))
+	{
+		if (ev->key() == Qt::Key::Key_V)
+		{
+			pasteCoordinates(true);
+		}
 	}
 	else
 	{
@@ -717,6 +733,74 @@ void PathFieldView::keyPressEvent(QKeyEvent* ev)
 			rotateWaypoint(shift, -1);
 			break;
 		}
+	}
+}
+
+void PathFieldView::copyCoordinates()
+{
+	if (selected_ <= path_->size())
+	{
+		const Pose2d& pt = path_->getPoints()[selected_];
+		QClipboard* clip = QGuiApplication::clipboard();
+		QString str = "%%%%";
+		str += QString::number(pt.getTranslation().getX());
+		str += "," + QString::number(pt.getTranslation().getY());
+		str += "," + QString::number(pt.getRotation().toDegrees());
+		str += "%%%%";
+		clip->setText(str);
+	}
+}
+
+void PathFieldView::pasteCoordinates(bool b)
+{
+	QClipboard* clip = QGuiApplication::clipboard();
+
+	if (selected_ <= path_->size())
+	{
+		QString txt = clip->text();
+		if (!txt.startsWith("%%%%"))
+			return;
+
+		txt = txt.mid(4);
+		if (!txt.endsWith("%%%%"))
+			return;
+
+		txt = txt.mid(0, txt.length() - 4);
+		QStringList numbers = txt.split(',');
+		if (numbers.size() != 3)
+			return;
+
+		bool ok;
+		double x, y, angle;
+
+		x = numbers.front().toDouble(&ok);
+		if (!ok)
+			return;
+		numbers.pop_front();
+
+		y = numbers.front().toDouble(&ok);
+		if (!ok)
+			return;
+		numbers.pop_front();
+
+		angle = numbers.front().toDouble(&ok);
+		if (!ok)
+			return;
+		numbers.pop_front();
+
+		Rotation2d r;
+		if (b)
+			r = Rotation2d::fromDegrees(angle + 180.0);
+		else
+			r = Rotation2d::fromDegrees(angle);
+
+		emitWaypointStartMoving(selected_);
+		Translation2d t(x, y);
+		Pose2d newpt(t, r);
+		path_->replacePoint(selected_, newpt);
+		emitWaypointEndMoving(selected_);
+
+		repaint(geometry());
 	}
 }
 
