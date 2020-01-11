@@ -75,6 +75,13 @@ void GeneratorManager::copyDefaults(const std::string& subdir)
 	QDir srcdir(src);
 	QDir destdir(defdir);
 
+#ifdef _MSC_VER
+	QString badfilename = defdir + "/PoofsGenerator";
+	QFile badfile(badfilename);
+	if (badfile.exists())
+		badfile.remove();
+#endif
+
 	if (!destdir.exists())
 	{
 		if (!destdir.mkpath(defdir))
