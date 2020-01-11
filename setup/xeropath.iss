@@ -56,5 +56,8 @@ Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
+Filename: {app}\vc_redist.x64.exe; \
+    Parameters: "/q /passive /Q:a /c:""msiexec /q /i vcredist.msi"""; \
+    StatusMsg: "Installing VC++ 2008 Redistributables..."
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
