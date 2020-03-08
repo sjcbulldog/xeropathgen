@@ -62,6 +62,8 @@ public:
 	/// @throws std::runtime_error if an invalid header name is given
 	double getData(const char *header);
 
+	bool hasDataField(const std::string &name);
+
 private:
 	//
 	// Parse the headers in the first line of the file

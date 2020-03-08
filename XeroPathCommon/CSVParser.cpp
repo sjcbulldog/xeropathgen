@@ -16,6 +16,7 @@
 #include "CSVParser.h"
 #include <stdexcept>
 #include <cassert>
+#include <algorithm>
 
 CSVParser::CSVParser()
 {
@@ -143,4 +144,10 @@ double CSVParser::getData(const char*name)
 	}
 
 	throw std::runtime_error("data element not found");
+}
+
+bool CSVParser::hasDataField(const std::string &name)
+{
+	auto it = std::find(headers_.begin(), headers_.end(), name);
+	return it != headers_.end();
 }

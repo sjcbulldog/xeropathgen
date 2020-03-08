@@ -355,45 +355,35 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 
 	if (!data->running_ || count == 0)
 	{
-#ifdef _DEBUG
 		qDebug() << "killed generator, path '" << path->getName().c_str() << "'";
 		qDebug() << "#########################################################";
-#endif
 		p->kill();
 
-#ifdef _DEBUG
 		qDebug() << "stdout: " << output.c_str();
 		qDebug() << "stderr: " << error.c_str();
-#endif
 		return false;
 	}
 
 	if (p->exitCode() != 0)
 	{
-#ifdef _DEBUG
 		qDebug() << "Generated exited with error, path '" << path->getName().c_str() << "'";
 		qDebug() << "------------------------------------------------------";
-#endif
 
 		//
 		// Send the stdout and stderror to the log
 		//
-#ifdef _DEBUG
 		qDebug() << "pathgen program failed";
 		qDebug() << "exit code " << p->exitCode();
 		qDebug() << "stdout: " << output.c_str();
 		qDebug() << "stderr: " << error.c_str();
-#endif
+
 		if (p->exitCode() == 99)
 			path->addError(true, "cannot generate trajectory for this path");
 
 		return false;
 	}
 
-#ifdef _DEBUG
 	qDebug() << "Generator finished sucessfully, path '" << path->getName().c_str() << "'";
-	qDebug() << "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$";
-#endif
 
 	return true;
 }
@@ -415,11 +405,24 @@ bool PathGenerationEngine::readResults(QFile& outfile, std::vector<Pose2dWithTra
 		double velocity = parser.getData(RobotPath::VelocityTag);
 		double accel = parser.getData(RobotPath::AccelerationTag);
 		double jerk = parser.getData(RobotPath::JerkTag);
+		double curvature;
+
 
 		Translation2d trans(x, y);
 		Rotation2d rot = Rotation2d::fromDegrees(heading);
 		Pose2d pose(trans, rot);
-		Pose2dWithTrajectory tpt(pose, time, pos, velocity, accel, jerk);
+		Pose2dWithTrajectory tpt;
+		
+		if (parser.hasDataField(RobotPath::CurvatureTag))
+		{
+			double cur = parser.getData(RobotPath::CurvatureTag);
+			tpt = Pose2dWithTrajectory(pose, time, pos, velocity, accel, jerk, cur);
+		}
+		else
+		{
+			tpt = Pose2dWithTrajectory(pose, time, pos, velocity, accel, jerk);
+		}
+
 		pts.push_back(tpt);
 
 		if (!parser.next())

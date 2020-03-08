@@ -28,6 +28,7 @@ namespace xero
 			static constexpr const char* OutputTag = "outdir";
 			static constexpr const char* GroupsTag = "groups";
 			static constexpr const char* PositionTag = "position";
+			static constexpr const char* CurvatureTag = "curvature";
 			static constexpr const char* AccelerationTag = "acceleration";
 			static constexpr const char* JerkTag = "jerk";
 			static constexpr const wchar_t* GroupsTagW = L"groups";

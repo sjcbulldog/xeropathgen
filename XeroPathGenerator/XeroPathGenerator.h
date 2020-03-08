@@ -214,6 +214,7 @@ private:
 	static constexpr const char* DefaultDownloadLocation = "fields";
 	static constexpr const char* JsonOutputType = "JSON";
 	static constexpr const char* CSVOutputType = "CSV";
+	static constexpr const char* PathWeaverJsonOutputType = "Path Weaver";
 
 	static const char* RobotDialogName;
 	static const char* RobotDialogEWidth;
@@ -238,6 +239,7 @@ private:
 	{
 		OutputCSV,
 		OutputJSON,
+		OutputPathWeaver,
 	};
 
 	enum class DemoMode

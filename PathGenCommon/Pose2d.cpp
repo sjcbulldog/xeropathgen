@@ -147,7 +147,6 @@ namespace xero
 		{
 			Translation2d trans(pos_.getX(), -pos_.getY());
 			return Pose2d(trans, rotation_.inverse());
-
 		}
 
 		Translation2d Pose2d::intersection(const Pose2d& a, const Pose2d& b)

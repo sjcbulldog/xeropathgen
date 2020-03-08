@@ -34,6 +34,7 @@
 #include <DriveBaseData.h>
 #include <TrajectoryNames.h>
 #include <JSONWriter.h>
+#include <PathWeaverWriter.h>
 #include <PathGroup.h>
 #include <CSVWriter.h>
 #include <RobotPath.h>
@@ -233,6 +234,8 @@ XeroPathGenerator::XeroPathGenerator(GameFieldManager& fields, GeneratorManager&
 		QString val = settings_.value(OutputTypeSetting).toString();
 		if (val == JsonOutputType)
 			output_type_ = OutputType::OutputJSON;
+		else if (val == PathWeaverJsonOutputType)
+			output_type_ = OutputType::OutputPathWeaver;
 		else
 			output_type_ = OutputType::OutputCSV;
 	}
@@ -1619,6 +1622,14 @@ void XeroPathGenerator::fileGenerateAs()
 	if (dir.length() == 0)
 		return;
 
+	if (last_path_dir_ != dir.toStdString())
+	{
+		//
+		// We have changed the output location, mark the paths file as dirty
+		//
+		paths_model_.setDirty();
+	}
+
 	last_path_dir_ = dir.toStdString();
 	settings_.setValue(LastPathDirSetting, last_path_dir_.c_str());
 
@@ -1646,6 +1657,10 @@ void XeroPathGenerator::generateOnePath(std::shared_ptr<RobotPath> path, const s
 	if (output_type_ == OutputType::OutputCSV)
 	{
 		CSVWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
+	}
+	else if (output_type_ == OutputType::OutputPathWeaver)
+	{
+		PathWeaverWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
 	}
 	else
 	{
@@ -2539,11 +2554,14 @@ void XeroPathGenerator::editPreferences()
 	QString value = JsonOutputType;
 	if (output_type_ == OutputType::OutputCSV)
 		value = CSVOutputType;
+	else if (output_type_ == OutputType::OutputPathWeaver)
+		value = PathWeaverJsonOutputType;
 
 	prop = std::make_shared<EditableProperty>(PrefDialogOutputFormat, EditableProperty::PropertyType::PTStringList,
 		QVariant(value), "The format for trajectory output");
 	prop->addChoice(JsonOutputType);
 	prop->addChoice(CSVOutputType);
+	prop->addChoice(PathWeaverJsonOutputType);
 	dialog.getModel().addProperty(prop);
 
 	prop = std::make_shared<EditableProperty>(PrefDialogOutputFlags, EditableProperty::PropertyType::PTStringList,
@@ -2608,6 +2626,11 @@ void XeroPathGenerator::editPreferences()
 	else if (value == CSVOutputType)
 	{
 		output_type_ = OutputType::OutputCSV;
+		settings_.setValue(OutputTypeSetting, value);
+	}
+	else if (value == PathWeaverJsonOutputType)
+	{
+		output_type_ = OutputType::OutputPathWeaver;
 		settings_.setValue(OutputTypeSetting, value);
 	}
 	else

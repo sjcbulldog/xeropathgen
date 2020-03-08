@@ -15,6 +15,7 @@ namespace xero
 				velocity_ = 0.0;
 				acceleration_ = 0.0;
 				jerk_ = 0.0;
+				curvature_ = 0.0;
 			}
 
 			Pose2dWithTrajectory(const Pose2d& pose, double time, double pos, double vel, double acc, double jerk) {
@@ -24,6 +25,17 @@ namespace xero
 				velocity_ = vel;
 				acceleration_ = acc;
 				jerk_ = jerk;
+				curvature_ = 0.0;
+			}
+
+			Pose2dWithTrajectory(const Pose2d& pose, double time, double pos, double vel, double acc, double jerk, double cur) {
+				pose_ = pose;
+				time_ = time;
+				position_ = pos;
+				velocity_ = vel;
+				acceleration_ = acc;
+				jerk_ = jerk;
+				curvature_ = cur;
 			}
 
 			virtual ~Pose2dWithTrajectory() {
@@ -61,29 +73,38 @@ namespace xero
 				return position_;
 			}
 
-			void setPosition(double p) {
-				position_ = p;
+			double curvature() const {
+				return curvature_;
+			}
+
+			double jerk() const {
+				return jerk_;
 			}
 
 			double velocity() const {
 				return velocity_;
 			}
 
-			void setVelocity(double d) {
-				velocity_ = d;
+			void setPosition(double p) {
+				position_ = p;
 			}
 
 			double acceleration() const {
 				return acceleration_;
 			}
 
+			void setVelocity(double d) {
+				velocity_ = d;
+			}
+
 			void setAcceleration(double a) {
 				acceleration_ = a;
 			}
 
-			double jerk() const {
-				return jerk_;
+			void setCurvature(double c) {
+				curvature_ = c;
 			}
+
 
 			double getField(const std::string& field) const;
 
@@ -96,6 +117,7 @@ namespace xero
 			double velocity_;
 			double acceleration_;
 			double jerk_;
+			double curvature_;
 		};
 	}
 }

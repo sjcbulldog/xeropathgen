@@ -26,6 +26,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <build.h>
 
 std::ofstream logfilestream;
 std::stringstream log2stream;
@@ -98,6 +99,12 @@ static bool createLogFile()
 	QString log = dir + "/" + now.toString("dd_MM_yyyy_hh_mm_ss_zzz.'log'");
 	logfilestream.open(log.toStdString());
 
+	log = "Version";
+	log += " " + QString::number(XERO_MAJOR_VERSION);
+	log += "." + QString::number(XERO_MINOR_VERSION);
+	log += "." + QString::number(XERO_MICRO_VERSION);
+	log += "." + QString::number(XERO_BUILD_VERSION);
+	logfilestream.open(log.toStdString());
 
 	pruneLogFiles(logdir);
 
