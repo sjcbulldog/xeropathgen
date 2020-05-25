@@ -14,7 +14,6 @@
 // limitations under the License.
 //
 #include "XeroPathGenerator.h"
-#include "XeroPathGenerator.h"
 #include "PathFileTreeModel.h"
 #include "GameField.h"
 #include "Generator.h"

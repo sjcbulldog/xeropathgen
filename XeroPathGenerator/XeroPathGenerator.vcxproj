@@ -53,7 +53,7 @@
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;.\GeneratedFiles\$(ConfigurationName);$(QtDir)\include;$(QtDir)\include\QtWidgets;$(QtDir)\include\QtCharts;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -61,18 +61,19 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcored.lib;wpiutild.lib;qtmaind.lib;Qt5Networkd.lib;Qt5PrintSupportd.lib;Qt5Chartsd.lib;Qt5Widgetsd.lib;Qt5Guid.lib;Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcored.lib;wpiutild.lib;Qt5Chartsd.lib;Qt5PrintSupportd.lib;Qt5Networkd.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Cored.lib;QtMainD.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;.\GeneratedFiles\$(ConfigurationName);$(QtDir)\include;$(QtDir)\include\QtWidgets;$(QtDir)\include\QtCharts;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -124,7 +125,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;.\GeneratedFiles\$(ConfigurationName);$(QtDir)\include;$(QtDir)\include\QtWidgets;$(QtDir)\include\QtCharts;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -132,18 +133,19 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <DisableSpecificWarnings>4127</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration)\;$(SolutionDir)external\wpi\windows\lib\$(Configuration)\;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcore.lib;wpiutil.lib;qtmain.lib;Qt5Network.lib;Qt5PrintSupport.lib;Qt5Charts.lib;Qt5Widgets.lib;Qt5Gui.lib;Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcore.lib;wpiutil.lib;Qt5Charts.lib;Qt5PrintSupport.lib;Qt5Network.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Core.lib;QtMain.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
-      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;$(QTDIR)\include;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtPrintSupport;$(QTDIR)\include\QtCharts;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtCore;.\GeneratedFiles\$(ConfigurationName);%(AdditionalIncludeDirectories)</IncludePath>
+      <IncludePath>$(SolutionDir)XeroPathCommon;$(SolutionDir)external\wpi\include\;$(SolutionDir)PathGenCommon;.\GeneratedFiles;.;.\GeneratedFiles\$(ConfigurationName);$(QtDir)\include;$(QtDir)\include\QtWidgets;$(QtDir)\include\QtCharts;$(QtDir)\include\QtCore;$(QtDir)\include\QtGui;$(QtDir)\include\QtNetwork;$(QtDir)\include\QtPrintSupport;%(AdditionalIncludeDirectories)</IncludePath>
       <Define>XERO_COPY_FILES;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;NDEBUG;%(PreprocessorDefinitions)</Define>
     </QtMoc>
     <QtUic>
@@ -326,7 +328,7 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="msvc2017_64" MocOptions="" />
+      <UserProperties lreleaseOptions="" lupdateOnBuild="0" lupdateOptions="" MocDir=".\GeneratedFiles\$(ConfigurationName)" MocOptions="" Qt5Version_x0020_x64="msvc2017_64_14_2_1_" RccDir=".\GeneratedFiles" UicDir=".\GeneratedFiles" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
