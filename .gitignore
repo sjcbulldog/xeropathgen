@@ -21,8 +21,8 @@ PathGenCommon/PathGenCommon.a
 .DS_Store
 xeropath.tar
 Qt
-XeroPathGenerator/XeroPathGenerator.pro.user
-XeroPathGenerator/xeropathgenerator_plugin_import.cpp
-XeroPathGenerator/GeneratedFiles
+XeroPathGenr/XeroPathGenerator.pro.user
+XeroPathGen/xeropathgenerator_plugin_import.cpp
+XeroPathGen/GeneratedFiles
 output
 PathGenerate/PathGenerate.app
