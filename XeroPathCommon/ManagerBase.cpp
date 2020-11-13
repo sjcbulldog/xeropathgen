@@ -21,6 +21,7 @@
 #include <QDirIterator>
 #include <QDebug>
 #include <QCoreApplication>
+#include <stdexcept>
 
 using namespace xero::paths;
 
