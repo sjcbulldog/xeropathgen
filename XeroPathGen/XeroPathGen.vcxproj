@@ -85,7 +85,7 @@ copy $(QTDIR)\bin\Qt5Sql.dll $(OutDir)
 mkdir $(OutDir)\sqldrivers
 copy $(QTDIR)\plugins\sqldrivers\* $(OutDir)\sqldrivers
 copy $(SolutionDir)html\images\*.png $(OutDir)\images
-</Command>
+copy $(SolutionDir)installer\VC_redist.x64.exe $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -97,6 +97,35 @@ copy $(SolutionDir)html\images\*.png $(OutDir)\images
       <AdditionalIncludeDirectories>.;$(SolutionDir)PathGenCommon;$(SolutionDir)XeroPathCommon;$(SolutionDir)XeroPathGenerator;$(SolutionDir)external/wpi/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>echo QTDIR is $(QTDIR)
+mkdir $(OutDir)\images
+copy $(ProjectDir)images\*.png $(OutDir)\images
+echo ======================== DOING DEPLOY ============================
+$(QTDIR)\bin\windeployqt $(OutDir)$(ProjectName).exe
+echo ===============================================================
+copy $(SolutionDir)external\wpi\windows\bin\$(Configuration)\*.dll $(OutDir)
+mkdir $(OutDir)\fields
+copy $(ProjectDir)..\fields\* $(OutDir)\fields
+mkdir $(OutDir)\generators
+copy $(ProjectDir)..\generators\* $(OutDir)\generators
+echo Building help file
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhp -o $(SolutionDir)html\xeropath.qch
+echo Building collection
+$(QTDIR)\bin\qhelpgenerator $(SolutionDir)html\xeropath.qhcp -o $(SolutionDir)html\xeropath.qhc
+echo Copying help file
+copy $(SolutionDir)html\xeropath.qch $(OutDir)
+echo Copying help collection
+copy $(SolutionDir)html\xeropath.qhc $(OutDir)
+echo Copying Assistant
+copy $(QTDIR)\bin\assistant.exe $(OutDir)
+copy $(QTDIR)\bin\Qt5Help.dll $(OutDir)
+copy $(QTDIR)\bin\Qt5Sql.dll $(OutDir)
+mkdir $(OutDir)\sqldrivers
+copy $(QTDIR)\plugins\sqldrivers\* $(OutDir)\sqldrivers
+copy $(SolutionDir)html\images\*.png $(OutDir)\images
+copy $(SolutionDir)installer\VC_redist.x64.exe $(OutDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>

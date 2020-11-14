@@ -26,3 +26,4 @@ XeroPathGen/xeropathgenerator_plugin_import.cpp
 XeroPathGen/GeneratedFiles
 output
 PathGenerate/PathGenerate.app
+installer/xeropath*.exe
