@@ -251,6 +251,7 @@ copy $(SolutionDir)installer\VC_redist.x64.exe $(OutDir)</Command>
     <ClInclude Include="PrintController.h" />
     <ClInclude Include="PropertyEditorItemDelegate.h" />
     <ClInclude Include="PropertyEditorTreeModel.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SwerveDriveBaseModel.h" />
     <ClInclude Include="TankDriveBaseModel.h" />
     <ClInclude Include="UndoItem.h" />
@@ -275,6 +276,12 @@ copy $(SolutionDir)installer\VC_redist.x64.exe $(OutDir)</Command>
     <QtMoc Include="FlagsEditor.h" />
     <QtMoc Include="ConstraintTreeModel.h" />
     <QtMoc Include="ConstraintEditor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XeroPathGen.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
