@@ -36,7 +36,19 @@ class PathFieldView : public QWidget
 public:
 	PathFieldView(PathFileTreeModel &model, QWidget *parent = Q_NULLPTR);
 	virtual ~PathFieldView();
-	
+
+	const std::vector<QImage*>& markerImages() {
+		return marker_images_;
+	}
+
+	int whichMarker() const {
+		return marker_choice_;
+	}
+
+	void setWhichMarker(int v) {
+		marker_choice_ = v;
+	}
+
 	void setCursorTime(double time) {
 		cursor_time_ = time;
 		selected_ = std::numeric_limits<size_t>::max();
@@ -123,6 +135,9 @@ signals:
 	void waypointEndMoving(size_t index);
 	void waypointInserted();
 	void waypointDeleted();
+	void markerAdded(const xero::paths::FieldMarker &marker);
+	void markerRemoved(const xero::paths::FieldMarker& marker);
+	void allMarkersRemoved();
 
 protected:
 	virtual void paintEvent(QPaintEvent* event) override;
@@ -151,6 +166,11 @@ private:
 	static constexpr double SmallWaypointRotate = 0.5;
 
 	static constexpr const char* FlagImage = "flag.png";
+	static constexpr const char* Marker1Image = "marker1.png";
+	static constexpr const char* Marker2Image = "marker2.png";
+	static constexpr const char* Marker3Image = "marker3.png";
+	static constexpr const char* Marker4Image = "marker4.png";
+
 
 	static std::vector<QPointF> triangle_;
 
@@ -162,6 +182,10 @@ private:
 	};
 
 private:
+	void dropMarker();
+	void clearMarker();
+	void clearAllMarkers();
+
 	void copyCoordinates();
 	void pasteCoordinates(bool rot180);
 	void emitMouseMoved(xero::paths::Translation2d pos);
@@ -171,6 +195,9 @@ private:
 	void emitWaypointEndMoving(size_t which);
 	void emitWaypointDeleted();
 	void emitWaypointInserted();
+	void emitMarkerAdded(const xero::paths::FieldMarker& marker);
+	void emitMarkerRemoved(const xero::paths::FieldMarker& marker);
+	void emitAllMarkersRemoved();
 
 	void moveWaypoint(bool shift, int dx, int dy);
 	void rotateWaypoint(bool shift, int dir);
@@ -186,6 +213,7 @@ private:
 	void drawRobot(QPainter& paint);
 	void drawCursor(QPainter& paint);
 	void drawGrid(QPainter& paint);
+	void drawMarkers(QPainter& paint);
 	void drawEquations(QPainter& paint);
 	bool hitTestWaypoint(const QPointF& pt, size_t& index, WaypointRegion& region);
 	void invalidateWaypoint(size_t index);
@@ -194,6 +222,10 @@ private:
 
 private:
 	QImage field_image_;
+	QImage flagimage_;
+	std::vector<QImage*> marker_images_;
+	std::vector<QPoint> marker_offsets_;
+
 	std::shared_ptr<GameField> field_;
 	std::shared_ptr<xero::paths::RobotPath> path_;
 	double image_scale_;
@@ -209,6 +241,8 @@ private:
 
 	double triangle_size_;
 
+	QPointF world_;
+
 	bool draw_grid_;
 	QColor grid_color_;
 	double grid_spacing_;
@@ -223,6 +257,7 @@ private:
 	bool cursor_;
 	double cursor_time_;
 
-	QImage flagimage_;
+	int marker_choice_;
+
 	PathFileTreeModel& filemodel_;
 };

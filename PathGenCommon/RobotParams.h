@@ -25,6 +25,8 @@ namespace xero {
 			static constexpr const wchar_t* RobotLengthTagW = L"robotlength";
 			static constexpr const char* RobotWidthTag = "robotwidth";
 			static constexpr const wchar_t* RobotWidthTagW = L"robotwidth";
+			static constexpr const char* RobotWeightTag = "weight";
+			static constexpr const wchar_t* RobotWeightTagW = L"weight";
 			static constexpr const char* EffectiveLengthTag = "efflength";
 			static constexpr const wchar_t* EffectiveLengthTagW = L"efflength";
 			static constexpr const char* EffectiveWidthTag = "effwidth";
@@ -35,6 +37,8 @@ namespace xero {
 			static constexpr const wchar_t* MaxAccelerationTagW = L"maxacceleration";
 			static constexpr const char* MaxJerkTag = "maxjerk";
 			static constexpr const wchar_t* MaxJerkTagW = L"maxjerk";
+			static constexpr const char* MaxCentripetalTag = "maxcentripetal";
+			static constexpr const wchar_t* MaxCentripetalTagW = L"maxcentripetal";
 			static constexpr const char* TimeStepTag = "timestep";
 			static constexpr const wchar_t* TimeStepTagW = L"timestep";
 			static constexpr const char* DriveTypeTag = "drivetype";
@@ -43,9 +47,11 @@ namespace xero {
 		public:
 			static constexpr double DefaultLength = 30.0;
 			static constexpr double DefaultWidth = 24.0;
+			static constexpr double DefaultWeight = 180.0;
 			static constexpr double DefaultMaxVelocity = 180.0;
 			static constexpr double DefaultMaxAcceleration = 180.0;
 			static constexpr double DefaultMaxJerk = 1800.0;
+			static constexpr double DefaultCentripetal = 100000.0;
 			static constexpr double DefaultTimestep = 0.02;
 			static constexpr DriveType DefaultDriveType = DriveType::TankDrive;
 			static constexpr const char * DefaultUnits = "in";
@@ -63,6 +69,7 @@ namespace xero {
 				max_jerk_ = DefaultMaxJerk;
 				units_ = "in";
 				timestep_ = 0.02;
+				max_centripetal_force_ = 1100;
 			}
 
 			virtual ~RobotParams() {
@@ -140,6 +147,14 @@ namespace xero {
 				rwidth_ = v;
 			}
 
+			double getRobotWeight() const {
+				return weight_;
+			}
+
+			void setRobotWeight(double v) {
+				weight_ = v;
+			}
+
 			double getRobotLength() const {
 				return rlength_;
 			}
@@ -180,14 +195,24 @@ namespace xero {
 				timestep_ = v;
 			}
 
+			double getMaxCentripetalForce() const {
+				return max_centripetal_force_;
+			}
+
+			void setMaxCentripetalForce(double m) {
+				max_centripetal_force_ = m;
+			}
+
 		private:
 			double rwidth_;
 			double rlength_;
+			double weight_;
 			double ewidth_;
 			double elength_;
 			double max_velocity_;
 			double max_acceleration_;
 			double max_jerk_;
+			double max_centripetal_force_;
 			std::string units_;
 			std::string name_;
 			DriveType drivetype_;

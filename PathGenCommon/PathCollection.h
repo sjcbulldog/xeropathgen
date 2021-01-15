@@ -154,6 +154,7 @@ namespace xero
 
 		private:
 			std::list<std::shared_ptr<PathGroup>> groups_;
+			std::list<Translation2d> markers_;
 		};
 	}
 }

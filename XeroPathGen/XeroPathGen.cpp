@@ -90,9 +90,11 @@ const char* XeroPathGen::RobotDialogEWidth = "Effective Width";
 const char* XeroPathGen::RobotDialogELength = "Effective Length";
 const char* XeroPathGen::RobotDialogRWidth = "Physical Width";
 const char* XeroPathGen::RobotDialogRLength = "Physical Length";
+const char* XeroPathGen::RobotDialogWeight = "Weight";
 const char* XeroPathGen::RobotDialogMaxVelocity = "Max Velocity";
 const char* XeroPathGen::RobotDialogMaxAcceleration = "Max Acceleration";
 const char* XeroPathGen::RobotDialogMaxJerk = "Max Jerk";
+const char* XeroPathGen::RobotDialogMaxCentripetal = "Max Centripetal Force";
 const char* XeroPathGen::RobotDialogUnits = "Units";
 const char* XeroPathGen::RobotDialogDriveType = "Drive Type";
 const char* XeroPathGen::RobotDialogTimeStep = "Time Step";
@@ -310,6 +312,9 @@ XeroPathGen::XeroPathGen(GameFieldManager& fields, GeneratorManager& generators,
 	inst.StartClient(ntserver_.c_str());
 
 	(void)connect(path_view_, &PathFieldView::mouseMoved, this, &XeroPathGen::pathWindowMouseMoved);
+	(void)connect(path_view_, &PathFieldView::markerAdded, this, &XeroPathGen::markerAdded);
+	(void)connect(path_view_, &PathFieldView::markerRemoved, this, &XeroPathGen::markerRemoved);
+	(void)connect(path_view_, &PathFieldView::allMarkersRemoved, this, &XeroPathGen::allMarkersRemoved);
 
 	path_timer_ = new QTimer(this);
 	(void)connect(path_timer_, &QTimer::timeout, this, &XeroPathGen::timerProc);
@@ -673,7 +678,32 @@ bool XeroPathGen::createToolbar()
 
 	toolbar_->setVisible(true);
 
+	marker_bar_ = addToolBar("Marker");
+	int which = path_view_->whichMarker();
+
+	image = QPixmap::fromImage(*path_view_->markerImages()[which - 1]);
+	icon = QIcon(image);
+	marker_button_ = new QPushButton(icon, "", toolbar_);
+	marker_action_ = toolbar_->addWidget(marker_button_);
+	show_robot_action_->setToolTip("Change the marker images");
+	show_robot_action_->setDisabled(false);
+	(void)connect(marker_button_, &QPushButton::pressed, this, &XeroPathGen::nextMarker);
+
+	marker_bar_->setVisible(true);
+
 	return true;
+}
+
+void XeroPathGen::nextMarker()
+{
+	int which = path_view_->whichMarker() + 1;
+	if (which > path_view_->markerImages().size())
+		which = 1;
+
+	path_view_->setWhichMarker(which);
+	auto image = QPixmap::fromImage(*path_view_->markerImages()[which - 1]);
+	auto icon = QIcon(image);
+	marker_button_->setIcon(icon);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -693,7 +723,7 @@ void XeroPathGen::readMessageTypes()
 			int mt = m.toInt();
 			QtMsgType qmt = static_cast<QtMsgType>(mt);
 			//
-			// Since we rely on the messages_ array to hold state and the only way to update this
+			// Since we rely on the messages_ array to hold state and the on this
 			// array is to toggle menu items, we do a filter here just in case this gets extra data
 			// in it at some point.
 			//
@@ -2225,6 +2255,7 @@ void XeroPathGen::newRobotAction()
 void XeroPathGen::editRobotAction()
 {
 	createEditRobot(current_robot_);
+	allPathsDirty();
 }
 
 void XeroPathGen::exportCurrentRobot()
@@ -2305,8 +2336,9 @@ void XeroPathGen::deleteRobotAction()
 
 void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 {	
-	double elength, ewidth, rlength, rwidth;
+	double elength, ewidth, rlength, rwidth, rweight;
 	double velocity, accel, jerk, timestep;
+	double cent;
 	RobotParams::DriveType drivetype;
 	std::string units;
 	std::string name;
@@ -2324,6 +2356,8 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		velocity = UnitConverter::convert(RobotParams::DefaultMaxVelocity, RobotParams::DefaultUnits, units_);
 		accel = UnitConverter::convert(RobotParams::DefaultMaxAcceleration, RobotParams::DefaultUnits, units_);
 		jerk = UnitConverter::convert(RobotParams::DefaultMaxJerk, RobotParams::DefaultUnits, units_);
+		cent = UnitConverter::convert(RobotParams::DefaultCentripetal, RobotParams::DefaultUnits, units_);
+		rweight = RobotParams::DefaultWeight;
 		timestep = RobotParams::DefaultTimestep;
 		drivetype = RobotParams::DefaultDriveType;
 		units = RobotParams::DefaultUnits;
@@ -2335,9 +2369,11 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		ewidth = robot->getEffectiveWidth();
 		rlength = robot->getRobotLength();
 		rwidth = robot->getRobotWidth();
+		rweight = robot->getRobotWeight();
 		velocity = robot->getMaxVelocity();
 		accel = robot->getMaxAccel();
 		jerk = robot->getMaxJerk();
+		cent = robot->getMaxCentripetalForce();
 		timestep = robot->getTimestep();
 		drivetype = robot->getDriveType();
 		name = robot->getName();
@@ -2378,6 +2414,10 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 			std::to_string(rwidth).c_str(), "The physical width of the robot (outside bumper to outside bumpter)");
 		model.addProperty(prop);
 
+		prop = std::make_shared<EditableProperty>(RobotDialogWeight, EditableProperty::PropertyType::PTDouble,
+			std::to_string(rweight).c_str(), "The physical weight of the robot (including battery and bumpers)");
+		model.addProperty(prop);
+
 		prop = std::make_shared<EditableProperty>(RobotDialogMaxVelocity, EditableProperty::PropertyType::PTDouble,
 			std::to_string(velocity).c_str(), "The maximum velocity of the robot");
 		model.addProperty(prop);
@@ -2388,6 +2428,10 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 
 		prop = std::make_shared<EditableProperty>(RobotDialogMaxJerk, EditableProperty::PropertyType::PTDouble,
 			std::to_string(jerk).c_str(), "The maximum jerk of the robot");
+		model.addProperty(prop);
+
+		prop = std::make_shared<EditableProperty>(RobotDialogMaxCentripetal, EditableProperty::PropertyType::PTDouble,
+			std::to_string(cent).c_str(), "The maximum centripetal force of the robot on turns");
 		model.addProperty(prop);
 
 		prop = std::make_shared<EditableProperty>(RobotDialogDriveType, EditableProperty::PropertyType::PTStringList,
@@ -2412,9 +2456,11 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		ewidth = model.getProperty(RobotDialogEWidth)->getValue().toDouble();
 		rlength = model.getProperty(RobotDialogRLength)->getValue().toDouble();
 		rwidth = model.getProperty(RobotDialogRWidth)->getValue().toDouble();
+		rweight = model.getProperty(RobotDialogWeight)->getValue().toDouble();
 		velocity = model.getProperty(RobotDialogMaxVelocity)->getValue().toDouble();
 		accel = model.getProperty(RobotDialogMaxAcceleration)->getValue().toDouble();
 		jerk = model.getProperty(RobotDialogMaxJerk)->getValue().toDouble();
+		cent = model.getProperty(RobotDialogMaxCentripetal)->getValue().toDouble();
 		drivetype = DriveBaseData::nameToType(model.getProperty(RobotDialogDriveType)->getValue().toString().toStdString());
 		timestep = model.getProperty(RobotDialogTimeStep)->getValue().toDouble();
 
@@ -2449,9 +2495,11 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		robot->setEffectiveLength(elength);
 		robot->setRobotWidth(rwidth);
 		robot->setRobotLength(rlength);
+		robot->setRobotWeight(rweight);
 		robot->setMaxVelocity(velocity);
 		robot->setMaxAcceleration(accel);
 		robot->setMaxJerk(jerk);
+		robot->setMaxCentripetalForce(cent);
 		robot->setTimestep(timestep);
 		robot->setDriveType(drivetype);
 
@@ -2831,5 +2879,40 @@ void XeroPathGen::updateWaypoint(const std::string &path, const std::string &gro
 
 		if (current_path_ == p && path_view_->getSelected() == index)
 			waypoint_model_.setWaypoint(current_path_->getPoints()[index], index, current_path_->getDistance(index));
+	}
+}
+
+void XeroPathGen::markerAdded(const FieldMarker& marker)
+{
+	auto path = path_view_->getPath();
+	if (path != nullptr)
+	{
+		path_view_->getPath()->addMarker(marker);
+		path_view_->update();
+		paths_model_.setDirty();
+	}
+}
+
+void XeroPathGen::markerRemoved(const FieldMarker &marker)
+{
+	auto path = path_view_->getPath();
+	if (path != nullptr)
+	{
+		path->removeMarker(marker);
+		path_view_->update();
+		paths_model_.setDirty();
+	}
+}
+
+void XeroPathGen::allMarkersRemoved()
+{
+	auto path = path_view_->getPath();
+	if (path != nullptr)
+	{
+		if (path->markers().size() > 0)
+		{
+			path->clearMarkers();
+			paths_model_.setDirty();
+		}
 	}
 }

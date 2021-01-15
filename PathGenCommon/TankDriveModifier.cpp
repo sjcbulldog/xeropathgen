@@ -97,6 +97,30 @@ namespace xero
 				pracc = racc;
 			}
 
+			double maxv = 0;
+			double maxa = 0.0;
+			double maxj = 0.0;
+			for (int i = 0; i < main->size(); i++)
+			{
+				if (leftpts[i].velocity() > maxv)
+					maxv = leftpts[i].velocity();
+
+				if (leftpts[i].acceleration() > maxa)
+					maxa = leftpts[i].acceleration();
+
+				if (leftpts[i].jerk() > maxa)
+					maxj = leftpts[i].jerk();
+
+				if (rightpts[i].velocity() > maxv)
+					maxv = rightpts[i].velocity();
+
+				if (rightpts[i].acceleration() > maxa)
+					maxa = rightpts[i].acceleration();
+
+				if (rightpts[i].jerk() > maxa)
+					maxj = rightpts[i].jerk();
+			}
+
 			std::shared_ptr<PathTrajectory> left = std::make_shared<PathTrajectory>(TrajectoryName::Left, leftpts);
 			std::shared_ptr<PathTrajectory> right = std::make_shared<PathTrajectory>(TrajectoryName::Right, rightpts);
 

@@ -298,12 +298,12 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	store_lock_.unlock();
 
 #ifdef _DEBUG
-	QString robottempfilename("C:/cygwin64/home/ButchGriffin/temp/robot.json");
+	QString robottempfilename("D:/cygwin64/home/bwg/temp/robot.json");
 	if (QFile::exists(robottempfilename))
 		QFile::remove(robottempfilename);
 	QFile::copy(robotfile.fileName(), robottempfilename);
 
-	QString pathtempfilename("C:/cygwin64/home/ButchGriffin/temp/path.json");
+	QString pathtempfilename("D:/cygwin64/home/bwg/temp/path.json");
 	if (QFile::exists(pathtempfilename))
 		QFile::remove(pathtempfilename);
 	QFile::copy(pathfile.fileName(), pathtempfilename);

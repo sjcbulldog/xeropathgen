@@ -57,6 +57,8 @@ AboutDialog::AboutDialog(GeneratorManager& gens, GameFieldManager& fields, QWidg
 	ui.text_->append("Brought to you by FRC Team 1425\r\nError Code Xero\r\n\r\n");
 	ui.text_->append("Icons made by Dave Gandy from www.flaticon.com\r\n\r\n");
 	ui.text_->append("Icon made by Pixel perfect from www.flaticon.com\r\n\r\n");
+	ui.text_->append("Icon made by turkkub from www.flaticon.com\r\n\r\n");
+	ui.text_->append("Icon made by Freepik from www.flaticon.com\r\n\r\n");
 	ui.text_->append("PathFinder V1 borrowed from Jaci with much appreciation");
 	ui.text_->append("https://github.com/JacisNonsense/Pathfinder\r\n\r\n");
 	ui.text_->append("Ideas, algorithms, concepts, taken from Team 254, Cheesy Poofs with much appreciation.\r\n\r\n");

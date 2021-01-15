@@ -28,6 +28,7 @@ std::vector<std::string> PathParamTreeModel::RowLabelsAngles =
 	"Max Velocity",
 	"Max Acceleration",
 	"Max Jerk",
+	"Max Centripetal Force (N)",
 	"Start Angle",
 	"Start Angle Delay",
 	"End Angle",
@@ -43,6 +44,7 @@ std::vector<std::string> PathParamTreeModel::RowLabelsNoAngles =
 	"Max Velocity",
 	"Max Acceleration",
 	"Max Jerk",
+	"Max Centripetal Force (N)",
 	"Length",
 	"Time"
 };
@@ -170,27 +172,30 @@ QVariant PathParamTreeModel::data(const QModelIndex& index, int role) const
 				ret = QString::number(path_->getMaxJerk(), 'f', 1) ;
 				break;
 			case 5:
+				ret = QString::number(path_->getMaxCentripetal(), 'f', 1);
+				break;
+			case 6:
 				if (angles_required_)
 					ret = QString::number(path_->getStartAngle(), 'f', 1);
 				else
 					ret = QString::number(path_->getDistance(), 'f', 1);
 				break;
-			case 6:
+			case 7:
 				if (angles_required_)
 					ret = QString::number(path_->getStartAngleDelay(), 'f', 1);
 				else
 					ret = QString::number(path_->getTime());
 				break;
-			case 7:
+			case 8:
 				ret = QString::number(path_->getEndAngle(), 'f', 1);
 				break;
-			case 8:
+			case 9:
 				ret = QString::number(path_->getEndAngleDelay(), 'f', 1);
 				break;
-			case 9:
+			case 10:
 				ret = QString::number(path_->getDistance(), 'f', 1);
 				break;
-			case 10:
+			case 11:
 				ret = QString::number(path_->getTime(), 'f', 1);
 				break;
 			}
@@ -232,17 +237,20 @@ bool PathParamTreeModel::setData(const QModelIndex& index, const QVariant& value
 			path_->setMaxJerk(v);
 			break;
 		case 5:
-			if (angles_required_)
-				path_->setStartAngle(v);
+			path_->setMaxCentripetal(v);
 			break;
 		case 6:
 			if (angles_required_)
-				path_->setStartAngleDelay(v);
+				path_->setStartAngle(v);
 			break;
 		case 7:
-			path_->setEndAngle(v);
+			if (angles_required_)
+				path_->setStartAngleDelay(v);
 			break;
 		case 8:
+			path_->setEndAngle(v);
+			break;
+		case 9:
 			path_->setEndAngleDelay(v);
 			break;
 		}

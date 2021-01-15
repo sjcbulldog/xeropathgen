@@ -1,0 +1,10 @@
+{
+  "game" : "Challenge 2021",
+  "field-image" : "2021-challenge.jpg",
+  "field-corners": {
+    "top-left" : [150, 150],
+    "bottom-right" : [1950, 1050]
+  },
+  "field-size" : [360,180],
+  "field-unit" : "in"
+}

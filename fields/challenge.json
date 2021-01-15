@@ -1,0 +1,10 @@
+{
+  "game" : "Challenge (Old)",
+  "field-image" : "challenge.jpg",
+  "field-corners": {
+    "top-left" : [0, 180],
+    "bottom-right" : [360, 0]
+  },
+  "field-size" : [360,180],
+  "field-unit" : "in"
+}

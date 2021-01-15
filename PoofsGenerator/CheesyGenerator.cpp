@@ -38,7 +38,7 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 {
 	std::vector<xero::paths::Pose2dConstrained> points;
 	Pose2dConstrained predecessor;
-	static double kEpsilon = 1e-6;
+	const static double kEpsilon = 1e-6;
 
 	predecessor.setPosition(0.0);
 	predecessor.setPose(view[static_cast<size_t>(0)]);
@@ -53,6 +53,7 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 	{
 		Pose2dConstrained state;
 		state.setPose(view[i]);
+		state.setCurvature(view[i].curvature());
 		state.setPosition(view.getPosition(i));
 
 		double dist = predecessor.pose().distance(state.pose());

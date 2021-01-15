@@ -46,6 +46,8 @@ std::vector<QPointF> PathFieldView::triangle_ =
 
 PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidget(parent), filemodel_(model)
 {
+	QImage* im;
+
 	units_ = "in";
 	setMouseTracking(true);
 	setFocusPolicy(Qt::ClickFocus);
@@ -55,10 +57,37 @@ PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidge
 	rotating_ = false;
 	model_ = nullptr;
 	cursor_ = true;
+	marker_choice_ = 1;
+
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/images/" + FlagImage;
 	flagimage_ = QImage(imagepath);
+
+	imagepath = exedir + "/images/" + Marker1Image;
+	im = new QImage(imagepath);
+	assert(!im->isNull());
+	marker_images_.push_back(im);
+
+	imagepath = exedir + "/images/" + Marker2Image;
+	im = new QImage(imagepath);
+	assert(!im->isNull());
+	marker_images_.push_back(im);
+
+	imagepath = exedir + "/images/" + Marker3Image;
+	im = new QImage(imagepath);
+	assert(!im->isNull());
+	marker_images_.push_back(im);
+
+	imagepath = exedir + "/images/" + Marker4Image;
+	im = new QImage(imagepath);
+	assert(!im->isNull());
+	marker_images_.push_back(im);
+
+	marker_offsets_.push_back(QPoint(-10, 0));
+	marker_offsets_.push_back(QPoint(-10, 0));
+	marker_offsets_.push_back(QPoint(-10, 0));
+	marker_offsets_.push_back(QPoint(-10, 0));
 
 	draw_grid_ = true;
 	grid_color_ = QColor(0xC0, 0xC0, 0xC0, 0xFF);
@@ -211,7 +240,9 @@ void PathFieldView::doPaint(QPainter &paint, bool printing)
 	{
 		drawPath(paint);
 		drawFlags(paint);
+		drawMarkers(paint);
 	}
+
 
 	if (model_ != nullptr)
 		drawRobot(paint);
@@ -433,6 +464,21 @@ void PathFieldView::drawGrid(QPainter& paint)
 	paint.restore();
 }
 
+void PathFieldView::emitMarkerAdded(const FieldMarker &marker)
+{
+	emit markerAdded(marker);
+}
+
+void PathFieldView::emitMarkerRemoved(const FieldMarker& marker)
+{
+	emit markerRemoved(marker);
+}
+
+void PathFieldView::emitAllMarkersRemoved()
+{
+	emit allMarkersRemoved();
+}
+
 void PathFieldView::emitMouseMoved(Translation2d pos)
 {
 	emit mouseMoved(pos);
@@ -473,12 +519,12 @@ void PathFieldView::mouseMoveEvent(QMouseEvent* ev)
 	if (model_ != nullptr)
 		return;
 
-	QPointF world = windowToWorld(ev->localPos());
+	world_ = windowToWorld(ev->localPos());
 
 	if (dragging_)
 	{
 		const Pose2d& pt = path_->getPoints()[selected_];
-		Translation2d t(world.rx(), world.ry());
+		Translation2d t(world_.rx(), world_.ry());
 		Pose2d newpt(t, pt.getRotation());
 		path_->replacePoint(selected_, newpt);
 
@@ -489,8 +535,8 @@ void PathFieldView::mouseMoveEvent(QMouseEvent* ev)
 	{
 		const Pose2d& pt = path_->getPoints()[selected_];
 
-		double dy = world.ry() - pt.getTranslation().getY();
-		double dx = world.rx() - pt.getTranslation().getX();
+		double dy = world_.ry() - pt.getTranslation().getY();
+		double dx = world_.rx() - pt.getTranslation().getX();
 		double angle = std::atan2(dy, dx) - MathUtils::kPI / 2;
 		Rotation2d r = Rotation2d::fromRadians(angle);
 		Pose2d newpt(pt.getTranslation(), r);
@@ -499,8 +545,7 @@ void PathFieldView::mouseMoveEvent(QMouseEvent* ev)
 		emitWaypointMoving(selected_);
 		repaint(geometry());
 	}
-
-	emitMouseMoved(Translation2d(world.rx(), world.ry()));
+	emitMouseMoved(Translation2d(world_.rx(), world_.ry()));
 }
 
 void PathFieldView::mousePressEvent(QMouseEvent* ev)
@@ -732,8 +777,53 @@ void PathFieldView::keyPressEvent(QKeyEvent* ev)
 		case Qt::Key::Key_Minus:
 			rotateWaypoint(shift, -1);
 			break;
+		case Qt::Key::Key_M:
+			dropMarker();
+			break;
+		case Qt::Key::Key_R:
+			clearMarker();
+			break;
+		case Qt::Key::Key_C:
+			clearAllMarkers();
+			update();
+			break;
 		}
 	}
+}
+
+void PathFieldView::dropMarker()
+{
+	if (marker_choice_ != -1)
+	{
+		FieldMarker m(Translation2d(world_.rx(), world_.ry()), marker_choice_);
+		emitMarkerAdded(m);
+	}
+}
+
+void PathFieldView::clearMarker()
+{
+	if (path_ != nullptr )
+	{
+		//
+		// Search for a marker near the cursor
+		//
+		for (auto m : path_->markers())
+		{
+			double dx = m.pos().getX() - world_.rx();
+			double dy = m.pos().getY() - world_.ry();
+			double dist = std::sqrt(dx * dx + dy * dy);
+			if (dist < 32)
+			{
+				emitMarkerRemoved(m);
+				break;
+			}
+		}
+	}
+}
+
+void PathFieldView::clearAllMarkers()
+{
+	emitAllMarkersRemoved();
 }
 
 void PathFieldView::copyCoordinates()
@@ -882,6 +972,23 @@ void PathFieldView::drawCursor(QPainter& paint)
 	drawpts = transformPoints(trans, wheel);
 	drawpts = worldToWindow(transformPoints(mm, drawpts));
 	paint.drawPolygon(&drawpts[0], static_cast<int>(drawpts.size()));
+}
+
+void PathFieldView::drawMarkers(QPainter &paint)
+{
+	static int size = 24;
+
+	paint.save();
+	for (const auto& marker : path_->markers())
+	{
+		int which = marker.which() - 1;
+		QPointF pt = worldToWindow(QPointF(marker.pos().getX(), marker.pos().getY()));
+		pt.setX(pt.x() - size / 2);
+		QRectF r(pt, QSize(size, size));
+		r.adjust(0, -size, 0, -size);
+		paint.drawImage(r, *marker_images_[which]);
+	}
+	paint.restore();
 }
 
 void PathFieldView::drawRobot(QPainter& paint)

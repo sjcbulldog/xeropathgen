@@ -39,6 +39,9 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	callout_ = nullptr;
 	errors_ = nullptr; 
 	has_title_ = false;
+	show_max_vel_ = true;
+	first_ = false;
+	cursor_time_ = 0.0;
 
 	(void)connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);
 }
@@ -106,10 +109,57 @@ void PathPlotView::keyPressEvent(QKeyEvent* event)
 			delete callout;
 		callouts_.clear();
 		break;
+	case Qt::Key_M:
+		show_max_vel_ = !show_max_vel_;
+		updateWithPath();
+		break;
 	default:
 		QGraphicsView::keyPressEvent(event);
 		break;
 	}
+}
+
+bool PathPlotView::calcMaxVelocity(double &value)
+{
+	value = 0.0;
+
+	if (path_ == nullptr || !path_->hasData())
+		return false;
+
+	QStringList which;
+
+	if (path_->hasTrajectory(TrajectoryName::Left) && path_->hasTrajectory(TrajectoryName::Right))
+	{
+		which.push_back(TrajectoryName::Left);
+		which.push_back(TrajectoryName::Right);
+	}
+	else if (path_->hasTrajectory(TrajectoryName::BL) && path_->hasTrajectory(TrajectoryName::BR) &&
+		path_->hasTrajectory(TrajectoryName::FL) && path_->hasTrajectory(TrajectoryName::FR))
+	{
+		which.push_back(TrajectoryName::FL);
+		which.push_back(TrajectoryName::FR);
+		which.push_back(TrajectoryName::BL);
+		which.push_back(TrajectoryName::BR);
+	}
+	else
+	{
+		return false;
+	}
+
+	for (const QString& trajname : which)
+	{
+		auto traj = path_->getTrajectory(trajname.toStdString());
+		if (traj == nullptr)
+			return false;
+
+		for (const auto& pt : *traj)
+		{
+			if (pt.velocity() > value)
+				value = pt.velocity();
+		}
+	}
+
+	return true;
 }
 
 void PathPlotView::plotAreaChanged(const QRectF& rect)
@@ -511,6 +561,24 @@ void PathPlotView::updateWithPath()
 			ser->attachAxis(time_axis_);
 			ser->attachAxis(getAxis(var.type_));
 		}
+	}
+
+	double maxvel;
+	if (show_max_vel_ && calcMaxVelocity(maxvel))
+	{
+		QPen pen(QColor(0, 255, 0));
+		pen.setWidth(3);
+		pen.setStyle(Qt::PenStyle::DashLine);
+		ser = new QLineSeries();
+		ser->append(timemin, maxvel);
+		ser->append(timemax, maxvel);
+		ser->setPen(pen);
+		ch->addSeries(ser);
+		ser->attachAxis(time_axis_);
+		ser->attachAxis(getAxis(VarType::VTVelocity));
+		QString name = "maxvel=" + QString::number(maxvel, 'f', 1);
+		ser->setName(name);
+		setMinMax(VarType::VTVelocity, 0.0, maxvel);
 	}
 
 	VarType t;

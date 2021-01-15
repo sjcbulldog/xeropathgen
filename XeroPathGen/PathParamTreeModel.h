@@ -52,9 +52,9 @@ public:
 	void setAnglesRequired(bool b) {
 		angles_required_ = b;
 		if (b)
-			read_write_rows_ = 9;
+			read_write_rows_ = 10;
 		else
-			read_write_rows_ = 5;
+			read_write_rows_ = 6;
 
 		reset();
 	}

@@ -29,7 +29,7 @@ bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& pa
 	if (!createGroupArray(a, paths))
 		return false;
 
-	obj[RobotPath::VersionTag] = "1";
+	obj[RobotPath::VersionTag] = "2";
 	obj[RobotPath::OutputTag] = outdir;
 	obj[RobotPath::GroupsTag] = a;
 
@@ -39,6 +39,22 @@ bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& pa
 
 	file.write(doc.toJson());
 	file.close();
+
+	return true;
+}
+
+bool PathCollectionIO::createMarkersArray(QJsonArray& ma, const std::list<FieldMarker>& markers)
+{
+	for (auto marker : markers)
+	{
+		QJsonObject obj;
+
+		obj[RobotPath::XTag] = marker.pos().getX();
+		obj[RobotPath::YTag] = marker.pos().getY();
+		obj[RobotPath::TypeTag] = marker.which();
+
+		ma.append(obj);
+	}
 
 	return true;
 }
@@ -79,6 +95,11 @@ bool PathCollectionIO::createGroup(QJsonObject& obj, const std::shared_ptr<PathG
 
 bool PathCollectionIO::createPath(QJsonObject& obj, const std::shared_ptr<RobotPath> path)
 {
+	QJsonArray ma;
+
+	if (!createMarkersArray(ma, path->markers()))
+		return false;
+
 	obj[RobotPath::NameTag] = path->getName().c_str();
 	obj[RobotPath::StartVelocityTag] = path->getStartVelocity();
 	obj[RobotPath::EndVelocityTag] = path->getEndVelocity();
@@ -89,6 +110,8 @@ bool PathCollectionIO::createPath(QJsonObject& obj, const std::shared_ptr<RobotP
 	obj[RobotPath::MaxVelocityTag] = path->getMaxVelocity();
 	obj[RobotPath::MaxAccelerationTag] = path->getMaxAccel();
 	obj[RobotPath::MaxJerkTag] = path->getMaxJerk();
+	obj[RobotPath::MaxCentripetalTag] = path->getMaxCentripetal();
+	obj[RobotPath::MarkersTag] = ma;
 
 	QJsonArray constraints;
 	for (auto con : path->getConstraints())
@@ -195,7 +218,7 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 		}
 	}
 
-	if (version != 1)
+	if (version > 2)
 	{
 		//
 		// When we create a version 2, here is where the logic will go to read both version 1 and version 2 files.
@@ -239,6 +262,36 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 		QJsonObject obj2 = groupval.toObject() ;
 		if (!readGroup(file, paths, obj2))
 			return false;
+	}
+
+	return true;
+}
+
+bool PathCollectionIO::readMarkers(QFile& file, std::shared_ptr<RobotPath> path, QJsonArray& a)
+{
+	for (int i = 0; i < a.size(); i++)
+	{
+		QJsonValue av = a.at(i);
+		if (!av.isObject())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', entry in markers array is not an object";
+			return false;
+		}
+
+		double x, y;
+		int which;
+
+		if (!readDouble(file, av.toObject(), "marker", RobotPath::XTag, x))
+			return false;
+
+		if (!readDouble(file, av.toObject(), "marker", RobotPath::YTag, y))
+			return false;
+
+		if (!readInteger(file, av.toObject(), "marker", RobotPath::TypeTag, which))
+			return false;
+
+		FieldMarker m(Translation2d(x, y), which);
+		path->addMarker(m);
 	}
 
 	return true;
@@ -294,6 +347,7 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	double maxvelocity;
 	double maxaccel;
 	double maxjerk;
+	double maxcent;
 	QString name;
 	Pose2d pt;
 	QJsonValue v;
@@ -316,6 +370,9 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	if (!readDouble(file, obj, "path", RobotPath::MaxJerkTag, maxjerk))
 		return false;
 
+	if (!readDouble(file, obj, "path", RobotPath::MaxCentripetalTag, maxcent))
+		maxcent = 10000;
+
 	if (!readDouble(file, obj, "path", RobotPath::StartAngleTag, startangle, true))
 		return false;
 
@@ -334,10 +391,23 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	path->setMaxVelocity(maxvelocity);
 	path->setMaxAccel(maxaccel);
 	path->setMaxJerk(maxjerk);
+	path->setMaxCentripetal(maxcent);
 	path->setStartAngle(startangle);
 	path->setStartAngleDelay(startangledelay);
 	path->setEndAngle(endangle);
 	path->setEndAngleDelay(endangledelay);
+
+	if (obj.contains(RobotPath::MarkersTag))
+	{
+		QJsonValue va = obj.value(RobotPath::MarkersTag);
+		if (!va.isArray())
+		{
+			qWarning() << "JSON file '" << file.fileName() << "', value for 'markers' entry is not an array";
+			return false;
+		}
+		if (!readMarkers(file, path, va.toArray()))
+			return false;
+	}
 
 	if (obj.contains(RobotPath::ConstraintsTag))
 	{
@@ -480,6 +550,29 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	}
 	path->generateSplines();
 
+	return true;
+}
+
+bool PathCollectionIO::readInteger(QFile& file, QJsonObject& obj, QString obname, QString name, int& value, bool opt)
+{
+	if (!obj.contains(name))
+	{
+		if (opt)
+		{
+			value = 0;
+			return true;
+		}
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' missing field '" << name << "'";
+		return false;
+	}
+
+	QJsonValue v = obj[name];
+	if (!v.isDouble())
+	{
+		qWarning() << "JSON file '" << file.fileName() << "', object '" << obname << "' has field '" << name << "' but it is not a number";
+		return false;
+	}
+	value = v.toInt();
 	return true;
 }
 

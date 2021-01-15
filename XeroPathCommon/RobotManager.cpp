@@ -123,9 +123,11 @@ bool RobotManager::processJSONFile(QFile& file)
 	double elength_value;
 	double rwidth_value;
 	double rlength_value;
+	double rweight_value;
 	double velocity_value;
 	double accel_value;
 	double jerk_value;
+	double cent_value;
 	double timestep_value;
 	int drivetype_value;
 	QString text;
@@ -192,6 +194,9 @@ bool RobotManager::processJSONFile(QFile& file)
 	if (!getJSONDoubleValue(file, doc, RobotParams::RobotWidthTag, rwidth_value))
 		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
+	if (!getJSONDoubleValue(file, doc, RobotParams::RobotWeightTag, rweight_value))
+		rweight_value = 180;
+
 	if (!getJSONDoubleValue(file, doc, RobotParams::RobotLengthTag, rlength_value))
 		throw std::runtime_error("valid JSON, but not correct format for a robot file");
 
@@ -203,6 +208,11 @@ bool RobotManager::processJSONFile(QFile& file)
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::MaxJerkTag, jerk_value))
 		throw std::runtime_error("valid JSON, but not correct format for a robot file");
+
+	if (!getJSONDoubleValue(file, doc, RobotParams::MaxCentripetalTag, cent_value))
+	{
+		cent_value = 1200;
+	}
 
 	if (!getJSONDoubleValue(file, doc, RobotParams::TimeStepTag, timestep_value))
 		throw std::runtime_error("valid JSON, but not correct format for a robot file");
@@ -217,9 +227,11 @@ bool RobotManager::processJSONFile(QFile& file)
 	robot->setEffectiveLength(elength_value);
 	robot->setRobotWidth(rwidth_value);
 	robot->setRobotLength(rlength_value);
+	robot->setRobotWeight(rweight_value);
 	robot->setMaxVelocity(velocity_value);
 	robot->setMaxAcceleration(accel_value);
 	robot->setMaxJerk(jerk_value);
+	robot->setMaxCentripetalForce(cent_value);
 	robot->setDriveType(static_cast<RobotParams::DriveType>(drivetype_value));
 
 	robots_.push_back(robot);
@@ -296,9 +308,11 @@ bool RobotManager::save(std::shared_ptr<xero::paths::RobotParams> robot, QFile &
 	obj[RobotParams::EffectiveLengthTag] = robot->getEffectiveLength();
 	obj[RobotParams::RobotWidthTag] = robot->getRobotWidth();
 	obj[RobotParams::RobotLengthTag] = robot->getRobotLength();
+	obj[RobotParams::RobotWeightTag] = robot->getRobotWeight();
 	obj[RobotParams::MaxVelocityTag] = robot->getMaxVelocity();
 	obj[RobotParams::MaxAccelerationTag] = robot->getMaxAccel();
 	obj[RobotParams::MaxJerkTag] = robot->getMaxJerk();
+	obj[RobotParams::MaxCentripetalTag] = robot->getMaxCentripetalForce();
 
 	QJsonDocument doc(obj);
 	file.open(QFile::WriteOnly);

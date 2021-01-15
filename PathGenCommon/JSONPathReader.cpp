@@ -180,6 +180,22 @@ namespace xero
 			}
 			robot.setRobotWidth(root[RobotParams::RobotWidthTagW]->AsNumber());
 
+
+			if (root.find(RobotParams::RobotWeightTagW) == root.end())
+			{
+				robot.setRobotWeight(180);
+			}
+			else
+			{
+				if (!root[RobotParams::RobotWeightTagW]->IsNumber())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
+					std::cerr << "         group object 'weight' field is not a number" << std::endl;
+					return false;
+				}
+				robot.setRobotWeight(root[RobotParams::RobotWeightTagW]->AsNumber());
+			}
+
 			if (root.find(RobotParams::MaxVelocityTagW) == root.end())
 			{
 				std::cerr << "pathgen: robot file '" << filename << "' is not a valid path file" << std::endl;
@@ -224,6 +240,23 @@ namespace xero
 				return false;
 			}
 			robot.setMaxJerk(root[RobotParams::MaxJerkTagW]->AsNumber());
+
+			if (root.find(RobotParams::MaxCentripetalTagW) == root.end())
+			{
+				robot.setMaxCentripetalForce(100000000);
+			}
+			else
+			{
+				if (!root[RobotParams::MaxCentripetalTagW]->IsNumber())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid robot file" << std::endl;
+					std::cerr << "         group object 'maxcentripetal' field is not a number" << std::endl;
+					return false;
+				}
+				robot.setMaxCentripetalForce(root[RobotParams::MaxCentripetalTagW]->AsNumber());
+			}
+
+
 			return true;
 		}
 
@@ -634,6 +667,29 @@ namespace xero
 				v = robot.getMaxJerk();
 			}
 			onepath->setMaxJerk(v);
+
+			if (path.find(RobotPath::MaxCentripetalTagW) == path.end())
+			{
+				v = robot.getMaxCentripetalForce();
+			}
+			else
+			{
+				if (!path[RobotPath::MaxCentripetalTagW]->IsNumber())
+				{
+					std::cerr << "pathgen: file '" << filename << "' is not a valid path file" << std::endl;
+					std::cerr << "         path has 'maxcentripetal' field that is not a number" << std::endl;
+					return false;
+				}
+				v = path[RobotPath::MaxCentripetalTagW]->AsNumber();
+				if (std::fabs(v) < 0.001)
+				{
+					//
+					// Zero max velocity was supplied, get it from the robot
+					//
+					v = robot.getMaxCentripetalForce();
+				}
+			}
+			onepath->setMaxCentripetal(v);
 
 			if (path.find(RobotPath::ConstraintsTagW) != path.end() && !path[RobotPath::ConstraintsTagW]->IsNull())
 			{

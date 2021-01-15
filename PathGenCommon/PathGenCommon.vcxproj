@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CentripetalAccelerationConstraint.cpp" />
     <ClCompile Include="DistanceVelocityConstraint.cpp" />
     <ClCompile Include="DistanceView.cpp" />
     <ClCompile Include="DriveBaseData.cpp" />
+    <ClCompile Include="FieldMarker.cpp" />
     <ClCompile Include="JSON.cpp" />
     <ClCompile Include="JSONPathReader.cpp" />
     <ClCompile Include="JSONValue.cpp" />
@@ -47,10 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSVWriter.h" />
+    <ClInclude Include="CentripetalAccelerationConstraint.h" />
     <ClInclude Include="DistanceVelocityConstraint.h" />
     <ClInclude Include="DistanceView.h" />
     <ClInclude Include="DriveBaseData.h" />
     <ClInclude Include="DriveModifier.h" />
+    <ClInclude Include="FieldMarker.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="ICsv.h" />
     <ClInclude Include="JSON.h" />
@@ -65,6 +69,7 @@
     <ClInclude Include="PathTrajectory.h" />
     <ClInclude Include="Pose2d.h" />
     <ClInclude Include="Pose2dConstrained.h" />
+    <ClInclude Include="Pose2DWithCurvature.h" />
     <ClInclude Include="Pose2dWithTrajectory.h" />
     <ClInclude Include="QuadraticSolver.h" />
     <ClInclude Include="RobotParams.h" />
@@ -162,6 +167,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -197,6 +203,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

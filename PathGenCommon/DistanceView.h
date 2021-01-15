@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Pose2d.h"
+#include "Pose2dWithCurvature.h"
 #include <vector>
 
 namespace xero
@@ -19,15 +19,18 @@ namespace xero
 				return distances_[index];
 			}
 
-			Pose2d operator[](double dist) const;
-			Pose2d operator[](size_t index) const;
+			Pose2dWithCurvature operator[](double dist) const;
+			Pose2dWithCurvature operator[](size_t index) const;
 			size_t size() const {
 				return points_.size();
 			}
 
 		private:
+			double area(const Pose2d& a, const Pose2d& b, const Pose2d& c);
+
+		private:
 			std::vector<double> distances_;
-			std::vector<Pose2d> points_;
+			std::vector<Pose2dWithCurvature> points_;
 		};
 	}
 }

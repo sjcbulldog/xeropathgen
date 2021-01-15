@@ -69,8 +69,13 @@ public:
 	void updateWaypoint(const std::string &path, const std::string &group, size_t index, const xero::paths::Pose2d& pt);
 
 private:
+	void nextMarker();
 	void setFileName(QString name);
 	void setXeroWindowTitle();
+
+	void markerAdded(const xero::paths::FieldMarker& marker);
+	void markerRemoved(const xero::paths::FieldMarker& marker);
+	void allMarkersRemoved();
 
 	bool createMenus();
 	bool createWindows();
@@ -221,9 +226,11 @@ private:
 	static const char* RobotDialogELength;
 	static const char* RobotDialogRWidth;
 	static const char* RobotDialogRLength;
+	static const char* RobotDialogWeight;
 	static const char* RobotDialogMaxVelocity;
 	static const char* RobotDialogMaxAcceleration;
 	static const char* RobotDialogMaxJerk;
+	static const char* RobotDialogMaxCentripetal;
 	static const char* RobotDialogUnits ;
 	static const char* RobotDialogDriveType ;
 	static const char* RobotDialogTimeStep ;
@@ -391,6 +398,10 @@ private:
 	QRadioButton* demo_mode_off_;
 	QRadioButton* demo_mode_on_;
 	ShowRobotWindow* robot_window_;
+
+	QToolBar* marker_bar_;
+	QAction* marker_action_;
+	QPushButton* marker_button_;
 
 	TrajectoryViewWindow* traj_window_;
 

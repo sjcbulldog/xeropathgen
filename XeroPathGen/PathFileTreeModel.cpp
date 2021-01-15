@@ -336,6 +336,7 @@ std::shared_ptr<xero::paths::RobotPath> PathFileTreeModel::addNewPath(std::share
 	path->setMaxVelocity(robot_->getMaxVelocity());
 	path->setMaxAccel(robot_->getMaxAccel());
 	path->setMaxJerk(robot_->getMaxJerk());
+	path->setMaxCentripetal(robot_->getMaxCentripetalForce());
 
 	emitPathAdded(path);
 	return path;

@@ -7,6 +7,7 @@
 #include "UnitConverter.h"
 #include "PathTrajectory.h"
 #include "SplinePair.h"
+#include "FieldMarker.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -27,6 +28,7 @@ namespace xero
 			static constexpr const char* TimeTag = "time";
 			static constexpr const char* OutputTag = "outdir";
 			static constexpr const char* GroupsTag = "groups";
+			static constexpr const char* MarkersTag = "markers";
 			static constexpr const char* PositionTag = "position";
 			static constexpr const char* CurvatureTag = "curvature";
 			static constexpr const char* AccelerationTag = "acceleration";
@@ -50,6 +52,8 @@ namespace xero
 			static constexpr const wchar_t* MaxAccelerationTagW = L"maxacceleration";
 			static constexpr const char* MaxJerkTag = "maxjerk";
 			static constexpr const wchar_t* MaxJerkTagW = L"maxjerk";
+			static constexpr const char* MaxCentripetalTag = "maxcentripetal";
+			static constexpr const wchar_t* MaxCentripetalTagW = L"maxcentripetal";
 			static constexpr const char* ConstraintsTag = "constraints";
 			static constexpr const wchar_t* ConstraintsTagW = L"constraints";
 			static constexpr const char* FlagsTag = "flags";
@@ -88,6 +92,22 @@ namespace xero
 			}
 
 			virtual ~RobotPath() {
+			}
+
+			const std::list<FieldMarker>& markers() const {
+				return markers_;
+			}
+
+			void clearMarkers() {
+				markers_.clear();
+			}
+
+			void addMarker(const FieldMarker &m) {
+				markers_.push_back(m);
+			}
+
+			void removeMarker(const FieldMarker& m) {
+				markers_.remove(m);
 			}
 
 			bool hasErrors() const {
@@ -345,6 +365,14 @@ namespace xero
 				max_jerk_ = j;
 			}
 
+			double getMaxCentripetal() const {
+				return max_centripetal_;
+			}
+
+			void setMaxCentripetal(double c) {
+				max_centripetal_ = c;
+			}
+
 			void clear() {
 				parent_ = nullptr;
 				points_.clear();
@@ -461,6 +489,7 @@ namespace xero
 			double max_vel_;
 			double max_accel_;
 			double max_jerk_;
+			double max_centripetal_;
 			double start_angle_;
 			double start_angle_delay_;
 			double end_angle_;
@@ -504,6 +533,11 @@ namespace xero
 			// Errors assocaited with this path
 			//
 			std::list<std::string> errors_;
+
+			//
+			// The set of markers associated with this path
+			//
+			std::list<FieldMarker> markers_;
 
 			//
 			// If true, the errors cause no data to be generated

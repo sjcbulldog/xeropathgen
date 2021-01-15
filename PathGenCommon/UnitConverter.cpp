@@ -17,6 +17,7 @@ namespace xero
 			{ "in", "cm", 2.54},
 			{ "in", "m", 0.0254},
 			{ "in", "meters", 0.0254},
+			{ "lbs", "kg", 0.453592},
 		};
 
 		bool UnitConverter::findConversion(const std::string& from, const std::string& to, double& conversion)

@@ -135,6 +135,7 @@ private:
 	void setMinMax(VarType t, double minv, double mavx);
 	double getMin(VarType t);
 	double getMax(VarType t);
+	bool calcMaxVelocity(double &value);
 
 private:
 	double cursor_time_;
@@ -155,4 +156,5 @@ private:
 	std::list<Callout*> callouts_;
 	Callout* errors_;
 	bool has_title_;
+	bool show_max_vel_;
 };

@@ -259,8 +259,9 @@ int main(int argc, char *argv[])
 		splash.finish(&w);
 		return a.exec();
 	}
-	catch(...)
+	catch(const std::exception &ex)
 	{
+		qDebug() << "Exception Caught: " << ex.what();
 		return -1;
 	}
 
