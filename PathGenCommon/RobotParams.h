@@ -54,7 +54,8 @@ namespace xero {
 			static constexpr double DefaultCentripetal = 100000.0;
 			static constexpr double DefaultTimestep = 0.02;
 			static constexpr DriveType DefaultDriveType = DriveType::TankDrive;
-			static constexpr const char * DefaultUnits = "in";
+			static constexpr const char* DefaultLengthUnits = "in";
+			static constexpr const char* DefaultWeightUnits = "lbs";
 
 		public:
 			RobotParams(const std::string &name) {
@@ -67,7 +68,8 @@ namespace xero {
 				max_velocity_ = DefaultMaxVelocity;
 				max_acceleration_ = DefaultMaxAcceleration;
 				max_jerk_ = DefaultMaxJerk;
-				units_ = "in";
+				length_units_ = "in";
+				weight_units_ = "lbs";
 				timestep_ = 0.02;
 				max_centripetal_force_ = 1100;
 			}
@@ -104,23 +106,31 @@ namespace xero {
 				drivetype_ = t;
 			}
 
-			void setUnits(const std::string& units) {
-				units_ = units;
+			void setLengthUnits(const std::string& units) {
+				length_units_ = units;
 			}
 
-			const std::string& getUnits() const {
-				return units_;
+			void setWeightUnits(const std::string& units) {
+				weight_units_ = units;
+			}
+
+			const std::string& getLengthUnits() const {
+				return length_units_;
+			}
+
+			const std::string& getWeightUnits() const {
+				return weight_units_;
 			}
 
 			void convert(const std::string& units) {
-				elength_ = UnitConverter::convert(elength_, units_, units);
-				ewidth_ = UnitConverter::convert(ewidth_, units_, units);
-				rlength_ = UnitConverter::convert(rlength_, units_, units);
-				rwidth_ = UnitConverter::convert(rwidth_, units_, units);
-				max_velocity_ = UnitConverter::convert(max_velocity_, units_, units);
-				max_acceleration_ = UnitConverter::convert(max_acceleration_, units_, units);
-				max_jerk_ = UnitConverter::convert(max_jerk_, units_, units);
-				units_ = units;
+				elength_ = UnitConverter::convert(elength_, length_units_, units);
+				ewidth_ = UnitConverter::convert(ewidth_, length_units_, units);
+				rlength_ = UnitConverter::convert(rlength_, length_units_, units);
+				rwidth_ = UnitConverter::convert(rwidth_, length_units_, units);
+				max_velocity_ = UnitConverter::convert(max_velocity_, length_units_, units);
+				max_acceleration_ = UnitConverter::convert(max_acceleration_, length_units_, units);
+				max_jerk_ = UnitConverter::convert(max_jerk_, length_units_, units);
+				length_units_ = units;
 			}
 
 			double getEffectiveWidth() const {
@@ -213,7 +223,8 @@ namespace xero {
 			double max_acceleration_;
 			double max_jerk_;
 			double max_centripetal_force_;
-			std::string units_;
+			std::string length_units_;
+			std::string weight_units_;
 			std::string name_;
 			DriveType drivetype_;
 			std::string filename_;

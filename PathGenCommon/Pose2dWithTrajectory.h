@@ -110,6 +110,7 @@ namespace xero
 
 			Pose2dWithTrajectory interpolate(const Pose2dWithTrajectory& other, double percent) const;
 
+
 		private:
 			Pose2d pose_;
 			double time_;

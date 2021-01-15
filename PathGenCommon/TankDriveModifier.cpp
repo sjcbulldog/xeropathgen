@@ -1,5 +1,6 @@
 #include "TankDriveModifier.h"
 #include "TrajectoryNames.h"
+#include "Pose2DWithCurvature.h"
 #include <cmath>
 
 namespace xero
@@ -23,11 +24,12 @@ namespace xero
 			//
 			// Get the width of the robot in the same units used by the paths
 			//
-			double width = UnitConverter::convert(robot.getEffectiveWidth(), robot.getUnits(), units);
+			double width = UnitConverter::convert(robot.getEffectiveWidth(), robot.getLengthUnits(), units);
 
 			std::vector<Pose2dWithTrajectory> leftpts;
 			std::vector<Pose2dWithTrajectory> rightpts;
 
+			double lcurv = 0, rcurv = 0;
 			double lvel = 0, lacc = 0, lpos = 0, ljerk = 0;
 			double rvel = 0, racc = 0, rpos = 0, rjerk = 0;
 			double plx = 0, ply = 0, prx = 0, pry = 0;
@@ -79,12 +81,12 @@ namespace xero
 
 				Translation2d lpt(lx, ly);
 				Pose2d l2d(lpt, pt.rotation());
-				Pose2dWithTrajectory ltraj(l2d, time, lpos, lvel, lacc, ljerk);
+				Pose2dWithTrajectory ltraj(l2d, time, lpos, lvel, lacc, ljerk, lcurv);
 				leftpts.push_back(ltraj);
 
 				Translation2d rpt(rx, ry);
 				Pose2d r2d(rpt, pt.rotation());
-				Pose2dWithTrajectory rtraj(r2d, time, rpos, rvel, racc, rjerk);
+				Pose2dWithTrajectory rtraj(r2d, time, rpos, rvel, racc, rjerk, rcurv);
 				rightpts.push_back(rtraj);
 
 				plx = lx;
@@ -97,28 +99,18 @@ namespace xero
 				pracc = racc;
 			}
 
-			double maxv = 0;
-			double maxa = 0.0;
-			double maxj = 0.0;
-			for (int i = 0; i < main->size(); i++)
-			{
-				if (leftpts[i].velocity() > maxv)
-					maxv = leftpts[i].velocity();
-
-				if (leftpts[i].acceleration() > maxa)
-					maxa = leftpts[i].acceleration();
-
-				if (leftpts[i].jerk() > maxa)
-					maxj = leftpts[i].jerk();
-
-				if (rightpts[i].velocity() > maxv)
-					maxv = rightpts[i].velocity();
-
-				if (rightpts[i].acceleration() > maxa)
-					maxa = rightpts[i].acceleration();
-
-				if (rightpts[i].jerk() > maxa)
-					maxj = rightpts[i].jerk();
+			assert(leftpts.size() == rightpts.size());
+			for (int i = 0; i < leftpts.size(); i++) {
+				if (i == 0 || i == leftpts.size() - 1)
+				{
+					lcurv = 0.0;
+					rcurv = 0.0;
+				}
+				else
+				{
+					leftpts[i].setCurvature(xero::paths::Pose2dWithCurvature::curvature(leftpts[i - 1].pose(), leftpts[i].pose(), leftpts[i + 1].pose()));
+					rightpts[i].setCurvature(xero::paths::Pose2dWithCurvature::curvature(rightpts[i - 1].pose(), rightpts[i].pose(), rightpts[i + 1].pose()));
+				}
 			}
 
 			std::shared_ptr<PathTrajectory> left = std::make_shared<PathTrajectory>(TrajectoryName::Left, leftpts);

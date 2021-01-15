@@ -8,16 +8,16 @@ namespace xero
 	{
 		UnitConverter::conversion UnitConverter::convert_[] =
 		{
-			{ "ft", "in", 12.0},
-			{ "feet", "in", 12.0},
-			{ "foot", "in", 12.0},
-			{ "ft", "inches", 12.0},
-			{ "feet", "inches", 12.0},
-			{ "foot", "inches", 12.0},
-			{ "in", "cm", 2.54},
-			{ "in", "m", 0.0254},
-			{ "in", "meters", 0.0254},
-			{ "lbs", "kg", 0.453592},
+			{ "ft", "in", 12.0, UnitConverter::UnitType::Length},
+			{ "feet", "in", 12.0, UnitConverter::UnitType::Length},
+			{ "foot", "in", 12.0, UnitConverter::UnitType::Length},
+			{ "ft", "inches", 12.0, UnitConverter::UnitType::Length},
+			{ "feet", "inches", 12.0, UnitConverter::UnitType::Length},
+			{ "foot", "inches", 12.0, UnitConverter::UnitType::Length},
+			{ "in", "cm", 2.54, UnitConverter::UnitType::Length},
+			{ "in", "m", 0.0254, UnitConverter::UnitType::Length},
+			{ "in", "meters", 0.0254, UnitConverter::UnitType::Length},
+			{ "lbs", "kg", 0.453592, UnitConverter::UnitType::Weight},
 		};
 
 		bool UnitConverter::findConversion(const std::string& from, const std::string& to, double& conversion)
@@ -83,16 +83,37 @@ namespace xero
 			return findConversion(from, to, conv);
 		}
 
-		std::list<std::string> UnitConverter::getAllUnits()
+		std::list<std::string> UnitConverter::getAllLengthUnits()
 		{
 			std::list<std::string> result;
 
 			for (size_t i = 0; i < sizeof(convert_) / sizeof(convert_[0]); i++)
 			{
-				if (std::find(result.begin(), result.end(), convert_[i].to) == result.end())
-					result.push_back(convert_[i].to);
-				if (std::find(result.begin(), result.end(), convert_[i].from) == result.end())
-					result.push_back(convert_[i].from);
+				if (convert_[i].type_ == UnitType::Length)
+				{
+					if (std::find(result.begin(), result.end(), convert_[i].to) == result.end())
+						result.push_back(convert_[i].to);
+					if (std::find(result.begin(), result.end(), convert_[i].from) == result.end())
+						result.push_back(convert_[i].from);
+				}
+			}
+
+			return result;
+		}
+
+		std::list<std::string> UnitConverter::getAllWeightUnits()
+		{
+			std::list<std::string> result;
+
+			for (size_t i = 0; i < sizeof(convert_) / sizeof(convert_[0]); i++)
+			{
+				if (convert_[i].type_ == UnitType::Weight)
+				{
+					if (std::find(result.begin(), result.end(), convert_[i].to) == result.end())
+						result.push_back(convert_[i].to);
+					if (std::find(result.begin(), result.end(), convert_[i].from) == result.end())
+						result.push_back(convert_[i].from);
+				}
 			}
 
 			return result;

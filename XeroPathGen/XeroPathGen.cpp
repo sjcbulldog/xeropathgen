@@ -95,7 +95,8 @@ const char* XeroPathGen::RobotDialogMaxVelocity = "Max Velocity";
 const char* XeroPathGen::RobotDialogMaxAcceleration = "Max Acceleration";
 const char* XeroPathGen::RobotDialogMaxJerk = "Max Jerk";
 const char* XeroPathGen::RobotDialogMaxCentripetal = "Max Centripetal Force";
-const char* XeroPathGen::RobotDialogUnits = "Units";
+const char* XeroPathGen::RobotDialogLengthUnits = "Units (lengths)";
+const char* XeroPathGen::RobotDialogWeightUnits = "Units (weights)";
 const char* XeroPathGen::RobotDialogDriveType = "Drive Type";
 const char* XeroPathGen::RobotDialogTimeStep = "Time Step";
 
@@ -156,32 +157,40 @@ XeroPathGen::XeroPathGen(GameFieldManager& fields, GeneratorManager& generators,
 		return;
 	}
 
-	xpos_text_ = new QLabel("");
+	xpos_text_ = new QLabel("X:");
 	xpos_text_->setFixedWidth(80);
 	statusBar()->insertWidget(0, xpos_text_);
 
-	ypos_text_ = new QLabel("");
+	ypos_text_ = new QLabel("Y:");
 	ypos_text_->setFixedWidth(80);
 	statusBar()->insertWidget(1, ypos_text_);
 
-	path_time_ = new QLabel("");
+	path_time_ = new QLabel("Time:");
 	path_time_->setFixedWidth(80);
 	statusBar()->insertWidget(2, path_time_);
 
-	path_dist_ = new QLabel("");
+	path_dist_ = new QLabel("Distance:");
 	path_dist_->setFixedWidth(100);
 	statusBar()->insertWidget(3, path_dist_);
 
-	path_heading_ = new QLabel("");
+	path_heading_ = new QLabel("Heading:");
 	path_heading_->setFixedWidth(100);
 	statusBar()->insertWidget(4, path_heading_);
 
+	curvature_text_ = new QLabel("Curvature:");
+	curvature_text_->setFixedWidth(120);
+	statusBar()->insertWidget(5, curvature_text_);
+
+	centripetal_text_ = new QLabel("Centripetal Force:");
+	centripetal_text_->setFixedWidth(160);
+	statusBar()->insertWidget(6, centripetal_text_);
+
 	status_text_ = new QLabel("");
 	status_text_->setFixedWidth(200);
-	statusBar()->insertWidget(5, status_text_);
+	statusBar()->insertWidget(7, status_text_);
 
 	prog_bar_ = new QProgressBar();
-	statusBar()->insertWidget(6, prog_bar_);
+	statusBar()->insertWidget(8, prog_bar_);
 	prog_bar_->setVisible(false);
 
 	populateFieldsMenu();
@@ -2340,7 +2349,7 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 	double velocity, accel, jerk, timestep;
 	double cent;
 	RobotParams::DriveType drivetype;
-	std::string units;
+	std::string lengthunits, weightunits;
 	std::string name;
 	bool create = (robot == nullptr);
 	QString title;
@@ -2349,18 +2358,20 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 	{
 		//
 		// Creating a new robot, use defaules
-		elength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultUnits, units_);
-		ewidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultUnits, units_);
-		rlength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultUnits, units_);
-		rwidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultUnits, units_);
-		velocity = UnitConverter::convert(RobotParams::DefaultMaxVelocity, RobotParams::DefaultUnits, units_);
-		accel = UnitConverter::convert(RobotParams::DefaultMaxAcceleration, RobotParams::DefaultUnits, units_);
-		jerk = UnitConverter::convert(RobotParams::DefaultMaxJerk, RobotParams::DefaultUnits, units_);
-		cent = UnitConverter::convert(RobotParams::DefaultCentripetal, RobotParams::DefaultUnits, units_);
+		elength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultLengthUnits, units_);
+		ewidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultLengthUnits, units_);
+		rlength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultLengthUnits, units_);
+		rwidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultLengthUnits, units_);
+		velocity = UnitConverter::convert(RobotParams::DefaultMaxVelocity, RobotParams::DefaultLengthUnits, units_);
+		accel = UnitConverter::convert(RobotParams::DefaultMaxAcceleration, RobotParams::DefaultLengthUnits, units_);
+		jerk = UnitConverter::convert(RobotParams::DefaultMaxJerk, RobotParams::DefaultLengthUnits, units_);
+		cent = UnitConverter::convert(RobotParams::DefaultCentripetal, RobotParams::DefaultLengthUnits, units_);
 		rweight = RobotParams::DefaultWeight;
 		timestep = RobotParams::DefaultTimestep;
 		drivetype = RobotParams::DefaultDriveType;
-		units = RobotParams::DefaultUnits;
+		lengthunits = RobotParams::DefaultLengthUnits;
+		weightunits = RobotParams::DefaultWeightUnits;
+
 		title = "Create Robot";
 	}
 	else
@@ -2377,7 +2388,8 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		timestep = robot->getTimestep();
 		drivetype = robot->getDriveType();
 		name = robot->getName();
-		units = robot->getUnits();
+		lengthunits = robot->getLengthUnits();
+		weightunits = robot->getWeightUnits();
 		title = "Edit Robot";
 	}
 
@@ -2391,9 +2403,16 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 			name.c_str(), "The name of the robot", !create);
 		model.addProperty(prop);
 
-		prop = std::make_shared<EditableProperty>(RobotDialogUnits, EditableProperty::PropertyType::PTStringList,
-			QVariant(units.c_str()), "The units of measurement for the robot, can differ from the paths");
-		auto list = UnitConverter::getAllUnits();
+		prop = std::make_shared<EditableProperty>(RobotDialogLengthUnits, EditableProperty::PropertyType::PTStringList,
+			QVariant(lengthunits.c_str()), "The units of measurement for lengths, can differ from the paths");
+		auto list = UnitConverter::getAllLengthUnits();
+		for (auto& unit : list)
+			prop->addChoice(unit.c_str());
+		model.addProperty(prop);
+
+		prop = std::make_shared<EditableProperty>(RobotDialogWeightUnits, EditableProperty::PropertyType::PTStringList,
+			QVariant(weightunits.c_str()), "The units of measurement for weight");
+		list = UnitConverter::getAllWeightUnits();
 		for (auto& unit : list)
 			prop->addChoice(unit.c_str());
 		model.addProperty(prop);
@@ -2594,7 +2613,7 @@ void XeroPathGen::editPreferences()
 
 	prop = std::make_shared<EditableProperty>(PrefDialogUnits, EditableProperty::PropertyType::PTStringList,
 		QVariant(units_.c_str()), "The units of measurement for the robot, can differ from the paths");
-	auto list = UnitConverter::getAllUnits();
+	auto list = UnitConverter::getAllLengthUnits();
 	for (auto& unit : list)
 		prop->addChoice(unit.c_str());
 	dialog.getModel().addProperty(prop);
@@ -2830,13 +2849,13 @@ void XeroPathGen::scrollBarChanged()
 
 	if (current_path_ != nullptr)
 	{
-		double dist, heading;
+		double value;
 		QString text = "Time: " + QString::number(stime, 'f', 2);
 		path_time_->setText(text);
 		
-		if (current_path_->getDistance(stime, dist))
+		if (current_path_->getDistance(stime, value))
 		{
-			text = "Distance: " + QString::number(dist, 'f', 2) + QString(" ") + units_.c_str();
+			text = "Distance: " + QString::number(value, 'f', 2) + QString(" ") + units_.c_str();
 			path_dist_->setText(text);
 		}
 		else
@@ -2844,14 +2863,32 @@ void XeroPathGen::scrollBarChanged()
 			path_dist_->setText("Distance: Unknown");
 		}
 
-		if (current_path_->getHeading(stime, heading))
+		if (current_path_->getHeading(stime, value))
 		{
-			text = "Heading: " + QString::number(heading, 'f', 1) + QString(" deg");
+			text = "Heading: " + QString::number(value, 'f', 1) + QString(" deg");
 			path_heading_->setText(text);
 		}
 		else
 		{
 			path_heading_->setText("Heading: Unknown");
+		}
+
+		if (current_path_->getCurvature(stime, value))
+		{
+			curvature_text_->setText("Curvature: " + QString::number(value, 'f', 4));
+		}
+		else
+		{
+			curvature_text_->setText("Curvature: Unknown");
+		}
+
+		if (current_path_->getCentripetal(stime, current_robot_->getRobotWeight(), current_robot_->getLengthUnits(), current_robot_->getWeightUnits(), value))
+		{
+			centripetal_text_->setText("Centripetal: " + QString::number(value, 'f', 1) + " N");
+		}
+		else
+		{
+			centripetal_text_->setText("Centripetal: Unknown");
 		}
 	}
 	else

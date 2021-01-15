@@ -231,7 +231,8 @@ private:
 	static const char* RobotDialogMaxAcceleration;
 	static const char* RobotDialogMaxJerk;
 	static const char* RobotDialogMaxCentripetal;
-	static const char* RobotDialogUnits ;
+	static const char* RobotDialogLengthUnits ;
+	static const char* RobotDialogWeightUnits;
 	static const char* RobotDialogDriveType ;
 	static const char* RobotDialogTimeStep ;
 
@@ -319,6 +320,8 @@ private:
 	QLabel* path_time_;
 	QLabel* path_dist_;
 	QLabel* path_heading_;
+	QLabel* curvature_text_;
+	QLabel* centripetal_text_;
 	QProgressBar* prog_bar_;
 
 	//

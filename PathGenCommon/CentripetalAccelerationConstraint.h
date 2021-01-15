@@ -11,7 +11,7 @@ namespace xero {
 		public:
 			// maxcen is in Newtons
 			// weight is in pounds
-			CentripetalAccelerationConstraint(double maxcen, double weight, const std::string &units);
+			CentripetalAccelerationConstraint(double maxcen, double weight, const std::string& lengthunits, const std::string& weightunits);
 			virtual ~CentripetalAccelerationConstraint();
 
 			virtual double getMaxVelocity(const Pose2dWithTrajectory& state) ;

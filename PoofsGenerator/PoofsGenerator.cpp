@@ -278,9 +278,7 @@ void generateForPath(PathGroup& group, const std::string& path, const RobotParam
 	std::shared_ptr<PathTrajectory> trajectory;
 	ConstraintCollection constraints = pptr->getConstraints();
 
-	double maxcen_lb_m = UnitConverter::convert(robot.getMaxCentripetalForce(), robot.getUnits(), "m");
-	double maxcen_kg_m = UnitConverter::convert(maxcen_lb_m, "lbs", "kg");
-	constraints.push_back(std::make_shared< CentripetalAccelerationConstraint>(pptr->getMaxCentripetal(), robot.getRobotWeight(), robot.getUnits()));
+	constraints.push_back(std::make_shared< CentripetalAccelerationConstraint>(pptr->getMaxCentripetal(), robot.getRobotWeight(), robot.getLengthUnits(), robot.getWeightUnits()));
 
 	CheesyGenerator gen(diststep, timestep, maxdx, maxdy, maxtheta);
 	trajectory = gen.generate(pptr->getPoints(), constraints, pptr->getStartVelocity(),
@@ -295,7 +293,8 @@ void generateForPath(PathGroup& group, const std::string& path, const RobotParam
 		RobotPath::VelocityTag,
 		RobotPath::AccelerationTag,
 		RobotPath::JerkTag,
-		RobotPath::HeadingTag
+		RobotPath::HeadingTag,
+		RobotPath::CurvatureTag
 	};
 
 	std::ofstream strm(outfile);

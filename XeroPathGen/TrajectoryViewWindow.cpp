@@ -42,11 +42,11 @@ void TrajectoryViewWindow::updateTrajectory(const QString& text)
 	auto traj = path_->getTrajectory(which_);
 
 	table_->clearContents();
-	table_->setColumnCount(8);
+	table_->setColumnCount(9);
 	table_->setRowCount(0);
 
 	QStringList hdlist;
-	hdlist << "Time" << "X" << "Y" << "Heading" << "Position" << "Velocity" << "Accel" << "Jerk";
+	hdlist << "Time" << "X" << "Y" << "Heading" << "Position" << "Velocity" << "Accel" << "Jerk" << "Curvature";
 	table_->setHorizontalHeaderLabels(hdlist);
 
 	if (traj != nullptr)
@@ -88,6 +88,10 @@ void TrajectoryViewWindow::updateTrajectory(const QString& text)
 			item = new QTableWidgetItem(QString::number(pt.jerk(), 'f', 1));
 			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
 			table_->setItem(row, 7, item);
+
+			item = new QTableWidgetItem(QString::number(pt.curvature(), 'f', 4));
+			item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+			table_->setItem(row, 8, item);
 
 			row++;
 		}

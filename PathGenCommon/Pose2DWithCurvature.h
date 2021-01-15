@@ -63,6 +63,12 @@ namespace xero
 				return Pose2dWithCurvature(pose, c);
 			}
 
+
+			static double curvature(const Pose2d& a, const Pose2d& b, const Pose2d& c);
+
+		private:
+			static double triangleArea(const Pose2d& a, const Pose2d& b, const Pose2d& c);
+
 		private:
 			double curvature_;
 		};

@@ -96,6 +96,9 @@
     <ClCompile Include="CentripetalAccelerationConstraint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pose2dWithCurvature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSVWriter.h">

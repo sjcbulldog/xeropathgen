@@ -37,6 +37,7 @@
     <ClCompile Include="PathBase.cpp" />
     <ClCompile Include="QuinticHermiteSpline.cpp" />
     <ClCompile Include="SCurveProfile.cpp" />
+    <ClCompile Include="Pose2dWithCurvature.cpp" />
     <ClCompile Include="SplinePair.cpp" />
     <ClCompile Include="SwerveDriveModifier.cpp" />
     <ClCompile Include="TankDriveModifier.cpp" />

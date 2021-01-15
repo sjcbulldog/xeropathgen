@@ -184,7 +184,7 @@ CheesyGenerator::timeParameterize(const DistanceView& view, const xero::paths::C
 		v = state.velocity();
 		s = state.position();
 
-		Pose2dWithTrajectory trajpt(view[i], t, s, v, accel, 0.0);
+		Pose2dWithTrajectory trajpt(view[i], t, s, v, accel, 0.0, state.curvature());
 		result.push_back(trajpt);
 	}
 	return result;

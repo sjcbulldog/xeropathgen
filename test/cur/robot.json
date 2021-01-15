@@ -4,11 +4,12 @@
     "efflength": 37.5,
     "effwidth": 24.7,
     "maxacceleration": 180,
-    "maxcentripetal": 1000000,
+    "maxcentripetal": 10000,
     "maxjerk": 1800,
     "maxvelocity": 180,
     "name": "Droid",
     "robotlength": 37.5,
     "robotwidth": 34.5,
-    "timestep": 0.02
+    "timestep": 0.02,
+    "weight": 160
 }

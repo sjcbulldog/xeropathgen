@@ -15,20 +15,20 @@
                     "markers": [
                     ],
                     "maxacceleration": 180,
-                    "maxcentripetal": 10,
+                    "maxcentripetal": 10000,
                     "maxjerk": 1800,
                     "maxvelocity": 180,
                     "name": "NewPath",
                     "points": [
                         {
                             "heading": 0,
-                            "x": 0,
-                            "y": 0
+                            "x": 19.424860853432282,
+                            "y": 18.08905380333954
                         },
                         {
-                            "heading": 90,
-                            "x": 58.163265306122454,
-                            "y": 160.57513914656775
+                            "heading": 180,
+                            "x": 18.979591836734695,
+                            "y": 132.9461966604824
                         }
                     ],
                     "startangle": 0,

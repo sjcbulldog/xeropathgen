@@ -49,6 +49,32 @@ namespace xero
 			return true;
 		}
 
+		bool RobotPath::getCurvature(double time, double& value)
+		{
+			Pose2dWithTrajectory pt;
+
+			if (!getPoseAtTime(time, pt))
+				return false;
+
+			value = pt.curvature();
+
+			return true;
+		}
+
+		bool RobotPath::getCentripetal(double time, double weight, const std::string &lengthunits, const std::string &weightunits, double& value)
+		{
+			Pose2dWithTrajectory pt;
+
+			if (!getPoseAtTime(time, pt))
+				return false;
+
+			double radius = UnitConverter::convert(1 / pt.curvature(), lengthunits, "m");		// Radius in meters
+			double vel = UnitConverter::convert(pt.velocity(), lengthunits, "m");				// Velocity in m/sec
+			double weight_kg = UnitConverter::convert(weight, weightunits, "kg");				// Weight in KG
+			value = weight_kg * vel * vel / std::abs(radius);
+			return true;
+		}
+
 		bool RobotPath::getDistance(double time, double &dist)
 		{
 			Pose2dWithTrajectory pt;

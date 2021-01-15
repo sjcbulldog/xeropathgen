@@ -6,11 +6,11 @@ namespace xero
 {
 	namespace paths
 	{
-		CentripetalAccelerationConstraint::CentripetalAccelerationConstraint(double maxcen, double weight, const std::string &units)
+		CentripetalAccelerationConstraint::CentripetalAccelerationConstraint(double maxcen, double weight, const std::string &lengthunits, const std::string &weightunits)
 		{
 			maxcen_ = maxcen;
-			weight_ = UnitConverter::convert(weight, "lbs", "kg");
-			units_ = units;
+			weight_ = UnitConverter::convert(weight, weightunits, "kg");
+			units_ = lengthunits;
 		}
 
 		CentripetalAccelerationConstraint::~CentripetalAccelerationConstraint()

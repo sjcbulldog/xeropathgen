@@ -38,7 +38,19 @@ namespace xero
 
 			/// \brief returns all units the converter can process
 			/// \returns a list of all units the converter can process
-			static std::list<std::string> getAllUnits();
+			static std::list<std::string> getAllLengthUnits();
+
+
+			/// \brief returns all units the converter can process
+			/// \returns a list of all units the converter can process
+			static std::list<std::string> getAllWeightUnits();
+
+		private:
+			enum class UnitType
+			{
+				Length,
+				Weight
+			};
 
 		private:
 			struct conversion
@@ -46,6 +58,7 @@ namespace xero
 				const char* from;
 				const char* to;
 				double conversion;
+				UnitType type_;
 			};
 
 			static bool findConversion(const std::string& from, const std::string& to, double& conversion);

@@ -3,6 +3,8 @@
 
 namespace xero {
 	namespace paths {
+
+
 		Pose2dWithTrajectory Pose2dWithTrajectory::interpolate(const Pose2dWithTrajectory& other, double percent) const
 		{
 			Pose2d npose = pose_.interpolate(other.pose(), percent);

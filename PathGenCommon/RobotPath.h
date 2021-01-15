@@ -436,7 +436,9 @@ namespace xero
 			bool getPoseAtTime(double time, Pose2dWithTrajectory& p2d);
 			std::shared_ptr<SplinePair> getSplineAtTime(double time);
 			bool getDistance(double time, double& value);
-			bool getHeading(double time, double& heading);
+			bool getHeading(double time, double& value);
+			bool getCurvature(double time, double& value);
+			bool getCentripetal(double time, double weight, const std::string& lengthunits, const std::string& weightunits, double& value);
 
 			double sumDCurvature2();
 

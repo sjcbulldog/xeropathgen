@@ -405,8 +405,6 @@ bool PathGenerationEngine::readResults(QFile& outfile, std::vector<Pose2dWithTra
 		double velocity = parser.getData(RobotPath::VelocityTag);
 		double accel = parser.getData(RobotPath::AccelerationTag);
 		double jerk = parser.getData(RobotPath::JerkTag);
-		double curvature;
-
 
 		Translation2d trans(x, y);
 		Rotation2d rot = Rotation2d::fromDegrees(heading);
