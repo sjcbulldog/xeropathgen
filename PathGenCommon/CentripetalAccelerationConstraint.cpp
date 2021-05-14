@@ -22,7 +22,9 @@ namespace xero
 			double radius = 1 / state.curvature();
 			double radius_m = UnitConverter::convert(radius, units_, "m");
 			double vel = std::sqrt(std::abs(maxcen_ * radius_m / weight_));
-			return vel;
+			double velunits = UnitConverter::convert(vel, "m", units_);
+
+			return velunits;
 		}
 
 		MinMaxAcceleration CentripetalAccelerationConstraint::getMinMacAccel(const Pose2dWithTrajectory& state, double velocity)

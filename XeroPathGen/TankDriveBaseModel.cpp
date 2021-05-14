@@ -78,10 +78,10 @@ void TankDriveBaseModel::update(double left, double right, double heading)
 
 void TankDriveBaseModel::getLocation(Translation2d &fl, Translation2d& fr, Translation2d& bl, Translation2d& br)
 {
-	fl = location_.getTranslation() + Translation2d(getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
-	fr = location_.getTranslation() + Translation2d(getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
-	bl = location_.getTranslation() + Translation2d(-getRobot()->getEffectiveLength() / 2.0, getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
-	br = location_.getTranslation() + Translation2d(-getRobot()->getEffectiveLength() / 2.0, -getRobot()->getEffectiveWidth() / 2.0).rotateBy(location_.getRotation());
+	fl = location_.getTranslation() + Translation2d(getRobot()->getRobotLength() / 2.0, getRobot()->getRobotWidth() / 2.0).rotateBy(location_.getRotation());
+	fr = location_.getTranslation() + Translation2d(getRobot()->getRobotLength() / 2.0, -getRobot()->getRobotWidth() / 2.0).rotateBy(location_.getRotation());
+	bl = location_.getTranslation() + Translation2d(-getRobot()->getRobotLength() / 2.0, getRobot()->getRobotWidth() / 2.0).rotateBy(location_.getRotation());
+	br = location_.getTranslation() + Translation2d(-getRobot()->getRobotLength() / 2.0, -getRobot()->getRobotWidth() / 2.0).rotateBy(location_.getRotation());
 }
 
 void TankDriveBaseModel::reset()

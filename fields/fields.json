@@ -22,5 +22,9 @@
     {
         "descriptor" : "2021-challenge.json",
         "image" : "2021-challenge.jpg"
+    },
+    {
+      "descriptor" : "romifield.json",
+      "image" : "romifield.png"
     }
 ]

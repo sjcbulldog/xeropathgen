@@ -314,7 +314,7 @@ std::shared_ptr<RobotPath> PathFileTreeModel::addRobotPath(const std::string& gr
 	UndoManager::getUndoManager().pushUndoStack(undo);
 	auto path = paths_.addPath(group, name);
 	path->addPoint(Pose2d(0.0, 0.0, Rotation2d::fromDegrees(0.0)));
-	path->addPoint(Pose2d(100.0, 0.0, Rotation2d::fromDegrees(0.0)));
+	path->addPoint(Pose2d(robot_->getRobotLength() * 3.0, 0.0, Rotation2d::fromDegrees(0.0)));
 	path->generateSplines();
 	endInsertRows();
 	dirty_ = true;

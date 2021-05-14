@@ -82,6 +82,7 @@ private:
 	bool createLeftSide();
 	bool createRightSide();
 	bool createToolbar();
+	bool createStatusbar();
 
 	void populateFieldsMenu();
 	void populateGeneratorsMenu();

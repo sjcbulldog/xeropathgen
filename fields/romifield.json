@@ -1,0 +1,10 @@
+{
+"game" : "Romi Challenge FIeld",
+"field-image" : "romifield.png",
+"field-corners": {
+	"top-left" : [180, 180],
+	"bottom-right" : [1920, 1080]
+},
+"field-size" : [5, 2.5],
+"field-unit" : "foot"
+}

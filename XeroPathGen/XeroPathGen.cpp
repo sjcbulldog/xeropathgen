@@ -157,41 +157,14 @@ XeroPathGen::XeroPathGen(GameFieldManager& fields, GeneratorManager& generators,
 		return;
 	}
 
-	xpos_text_ = new QLabel("X:");
-	xpos_text_->setFixedWidth(80);
-	statusBar()->insertWidget(0, xpos_text_);
-
-	ypos_text_ = new QLabel("Y:");
-	ypos_text_->setFixedWidth(80);
-	statusBar()->insertWidget(1, ypos_text_);
-
-	path_time_ = new QLabel("Time:");
-	path_time_->setFixedWidth(80);
-	statusBar()->insertWidget(2, path_time_);
-
-	path_dist_ = new QLabel("Distance:");
-	path_dist_->setFixedWidth(100);
-	statusBar()->insertWidget(3, path_dist_);
-
-	path_heading_ = new QLabel("Heading:");
-	path_heading_->setFixedWidth(100);
-	statusBar()->insertWidget(4, path_heading_);
-
-	curvature_text_ = new QLabel("Curvature:");
-	curvature_text_->setFixedWidth(120);
-	statusBar()->insertWidget(5, curvature_text_);
-
-	centripetal_text_ = new QLabel("Centripetal Force:");
-	centripetal_text_->setFixedWidth(160);
-	statusBar()->insertWidget(6, centripetal_text_);
-
-	status_text_ = new QLabel("");
-	status_text_->setFixedWidth(200);
-	statusBar()->insertWidget(7, status_text_);
-
-	prog_bar_ = new QProgressBar();
-	statusBar()->insertWidget(8, prog_bar_);
-	prog_bar_->setVisible(false);
+	if (!createStatusbar())
+	{
+		QMessageBox box(QMessageBox::Icon::Critical,
+			"Error", "Could not initialize application status bar", QMessageBox::StandardButton::Ok);
+		box.exec();
+		throw new std::runtime_error("Error - startup aborted");
+		return;
+	}
 
 	populateFieldsMenu();
 	populateGeneratorsMenu();
@@ -699,6 +672,47 @@ bool XeroPathGen::createToolbar()
 	(void)connect(marker_button_, &QPushButton::pressed, this, &XeroPathGen::nextMarker);
 
 	marker_bar_->setVisible(true);
+
+	return true;
+}
+
+bool XeroPathGen::createStatusbar()
+{
+	xpos_text_ = new QLabel("X:");
+	xpos_text_->setFixedWidth(80);
+	statusBar()->insertWidget(0, xpos_text_);
+
+	ypos_text_ = new QLabel("Y:");
+	ypos_text_->setFixedWidth(80);
+	statusBar()->insertWidget(1, ypos_text_);
+
+	path_time_ = new QLabel("Time:");
+	path_time_->setFixedWidth(80);
+	statusBar()->insertWidget(2, path_time_);
+
+	path_dist_ = new QLabel("Distance:");
+	path_dist_->setFixedWidth(100);
+	statusBar()->insertWidget(3, path_dist_);
+
+	path_heading_ = new QLabel("Heading:");
+	path_heading_->setFixedWidth(100);
+	statusBar()->insertWidget(4, path_heading_);
+
+	curvature_text_ = new QLabel("Curvature:");
+	curvature_text_->setFixedWidth(120);
+	statusBar()->insertWidget(5, curvature_text_);
+
+	centripetal_text_ = new QLabel("Centripetal Force:");
+	centripetal_text_->setFixedWidth(160);
+	statusBar()->insertWidget(6, centripetal_text_);
+
+	status_text_ = new QLabel("");
+	status_text_->setFixedWidth(200);
+	statusBar()->insertWidget(7, status_text_);
+
+	prog_bar_ = new QProgressBar();
+	statusBar()->insertWidget(8, prog_bar_);
+	prog_bar_->setVisible(false);
 
 	return true;
 }

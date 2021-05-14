@@ -37,13 +37,6 @@
 
 using namespace xero::paths;
 
-std::vector<QPointF> PathFieldView::triangle_ =
-{
-	{ TriangleSize, 0.0},
-	{ -TriangleSize / 2.0, TriangleSize / 2.0},
-	{ -TriangleSize / 2.0, -TriangleSize / 2.0 }
-};
-
 PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidget(parent), filemodel_(model)
 {
 	QImage* im;
@@ -58,7 +51,6 @@ PathFieldView::PathFieldView(PathFileTreeModel &model, QWidget *parent) : QWidge
 	model_ = nullptr;
 	cursor_ = true;
 	marker_choice_ = 1;
-
 
 	QString exedir = QCoreApplication::applicationDirPath();
 	QString imagepath = exedir + "/images/" + FlagImage;
@@ -1273,6 +1265,13 @@ void PathFieldView::createTransforms()
 	world_to_window_.scale(scale, -scale);
 
 	window_to_world_ = world_to_window_.inverted();
+
+	triangle_ =
+	{
+		{ TriangleSize / scale, 0.0},
+		{ -TriangleSize / scale / 2.0, TriangleSize / scale / 2.0},
+		{ -TriangleSize / scale / 2.0, -TriangleSize / scale / 2.0 }
+	};
 }
 
 QPointF PathFieldView::worldToWindow(const QPointF& pt)

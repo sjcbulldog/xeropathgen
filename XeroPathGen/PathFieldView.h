@@ -155,7 +155,7 @@ protected:
 	}
 
 private:
-	static constexpr double TriangleSize = 8.0;
+	static constexpr double TriangleSize = 16.0;
 	static constexpr double SplinePathDiameter = 3.0;
 	static constexpr double CenterHitDistance = 8.0;
 	static constexpr double RotateBubbleHalo = 5.0;
@@ -172,7 +172,7 @@ private:
 	static constexpr const char* Marker4Image = "marker4.png";
 
 
-	static std::vector<QPointF> triangle_;
+	std::vector<QPointF> triangle_;
 
 	enum WaypointRegion
 	{
