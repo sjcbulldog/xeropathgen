@@ -69,6 +69,24 @@ namespace xero
 				return sum;
 			}
 
+			bool hasStep() const {
+				return has_step_;
+			}
+
+			double step() const {
+				return step_;
+			}
+
+			void setStep(double v) {
+				step_ = v;
+				has_step_ = true;
+			}
+
+			void clearStep() {
+				has_step_ = false;
+				step_ = 0.1;
+			}
+
 		private:
 			double dx(double t) {
 				return x_->derivative(t);
@@ -100,6 +118,8 @@ namespace xero
 		private:
 			QuinticHermiteSpline *x_;
 			QuinticHermiteSpline *y_;
+			bool has_step_;
+			double step_;
 		};
 	}
 }

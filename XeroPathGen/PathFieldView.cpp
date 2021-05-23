@@ -1149,15 +1149,57 @@ void PathFieldView::drawSplines(QPainter& paint)
 	auto splines = path_->getSplines();
 
 	for (size_t i = 0; i < splines.size(); i++)
-		drawSpline(paint, splines[i], 2.0 * path_->getDistance(i + 1));
+		drawSpline(paint, splines[i]);
 }
 
-void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair, double length)
+void PathFieldView::findSplineStep(std::shared_ptr<xero::paths::SplinePair> pair)
 {
-	double elength = UnitConverter::convert(length, units_, "in");
-	double step = 1.0 / elength;
-	double px, py;
+	double step = 0.1;
+	double cx, cy;
+	double nx, ny;
+	QPointF current, prev;
 
+	while (true) {
+		bool first = true;
+		double maxdist = 0.0;
+
+		for (double t = 0.0; t < 1.0; t += step) {
+
+			Translation2d loc = pair->evalPosition(t);
+			Rotation2d heading = pair->evalHeading(t);
+
+			cx = loc.getX() - robot_->getRobotWidth() * heading.getSin() / 2.0;
+			cy = loc.getY() + robot_->getRobotWidth() * heading.getCos() / 2.0;
+
+			current = worldToWindow(QPointF(cx, cy));
+
+			if (!first)
+			{
+				double dx = std::abs(current.x() - prev.x());
+				double dy = std::abs(current.y() - prev.y());
+
+				maxdist = std::max(maxdist, std::max(dx, dy));
+			}
+
+			if (maxdist > 1.5)
+			{
+				step /= 2.0;
+				break;
+			}
+
+			first = false;
+			prev = current;
+		}
+
+		if (maxdist <= 2.0)
+			break;
+	}
+	pair->setStep(step);
+}
+
+void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair)
+{
+	double px, py;
 	QColor c(0xF0, 0x80, 0x80, 0xFF);
 
 	QBrush brush(c);
@@ -1166,7 +1208,10 @@ void PathFieldView::drawSpline(QPainter& paint, std::shared_ptr<SplinePair> pair
 	QPen pen(c);
 	paint.setPen(pen);
 
-	for (float t = 0.0f; t < 1.0f; t += step)
+	if (!pair->hasStep())
+		findSplineStep(pair);
+
+	for (float t = 0.0f; t < 1.0f; t += pair->step())
 	{
 		Translation2d loc = pair->evalPosition(t);
 		Rotation2d heading = pair->evalHeading(t);
@@ -1266,12 +1311,18 @@ void PathFieldView::createTransforms()
 
 	window_to_world_ = world_to_window_.inverted();
 
+	//
+	// Define the triangle for waypoints based on the current transform
+	//
 	triangle_ =
 	{
 		{ TriangleSize / scale, 0.0},
 		{ -TriangleSize / scale / 2.0, TriangleSize / scale / 2.0},
 		{ -TriangleSize / scale / 2.0, -TriangleSize / scale / 2.0 }
 	};
+
+	if (path_ != nullptr)
+		path_->clearSteps();
 }
 
 QPointF PathFieldView::worldToWindow(const QPointF& pt)

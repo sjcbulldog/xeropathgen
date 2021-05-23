@@ -6,12 +6,15 @@ namespace xero
 	{
 		DistanceView::DistanceView(const std::vector<Pose2d>& points, double step)
 		{
+			static const double kEpsilon = 1e-6;
+			double d;
+
 			distances_.push_back(0.0);
 			for (size_t i = 1; i < points.size(); i++)
 				distances_.push_back(points[i].distance(points[i - 1]) + distances_[i - 1]);
 
 			size_t index = 0;
-			for (double d = 0.0; d <= distances_.back(); d += step)
+			for (d = 0.0; d <= distances_.back(); d += step)
 			{
 				while (d > distances_[index + 1])
 					index++;

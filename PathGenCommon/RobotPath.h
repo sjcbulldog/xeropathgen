@@ -110,6 +110,12 @@ namespace xero
 				markers_.remove(m);
 			}
 
+			void clearSteps() {
+				for (auto& spline : splines_) {
+					spline->clearStep();
+				}
+			}
+
 			bool hasErrors() const {
 				return errors_.size() > 0;
 			}

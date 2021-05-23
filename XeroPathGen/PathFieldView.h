@@ -209,7 +209,8 @@ private:
 	void drawPoints(QPainter& paint);
 	void drawOnePoint(QPainter& paint, const xero::paths::Pose2d& pt, bool selected);
 	void drawSplines(QPainter &paint);
-	void drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair, double length);
+	void drawSpline(QPainter& paint, std::shared_ptr<xero::paths::SplinePair> pair);
+	void findSplineStep(std::shared_ptr<xero::paths::SplinePair> pair);
 	void drawRobot(QPainter& paint);
 	void drawCursor(QPainter& paint);
 	void drawGrid(QPainter& paint);

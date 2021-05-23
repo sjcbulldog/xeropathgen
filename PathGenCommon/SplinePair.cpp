@@ -5,6 +5,7 @@ namespace xero
 {
 	namespace paths
 	{
+#ifdef NOTYET
 		template <typename I> std::string n2hexstr(I w, size_t hex_len = sizeof(I) << 1) {
 			static const char* digits = "0123456789ABCDEF";
 			std::string rc(hex_len, '0');
@@ -12,6 +13,7 @@ namespace xero
 				rc[i] = digits[(w >> j) & 0x0f];
 			return rc;
 		}
+#endif
 
 		SplinePair::SplinePair(Pose2d p0, Pose2d p1)
 		{
@@ -32,12 +34,18 @@ namespace xero
 			double ddy0 = 0.0;
 			double ddy1 = 0.0;
 			y_ = new QuinticHermiteSpline(y0, y1, dy0, dy1, ddy0, ddy1);
+
+			has_step_ = false;
+			step_ = 0.1;
 		}
 
 		SplinePair::SplinePair(const QuinticHermiteSpline& x, const QuinticHermiteSpline& y)
 		{
 			x_ = new QuinticHermiteSpline(x);
 			y_ = new QuinticHermiteSpline(y);
+
+			has_step_ = false;
+			step_ = 0.1;
 		}
 
 		SplinePair::~SplinePair()

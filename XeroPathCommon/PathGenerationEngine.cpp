@@ -61,6 +61,7 @@ void PathGenerationEngine::markPathDirty(std::shared_ptr<RobotPath> path)
 #ifdef _DEBUG
 	qDebug() << "'" << path->getName().c_str() << "' added to path generation dirty list";
 #endif
+
 	waiting_paths_lock_.unlock();
 	cleanup();
 }
@@ -298,12 +299,12 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	store_lock_.unlock();
 
 #ifdef _DEBUG
-	QString robottempfilename("D:/cygwin64/home/bwg/temp/robot.json");
+	QString robottempfilename("D:/cygwin64/home/bwg/robottools/test/robot.json");
 	if (QFile::exists(robottempfilename))
 		QFile::remove(robottempfilename);
 	QFile::copy(robotfile.fileName(), robottempfilename);
 
-	QString pathtempfilename("D:/cygwin64/home/bwg/temp/path.json");
+	QString pathtempfilename("D:/cygwin64/home/bwg/robottools/test/path.json");
 	if (QFile::exists(pathtempfilename))
 		QFile::remove(pathtempfilename);
 	QFile::copy(pathfile.fileName(), pathtempfilename);
