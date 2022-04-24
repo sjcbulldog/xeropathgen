@@ -1699,7 +1699,9 @@ void XeroPathGen::generateOnePath(std::shared_ptr<RobotPath> path, const std::st
 		RobotPath::VelocityTag,
 		RobotPath::AccelerationTag,
 		RobotPath::JerkTag,
-		RobotPath::HeadingTag
+		RobotPath::HeadingTag,
+		RobotPath::CurvatureTag,
+		RobotPath::RotationTag,
 	};
 
 	//
@@ -2371,7 +2373,8 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 	if (robot == nullptr)
 	{
 		//
-		// Creating a new robot, use defaules
+		// Creating a new robot, use defaults
+		//
 		elength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultLengthUnits, units_);
 		ewidth = UnitConverter::convert(RobotParams::DefaultWidth, RobotParams::DefaultLengthUnits, units_);
 		rlength = UnitConverter::convert(RobotParams::DefaultLength, RobotParams::DefaultLengthUnits, units_);
@@ -2496,6 +2499,8 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		cent = model.getProperty(RobotDialogMaxCentripetal)->getValue().toDouble();
 		drivetype = DriveBaseData::nameToType(model.getProperty(RobotDialogDriveType)->getValue().toString().toStdString());
 		timestep = model.getProperty(RobotDialogTimeStep)->getValue().toDouble();
+		lengthunits = model.getProperty(RobotDialogLengthUnits)->getValue().toString().toStdString();
+		weightunits = model.getProperty(RobotDialogWeightUnits)->getValue().toString().toStdString();
 
 		if (create && model.getProperty(RobotDialogName)->getValue().toString().length() == 0)
 		{
@@ -2535,6 +2540,8 @@ void XeroPathGen::createEditRobot(std::shared_ptr<RobotParams> robot)
 		robot->setMaxCentripetalForce(cent);
 		robot->setTimestep(timestep);
 		robot->setDriveType(drivetype);
+		robot->setLengthUnits(lengthunits);
+		robot->setWeightUnits(weightunits);
 
 		if (create)
 		{

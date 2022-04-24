@@ -11,6 +11,8 @@ namespace xero
 			{ "ft", "in", 12.0, UnitConverter::UnitType::Length},
 			{ "feet", "in", 12.0, UnitConverter::UnitType::Length},
 			{ "foot", "in", 12.0, UnitConverter::UnitType::Length},
+			{ "feet", "m", 0.3048, UnitConverter::UnitType::Length},
+			{ "foot", "m", 0.3048, UnitConverter::UnitType::Length},
 			{ "ft", "inches", 12.0, UnitConverter::UnitType::Length},
 			{ "feet", "inches", 12.0, UnitConverter::UnitType::Length},
 			{ "foot", "inches", 12.0, UnitConverter::UnitType::Length},

@@ -75,6 +75,8 @@ namespace xero
 			static constexpr const wchar_t* YTagW = L"y";
 			static constexpr const char* HeadingTag = "heading";
 			static constexpr const wchar_t* HeadingTagW = L"heading";
+			static constexpr const char* RotationTag = "rotation";
+			static constexpr const wchar_t* RotationTagW = L"rotation";
 
 		public:
 			RobotPath(std::shared_ptr<PathGroup> parent, const std::string& name) {

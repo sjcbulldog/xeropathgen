@@ -411,16 +411,20 @@ bool PathGenerationEngine::readResults(QFile& outfile, std::vector<Pose2dWithTra
 		Rotation2d rot = Rotation2d::fromDegrees(heading);
 		Pose2d pose(trans, rot);
 		Pose2dWithTrajectory tpt;
+
+		double cur = 0.0, swrot = 0.0;
 		
 		if (parser.hasDataField(RobotPath::CurvatureTag))
 		{
-			double cur = parser.getData(RobotPath::CurvatureTag);
-			tpt = Pose2dWithTrajectory(pose, time, pos, velocity, accel, jerk, cur);
+			cur = parser.getData(RobotPath::CurvatureTag);
 		}
-		else
+
+		if (parser.hasDataField(RobotPath::RotationTag))
 		{
-			tpt = Pose2dWithTrajectory(pose, time, pos, velocity, accel, jerk);
+			swrot = parser.getData(RobotPath::RotationTag);
 		}
+
+		tpt = Pose2dWithTrajectory(pose, time, pos, velocity, accel, jerk, cur, swrot);
 
 		pts.push_back(tpt);
 

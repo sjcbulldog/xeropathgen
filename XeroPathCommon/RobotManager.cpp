@@ -118,7 +118,7 @@ std::list<std::shared_ptr<RobotParams>> RobotManager::getRobots()
 
 bool RobotManager::processJSONFile(QFile& file)
 {
-	std::string name_value, verstr;
+	std::string name_value, verstr, lengthunits, weightunits;
 	double ewidth_value;
 	double elength_value;
 	double rwidth_value;
@@ -234,6 +234,16 @@ bool RobotManager::processJSONFile(QFile& file)
 	robot->setMaxCentripetalForce(cent_value);
 	robot->setDriveType(static_cast<RobotParams::DriveType>(drivetype_value));
 
+	if (!getJSONStringValue(file, doc, RobotParams::LengthUnitsTag, lengthunits))
+		robot->setLengthUnits(RobotParams::DefaultLengthUnits);
+	else
+		robot->setLengthUnits(lengthunits);
+
+	if (!getJSONStringValue(file, doc, RobotParams::WeightUnitsTag, weightunits))
+		robot->setWeightUnits(RobotParams::DefaultWeightUnits);
+	else
+		robot->setWeightUnits(weightunits);
+
 	robots_.push_back(robot);
 	return true;
 }
@@ -313,6 +323,8 @@ bool RobotManager::save(std::shared_ptr<xero::paths::RobotParams> robot, QFile &
 	obj[RobotParams::MaxAccelerationTag] = robot->getMaxAccel();
 	obj[RobotParams::MaxJerkTag] = robot->getMaxJerk();
 	obj[RobotParams::MaxCentripetalTag] = robot->getMaxCentripetalForce();
+	obj[RobotParams::LengthUnitsTag] = QString::fromStdString(robot->getLengthUnits());
+	obj[RobotParams::WeightUnitsTag] = QString::fromStdString(robot->getWeightUnits());
 
 	QJsonDocument doc(obj);
 	file.open(QFile::WriteOnly);

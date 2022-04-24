@@ -14,8 +14,8 @@ namespace xero {
 			double nacc = (other.acceleration() - acceleration()) * percent + acceleration();
 			double njerk = (other.jerk() - jerk()) * percent + jerk();
 			double ncurvature = (other.curvature() - curvature()) * percent + curvature();
-
-			return Pose2dWithTrajectory(npose, ntime, npos, nvel, nacc, njerk, ncurvature);
+			double nrot = (other.swrotation() - swrotation()) * percent + swrotation();
+			return Pose2dWithTrajectory(npose, ntime, npos, nvel, nacc, njerk, ncurvature, nrot);
 		}
 
 		double Pose2dWithTrajectory::getField(const std::string& field) const
@@ -57,6 +57,10 @@ namespace xero {
 			else if (field == "curvature")
 			{
 				v = curvature();
+			}
+			else if (field == "rotation")
+			{
+				v = swrotation();
 			}
 
 			return v;

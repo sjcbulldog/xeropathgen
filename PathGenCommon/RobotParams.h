@@ -43,6 +43,10 @@ namespace xero {
 			static constexpr const wchar_t* TimeStepTagW = L"timestep";
 			static constexpr const char* DriveTypeTag = "drivetype";
 			static constexpr const wchar_t* DriveTypeTagW = L"drivetype";
+			static constexpr const char* LengthUnitsTag = "lengthunits";
+			static constexpr const wchar_t* LengthUnitsTagW = L"lengthunits";
+			static constexpr const char* WeightUnitsTag = "weightunits";
+			static constexpr const wchar_t* WeightUnitsTagW = L"weightunits";
 
 		public:
 			static constexpr double DefaultLength = 30.0;

@@ -16,6 +16,7 @@
 #include "PathCollectionIO.h"
 #include "DistanceVelocityConstraint.h"
 #include <QJsonDocument>
+#include <QJsonValue>
 #include <QFile>
 #include <QDebug>
 
@@ -267,11 +268,11 @@ bool PathCollectionIO::readPathCollection(const std::string& filename, PathColle
 	return true;
 }
 
-bool PathCollectionIO::readMarkers(QFile& file, std::shared_ptr<RobotPath> path, QJsonArray& a)
+bool PathCollectionIO::readMarkers(QFile& file, std::shared_ptr<RobotPath> path, const QJsonArray& a)
 {
 	for (int i = 0; i < a.size(); i++)
 	{
-		QJsonValue av = a.at(i);
+		const QJsonValue &av = a.at(i);
 		if (!av.isObject())
 		{
 			qWarning() << "JSON file '" << file.fileName() << "', entry in markers array is not an object";
@@ -553,7 +554,7 @@ bool PathCollectionIO::readPath(QFile& file, PathCollection & paths, std::shared
 	return true;
 }
 
-bool PathCollectionIO::readInteger(QFile& file, QJsonObject& obj, QString obname, QString name, int& value, bool opt)
+bool PathCollectionIO::readInteger(QFile& file, const QJsonObject& obj, QString obname, QString name, int& value, bool opt)
 {
 	if (!obj.contains(name))
 	{
@@ -576,7 +577,7 @@ bool PathCollectionIO::readInteger(QFile& file, QJsonObject& obj, QString obname
 	return true;
 }
 
-bool PathCollectionIO::readDouble(QFile& file, QJsonObject& obj, QString obname, QString name, double& value, bool opt)
+bool PathCollectionIO::readDouble(QFile& file, const QJsonObject& obj, QString obname, QString name, double& value, bool opt)
 {
 	if (!obj.contains(name))
 	{
@@ -599,7 +600,7 @@ bool PathCollectionIO::readDouble(QFile& file, QJsonObject& obj, QString obname,
 	return true;
 }
 
-bool PathCollectionIO::readString(QFile& file, QJsonObject& obj, QString obname, QString name, QString& value, bool opt)
+bool PathCollectionIO::readString(QFile& file, const QJsonObject& obj, QString obname, QString name, QString& value, bool opt)
 {
 	if (!obj.contains(name))
 	{

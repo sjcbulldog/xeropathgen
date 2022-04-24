@@ -107,19 +107,19 @@ namespace xero
 				}
 
 				Pose2d flpose(flpos, flv.toRotation());
-				Pose2dWithTrajectory fltraj(flpose, time, fldist, flv.normalize(), fla.normalize(), 0.0);
+				Pose2dWithTrajectory fltraj(flpose, time, fldist, flv.normalize(), fla.normalize(), 0.0, 0.0, angle.toDegrees());
 				flpts.push_back(fltraj);
 
 				Pose2d frpose(frpos, frv.toRotation());
-				Pose2dWithTrajectory frtraj(frpose, time, frdist, frv.normalize(), fra.normalize(), 0.0);
+				Pose2dWithTrajectory frtraj(frpose, time, frdist, frv.normalize(), fra.normalize(), 0.0, 0.0, angle.toDegrees());
 				frpts.push_back(frtraj);
 
 				Pose2d blpose(blpos, blv.toRotation());
-				Pose2dWithTrajectory bltraj(blpose, time, bldist, blv.normalize(), bla.normalize(), 0.0);
+				Pose2dWithTrajectory bltraj(blpose, time, bldist, blv.normalize(), bla.normalize(), 0.0, 0.0, angle.toDegrees());
 				blpts.push_back(bltraj);
 
 				Pose2d brpose(brpos, brv.toRotation());
-				Pose2dWithTrajectory brtraj(brpose, time, brdist, brv.normalize(), bra.normalize(), 0.0);
+				Pose2dWithTrajectory brtraj(brpose, time, brdist, brv.normalize(), bra.normalize(), 0.0, 0.0, angle.toDegrees());
 				brpts.push_back(brtraj);
 
 				prevfl = flpos;
