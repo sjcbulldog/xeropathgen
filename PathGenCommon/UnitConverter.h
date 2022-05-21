@@ -46,6 +46,9 @@ namespace xero
 			static std::list<std::string> getAllWeightUnits();
 
 		private:
+			static std::string normalizeUnits(const std::string& units);
+
+		private:
 			enum class UnitType
 			{
 				Length,

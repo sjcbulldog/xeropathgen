@@ -456,7 +456,7 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 	else if (robot_->getDriveType() == RobotParams::DriveType::SwerveDrive)
 	{
 		mod = new SwerveDriveModifier();
-		percent = 0.05;
+		percent = 0.0;
 		swerve = true;
 	}
 

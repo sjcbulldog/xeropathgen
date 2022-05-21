@@ -11,6 +11,7 @@ namespace xero
 	{
 		SwerveDriveModifier::SwerveDriveModifier()
 		{
+			percent_ = 0.0;
 		}
 
 		SwerveDriveModifier::~SwerveDriveModifier()
@@ -70,10 +71,34 @@ namespace xero
 				Translation2d rotblvel = GetWheelPerpendicularVector(robot, Wheel::BL, rv).rotateBy(angle);
 				Translation2d rotbrvel = GetWheelPerpendicularVector(robot, Wheel::BR, rv).rotateBy(angle);
 
+				if (rotflvel.normalize() > robot.getMaxVelocity())
+					return false;
+
+				if (rotfrvel.normalize() > robot.getMaxVelocity())
+					return false;
+
+				if (rotblvel.normalize() > robot.getMaxVelocity())
+					return false;
+
+				if (rotbrvel.normalize() > robot.getMaxVelocity())
+					return false;
+
 				Translation2d rotflacc = GetWheelPerpendicularVector(robot, Wheel::FL, ra).rotateBy(angle);
 				Translation2d rotfracc = GetWheelPerpendicularVector(robot, Wheel::FR, ra).rotateBy(angle);
 				Translation2d rotblacc = GetWheelPerpendicularVector(robot, Wheel::BL, ra).rotateBy(angle);
 				Translation2d rotbracc = GetWheelPerpendicularVector(robot, Wheel::BR, ra).rotateBy(angle);
+
+				if (rotflacc.normalize() > robot.getMaxAccel())
+					return false;
+
+				if (rotfracc.normalize() > robot.getMaxAccel())
+					return false;
+
+				if (rotblacc.normalize() > robot.getMaxAccel())
+					return false;
+
+				if (rotbracc.normalize() > robot.getMaxAccel())
+					return false;
 
 				Rotation2d heading = pt.rotation();
 				Translation2d pathvel = Translation2d(heading, pt.velocity()).rotateBy(Rotation2d::fromDegrees(-angle.toDegrees()));

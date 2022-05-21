@@ -81,12 +81,12 @@ namespace xero
 
 				Translation2d lpt(lx, ly);
 				Pose2d l2d(lpt, pt.rotation());
-				Pose2dWithTrajectory ltraj(l2d, time, lpos, lvel, lacc, ljerk, lcurv);
+				Pose2dWithTrajectory ltraj(l2d, time, lpos, lvel, lacc, ljerk, lcurv, 0.0);
 				leftpts.push_back(ltraj);
 
 				Translation2d rpt(rx, ry);
 				Pose2d r2d(rpt, pt.rotation());
-				Pose2dWithTrajectory rtraj(r2d, time, rpos, rvel, racc, rjerk, rcurv);
+				Pose2dWithTrajectory rtraj(r2d, time, rpos, rvel, racc, rjerk, rcurv, 0.0);
 				rightpts.push_back(rtraj);
 
 				plx = lx;

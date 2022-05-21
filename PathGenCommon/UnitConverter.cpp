@@ -9,37 +9,64 @@ namespace xero
 		UnitConverter::conversion UnitConverter::convert_[] =
 		{
 			{ "ft", "in", 12.0, UnitConverter::UnitType::Length},
-			{ "feet", "in", 12.0, UnitConverter::UnitType::Length},
-			{ "foot", "in", 12.0, UnitConverter::UnitType::Length},
-			{ "feet", "m", 0.3048, UnitConverter::UnitType::Length},
-			{ "foot", "m", 0.3048, UnitConverter::UnitType::Length},
-			{ "ft", "inches", 12.0, UnitConverter::UnitType::Length},
-			{ "feet", "inches", 12.0, UnitConverter::UnitType::Length},
-			{ "foot", "inches", 12.0, UnitConverter::UnitType::Length},
 			{ "in", "cm", 2.54, UnitConverter::UnitType::Length},
 			{ "in", "m", 0.0254, UnitConverter::UnitType::Length},
-			{ "in", "meters", 0.0254, UnitConverter::UnitType::Length},
+			{ "m", "ft", 3.28084, UnitConverter::UnitType::Length},
+			{ "ft", "cm", 30.48, UnitConverter::UnitType::Length},
+			{ "m", "cm", 100.0, UnitConverter::UnitType::Length},
+
 			{ "lbs", "kg", 0.453592, UnitConverter::UnitType::Weight},
 		};
 
+		std::string UnitConverter::normalizeUnits(const std::string& units)
+		{
+			std::string ret = units;
+
+			if (units == "meters")
+				ret = "m";
+			else if (units == "feet")
+				ret = "ft";
+			else if (units == "foot")
+				ret = "ft";
+			else if (units == "inches")
+				ret = "in";
+
+			return ret;
+		}
+
 		bool UnitConverter::findConversion(const std::string& from, const std::string& to, double& conversion)
 		{
-			for (size_t i = 0; i < sizeof(convert_) / sizeof(convert_[0]); i++)
-			{
-				if (from == convert_[i].from && to == convert_[i].to)
-				{
-					conversion = convert_[i].conversion;
-					return true;
-				}
+			bool ret = false;
 
-				if (to == convert_[i].from && from == convert_[i].to)
+			std::string fromnorm = normalizeUnits(from);
+			std::string tonorm = normalizeUnits(to);
+
+			if (fromnorm == tonorm)
+			{
+				conversion = 1.0;
+				ret = true;
+			}
+			else
+			{
+				for (size_t i = 0; i < sizeof(convert_) / sizeof(convert_[0]); i++)
 				{
-					conversion = 1.0 / convert_[i].conversion;
-					return true;
+					if (fromnorm == convert_[i].from && tonorm == convert_[i].to)
+					{
+						conversion = convert_[i].conversion;
+						ret = true;
+						break;
+					}
+
+					if (tonorm == convert_[i].from && fromnorm == convert_[i].to)
+					{
+						conversion = 1.0 / convert_[i].conversion;
+						ret = true;
+						break;
+					}
 				}
 			}
 
-			return false;
+			return ret;
 		}
 
 		double UnitConverter::convert(double value, const std::string& from, const std::string& to)
