@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="XeroPathGen.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtMoc Include="XeroPathGen.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="XeroPathGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Callout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintAddUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintChangeUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintDeleteUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DriveBaseModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagAddUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagChangedUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagDeleteUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagsEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagsTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFieldManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupAddUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupDeleteUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GroupNameChangeUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkDownloadManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathAddUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathDeleteUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFieldView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFileTree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFileTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathNameChangeUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathParameterChangeUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathParamTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathPlotView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlotMainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlotVariableSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyEditorItemDelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PropertyEditorTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecentFiles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectRobotDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowRobotWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SwerveDriveBaseModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TankDriveBaseModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TrajectoryViewWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UndoManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointAddUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointChangedUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointDeleteUndo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WaypointTreeModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="AboutDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ConstraintEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ConstraintTreeModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FlagsEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="FlagsTreeModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="NetworkDownloadManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PathFieldView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PathFileTree.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PathFileTreeModel.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PathPlotView.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PlotMainWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PlotVariableSelector.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="PropertyEditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="RecentFiles.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="SelectRobotDialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ShowRobotWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="TrajectoryViewWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="UndoManager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="build.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Callout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintAddUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintChangeUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintDeleteUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DriveBaseModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditableProperty.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagAddUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagChangedUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagDeleteUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameField.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFieldManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupAddUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupDeleteUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GroupNameChangeUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathAddUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathDeleteUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathNameChangeUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathParameterChangeUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathParamTreeModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyEditorItemDelegate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyEditorTreeModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwerveDriveBaseModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TankDriveBaseModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UndoItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointAddUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointChangedUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointDeleteUndo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaypointTreeModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="AboutDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ConstraintEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="FlagsEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="PlotVariableSelector.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="PropertyEditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="SelectRobotDialog.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="ShowRobotWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XeroPathGen.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
