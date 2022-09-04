@@ -15,6 +15,9 @@ namespace xero {
 				percent_ = p;
 			}
 
+			double RotationalToGround(const RobotParams robot, double rv);
+			double GroundToRotational(const RobotParams robot, double rv);
+
 		private:
 			enum Wheel
 			{
@@ -26,8 +29,7 @@ namespace xero {
 
 		private:
 			std::shared_ptr<TrapezoidalProfile> createRotationProfile(const RobotParams& params, std::shared_ptr<RobotPath> path);
-			double RotationalToGround(const RobotParams robot, double rv);
-			double GroundToRotational(const RobotParams robot, double rv);
+
 			Translation2d GetWheelPerpendicularVector(const RobotParams& robot, Wheel w, double magnitude);
 
 		private:

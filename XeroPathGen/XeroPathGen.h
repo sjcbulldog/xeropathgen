@@ -118,7 +118,7 @@ private:
 	void filePublish();
 	void filePrint();
 	void generate();
-	void generateOnePath(std::shared_ptr<xero::paths::RobotPath> path, const std::string& trajname, std::ostream& outfile);
+	void generateOnePath(std::shared_ptr<xero::paths::RobotPath> path, const std::string& trajname, std::ostream& outfile, const std::list<std::pair<std::string, std::string>>& props);
 	void showFileMenu();
 
 	//

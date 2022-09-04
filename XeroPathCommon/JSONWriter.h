@@ -20,6 +20,8 @@
 #include <QJsonArray>
 #include <iostream>
 #include <vector>
+#include <list>
+#include <string>
 
 namespace xero
 {
@@ -32,13 +34,19 @@ namespace xero
 			~JSONWriter() = delete;
 
 			template<class InputIt>
-			static bool write(std::ostream &strm, std::vector<std::string>& headers, InputIt first, InputIt last)
+			static bool write(std::ostream &strm, std::vector<std::string>& headers, InputIt first, InputIt last, const std::list<std::pair<std::string, std::string>>& props)
 			{
 				QJsonArray trajectory;
 				QJsonObject pt;
 				QJsonObject top;
+				QJsonObject propobj;
 
 				top["_version"] = "1";
+				for (const std::pair<std::string, std::string>& entry : props)
+				{
+					propobj[QString::fromStdString(entry.first)] = QString::fromStdString(entry.second);
+				}
+				top["properities"] = propobj;
 				for (auto it = first; it != last; it++)
 				{
 					pt = QJsonObject();

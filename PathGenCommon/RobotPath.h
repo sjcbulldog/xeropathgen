@@ -96,6 +96,14 @@ namespace xero
 			virtual ~RobotPath() {
 			}
 
+			const std::list<std::pair<std::string, std::string>> & props() {
+				return props_;
+			}
+
+			void addProp(const std::string& name, const std::string& value) {
+				props_.push_back(std::make_pair(name, value));
+			}
+
 			const std::list<FieldMarker>& markers() const {
 				return markers_;
 			}
@@ -548,6 +556,11 @@ namespace xero
 			// The set of markers associated with this path
 			//
 			std::list<FieldMarker> markers_;
+
+			//
+			// The set of props for the path
+			//
+			std::list<std::pair<std::string, std::string>> props_;
 
 			//
 			// If true, the errors cause no data to be generated

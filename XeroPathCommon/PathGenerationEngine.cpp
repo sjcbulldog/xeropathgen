@@ -505,6 +505,23 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 
 		if (mod->modify(*robot_, path, units_))
 		{
+			//
+			// Now, add the delays and rotational stuff to the path
+			//
+			if (swerve)
+			{
+				SwerveDriveModifier* sw = dynamic_cast<SwerveDriveModifier*>(mod);
+				assert(sw != nullptr);
+
+				double rvel = sw->GroundToRotational(*robot_, vel * percent);
+				double racc = sw->GroundToRotational(*robot_, acc * percent);
+
+				path->addProp("rvel", QString::number(rvel).toStdString());
+				path->addProp("racc", QString::number(racc).toStdString());
+				path->addProp("startdelay", QString::number(path->getStartAngleDelay()).toStdString());
+				path->addProp("enddelay", QString::number(path->getEndAngleDelay()).toStdString());
+			}
+
 			delete outfile;
 			break;
 		}

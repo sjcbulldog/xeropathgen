@@ -224,7 +224,7 @@ XeroPathGen::XeroPathGen(GameFieldManager& fields, GeneratorManager& generators,
 	}
 	else
 	{
-		output_type_ = OutputType::OutputCSV;
+		output_type_ = OutputType::OutputJSON;
 	}
 
 	if (settings_.contains(OutputFlagsSetting))
@@ -1688,7 +1688,7 @@ void XeroPathGen::fileGenerateAs()
 	generate();
 }
 
-void XeroPathGen::generateOnePath(std::shared_ptr<RobotPath> path, const std::string &trajname, std::ostream& outfile)
+void XeroPathGen::generateOnePath(std::shared_ptr<RobotPath> path, const std::string &trajname, std::ostream& outfile, const std::list<std::pair<std::string, std::string>> &props)
 {
 	std::vector<std::string> headers =
 	{
@@ -1718,7 +1718,7 @@ void XeroPathGen::generateOnePath(std::shared_ptr<RobotPath> path, const std::st
 	}
 	else
 	{
-		JSONWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end());
+		JSONWriter::write<std::vector<Pose2dWithTrajectory>::const_iterator>(outfile, headers, t->begin(), t->end(), path->props());
 	}
 }
 
@@ -1752,7 +1752,10 @@ void XeroPathGen::generate()
 	{
 		prog_bar_->setValue(count);
 
-		std::vector<std::string> names = path->getTrajectoryNames();
+		std::vector<std::string> names;
+		
+		// names = path->getTrajectoryNames();
+		names.push_back("main");
 
 		for (const std::string& trajname : names)
 		{
@@ -1769,8 +1772,9 @@ void XeroPathGen::generate()
 				outfile = last_path_dir_ + "/"  + path->getParent()->getName() + "_" + path->getName() + "_" + trajname + ".json";
 			}
 
+			std::list<std::pair<std::string, std::string>> props;
 			std::ofstream outstrm(outfile);
-			generateOnePath(path, trajname, outstrm);
+			generateOnePath(path, trajname, outstrm, props);
 		}
 
 		if (path->getFlags().size() > 0)
@@ -1869,7 +1873,8 @@ void XeroPathGen::filePublish()
 			std::string name = path->getParent()->getName() + "_" + path->getName() + "_" + trajname;
 			std::stringstream sstrm;
 
-			generateOnePath(path, trajname, sstrm);
+			std::list<std::pair<std::string, std::string>> props;
+			generateOnePath(path, trajname, sstrm, props);
 			pubtable->PutString(name, sstrm.str());
 		}
 	}
@@ -2642,6 +2647,8 @@ void XeroPathGen::editPreferences()
 	QString value = JsonOutputType;
 	if (output_type_ == OutputType::OutputCSV)
 		value = CSVOutputType;
+	else if (output_type_ == OutputType::OutputJSON)
+		value = JsonOutputType;
 	else if (output_type_ == OutputType::OutputPathWeaver)
 		value = PathWeaverJsonOutputType;
 
