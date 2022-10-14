@@ -256,6 +256,11 @@ namespace xero
 				robot.setMaxCentripetalForce(root[RobotParams::MaxCentripetalTagW]->AsNumber());
 			}
 
+			if (root.find(RobotParams::LengthUnitsTagW) != root.end())
+			{
+				robot.setLengthUnits(toNarrow(root[RobotParams::LengthUnitsTagW]->AsString()));
+			}
+
 
 			return true;
 		}

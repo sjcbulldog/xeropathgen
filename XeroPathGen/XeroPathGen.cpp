@@ -57,7 +57,7 @@
 #include <QPrintDialog>
 #include <QDockWidget>
 #include <QPushButton>
-#include <QTextCodec>
+#include <QActionGroup>
 
 #include <cstdio>
 #include <iostream>
@@ -83,7 +83,6 @@
 #endif
 
 using namespace xero::paths;
-using namespace QtCharts;
 
 const char* XeroPathGen::RobotDialogName = "Name";
 const char* XeroPathGen::RobotDialogEWidth = "Effective Width";
@@ -1754,9 +1753,7 @@ void XeroPathGen::generate()
 
 		std::vector<std::string> names;
 		
-		// names = path->getTrajectoryNames();
-		names.push_back("main");
-
+		names = path->getTrajectoryNames();
 		for (const std::string& trajname : names)
 		{
 			//
@@ -2160,11 +2157,11 @@ void XeroPathGen::showDocumentation()
 	help_process_->waitForStarted();
 
 	QByteArray ar = help_process_->readAllStandardError();
-	QString str = QTextCodec::codecForMib(106)->toUnicode(ar);
+	QString str = QString::fromUtf8(ar);
 	qDebug() << "Errors: " << str;
 
 	ar = help_process_->readAllStandardOutput();
-	str = QTextCodec::codecForMib(106)->toUnicode(ar);
+	str = QString::fromUtf8(ar);
 	qDebug() << "Output: " << str;
 
 	QByteArray a;

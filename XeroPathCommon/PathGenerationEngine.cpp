@@ -299,12 +299,12 @@ bool PathGenerationEngine::runGenerator(std::shared_ptr<xero::paths::RobotPath> 
 	store_lock_.unlock();
 
 #ifdef _DEBUG
-	QString robottempfilename("D:/cygwin64/home/bwg/robottools/test/robot.json");
+	QString robottempfilename("C:/cygwin64/home/butch/robottools/test/robot.json");
 	if (QFile::exists(robottempfilename))
 		QFile::remove(robottempfilename);
 	QFile::copy(robotfile.fileName(), robottempfilename);
 
-	QString pathtempfilename("D:/cygwin64/home/bwg/robottools/test/path.json");
+	QString pathtempfilename("C:/cygwin64/home/butch/robottools/test/path.json");
 	if (QFile::exists(pathtempfilename))
 		QFile::remove(pathtempfilename);
 	QFile::copy(pathfile.fileName(), pathtempfilename);
@@ -443,6 +443,7 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 	std::vector<Pose2dWithTrajectory> pts;
 	DriveModifier* mod = nullptr;
 	bool swerve = false;
+	QString filename;
 
 #ifdef _DEBUG
 	int pass = 1;
@@ -464,10 +465,17 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 	{
 		pts.clear();
 
-		outfile = new QTemporaryFile();
-		outfile->setAutoRemove(true);
-		outfile->open();
-		outfile->close();
+		try {
+			outfile = new QTemporaryFile();
+			filename = outfile->fileName();
+			outfile->setAutoRemove(true);
+			outfile->open();
+			outfile->close();
+			filename = outfile->fileName();
+		}
+		catch (...) {
+			qDebug() << "exception in temporary file";
+		}
 
 #ifdef _DEBUG
 		qDebug() << "processing path '" << path->getName().c_str() << "', pass " << pass;

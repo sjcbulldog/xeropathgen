@@ -21,7 +21,6 @@
 #include <QValueAxis>
 
 using namespace xero::paths;
-using namespace QtCharts;
 
 PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 {
@@ -40,7 +39,7 @@ PathPlotView::PathPlotView(QWidget *parent) : QChartView(parent)
 	errors_ = nullptr; 
 	has_title_ = false;
 	show_max_vel_ = true;
-	first_ = false;
+	first_ = nullptr;
 	cursor_time_ = 0.0;
 
 	(void)connect(chart(), &QChart::plotAreaChanged, this, &PathPlotView::plotAreaChanged);

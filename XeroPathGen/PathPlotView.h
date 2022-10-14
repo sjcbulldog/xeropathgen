@@ -23,7 +23,7 @@
 #include <QGraphicsLineItem>
 #include <map>
 
-class PathPlotView : public QtCharts::QChartView
+class PathPlotView : public QChartView
 {
 	friend class PlotVariableSelector;
 
@@ -75,8 +75,8 @@ protected:
 
 private:
 	void plotAreaChanged(const QRectF& plotArea);
-	void seriesHover(QtCharts::QLineSeries*series, const QPointF& point, bool state);
-	void seriesClick(QtCharts::QLineSeries* series, const QPointF& point);
+	void seriesHover(QLineSeries*series, const QPointF& point, bool state);
+	void seriesClick(QLineSeries* series, const QPointF& point);
 	void updateAxisUnits();
 
 private:
@@ -127,11 +127,11 @@ private:
 private:
 	void updateEmpty();
 	void updateWithPath();
-	void createAxis(QtCharts::QChart* ch);
-	void createLegend(QtCharts::QChart* ch);
+	void createAxis(QChart* ch);
+	void createLegend(QChart* ch);
 	size_t countType(VarType type);
 	double getValue(std::shared_ptr<xero::paths::PathTrajectory> traj, size_t index, VarType t);
-	QtCharts::QValueAxis* getAxis(VarType t);
+	QValueAxis* getAxis(VarType t);
 	void setMinMax(VarType t, double minv, double mavx);
 	double getMin(VarType t);
 	double getMax(VarType t);
@@ -140,11 +140,11 @@ private:
 private:
 	double cursor_time_;
 	std::shared_ptr<xero::paths::RobotPath> path_;
-	QtCharts::QValueAxis* pos_axis_;
-	QtCharts::QValueAxis* vel_axis_;
-	QtCharts::QValueAxis* acc_axis_;
-	QtCharts::QValueAxis* jerk_axis_;
-	QtCharts::QValueAxis* time_axis_;
+	QValueAxis* pos_axis_;
+	QValueAxis* vel_axis_;
+	QValueAxis* acc_axis_;
+	QValueAxis* jerk_axis_;
+	QValueAxis* time_axis_;
 	QString units_;
 	std::list<Variable> vars_;
 	std::map<VarType, std::pair<double, double>> min_max_;

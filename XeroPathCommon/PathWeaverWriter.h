@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MathUtils.h"
+#include "ICsv.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>

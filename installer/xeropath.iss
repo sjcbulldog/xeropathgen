@@ -2,12 +2,12 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "XeroPathGenerator"
-#define MyAppVersion "1.2.1"
+#define MyAppVersion "1.2.2"
 #define MyAppPublisher "ErrorCodeXero"
 #define MyAppURL "http://www.wilsonvillerobotics.com/"
 #define MyAppExeName "XeroPathGen.exe"
 #define MyUserName "ButchGriffin"
-#define MyAppSourceDir "d:\cygwin64\home\bwg\robottools\xeropathgen"
+#define MyAppSourceDir "c:\cygwin64\home\butch\robottools\xerotools\xeropathgen"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.

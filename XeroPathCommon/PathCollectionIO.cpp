@@ -35,9 +35,11 @@ bool PathCollectionIO::writePathCollection(QFile &file, const PathCollection& pa
 	obj[RobotPath::GroupsTag] = a;
 
 	QJsonDocument doc(obj);
+	QString filename = file.fileName();
 	if (!file.open(QIODevice::OpenModeFlag::Truncate | QIODevice::OpenModeFlag::WriteOnly))
 		return false;
 
+	filename = file.fileName();
 	file.write(doc.toJson());
 	file.close();
 

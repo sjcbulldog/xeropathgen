@@ -326,7 +326,7 @@ bool GeneratorManager::processParameter(QFile& file, QJsonObject& obj, std::shar
 		QJsonValue varr = obj[paramsChoicesTag];
 		if (!varr.isArray())
 		{
-			qDebug() << "File '" << file << "': reading parameter '" << name.c_str() << "' got 'choices' property but it was not an array of values";
+			qDebug() << "File '" << file.fileName() << "': reading parameter '" << name.c_str() << "' got 'choices' property but it was not an array of values";
 		}
 		else
 		{
@@ -335,7 +335,7 @@ bool GeneratorManager::processParameter(QFile& file, QJsonObject& obj, std::shar
 			{
 				if (!value.isString())
 				{
-					qDebug() << "File '" << file << ": reading param" << name.c_str() << "' got 'choices' property but value in array was not string";
+					qDebug() << "File '" << file.fileName() << ": reading param" << name.c_str() << "' got 'choices' property but value in array was not string";
 				}
 				else
 				{

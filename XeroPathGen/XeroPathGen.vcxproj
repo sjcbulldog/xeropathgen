@@ -56,7 +56,7 @@
       <AdditionalDependencies>XeroPathCommon.lib;PathGenCommon.lib;ntcored.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>d:\cygwin64\bin\bash incver.sh</Command>
+      <Command>c:\cygwin64\bin\bash incver.sh</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>echo QTDIR is $(QTDIR)
@@ -128,12 +128,12 @@ copy $(SolutionDir)installer\VC_redist.x64.exe $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtInstall>6.3.1_msvc2019_64</QtInstall>
     <QtModules>charts;core;gui;network;printsupport;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtInstall>6.3.1_msvc2019_64</QtInstall>
     <QtModules>charts;core;gui;network;printsupport;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>

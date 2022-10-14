@@ -24,6 +24,10 @@ double maxdx = kMaxDX;
 double maxdy = kMaxDY;
 double maxtheta = kMaxDTheta;
 
+bool maxdxgiven = false;
+bool maxdygiven = false;
+bool diststepgiven = false;
+
 extern void generateForGroup(const std::string& group, const RobotParams& robot);
 extern void generateForPath(PathGroup& group, const std::string& path, const RobotParams& robot);
 
@@ -52,6 +56,7 @@ int main(int ac, char** av)
 			arg = *av;
 			try {
 				diststep = std::stod(arg, &index);
+				diststepgiven = true;
 			}
 			catch (...)
 			{
@@ -103,6 +108,7 @@ int main(int ac, char** av)
 			arg = *av;
 			try {
 				maxdx = std::stod(arg, &index);
+				maxdxgiven = true;
 			}
 			catch (...)
 			{
@@ -128,6 +134,7 @@ int main(int ac, char** av)
 			arg = *av;
 			try {
 				maxdy = std::stod(arg, &index);
+				maxdygiven = true;
 			}
 			catch (...)
 			{
@@ -225,6 +232,24 @@ int main(int ac, char** av)
 	if (!JSONPathReader::readJSONPathFile(pathfile, robot, collection)) {
 		std::cerr << "PoofsGen: error reading path file '" << pathfile << "'" << std::endl;
 		return 1;
+	}
+
+	//
+	// Deal with defaults
+	//
+	if (!maxdxgiven) 
+	{
+		maxdx = xero::paths::UnitConverter::convert(maxdx, units, robot.getLengthUnits());
+	}
+
+	if (!maxdygiven) 
+	{
+		maxdy = xero::paths::UnitConverter::convert(maxdy, units, robot.getLengthUnits());
+	}
+
+	if (!diststepgiven) 
+	{
+		diststep = xero::paths::UnitConverter::convert(diststep, units, robot.getLengthUnits());
 	}
 
 	if (collection.getPathCount() != 1) {

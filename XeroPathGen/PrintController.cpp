@@ -23,7 +23,7 @@ void PrintController::mapToPaperRect(QPainter& paint, const QRect &loc, const QS
 
 void PrintController::printField(QPrinter& printer, std::shared_ptr<xero::paths::RobotPath> path)
 {
-	QRect paper = printer.paperRect();
+	QRectF paper = printer.paperRect(QPrinter::Inch);
 	QRect r;
 	QPainter paint;
 
@@ -55,7 +55,7 @@ void PrintController::printField(QPrinter& printer, std::shared_ptr<xero::paths:
 
 void PrintController::printGroup(QPrinter& printer, std::shared_ptr<xero::paths::PathGroup> group)
 {
-	QRect paper = printer.paperRect();
+	QRectF paper = printer.paperRect(QPrinter::Inch);
 	QRect r;
 	QPainter paint;
 
