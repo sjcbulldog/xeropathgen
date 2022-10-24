@@ -122,7 +122,10 @@ namespace xero {
             return ret ;
         }
 
-        void TrapezoidalProfile::update(double dist, double start_velocity, double end_velocity) {
+        bool TrapezoidalProfile::update(double dist, double start_velocity, double end_velocity) {
+            if (dist > 0.0 && (max_velocity_ == 0.0 || max_accel_ == 0.0))
+                return false;
+
             start_velocity_ = std::fabs(start_velocity) ;
             end_velocity_ = std::fabs(end_velocity) ;
 
@@ -181,6 +184,8 @@ namespace xero {
                 actual_max_velocity_ = max_velocity_ ;                
                 tc_ = (distance_ - da - dd) / max_velocity_ ;
             }
+
+            return true;
         }
 
         std::string TrapezoidalProfile::toString() {

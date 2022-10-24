@@ -38,7 +38,11 @@ namespace xero
 				return points_.size();
 			}
 
-			const Pose2dWithTrajectory& operator[](size_t index) {
+			const Pose2dWithTrajectory& operator[](size_t index) const {
+				return points_[index];
+			}
+
+			Pose2dWithTrajectory& operator[](size_t index) {
 				return points_[index];
 			}
 

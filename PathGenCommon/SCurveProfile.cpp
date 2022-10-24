@@ -47,7 +47,7 @@ namespace xero
 			return p_[4] >= 0;
 		}
 
-		void SCurveProfile::update(double dist, double start_velocity, double end_velocity)
+		bool SCurveProfile::update(double dist, double start_velocity, double end_velocity)
 		{
 			double high = v_[4];
 			double low = velmin_;
@@ -90,6 +90,8 @@ namespace xero
 				disttotal += p_[i];
 				p_[i] = disttotal;
 			}
+
+			return true;
 		}
 
 		//

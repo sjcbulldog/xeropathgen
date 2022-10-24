@@ -31,7 +31,7 @@ namespace xero {
             /// \param dist the distance to cover with the velocity profile
             /// \param start_velocity the starting velocity for the profile
             /// \param end_velocity the final velocity for the profile
-            void update(double dist, double start_velocity, double end_velocity) ;
+            bool update(double dist, double start_velocity, double end_velocity) ;
 
 	    virtual double getJerk(double t) const {
 	    	(void)t ;

@@ -453,6 +453,7 @@ bool PathGenerationEngine::runOnePath(std::shared_ptr<xero::paths::RobotPath> pa
 	{
 		mod = new TankDriveModifier();
 		percent = 0.0;
+		swerve = false;
 	}
 	else if (robot_->getDriveType() == RobotParams::DriveType::SwerveDrive)
 	{

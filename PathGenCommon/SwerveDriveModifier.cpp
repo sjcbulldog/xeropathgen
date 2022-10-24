@@ -34,7 +34,7 @@ namespace xero
 			// Cannot rotate the robot from start angle to end angle in the time given for the
 			// translation of the robot from the start position to the end position.
 			//
-			if (tp->getTotalTime() > rtime)
+			if (tp == nullptr || tp->getTotalTime() > rtime)
 				return false;
 
 			std::vector<Pose2dWithTrajectory> flpts;
@@ -51,6 +51,8 @@ namespace xero
 				const Pose2dWithTrajectory& pt = (*main)[i];
 				double time = pt.time();
 				Rotation2d angle = Rotation2d::fromDegrees(MathUtils::boundDegrees(path->getStartAngle() + tp->getDistance(time - path->getStartAngleDelay())));
+				double pangle = angle.toDegrees();
+				(void)pangle;
 
 				//
 				// This is the linear velocity needed to rotate the robot per the
@@ -151,6 +153,8 @@ namespace xero
 				prevfr = frpos;
 				prevbl = blpos;
 				prevbr = brpos;
+
+				(*main)[i].setSwRotation(angle.toDegrees());
 			}
 
 			std::shared_ptr<PathTrajectory> fl = std::make_shared<PathTrajectory>(TrajectoryName::FL, flpts);
@@ -210,7 +214,9 @@ namespace xero
 				diff += 360.0;
 
 			std::shared_ptr<TrapezoidalProfile> tp = std::make_shared<TrapezoidalProfile>(accel, -accel, maxvel);
-			tp->update(diff, 0.0, 0.0);
+			if (!tp->update(diff, 0.0, 0.0))
+				tp = nullptr;
+
 			return tp;
 		}
 

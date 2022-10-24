@@ -21,7 +21,7 @@ namespace xero
 			/// \param dist the distance to cover with the velocity profile
 			/// \param start_velocity the starting velocity for the profile
 			/// \param end_velocity the final velocity for the profile
-			virtual void update(double dist, double start_velocity, double end_velocity) = 0;
+			virtual bool update(double dist, double start_velocity, double end_velocity) = 0;
 
 			/// \brief return the acceleration for the profile at the given time
 			/// If the time is prior to zero for the profile, the max acceleration value
